@@ -1,0 +1,155 @@
+/* FONT IMPORTS */
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+
+.icon {
+    font-family: 'Material Icons', serif;
+    font-style: normal;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'liga';
+}
+
+
+/* VARIABLES */
+
+:root {
+    --main-color: #1a8fff;
+    --text-color: #777;
+    --text-color-light: #ccc;
+    --border-color: #eee;
+    --bg-color: #f9f9f9;
+    --neutral-color: #fff;
+}
+
+
+
+/* Calendar */
+
+.calendar {
+    display: block;
+    position: relative;
+    width: 100%;
+    background: var(--neutral-color);
+}
+
+.calendar .header {
+    font-weight: 400;
+    font-size: 80.5%;
+    padding: .75em 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.calendar .header .icon {
+    cursor: pointer;
+    transition: .15s ease-out;
+}
+
+.calendar .header .icon:hover {
+    transform: scale(1);
+    transition: .25s ease-out;
+    color: var(--main-color);
+}
+
+.calendar .header .icon:first-of-type {
+    margin-left: .5em;
+}
+
+.calendar .header .icon:last-of-type {
+    margin-right: .5em;
+}
+
+.calendar .days {
+    text-transform: uppercase;
+    font-weight: 200;
+    color: var(--text-color-light);
+    font-size: 36%;
+    padding: .5em 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.calendar .body .cell {
+    position: relative;
+    height: 2.5em;
+    border-right: 1px solid var(--border-color);
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--neutral-color);
+    transition: 0.25s ease-out;
+}
+
+.calendar .body .cell:hover {
+    background: var(--bg-color);
+    transition: 0.5s ease-out;
+}
+
+.calendar .body .selected {
+    border-left: 5px solid transparent;
+    border-image: linear-gradient(97deg, #04edc3, #47dce4);
+    border-image-slice: 1;
+}
+
+.calendar .body .selectedEnd {
+    border-right: 5px solid transparent;
+    border-image: linear-gradient(97deg, #04edc3, #47dce4);
+    border-image-slice: 1;
+}
+
+
+.calendar .body .cover {
+    border-right: 5px solid transparent;
+    background: #03EEC2;
+    color: #ffffff;;
+    border-color: #03EEC2;
+
+}
+
+.calendar .body .row {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.calendar .body .row:last-child {
+    border-bottom: none;
+}
+
+.calendar .body .cell:last-child {
+    border-right: none;
+}
+
+.calendar .body .cell .number {
+    position: absolute;
+    font-size: 41.5%;
+    line-height: .5;
+    top: .4em;
+    right: .4em;
+    font-weight: 400;
+}
+
+.calendar .body .disabled {
+    color: var(--text-color-light);
+    pointer-events: none;
+}
+
+
+
+.calendar .body .cell:hover .bg, .calendar .body .selected .bg  {
+    opacity: 0.05;
+    transition: .5s ease-in;
+}
+
+.calendar .dropdown {
+    position: relative;
+    display: inline-block;
+}
+
