@@ -93,6 +93,7 @@ class PostItem extends Component {
       }
       
     }
+    
     const allImage = post.images.map((item, index) => (
         <div>
             <div style={{height: '100%', paddingTop: '66%', backgroundSize: 'cover', backgroundPosition: 'center center', backgroundImage: 'url("' + item + '")'}} />

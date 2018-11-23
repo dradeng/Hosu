@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Geocode from 'react-geocode';
-import axios from 'axios';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
@@ -26,7 +25,6 @@ class PostForm extends Component {
       startDate: '',
       endDate: '',
       currFile: [],
-      imagesLength: 0
     };
 
     this.onChange = this.onChange.bind(this);
@@ -110,7 +108,7 @@ componentWillReceiveProps(nextProps) {
     if(event.target.files[0] != null) {
       const file = event.target.files[0];
       
-
+  
       const uuidv4 = require('uuid/v4');
       const formData = new FormData();
       var fileName = uuidv4();
@@ -121,17 +119,20 @@ componentWillReceiveProps(nextProps) {
       // The state & model in the db stores the whole url
       fileName = 'https://s3.us-east-2.amazonaws.com/aveneu/' + fileName;
       
-
+      //console.log('miages before upload    ' +this.state.images.length+ this.state.images);
+      //console.log('currfile before upload    ' +this.state.currFile.length+ this.state.currFile);
       
-      this.setState({ images: [...this.state.images, fileName] });
+      var tmpImages = this.state.images;
+      tmpImages.push(fileName);
+      this.setState({ images: tmpImages});
+      //HAVE TO DO THIS OR ELSE IT DOESNT WORK, CANT DO ...this.state.images
 
       this.setState({ currFile: [...this.state.currFile, URL.createObjectURL(event.target.files[0])] });
-      console.log('currfile during upload' + this.state.currFile);
-      console.log('miages during upload' + this.state.images);
-      console.log('FILE NAME DURING UPLOAd' + fileName);
-      axios.post('api/posts/uploads', formData);
-    }
+      
 
+     
+      this.props.addImage(formData);
+    }
 
   }
   onStartDateChange(dateValue){
@@ -165,58 +166,24 @@ componentWillReceiveProps(nextProps) {
 
    
     var leng = ('https://s3.us-east-2.amazonaws.com/aveneu/').length;
+    fileName = fileName.substring(leng);
+    var tmpCF = [...this.state.currFile];
     
-    if(fileName > 0)
-    { 
-      fileName = fileName.substring(leng);
+    var tmpImages = [...this.state.images];
+    tmpCF.splice(index, 1);
+    tmpImages.splice(index,1);
+    this.setState({images: tmpImages});
+    this.setState({ currFile: tmpCF });
+
+    const newFile = {
+      fileName : fileName
+    };
+
     
-
-      var tmpCF = [...this.state.currFile];
-      
-      var tmpImages = [...this.state.images];
-      tmpCF.splice(index, 1);
-      tmpImages.splice(index,1);
-      this.setState({images: tmpImages});
-      this.setState({ currFile: tmpCF });
-
-      
-      const newFile = {
-        fileName : fileName
-      };
-
-      axios.post('api/posts/delete/uploads', newFile);
-    }
+    this.props.deleteImage(newFile);
 
   }
-  onDeleteExistingImage(imageURL) {
-    var index = this.state.currFile.indexOf(imageURL);
-    var fileName = this.state.images[index];//HAVE TO FUCKING USE IMAGES NOT CURR FILE
-
-   
-    var leng = ('https://s3.us-east-2.amazonaws.com/aveneu/').length;
-    
-    if(fileName > 0)
-    { 
-      fileName = fileName.substring(leng);
-    
-
-      var tmpCF = [...this.state.currFile];
-      
-      var tmpImages = [...this.state.images];
-      tmpCF.splice(index, 1);
-      tmpImages.splice(index,1);
-      this.setState({images: tmpImages});
-      this.setState({ currFile: tmpCF });
-
-      
-      const newFile = {
-        fileName : fileName
-      };
-
-      axios.post('api/posts/delete/uploads', newFile);
-    }
-
-  }
+  
   getLatLong(address) {
     // set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
     
@@ -251,16 +218,14 @@ componentWillReceiveProps(nextProps) {
     if(this.state.images != null) {
      
       var i = 0;
-      existingImages = this.state.images.map( image => {
-        
-        while ( i < this.state.images.length - this.state.currFile.length) {
-          i++;
-          return <img
-            onClick={this.onDeleteExistingImage.bind(this, image)}
+      existingImages = this.state.images.map( image => {   
+        while(i < this.state.images.length - this.state.currFile.length)
+        {
+            i++;
+            return <img
+
             style={{width: 100, height: 100, border:0}} src={image} />
         }
-      
-
       });
       imagePreviewContent = this.state.currFile.map( image => {
    

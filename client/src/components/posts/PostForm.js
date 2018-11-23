@@ -81,7 +81,6 @@ class PostForm extends Component {
     if(event.target.files[0] != null) {
       const file = event.target.files[0];
       
-      // this.setState({selectedFile: event.target.files[0]});
       const uuidv4 = require('uuid/v4');
       const formData = new FormData();
       var fileName = uuidv4();
@@ -96,10 +95,12 @@ class PostForm extends Component {
       
       this.setState({ images: [...this.state.images, fileName] });
       this.setState({ currFile: [...this.state.currFile, URL.createObjectURL(event.target.files[0])] });
-      //console.log('currfile during upload' + this.state.currFile);
-      //console.log('miages during upload' + this.state.images);
-      //console.log('FILE NAME DURING UPLOAd' + fileName);
-      //axios.post('api/posts/uploads', formData);
+      //console.log('currfile during upload   ' + this.state.currFile);
+      //console.log('miages during upload    ' + this.state.images);
+      //console.log('FILE NAME DURING UPLOAd  ' + fileName);
+      //console.log('IMAGE LENGTH  '+ this.state.images.length);
+      //console.log('CURR LENGTH   ' + this.state.currFile.length);
+     
       this.props.addImage(formData);
     }
 
@@ -150,7 +151,7 @@ class PostForm extends Component {
       fileName : fileName
     };
 
-    //axios.post('api/posts/delete/uploads', newFile);
+    
     this.props.deleteImage(newFile);
 
   }

@@ -74,13 +74,13 @@ router.post(
     
 
     Profile.findOne({ user: req.user.id }).then(profile => {
-      console.log('found the profile heres tthe id');
-      console.log(req.body.id);
+  
+    
       Post.findById(req.body.id).then(post => {
         if(post) {
           
           const updatePost = {};
-
+          console.log('editting post info');
           updatePost.title = req.body.title,
           updatePost.address = req.body.address,
           updatePost.text = req.body.text,
@@ -117,7 +117,7 @@ router.post(
             startDate: req.body.startDate,
             endDate: req.body.endDate
           });
-          console.log(newPost);
+      
           profile.posts.push(newPost._id);
         
           profile.save();
