@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
-import { addPost,getPost } from '../../actions/postActions';
+import { addPost,getPost, deleteImage, addImage } from '../../actions/postActions';
 import { getCurrentProfile } from '../../actions/profileActions';
 import AWS from 'aws-sdk';
 
@@ -26,6 +26,7 @@ class PostForm extends Component {
       startDate: '',
       endDate: '',
       currFile: [],
+      imagesLength: 0
     };
 
     this.onChange = this.onChange.bind(this);
@@ -109,7 +110,7 @@ componentWillReceiveProps(nextProps) {
     if(event.target.files[0] != null) {
       const file = event.target.files[0];
       
-      // this.setState({selectedFile: event.target.files[0]});
+
       const uuidv4 = require('uuid/v4');
       const formData = new FormData();
       var fileName = uuidv4();
@@ -123,8 +124,11 @@ componentWillReceiveProps(nextProps) {
 
       
       this.setState({ images: [...this.state.images, fileName] });
+
       this.setState({ currFile: [...this.state.currFile, URL.createObjectURL(event.target.files[0])] });
-      
+      console.log('currfile during upload' + this.state.currFile);
+      console.log('miages during upload' + this.state.images);
+      console.log('FILE NAME DURING UPLOAd' + fileName);
       axios.post('api/posts/uploads', formData);
     }
 
@@ -246,11 +250,17 @@ componentWillReceiveProps(nextProps) {
     //HAVE TO USE CURRFILE for files not yet saved to s3
     if(this.state.images != null) {
      
-
+      var i = 0;
       existingImages = this.state.images.map( image => {
-   
-        return <img onClick={this.onDeleteExistingImage.bind(this, image)}
-          style={{width: 100, height: 100, border:0}} src={image} />
+        
+        while ( i < this.state.images.length - this.state.currFile.length) {
+          i++;
+          return <img
+            onClick={this.onDeleteExistingImage.bind(this, image)}
+            style={{width: 100, height: 100, border:0}} src={image} />
+        }
+      
+
       });
       imagePreviewContent = this.state.currFile.map( image => {
    
@@ -333,6 +343,8 @@ componentWillReceiveProps(nextProps) {
 
 PostForm.propTypes = {
   addPost: PropTypes.func.isRequired,
+  addImage: PropTypes.func.isRequired,
+  deleteImage: PropTypes.func.isRequired,
   getPost: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
@@ -347,4 +359,4 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { addPost, getPost, getCurrentProfile })(withRouter(PostForm));
+export default connect(mapStateToProps, { addPost, getPost, getCurrentProfile, addImage, deleteImage })(withRouter(PostForm));

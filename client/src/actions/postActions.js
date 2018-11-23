@@ -5,6 +5,8 @@ import {
     GET_ERRORS,
     CLEAR_ERRORS,
     GET_POSTS,
+    ADD_IMAGE,
+    DELETE_IMAGE,
     GET_POST,
     POST_LOADING,
     DELETE_POST,
@@ -165,6 +167,48 @@ export const clearErrors = () => {
     type: CLEAR_ERRORS
   };
 };
+
+
+export const addImage = formData => dispatch => {
+  dispatch(clearErrors());
+  axios
+    .post('/api/posts/uploads', formData)
+    .then(res =>
+      dispatch({
+        type: ADD_IMAGE,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
+// Delete Image
+export const deleteImage = formData => dispatch => {
+  dispatch(clearErrors());
+  axios
+    .post('/api/posts/delete/uploads', formData)
+    .then(res =>
+      dispatch({
+        type: DELETE_IMAGE,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
+
+
+
 
 //update state
 export const updateCurrentDate= (date) => dispatch => {

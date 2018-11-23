@@ -7,7 +7,7 @@ import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
 import Dropzone from 'react-dropzone'
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
-import { addPost } from '../../actions/postActions';
+import { addPost, addImage, deleteImage } from '../../actions/postActions';
 import AWS from 'aws-sdk';
 import TextFieldGroup from "../common/TextFieldGroup";
 import LocationSearchInput from "../common/LocationSearchInput";
@@ -99,7 +99,8 @@ class PostForm extends Component {
       //console.log('currfile during upload' + this.state.currFile);
       //console.log('miages during upload' + this.state.images);
       //console.log('FILE NAME DURING UPLOAd' + fileName);
-      axios.post('api/posts/uploads', formData);
+      //axios.post('api/posts/uploads', formData);
+      this.props.addImage(formData);
     }
 
 
@@ -145,13 +146,12 @@ class PostForm extends Component {
     this.setState({images: tmpImages});
     this.setState({ currFile: tmpCF });
 
-    console.log("FILE CLIENT"+fileName);
     const newFile = {
       fileName : fileName
     };
 
-    axios.post('api/posts/delete/uploads', newFile);
-  
+    //axios.post('api/posts/delete/uploads', newFile);
+    this.props.deleteImage(newFile);
 
   }
   getLatLong(address) {
@@ -295,6 +295,8 @@ class PostForm extends Component {
 
 PostForm.propTypes = {
   addPost: PropTypes.func.isRequired,
+  addImage: PropTypes.func.isRequired,
+  deleteImage: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
@@ -304,4 +306,4 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { addPost })(PostForm);
+export default connect(mapStateToProps, { addPost, addImage, deleteImage })(PostForm);

@@ -29,7 +29,6 @@ const upload = multer({storage: storage});
 const awsUploader = require('../../controllers/awsUpload.js');
 const awsDeleter = require('../../controllers/awsDelete.js');
 router.post('/uploads', upload.any(), awsUploader.doUpload);
-//router.delete('/uploads', awsDeleter.doDelete);
 router.post('/delete/uploads', awsDeleter.doDelete);
 /*######################################################*/
 
