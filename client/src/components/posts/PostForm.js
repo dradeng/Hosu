@@ -33,7 +33,6 @@ class PostForm extends Component {
     this.onStartDateChange = this.onStartDateChange.bind(this);
     this.onEndDateChange = this.onEndDateChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.changeAddress = this.changeAddress.bind(this);
   }
 
   componentWillReceiveProps(newProps) {
@@ -113,13 +112,6 @@ class PostForm extends Component {
     this.setState({ 'startDate' : startDate });
   }
 
-  changeAddress(newAddress) {
-      this.getLatLong(newAddress);
-
-      this.setState({address: newAddress});
-      //this.changeProp(newAddress);
-
-  }
   onEndDateChange(dateValue){
 
     var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
@@ -184,7 +176,7 @@ class PostForm extends Component {
         //Commented out because it says an error when ur not done typing out address
       }
     );
-    console.log(this.state.latitude);
+  
   
   }
 
@@ -215,14 +207,14 @@ class PostForm extends Component {
                               <h6>
                                  Provide a title
                               </h6>
-                          <input
-                                  placeholder="ex. Jake's Magic Bungalow"
-                                  name="title"
-                                  type="text"
-                                  className="form-control"
-                                  value={this.state.title}
-                                  onChange={this.onChange}
-                                  error={errors.title}
+                              <input
+                                placeholder="ex. Draden's Magic Bungalow"
+                                name="title"
+                                type="text"
+                                className="form-control"
+                                value={this.state.title}
+                                onChange={this.onChange}
+                                error={errors.title}
                               />
                               <br/>
                               <h6>
@@ -240,9 +232,14 @@ class PostForm extends Component {
                               <h6>
                                   Enter your address
                               </h6>
-                              <LocationSearchInput
-                                  changeIt={(address) => this.changeAddress(address)}
-
+                              <input
+                                placeholder="ex. 320 14th St NW"
+                                name="address"
+                                type="text"
+                                className="form-control"
+                                value={this.state.address}
+                                onChange={this.onChange}
+                                error={errors.address}
                               />
                           </div>
                           <div key="3" className="form-group">

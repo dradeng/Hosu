@@ -106,7 +106,7 @@ router.post(
 
           const newPost = new Post({
             title: req.body.title,
-            address: 'Venice Beach',
+            address: req.body.address,
             text: req.body.text,
             name: req.body.name,
             rent: req.body.rent,
