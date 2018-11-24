@@ -325,10 +325,11 @@ componentWillReceiveProps(nextProps) {
               {imagePreviewContent}
 
               <br />
-              <button type="submit" className="btn btn-dark">
-                Submit
-              </button>
-         
+              
+                <button type="submit" className="btn btn-dark">
+                  Submit
+                </button>
+              
             </form>
           </div>
         </div>

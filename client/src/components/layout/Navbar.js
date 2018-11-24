@@ -118,7 +118,7 @@ class Navbar extends Component {
               </DropdownToggle>
               <DropdownMenu>
                 <DropdownItem>
-                  <Link to="/dashboard">
+                  <Link className="nav-link" to="/dashboard">
                      <span style={{color: '#B4B4B4'}}>Profile</span>
                   </Link>
                 </DropdownItem>
@@ -127,8 +127,8 @@ class Navbar extends Component {
                     href=""
                     onClick={this.onLogoutClick.bind(this)}
                     className="nav-link"
-                  > 
-                    <span style={{color: 'Blue'}}>Logout</span> 
+                  >
+                    <span style={{color: '#B4B4B4'}}>Logout</span> 
                   </a>
                 </DropdownItem>
               </DropdownMenu>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Geocode from 'react-geocode';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
@@ -277,10 +278,12 @@ class PostForm extends Component {
 
                           </div>
                           <br/>
-                          <button type="submit" className="btn btncustom">
-                              Submit
-                          </button>
 
+                          
+                          <button type="submit" className="btn btncustom">
+                            Submit
+                          </button>
+                          
                       </form>
                   </div>
               </div>

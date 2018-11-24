@@ -121,7 +121,10 @@ router.post(
           profile.posts.push(newPost._id);
         
           profile.save();
-          newPost.save().then(post => res.json(post));
+          newPost.save().then(post => {
+            res.json(post);
+           
+          });
         }
       })
     });
