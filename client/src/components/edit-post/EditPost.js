@@ -161,19 +161,25 @@ componentWillReceiveProps(nextProps) {
     }
   }
   onDeleteClick(imageURL) {
+    console.log('IMAGE URL'+imageURL);
+    
     var index = this.state.currFile.indexOf(imageURL);
-    var fileName = this.state.images[index];//HAVE TO FUCKING USE IMAGES NOT CURR FILE
 
+    var tmpCF = [...this.state.currFile];
+    tmpCF.splice(index, 1);
+    this.setState({ currFile: tmpCF });
+
+    var fileName = this.state.images[index];//HAVE TO FUCKING USE IMAGES NOT CURR FILE
+    console.log('FILENAME from images '+ fileName);
    
     var leng = ('https://s3.us-east-2.amazonaws.com/aveneu/').length;
     fileName = fileName.substring(leng);
-    var tmpCF = [...this.state.currFile];
+    
     
     var tmpImages = [...this.state.images];
-    tmpCF.splice(index, 1);
     tmpImages.splice(index,1);
     this.setState({images: tmpImages});
-    this.setState({ currFile: tmpCF });
+    
 
     const newFile = {
       fileName : fileName
