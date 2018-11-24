@@ -25,6 +25,7 @@ class PostForm extends Component {
       startDate: '',
       endDate: '',
       currFile: [],
+      newImages: []
     };
 
     this.onChange = this.onChange.bind(this);
@@ -60,7 +61,7 @@ componentWillReceiveProps(nextProps) {
         latitude: post.latitude, 
         name: user.name,
         avatar: user.profilePic,
-        images: post.images,
+        newImages: post.images,
         rent: post.rent,
         startDate: post.startDate,
         endDate: post.endDate,
@@ -122,7 +123,7 @@ componentWillReceiveProps(nextProps) {
       //console.log('miages before upload    ' +this.state.images.length+ this.state.images);
       //console.log('currfile before upload    ' +this.state.currFile.length+ this.state.currFile);
       
-      var tmpImages = this.state.images;
+      var tmpImages = this.state.newImages;
       tmpImages.push(fileName);
       this.setState({ images: tmpImages});
       //HAVE TO DO THIS OR ELSE IT DOESNT WORK, CANT DO ...this.state.images
@@ -164,22 +165,18 @@ componentWillReceiveProps(nextProps) {
     console.log('IMAGE URL'+imageURL);
     
     var index = this.state.currFile.indexOf(imageURL);
-
-    var tmpCF = [...this.state.currFile];
-    tmpCF.splice(index, 1);
-    this.setState({ currFile: tmpCF });
-
     var fileName = this.state.images[index];//HAVE TO FUCKING USE IMAGES NOT CURR FILE
-    console.log('FILENAME from images '+ fileName);
+
    
     var leng = ('https://s3.us-east-2.amazonaws.com/aveneu/').length;
     fileName = fileName.substring(leng);
-    
+    var tmpCF = [...this.state.currFile];
     
     var tmpImages = [...this.state.images];
+    tmpCF.splice(index, 1);
     tmpImages.splice(index,1);
     this.setState({images: tmpImages});
-    
+    this.setState({ currFile: tmpCF });
 
     const newFile = {
       fileName : fileName
@@ -188,6 +185,26 @@ componentWillReceiveProps(nextProps) {
     
     this.props.deleteImage(newFile);
 
+  }
+  onDeleteExistingImage(imageURL){
+
+    var index = this.state.newImages.indexOf(imageURL);
+    var tmpImages = [...this.state.newImages];
+
+    if (index !== -1) {
+      tmpImages.splice(index, 1);
+      this.setState({images: tmpImages});
+      this.setState({newImages: tmpImages});
+    }
+  
+    var leng = ('https://s3.us-east-2.amazonaws.com/aveneu/').length;
+    var fileName = imageURL.substring(leng);
+    
+    
+    const newFile = {
+      fileName : fileName
+    };
+    this.props.deleteImage(newFile);
   }
   
   getLatLong(address) {
@@ -221,15 +238,15 @@ componentWillReceiveProps(nextProps) {
     let existingImages = null;
   
     //HAVE TO USE CURRFILE for files not yet saved to s3
-    if(this.state.images != null) {
+    if(this.state.newImages != null) {
      
       var i = 0;
-      existingImages = this.state.images.map( image => {   
-        while(i < this.state.images.length - this.state.currFile.length)
+      existingImages = this.state.newImages.map( image => {   
+        while(i < this.state.newImages.length - this.state.currFile.length)
         {
             i++;
             return <img
-
+            onClick={this.onDeleteExistingImage.bind(this, image)}
             style={{width: 100, height: 100, border:0}} src={image} />
         }
       });
@@ -297,6 +314,7 @@ componentWillReceiveProps(nextProps) {
 
               <input type="file" name="file" id="file" onChange={this.fileChangedHandler}/>
               {existingImages}
+              <p>BREAK</p>
               {imagePreviewContent}
 
               <br />

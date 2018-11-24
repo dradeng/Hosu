@@ -95,11 +95,7 @@ class PostForm extends Component {
       
       this.setState({ images: [...this.state.images, fileName] });
       this.setState({ currFile: [...this.state.currFile, URL.createObjectURL(event.target.files[0])] });
-      //console.log('currfile during upload   ' + this.state.currFile);
-      //console.log('miages during upload    ' + this.state.images);
-      //console.log('FILE NAME DURING UPLOAd  ' + fileName);
-      //console.log('IMAGE LENGTH  '+ this.state.images.length);
-      //console.log('CURR LENGTH   ' + this.state.currFile.length);
+
      
       this.props.addImage(formData);
     }

@@ -8,7 +8,8 @@ exports.doDelete = (req, res) => {
 
 	params.Key = req.body.fileName;
 
-
+	console.log('MADE IT TO DELETE');
+	console.log(req.body.fileName);
 	s3Client.deleteObject(params, function(err, data) {
       if (err) {
 			res.status(500).json({error:"Error -> " + err});
