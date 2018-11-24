@@ -25,7 +25,8 @@ class PostForm extends Component {
       startDate: '',
       endDate: '',
       currFile: [],
-      newImages: []
+      newImages: [],
+      removed: [],
     };
 
     this.onChange = this.onChange.bind(this);
@@ -99,6 +100,7 @@ componentWillReceiveProps(nextProps) {
     this.setState({ startDate: '' });
     this.setState({ endDate: '' });
     this.setState({ currFile: []});
+    this.setState({ removed: []});
   
     
     
@@ -193,6 +195,7 @@ componentWillReceiveProps(nextProps) {
 
     if (index !== -1) {
       tmpImages.splice(index, 1);
+      this.setState({ removed: [...this.state.removed, index] });
       this.setState({images: tmpImages});
       this.setState({newImages: tmpImages});
     }
@@ -245,9 +248,13 @@ componentWillReceiveProps(nextProps) {
         while(i < this.state.newImages.length - this.state.currFile.length)
         {
             i++;
-            return <img
-            onClick={this.onDeleteExistingImage.bind(this, image)}
-            style={{width: 100, height: 100, border:0}} src={image} />
+
+            if(this.state.removed.indexOf(i) == -1)
+            {
+              return <img
+              onClick={this.onDeleteExistingImage.bind(this, image)}
+              style={{width: 100, height: 100, border:0}} src={image} />
+            }
         }
       });
       imagePreviewContent = this.state.currFile.map( image => {
