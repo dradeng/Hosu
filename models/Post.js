@@ -29,11 +29,11 @@ const PostSchema = new Schema({
     type: String
   },
   startDate: {
-    type: String,
+    type: Date,
     default: null
   },
   endDate: {
-    type: String,
+    type: Date,
     default: null
   },
   avatar: {

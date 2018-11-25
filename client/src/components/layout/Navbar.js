@@ -7,7 +7,7 @@ import { logoutUser } from '../../actions/authActions';
 import { clearCurrentProfile } from '../../actions/profileActions';
 import { getChats } from '../../actions/chatActions';
 
-import AveLogo from '../../assets/AveLogo.png';
+import HausFlexLogo from '../../assets/hausflex.jpg';
 import UserIcon from '../../assets/UserIcon.png';
 import Chat from "../chat/Chat";
 
@@ -155,7 +155,7 @@ class Navbar extends Component {
 
     return (
       <nav style={{backgroundColor: '#ffffff',borderBottom: '1px solid rgba(0,0,0,0.25)'}} className="navbar navbar-expand-sm navbar-dark  mb-4">
-          <img style={{width: 40}} src={AveLogo}/>
+          <img style={{width: 40}} src={HausFlexLogo}/>
 
           <div className="container">
           <Link className="navbar-brand" to="/">

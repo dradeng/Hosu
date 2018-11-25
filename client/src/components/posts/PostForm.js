@@ -25,8 +25,8 @@ class PostForm extends Component {
       rent: 0,
       images: [],
       errors: {},
-      startDate: '',
-      endDate: '',
+      startDate: undefined,
+      endDate: undefined,
       currFile: [],
     };
 
@@ -103,20 +103,14 @@ class PostForm extends Component {
 
 
   }
-  onStartDateChange(dateValue){
+  onStartDateChange(day){
     
-    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
-    var startDate = months[dateValue.getMonth()] + ' ' + dateValue.getDay();
-
-    this.setState({ 'startDate' : startDate });
+    this.setState({ startDate: day });
   }
 
-  onEndDateChange(dateValue){
+  onEndDateChange(day){
 
-    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
-    var endDate = months[dateValue.getMonth()] + ' ' + dateValue.getDay();
-
-    this.setState({ 'endDate' : endDate });
+    this.setState({ endDate: day });
   }
 
   onChange(e) {
@@ -192,7 +186,7 @@ class PostForm extends Component {
           style={{width: 100, height: 100, border:0}} src={image} />
       });
     }
-
+    const { startDate, endDate } = this.state;
     return (
       <div className="post-form mb-3">
           <div className="container">
@@ -261,14 +255,15 @@ class PostForm extends Component {
 
 
                           <h6>Start Date:</h6>
-                          <DayPickerInput
-                              name="startDate"
-                              value={this.state.startDate}
-                              onDayChange={this.onStartDateChange}/>
-                          <DayPickerInput
-                              name="endDate"
-                              value={this.state.endDate}
-                              onDayChange={this.onEndDateChange}/>
+                          <div>
+                            {!startDate && <p>Choose a day</p>}
+                            <DayPickerInput onDayChange={this.onStartDateChange} />
+                          </div>
+                          <h6>End Date:</h6>
+                          <div>
+                            {!endDate && <p>Choose a day</p>}
+                            <DayPickerInput onDayChange={this.onEndDateChange} />
+                          </div>
                           <br/>
 
                           <div>

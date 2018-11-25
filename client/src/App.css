@@ -23,7 +23,7 @@ COMMON
  */
 
 .btncustom {
-  background: linear-gradient(97deg, #04edc3, #47dce4);
+  background: rgb(2, 136, 228);
   border:  1px solid #fff;
   color: #ffffff;
 }
