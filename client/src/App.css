@@ -20,12 +20,22 @@ img {
 COMMON
  */
 
+.btnexcess {
+  background: rgb(2, 136, 228);
+  border:  1px solid #fff;
+  color: rgb(2, 136, 228);
+}
+
 .btncustom {
   background: rgb(2, 136, 228);
   border:  1px solid #fff;
   color: #ffffff;
 }
-
+.headercustom {
+  background: rgb(2, 136, 228);
+  border:  1px solid #fff;
+  color: #ffffff;
+}
 .fas {
   color: #47dce4;
   background: linear-gradient(97deg, #04edc3, #47dce4);
@@ -38,8 +48,8 @@ COMMON
 .btncustom:hover
 {
   background: #ffffff;
-  color: #47dce4;
-  border:  1px solid #47dce4;
+  color: rgb(2, 136, 228);
+  border:  1px solid rgb(2, 136, 228);
 }
 .btncustom-light:hover {
   background: linear-gradient(97deg, #04edc3, #47dce4);

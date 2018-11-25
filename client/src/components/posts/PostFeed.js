@@ -65,7 +65,7 @@ class PostFeed extends Component {
   render() {
   	
     const { posts } = this.props;
-    console.log(posts);
+  
     let newPosts = posts.filter(post => 
       post.rent >= this.state.min && post.rent <= this.state.max
     );
@@ -109,15 +109,6 @@ class PostFeed extends Component {
                     <button className="filterButtonSelected"  onClick={() => this.setState({showCalendar: true,showPriceTool: false, showStartDate: false})}>
                         <span style={{padding: 2,paddingTop: 6, paddingBottom: 6}}> Dates </span>
                     </button>}
-                {this.state.showFilter ?   <div>  <button className="filterButton" onClick={() => this.setState({showFilter: false})}>
-                        <span style={{padding: 2,paddingTop: 6, paddingBottom: 6}}> More </span>
-                    </button>
-                    </div>:
-                    <button className="filterButtonSelected"  onClick={() => this.setState({showFilter: true,showPriceTool: false,showStartDate: false,showEndDate: false})}>
-                        <span style={{padding: 2,paddingTop: 6, paddingBottom: 6}}> More </span>
-                    </button>}
-
-
             </div>
     		<div className="row">
                 {this.state.showFilter && <Filter priceChange={this.onPriceChange}/> }

@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { FaStar, FaRegStar } from 'react-icons/fa';
 import { Textfit } from 'react-textfit';
 
-import { deletePost, addLike, removeLike } from '../../actions/postActions';
+import { addLike, removeLike } from '../../actions/postActions';
 import { addFavorite, getCurrentProfile } from '../../actions/profileActions';
 import Month from '../availability/Month';
 
@@ -34,9 +34,6 @@ class PostItem extends Component {
             }
 
     }
-  }
-  onDeleteClick(id) {
-    this.props.deletePost(id);
   }
 
   onLikeClick(id) {
@@ -78,7 +75,7 @@ class PostItem extends Component {
 
 
   render() {
-    const { post, auth, showActions } = this.props;
+    const { post, auth } = this.props;
 
     
     const { profile, loading } = this.props.profile;
@@ -140,20 +137,7 @@ class PostItem extends Component {
                                   {post.title}
                                   </Textfit></div>
                           <div className="col-md-1">
-                              {showActions ? (
-                                  <span>
-
-
-
-                              {post.user === auth.user.id ? (
-                                  <div
-                                      onClick={this.onDeleteClick.bind(this, post._id)}
-                                  >
-                                      <i style={{fontSize: 22, color: 'red'}} className="fas fa-times"/>
-                                  </div>
-                              ) : null}
-              </span>
-                              ) : null}
+                              
                           </div>
                           {post.user !== auth.user.id ? (
 
@@ -199,12 +183,7 @@ class PostItem extends Component {
   }
 }
 
-PostItem.defaultProps = {
-  showActions: true
-};
-
 PostItem.propTypes = {
-  deletePost: PropTypes.func.isRequired,
   addLike: PropTypes.func.isRequired,
   removeLike: PropTypes.func.isRequired,
   addFavorite: PropTypes.func.isRequired,
@@ -218,6 +197,6 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(mapStateToProps, { deletePost, addLike, removeLike, addFavorite, getCurrentProfile })(
+export default connect(mapStateToProps, { addLike, removeLike, addFavorite, getCurrentProfile })(
   PostItem
 );

@@ -85,7 +85,7 @@ class Register extends Component {
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Sign Up</h1>
               <p className="lead text-center">
-                Create your Aveneu account
+                Create your HausFlex account
               </p>
               <form noValidate onSubmit={this.onSubmit}>
                 <TextFieldGroup
@@ -126,7 +126,9 @@ class Register extends Component {
                 <br />
                 <input type="file" name="file" id="file" onChange={this.fileChangedHandler}/>
 
-                <input type="submit" className="custombtn btn-info btn-block mt-4" />
+                <button type="submit" className="btncustom btn btn-block mt-4">
+                  Submit
+                </button>
               </form>
             </div>
           </div>

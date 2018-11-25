@@ -55,7 +55,7 @@ class Chat extends Component {
           if (user.id == message.sender)
           {
               return <div style={{marginBottom: 15}} align="right">
-                  <span style={{boxShadow: '0 1px 0.5px rgba(0, 0, 0, 0.13)', padding: 8, paddingLeft: 10, paddingRight: 10, background: '#E1FAF5', borderRadius: 5}} key={message._id}  > {message.content} </span>
+                  <span style={{boxShadow: '0 1px 0.5px rgba(0, 0, 0, 0.13)', padding: 8, paddingLeft: 10, paddingRight: 10, background: '#C2DFFF', borderRadius: 5}} key={message._id}  > {message.content} </span>
               </div>
           }
           else{

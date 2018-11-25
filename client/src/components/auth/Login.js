@@ -58,7 +58,7 @@ class Login extends Component {
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Log In</h1>
               <p className="lead text-center">
-                Sign in to your Aveneu account
+                Sign in to your HausFlex account
               </p>
               <form onSubmit={this.onSubmit}>
                 <TextFieldGroup
@@ -78,7 +78,9 @@ class Login extends Component {
                   onChange={this.onChange}
                   error={errors.password}
                 />
-                <input type="submit" className="custombtn btn-info btn-block mt-4" />
+                <button type="submit" className="btncustom btn btn-block mt-4">
+                  Submit
+                </button>
               </form>
             </div>
           </div>

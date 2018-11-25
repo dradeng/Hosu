@@ -50,7 +50,7 @@ class Dashboard extends Component {
           </div>
         );
         
-        if (profile === null || posts === null) {
+        if (profile === null || posts === null || profile.posts == undefined) {
           postContent = <p>No post to show</p>
         } else {
             postContent = posts.map(post => { 
@@ -67,7 +67,7 @@ class Dashboard extends Component {
           <div>
             <p className="lead text-muted">Welcome {user.name}</p>
             <p>You have not yet setup a profile, please add some info</p>
-            <Link to="/create-profile" className="btn btn-lg btn-info">
+            <Link to="/create-profile" className="btn btncustom">
               Create Profile
             </Link>
           </div>

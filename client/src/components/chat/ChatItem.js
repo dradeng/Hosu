@@ -136,14 +136,14 @@ class ChatItem extends Component {
           {
             return <div className="row" style={{marginBottom: 15}} align="right">
                 <div className="col-md-11">
-                    <span style={{boxShadow: '0 1px 0.5px rgba(0, 0, 0, 0.13)', padding: 8, paddingLeft: 10, paddingRight: 10, background: '#E1FAF5', borderRadius: 5}} key={message._id}  > {message.content} </span>
+                    <span style={{boxShadow: '0 1px 0.5px rgba(0, 0, 0, 0.13)', padding: 8, paddingLeft: 10, paddingRight: 10, background: '#C2DFFF', borderRadius: 5}} key={message._id}  > {message.content} </span>
                     <div style={{fontSize: 9, marginTop: 4, color: '#B4B4B4'}}> {formattedDate} </div>
                 </div>
                 <div className="col-md-1">
                     {this.props.myprofile &&
                     <img
                         className="rounded-circle d-none d-md-block postImage"
-                        src={this.props.myprofile.user.avatar}
+                        src={chat.user1.profilePic}
                         style={{width: 25, height: 25}}
                         alt=""
                     />
@@ -160,7 +160,7 @@ class ChatItem extends Component {
 
                       <img
                           className="rounded-circle d-none d-md-block postImage"
-                          src={this.props.profile.user.avatar}
+                          src={chat.user2.profilePic}
                           style={{width: 25, height: 25}}
                           alt=""
                       />
@@ -230,8 +230,8 @@ class ChatItem extends Component {
                             onChange={this.onChange}
                         />
                     </div>
-                    <button type="submit" className="btn btn-dark">
-                        Send
+                    <button type="submit" className="btncustom btn btn-block mt-4">
+                      Send
                     </button>
                 </form>
             </div>
