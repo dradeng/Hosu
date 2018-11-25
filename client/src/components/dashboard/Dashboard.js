@@ -50,7 +50,7 @@ class Dashboard extends Component {
           </div>
         );
         
-        if (profile === null || posts) {
+        if (profile === null || posts === null) {
           postContent = <p>No post to show</p>
         } else {
             postContent = posts.map(post => { 

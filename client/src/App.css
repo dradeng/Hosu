@@ -4,8 +4,6 @@ img {
 
 .landing {
   position: relative;
-  /*background: url('./img/showcase.jpg') no-repeat;*/
-  background: url('./assets/Timelapse.mp4') repeat;
   background-size: cover;
   background-position: center;
   height: 100vh;

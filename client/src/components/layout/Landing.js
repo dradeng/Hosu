@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
-import Timelapse from '../../assets/Timelapse.mp4';
 class Landing extends Component {
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
@@ -14,9 +13,7 @@ class Landing extends Component {
     return (
       <div  className="landing">
         <div>
-        <video id="background-video"  autoPlay loop muted>
-          <source src={Timelapse} type='video/mp4'/>
-        </video>
+        
         </div>
         <div className="dark-overlay landing-inner text-light">
           <div className="container">

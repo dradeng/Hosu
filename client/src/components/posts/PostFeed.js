@@ -4,10 +4,7 @@ import Slider from 'rc-slider';
 
 import PostItem from './PostItem';
 import Filter from './filter/Filter';
-import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
-//import Slider, { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
-import MonthGrid from "./filter/MonthGrid";
 import Calendar from "./filter/Calendar.js";
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
 
