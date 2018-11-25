@@ -31,7 +31,7 @@ class CommentForm extends Component {
     const newComment = {
       text: this.state.text,
       name: user.name,
-      avatar: user.avatar
+      avatar: user.profilePic
     };
 
     this.props.addComment(postId, newComment);
@@ -48,7 +48,7 @@ class CommentForm extends Component {
     return (
       <div className="post-form mb-3">
         <div className="card card-info">
-          <div className="card-header bg-info text-white">
+          <div className="card-header btncustom text-white">
             Make a comment...
           </div>
           <div className="card-body">
@@ -74,7 +74,6 @@ class CommentForm extends Component {
 }
 
 CommentForm.propTypes = {
-  addPost: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   postId: PropTypes.string.isRequired,
   errors: PropTypes.object.isRequired

@@ -93,7 +93,7 @@ class PostItem extends Component {
       }
       
     }
-    
+
     const allImage = post.images.map((item, index) => (
         <div>
             <div style={{height: '100%', paddingTop: '66%', backgroundSize: 'cover', backgroundPosition: 'center center', backgroundImage: 'url("' + item + '")'}} />
@@ -104,8 +104,19 @@ class PostItem extends Component {
         </div>
      */
     let endDateContent = null;
+    var startString = '';
+    var endString = '';
+    var format = { month : 'short', day : 'numeric' };
+
+    startString = new Date(post.startDate).toLocaleDateString('en-US', format);
+    
+
+
+
+
     if(post.endDate != null && post.endDate.length > 1){
-      endDateContent = <Month period="end" month={post.endDate}/>
+      endString = new Date(post.endDate).toLocaleDateString('en-US', format);
+      endDateContent = <Month period="end" month={endString}/>
     }
 
       return (
@@ -170,7 +181,7 @@ class PostItem extends Component {
 
               </div>
               <div className="row" style={{position: 'absolute', top: '25%', right: '10%',}}>
-                  <Month period="start" month={post.startDate}/>
+                  <Month period="start" month={startString}/>
                   {endDateContent}
               </div>
                   <div className="row" style={{position: 'absolute',textShadow: '0 .5px 0 rgba(0,0,0,0.6)', bottom: 60, left: 40, color: '#FFFFFF'}}>
