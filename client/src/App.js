@@ -21,8 +21,6 @@ import Dashboard from './components/dashboard/Dashboard';
 import CreateProfile from './components/create-profile/CreateProfile';
 import EditProfile from './components/edit-profile/EditProfile';
 import EditPost from './components/edit-post/EditPost';
-import AddExperience from './components/add-credentials/AddExperience';
-import AddEducation from './components/add-credentials/AddEducation'
 import AddReview from './components/add-credentials/AddReview';
 import Profiles from './components/profiles/Profiles';
 import Profile from './components/profile/Profile';
@@ -99,20 +97,6 @@ class App extends Component {
                   exact
                   path="/edit-post/:id"
                   component={EditPost}
-                />
-              </Switch>
-              <Switch>
-                <PrivateRoute
-                  exact
-                  path="/add-experience"
-                  component={AddExperience}
-                />
-              </Switch>
-              <Switch>
-                <PrivateRoute
-                  exact
-                  path="/add-education"
-                  component={AddEducation}
                 />
               </Switch>
               <Switch>

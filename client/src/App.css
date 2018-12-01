@@ -296,4 +296,14 @@ MESSAGES
 {
   background: #F5F5F5;
 }
+.chatName {
+  color: #B4B4B4;
+  padding: 10px, 10px, 0px, 10px;
+  text-decoration: none;
+}
+.chatPreview {
+  color: #B4B4B4;
+  padding: 0px, 20px, 0px, 20px;
+  text-decoration: none;
+}
 

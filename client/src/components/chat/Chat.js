@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import { Link } from 'react-router-dom';
 import { addMessage } from '../../actions/chatActions';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
-
+import UserIcon from '../../assets/UserIcon.png';
 
 class Chat extends Component {
   constructor(props) {
@@ -35,7 +35,7 @@ class Chat extends Component {
     const newMessage = {
       content: this.state.content,
     };
-    
+   
     this.props.addMessage(chat._id, newMessage);
     this.setState({ content: '' });
   }
@@ -48,46 +48,69 @@ class Chat extends Component {
     const { chat, loading } = this.props;
     const { user } = this.props.auth;
 
+
+    let reciever;
+    let recieverImage;
+
+    if(user.id == chat.user1){
+
+      reciever = <p className="chatName">{chat.user2Name}</p>;
+      console.log(chat.user2);
+      console.log(chat.user1);
+      if(chat.user2.profilePic !== null){
+        recieverImage = <img
+          className="rounded-circle"
+          src={chat.user2.profilePic}
+          style={{ width: '25px', marginRight: '5px' }}
+          title="You must have a Gravatar connected to your email to display an image" />;
+
+      } else {
+        recieverImage = <img
+          className="rounded-circle"
+          src={UserIcon}
+          alt={user.name}
+          style={{ width: '25px', marginRight: '5px' }}
+          title="You must have a Gravatar connected to your email to display an image" />;
+      }
+    } else {
+
+      reciever = <p className="chatName">{chat.user1Name}</p>;
+
+      if(chat.user1.profilePic !== null){
+        recieverImage = <img
+          className="rounded-circle"
+          src={chat.user1.profilePic}
+          style={{ width: '25px', marginRight: '5px' }}
+          title="You must have a Gravatar connected to your email to display an image" />;
+
+      } else {
+        recieverImage = <img
+          className="rounded-circle"
+          src={UserIcon}
+          style={{ width: '25px', marginRight: '5px' }}
+          title="You must have a Gravatar connected to your email to display an image" />;
+      }
+
+    }
+
     let messageContent;
+    let count = 0;
     messageContent = chat.messages.map(
-      message =>
-      {
-          if (user.id == message.sender)
-          {
-              return <div style={{marginBottom: 15}} align="right">
-                  <span style={{boxShadow: '0 1px 0.5px rgba(0, 0, 0, 0.13)', padding: 8, paddingLeft: 10, paddingRight: 10, background: '#C2DFFF', borderRadius: 5}} key={message._id}  > {message.content} </span>
-              </div>
-          }
-          else{
-              return <div align="left" style={{margin: 5}} > <span style={{boxShadow: '0 1px 0.5px rgba(0, 0, 0, 0.13)', padding: 8, paddingLeft: 10, paddingRight: 10,  background: '#F5F5F5', borderRadius: 5}} key={message._id}  key={message._id} > {message.content} </span>
-              </div>
+      message => 
+      {   
+          while(count < 1) { 
+            count += 1;
+            return <p key={message._id} className="chatPreview" message={message}> {message.content} </p> 
           }
       }
     );
-
     return (
       
         <div>
-          User1:
-          {chat.user1Name}<br />
-          User2:
-          {chat.user2Name}<br />
-          Messages:
+          {recieverImage}
+          {reciever} <br />
           <br />
           {messageContent}
-          <form onSubmit={this.onSubmit}>
-              <div className="form-group">
-                <TextAreaFieldGroup
-                  placeholder="Send Message"
-                  name="content"
-                  value={this.state.content}
-                  onChange={this.onChange}
-                />
-              </div>
-              <button type="submit" className="btncustom btn">
-                Submit
-              </button>
-            </form>
         </div>
       
     );
