@@ -4,10 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getCurrentProfile, deleteAccount } from '../../actions/profileActions';
 import Spinner from '../common/Spinner';
-import ProfileActions from './ProfileActions';
-import Experience from './Experience';
-import Education from './Education';
 import PostItem from "../posts/PostItem";
+import UserIcon from '../../assets/UserIcon.png';
 import { getPosts } from '../../actions/postActions';
 
 class Dashboard extends Component {
@@ -25,6 +23,7 @@ class Dashboard extends Component {
     const { posts } = this.props.post;
     let dashboardContent;
     let postContent;
+    let deleteContent;
     if (profile === null || posts == null) {
       dashboardContent = <Spinner />;
     } else {
@@ -36,20 +35,47 @@ class Dashboard extends Component {
           <div>
             <p className="lead text-muted">
               Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link>
+
+              
             </p>
-            <ProfileActions />
-            <Experience experience={profile.experience} />
-            <Education education={profile.education} />
+            <p style={{position:'absolute', top: 0, right:0}}>hihhh</p>
+            <div style={{position:'absolute', top: 0, right:0}} className="btn-group mb-4" role="group">
+              <Link to="/edit-profile" className="btn btn-light">
+                <i className="fas fa-user-circle text-info mr-1" /> Edit Profile
+              </Link>
+            </div>
+            {(user.profilePic !== null) ?
+              <img
+                src={user.profilePic }
+                alt={user.name}
+                style={{ width: '150px', marginRight: '5px' }}
+                title="You must have a Gravatar connected to your email to display an image"
+              />
+                :
+              <img
+                  className="rounded-circle"
+                  src={UserIcon}
+                  alt={user.name}
+                  style={{ width: '150px', marginRight: '5px' }}
+                  title="You must have a Gravatar connected to your email to display an image"
+              />
+            }
+
+
+            <p>Location: {profile.location}</p>
+            <p>{profile.bio}</p>
+
             <div style={{ marginBottom: '60px' }} />
-            <button
+          </div>
+        );
+        deleteContent = (
+          <button
               onClick={this.onDeleteClick.bind(this)}
               className="btn btn-danger"
             >
               Delete My Account
-            </button>
-          </div>
+          </button>
         );
-        
         if (profile === null || posts === null || profile.posts == undefined) {
           postContent = <p>No post to show</p>
         } else {
@@ -83,6 +109,7 @@ class Dashboard extends Component {
               <h1 className="display-4">Dashboard</h1>
               {dashboardContent}
               {postContent}
+              {deleteContent}
             </div>
           </div>
         </div>

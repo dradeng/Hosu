@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
+import Timelapse from '../../assets/Timelapse.mp4';
 class Landing extends Component {
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
@@ -13,25 +14,27 @@ class Landing extends Component {
     return (
       <div  className="landing">
         <div>
-        
+          <video id="background-video"  autoPlay loop muted>
+            <source src={Timelapse} type='video/mp4'/>
+          </video>
         </div>
         <div className="dark-overlay landing-inner text-light">
           <div className="container">
             <div className="row">
               <div className="col-md-12 text-center">
-                <h1 className="display-3 mb-4">Aveneu</h1>
+                <h1 className="display-3 mb-4">HausFlex</h1>
                 <p className="lead">
                   {' '}
-                  Create a developer profile/portfolio, share posts and get help
-                  from other developers
+                  Create an account to start exploring the world!
                 </p>
                 <hr />
-                <Link to="/register" className="btn btn-lg btn-info mr-2">
+                <Link to="/register" className="btncustom btn mt-4 mr-2">
                   Sign Up
                 </Link>
-                <Link to="/login" className="btn btn-lg btn-light">
+                <Link to="/login" className="btncustom btn mt-4">
                   Login
                 </Link>
+
               </div>
             </div>
           </div>

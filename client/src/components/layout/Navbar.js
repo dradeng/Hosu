@@ -71,28 +71,9 @@ class Navbar extends Component {
             </Link>
         </li>
         <li className="nav-item">
-           <Dropdown className="nav-link" isOpen={this.state.messageOpen} toggle={this.messageToggle}>
-              <DropdownToggle   style={{backgroundColor: 'transparent', borderWidth:0, padding:0,margin:0}}>
-
-               <span style={{color: '#B4B4B4'}}>Messages</span>
-
-              </DropdownToggle>
-                <DropdownMenu>
-
-                     {this.props.chat ? this.props.chat.chats.map(chat =>
-                         <DropdownItem>
-                         <Link  onClick="window.location.reload()" to={{pathname: `/chat/${chat._id}`, user2: chat.user2}} >
-                             <span style={{color: '#B4B4B4'}}> {chat.user2Name}</span>
-                         </Link>
-                         </DropdownItem>
-                         ) :
-                     <div>
-                         n/a
-                     </div>}
-
-
-                </DropdownMenu>
-            </Dropdown>
+          <Link className="nav-link" to="/chats">
+            <span style={{color: '#B4B4B4'}}>Messages</span>
+          </Link>
         </li>
         <li className="nav-item">
           <span className="nav-link">

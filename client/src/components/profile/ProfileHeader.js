@@ -15,30 +15,15 @@ class ProfileHeader extends Component {
               <div className="col-4 col-md-3 m-auto">
                 <img
                   className="rounded-circle"
-                  src={profile.user.avatar}
+                  src={profile.user.profPic}
                   alt=""
                 />
               </div>
             </div>
             <div className="text-center">
               <h1 className="display-4 text-center">{profile.user.name}</h1>
-              <p className="lead text-center">
-                {profile.status}{' '}
-                {isEmpty(profile.company) ? null : (
-                  <span>at {profile.company}</span>
-                )}
-              </p>
               {isEmpty(profile.location) ? null : <p>{profile.location}</p>}
               <p>
-                {isEmpty(profile.website) ? null : (
-                  <a
-                    className="text-white p-2"
-                    href={profile.website}
-                    target="_blank"
-                  >
-                    <i className="fas fa-globe fa-2x" />
-                  </a>
-                )}
 
                 {isEmpty(profile.social && profile.social.twitter) ? null : (
                   <a

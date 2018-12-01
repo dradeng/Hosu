@@ -122,7 +122,6 @@ class Register extends Component {
                 />
 
                 Profile Picture
-                IMAGE {this.state.profilePic}
                 <br />
                 <input type="file" name="file" id="file" onChange={this.fileChangedHandler}/>
 

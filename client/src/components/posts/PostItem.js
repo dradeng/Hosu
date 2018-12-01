@@ -26,7 +26,7 @@ class PostItem extends Component {
     const { post } = this.props;
     const { profile, loading } = this.props.profile;
 
-    if(profile != null) {
+    if(profile != null && profile.favorites != undefined) {
 
             if (profile.favorites.includes(post._id)) {
 
