@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
-import { addPost,getPost, deleteImage, addImage } from '../../actions/postActions';
+import { addPost, getPost, deletePost, deleteImage, addImage } from '../../actions/postActions';
 import { getCurrentProfile } from '../../actions/profileActions';
 import AWS from 'aws-sdk';
 
@@ -66,8 +66,12 @@ componentWillReceiveProps(nextProps) {
         rent: post.rent,
         startDate: post.startDate,
         endDate: post.endDate,
+        postID: post._id,
       });
     }
+  }
+  onDeleteClick(id) {
+    this.props.deletePost(id);
   }
   onSubmit(e) {
     e.preventDefault();
@@ -271,6 +275,13 @@ componentWillReceiveProps(nextProps) {
           <div className="card-body">
             <form onSubmit={this.onSubmit} method="POST" enctype="multipart/form-data">
               <div className="form-group">
+                <button
+                    onClick={this.onDeleteClick.bind(this, this.state.postID)}
+                    type="button"
+                    className="btn btn-danger mr-1"
+                  >
+                    <i className="fas fa-times" />
+                </button>
                 <TextAreaFieldGroup
                   placeholder="Title of post"
                   name="title"
@@ -329,6 +340,8 @@ componentWillReceiveProps(nextProps) {
                 <button type="submit" className="btn btn-dark">
                   Submit
                 </button>
+
+
               
             </form>
           </div>
@@ -339,6 +352,7 @@ componentWillReceiveProps(nextProps) {
 }
 
 PostForm.propTypes = {
+  deletePost: PropTypes.func.isRequired,
   addPost: PropTypes.func.isRequired,
   addImage: PropTypes.func.isRequired,
   deleteImage: PropTypes.func.isRequired,
@@ -356,4 +370,4 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { addPost, getPost, getCurrentProfile, addImage, deleteImage })(withRouter(PostForm));
+export default connect(mapStateToProps, { deletePost, addPost, getPost, getCurrentProfile, addImage, deleteImage })(withRouter(PostForm));

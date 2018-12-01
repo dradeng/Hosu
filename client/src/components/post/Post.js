@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import PostItem from '../posts/PostItem';
+import NonFeedPostItem from '../posts/NonFeedPostItem';
 import CommentForm from './CommentForm';
 import CommentFeed from './CommentFeed';
 import Spinner from '../common/Spinner';
@@ -64,7 +64,7 @@ class Post extends Component {
     } else {
       postContent = (
         <div>
-          <PostItem post={post} showActions={false} />
+          <NonFeedPostItem post={post} showActions={false} />
           <CommentForm postId={post._id} />
           <CommentFeed postId={post._id} comments={post.comments} />
         </div>
@@ -84,12 +84,10 @@ class Post extends Component {
               <Link to="/feed" className="btn btn-light mb-3">
                 Back To Feed
               </Link>
+              <Link onClick={this.createChat} style={{position:'absolute', right:0}} className="btn btn-light mb-3" to="/chats">Message</Link>
               {postContent}
             </div>
-              {editContent}
-              <button onClick={this.createChat}>
-                <Link to="/chats">Message</Link>
-              </button>
+            {editContent}      
           </div>
         </div>
       </div>
