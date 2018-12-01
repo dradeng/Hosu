@@ -21,6 +21,7 @@ class Dashboard extends Component {
     const { user } = this.props.auth;
     const { profile, loading } = this.props.profile;
     const { posts } = this.props.post;
+
     let dashboardContent;
     let postContent;
     let deleteContent;
@@ -44,9 +45,9 @@ class Dashboard extends Component {
                 <i className="fas fa-user-circle text-info mr-1" /> Edit Profile
               </Link>
             </div>
-            {(user.profilePic !== null) ?
+            {(profile.profilePic !== null) ?
               <img
-                src={user.profilePic }
+                src={profile.profilePic }
                 alt={user.name}
                 style={{ width: '150px', marginRight: '5px' }}
                 title="You must have a Gravatar connected to your email to display an image"

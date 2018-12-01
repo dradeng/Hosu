@@ -15,13 +15,6 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
-  avatar: {
-    type: String
-  },
-  profilePic: {
-    type: String,
-    default: null, //NEED TO CHANGE TO EMPTY AVATAR
-  },
   date: {
     type: Date,
     default: Date.now

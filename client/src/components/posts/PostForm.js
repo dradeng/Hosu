@@ -12,6 +12,7 @@ import { addPost, addImage, deleteImage } from '../../actions/postActions';
 import AWS from 'aws-sdk';
 import TextFieldGroup from "../common/TextFieldGroup";
 import LocationSearchInput from "../common/LocationSearchInput";
+import { getCurrentProfile } from '../../actions/profileActions';
 
 class PostForm extends Component {
   constructor(props) {
@@ -35,7 +36,9 @@ class PostForm extends Component {
     this.onEndDateChange = this.onEndDateChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
-
+  componentDidMount() {
+    this.props.getCurrentProfile();
+  }
   componentWillReceiveProps(newProps) {
     if (newProps.errors) {
       this.setState({ errors: newProps.errors });
@@ -46,7 +49,7 @@ class PostForm extends Component {
     e.preventDefault();
 
     const { user } = this.props.auth;
-
+    const { profile } = this.props.profile;
     const newPost = {
       title: this.state.title,
       text: this.state.text,
@@ -54,7 +57,7 @@ class PostForm extends Component {
       longitude: this.state.longitude, 
       latitude: this.state.latitude, 
       name: user.name,
-      avatar: user.profilePic,
+      avatar: profile.profilePic,
       images: this.state.images,
       rent: this.state.rent,
       startDate: this.state.startDate,
@@ -289,6 +292,7 @@ class PostForm extends Component {
 }
 
 PostForm.propTypes = {
+  getCurrentProfile: PropTypes.func.isRequired,
   addPost: PropTypes.func.isRequired,
   addImage: PropTypes.func.isRequired,
   deleteImage: PropTypes.func.isRequired,
@@ -298,7 +302,8 @@ PostForm.propTypes = {
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  errors: state.errors
+  errors: state.errors,
+  profile: state.profile
 });
 
-export default connect(mapStateToProps, { addPost, addImage, deleteImage })(PostForm);
+export default connect(mapStateToProps, { addPost, addImage, deleteImage, getCurrentProfile })(PostForm);

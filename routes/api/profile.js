@@ -82,19 +82,19 @@ router.post(
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     const { errors, isValid } = validateProfileInput(req.body);
-
+    console.log('creating profi;le');
     // Check Validation
     if (!isValid) {
       // Return any errors with 400 status
       return res.status(400).json(errors);
     }
-
+   
     // Get fields
     const profileFields = {};
     profileFields.user = req.user.id;
     if (req.body.location) profileFields.location = req.body.location;
     if (req.body.bio) profileFields.bio = req.body.bio;
-
+    if (req.body.profilePic) profileFields.profilePic = req.body.profilePic; 
     // Social
     profileFields.social = {};
     if (req.body.youtube) profileFields.social.youtube = req.body.youtube;
@@ -133,12 +133,8 @@ router.post(
           const index = profile.favorites.indexOf(req.body.favorites);
           if (index >= 0) {
             
-              // Splice out of array
-              console.log(profile.favorites);
-              
-              
               profile.favorites.splice(index, 1);
-              console.log(profile.favorites);
+            
               profile.save().then(profile => res.json(profile));
               
           } else {
@@ -146,7 +142,7 @@ router.post(
             // Add favorite to favorites array
            
             profile.favorites.push(req.body.favorites);
-            //console.log(profile.favorites);
+
             profile.save().then(profile => res.json(profile));
           }
       })

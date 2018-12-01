@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import InputGroup from '../common/InputGroup';
@@ -22,6 +23,7 @@ class CreateProfile extends Component {
       linkedin: '',
       youtube: '',
       instagram: '',
+      profilePic: '',
       errors: {}
     };
 
@@ -45,6 +47,7 @@ class CreateProfile extends Component {
       profile.location = !isEmpty(profile.location) ? profile.location : '';
     
       profile.bio = !isEmpty(profile.bio) ? profile.bio : '';
+      profile.profilePic = !isEmpty(profile.profilePic) ? profile.profilePic : '';
       profile.social = !isEmpty(profile.social) ? profile.social : {};
       profile.twitter = !isEmpty(profile.social.twitter)
         ? profile.social.twitter
@@ -66,6 +69,7 @@ class CreateProfile extends Component {
       this.setState({
         location: profile.location,
         bio: profile.bio,
+        profilePic: profile.profilePic,
         twitter: profile.twitter,
         facebook: profile.facebook,
         linkedin: profile.linkedin,
@@ -74,7 +78,30 @@ class CreateProfile extends Component {
       });
     }
   }
+  fileChangedHandler = (event) => {
+    
+    if(event.target.files[0] != null) {
+      const file = event.target.files[0];
+      
+      // this.setState({selectedFile: event.target.files[0]});
+      const uuidv4 = require('uuid/v4');
+      const formData = new FormData();
+      var fileName = uuidv4();
 
+      formData.append('file', file, fileName);
+
+      // I do this after so it only affects the state, not whats uploaded to s3
+      // The state & model in the db stores the whole url
+      fileName = 'https://s3.us-east-2.amazonaws.com/aveneu/' + fileName;
+      
+      console.log("FILENAME" + fileName);
+   
+      this.setState({profilePic: fileName});
+     
+      
+      axios.post('api/posts/uploads', formData);
+    }
+  }
   onSubmit(e) {
     e.preventDefault();
 
@@ -84,6 +111,7 @@ class CreateProfile extends Component {
       skills: this.state.skills,
       githubusername: this.state.githubusername,
       bio: this.state.bio,
+      profilePic: this.state.profilePic,
       twitter: this.state.twitter,
       facebook: this.state.facebook,
       linkedin: this.state.linkedin,
@@ -181,6 +209,11 @@ class CreateProfile extends Component {
                   error={errors.bio}
                   info="Tell us a little about yourself"
                 />
+
+                Profile Picture
+                <br />
+                <img src={this.state.profilePic} />
+                <input type="file" name="file" id="file" onChange={this.fileChangedHandler}/>
 
                 <div className="mb-3">
                   <button

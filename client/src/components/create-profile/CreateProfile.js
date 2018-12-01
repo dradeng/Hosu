@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import InputGroup from '../common/InputGroup';
@@ -20,6 +21,7 @@ class CreateProfile extends Component {
       linkedin: '',
       youtube: '',
       instagram: '',
+      profilePic: '',
       errors: {}
     };
 
@@ -32,13 +34,37 @@ class CreateProfile extends Component {
       this.setState({ errors: nextProps.errors });
     }
   }
+  fileChangedHandler = (event) => {
+    
+    if(event.target.files[0] != null) {
+      const file = event.target.files[0];
+      
+      // this.setState({selectedFile: event.target.files[0]});
+      const uuidv4 = require('uuid/v4');
+      const formData = new FormData();
+      var fileName = uuidv4();
 
+      formData.append('file', file, fileName);
+
+      // I do this after so it only affects the state, not whats uploaded to s3
+      // The state & model in the db stores the whole url
+      fileName = 'https://s3.us-east-2.amazonaws.com/aveneu/' + fileName;
+      
+
+      console.log("FILE NAME"+fileName);
+      this.setState({profilePic: fileName});
+     
+      
+      axios.post('api/posts/uploads', formData);
+    }
+  }
   onSubmit(e) {
     e.preventDefault();
-
+    console.log('STATE ' + this.state.profilePic);
     const profileData = {
       location: this.state.location,
       bio: this.state.bio,
+      profilePic: this.state.profilePic,
       twitter: this.state.twitter,
       facebook: this.state.facebook,
       linkedin: this.state.linkedin,
@@ -116,7 +142,7 @@ class CreateProfile extends Component {
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Create Your Profile</h1>
               <p className="lead text-center">
-                Let's get some information to make your profile stand out
+                Lets get some information to make your profile stand out
               </p>
               <small className="d-block pb-3">* = required fields</small>
               <form onSubmit={this.onSubmit}>  
@@ -136,6 +162,9 @@ class CreateProfile extends Component {
                   error={errors.bio}
                   info="Tell us a little about yourself"
                 />
+                Profile Picture
+                <br />
+                <input type="file" name="file" id="file" onChange={this.fileChangedHandler}/>
 
                 <div className="mb-3">
                   <button
