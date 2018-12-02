@@ -7,9 +7,7 @@ import PostFeed from './PostFeed';
 import Spinner from '../common/Spinner';
 import { getPosts } from '../../actions/postActions';
 import MapContainer from "../map/MapContainer";
-
 import Month from '../availability/Month';
-
 
 class Posts extends Component {
   componentDidMount() {
@@ -17,7 +15,7 @@ class Posts extends Component {
   }
 
   render() {
-      const { posts, loading } = this.props.post;
+    const { posts, loading } = this.props.post;
     let postContent;
       var geojson = [];
       geojson['type'] = 'FeatureCollection';

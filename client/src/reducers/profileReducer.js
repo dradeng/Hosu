@@ -1,18 +1,16 @@
 import {
   GET_PROFILE,
   GET_PROFILES,
-  GET_CHAT_PROFILE,
+  GET_PROFILE_BY_ID,
   PROFILE_LOADING,
   CLEAR_CURRENT_PROFILE
 } from '../actions/types';
 
 const initialState = {
   profile: null,
-  chatprofile: null,
+  otherProfile: null,
   profiles: null,
-  favoriteProfile: [],
-  favoriteHash: {},
-    loading: false
+  loading: false
 };
 
 export default function(state = initialState, action) {
@@ -28,10 +26,10 @@ export default function(state = initialState, action) {
               profile: action.payload,
               loading: false
           };
-      case GET_CHAT_PROFILE:
+      case GET_PROFILE_BY_ID:
           return {
               ...state,
-              chatprofile: action.payload,
+              otherProfile: action.payload,
               loading: false
           };
       case GET_PROFILES:

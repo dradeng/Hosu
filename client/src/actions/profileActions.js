@@ -2,12 +2,13 @@ import axios from 'axios';
 
 import {
     GET_PROFILE,
+    GET_PROFILE_BY_ID,
     GET_PROFILES,
     PROFILE_LOADING,
     CLEAR_CURRENT_PROFILE,
     GET_ERRORS,
     GET_POST,
-    SET_CURRENT_USER, GET_CHAT_PROFILE
+    SET_CURRENT_USER,
 } from './types';
 
 // Get current profile
@@ -29,26 +30,6 @@ export const getCurrentProfile = () => dispatch => {
     );
 };
 
-// Get profile by handle
-export const getProfileByHandle = handle => dispatch => {
-  dispatch(setProfileLoading());
-  axios
-    .get(`/api/profile/handle/${handle}`)
-    .then(res =>
-      dispatch({
-        type: GET_PROFILE,
-        payload: res.data
-      })
-    )
-    .catch(err =>
-      dispatch({
-        type: GET_PROFILE,
-        payload: null
-      })
-    );
-};
-
-
 // Get profile by id
 export const getProfileByID = user_id => dispatch => {
     dispatch(setProfileLoading());
@@ -56,14 +37,14 @@ export const getProfileByID = user_id => dispatch => {
         .get(`/api/profile/user/${user_id}`)
         .then(res =>
             dispatch({
-                type: GET_CHAT_PROFILE,
+                type: GET_PROFILE_BY_ID,
                 payload: res.data
             })
         )
         .catch(err =>
             dispatch({
-                type: GET_CHAT_PROFILE,
-                payload: null
+                type: GET_PROFILE_BY_ID,
+                payload: err.response.data
             })
         );
 };
