@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { Link } from 'react-router-dom';
 import { addMessage } from '../../actions/chatActions';
-import { getProfileByID, getCurrentProfile } from '../../actions/profileActions';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import UserIcon from '../../assets/UserIcon.png';
 
@@ -13,6 +12,7 @@ class Chat extends Component {
     super(props);
     this.state = {
       content: '',
+      userImage: '',
       errors: {}
     };
 
@@ -28,10 +28,10 @@ class Chat extends Component {
     this.props.getCurrentProfile();
 
     if(user.id == chat.user1){
-      console.log('hello'+chat.user2);
+   
       this.props.getProfileByID(chat.user2);
     } else {
-      console.log('hello2'+chat.user1);
+    
       this.props.getProfileByID(chat.user1);
     }
   }
@@ -67,37 +67,33 @@ class Chat extends Component {
 
     let reciever;
     let recieverImage;
-
+    let recieverSrc;
     if(user.id == chat.user1){
 
       reciever = <p className="chatName">{chat.user2Name}</p>;
+      recieverSrc = chat.user2ProfilePic;
  
     } else {
 
       reciever = <p className="chatName">{chat.user1Name}</p>;
-
+      recieverSrc = chat.user1ProfilePic;
     }
 
-    if(otherProfile == null || loading)
-    {
-      // do nothing
-    } else {
-      console.log('otherprof'+otherProfile.profilePic);
-      if(otherProfile.profilePic !== null) {
-        recieverImage = <img
-          className="rounded-circle"
-          src={otherProfile.profilePic}
-          style={{ width: '25px', marginRight: '5px' }}
-          title="You must have a Gravatar connected to your email to display an image" />;
 
-      } else {
-        recieverImage = <img
-          className="rounded-circle"
-          src={UserIcon}
-          alt={user.name}
-          style={{ width: '25px', marginRight: '5px' }}
-          title="You must have a Gravatar connected to your email to display an image" />;
-      }
+    if(recieverSrc != '') {
+      recieverImage = <img
+        className="rounded-circle"
+        src={recieverSrc}
+        style={{ width: '100px', marginRight: '5px' }}
+        title="You must have a Gravatar connected to your email to display an image" />;
+
+    } else {
+      recieverImage = <img
+        className="rounded-circle"
+        src={UserIcon}
+        alt={user.name}
+        style={{ width: '100px', marginRight: '5px' }}
+        title="You must have a Gravatar connected to your email to display an image" />;
     }
 
 
@@ -118,6 +114,7 @@ class Chat extends Component {
           {recieverImage}
           {reciever} 
           {messageContent}
+          <br />
         </div>
       
     );
@@ -128,7 +125,6 @@ Chat.defaultProps = {
 };
 
 Chat.propTypes = {
-  getProfileByID: PropTypes.func.isRequired,
   addMessage: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   chat: PropTypes.object.isRequired,
@@ -141,4 +137,4 @@ const mapStateToProps = state => ({
   profile: state.profile,
 });
 
-export default connect(mapStateToProps, { addMessage, getProfileByID, getCurrentProfile })(Chat);
+export default connect(mapStateToProps, { addMessage })(Chat);

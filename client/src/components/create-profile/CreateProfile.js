@@ -51,7 +51,7 @@ class CreateProfile extends Component {
       fileName = 'https://s3.us-east-2.amazonaws.com/aveneu/' + fileName;
       
 
-      console.log("FILE NAME"+fileName);
+    
       this.setState({profilePic: fileName});
      
       
@@ -60,7 +60,7 @@ class CreateProfile extends Component {
   }
   onSubmit(e) {
     e.preventDefault();
-    console.log('STATE ' + this.state.profilePic);
+
     const profileData = {
       location: this.state.location,
       bio: this.state.bio,

@@ -28,10 +28,10 @@ class PostItem extends Component {
 
     if(profile != null && profile.favorites != undefined) {
 
-            if (profile.favorites.includes(post._id)) {
+      if (profile.favorites.includes(post._id)) {
 
-                this.setState({favorited: true});
-            }
+        this.setState({favorited: true});
+      }
 
     }
   }
@@ -96,10 +96,7 @@ class PostItem extends Component {
             <div style={{height: '100%', paddingTop: '66%', backgroundSize: 'cover', backgroundPosition: 'center center', backgroundImage: 'url("' + item + '")'}} />
         </div>)
     );
-    /*
-    <div style={{paddingTop:'66%',backgroundSize: '100% 100%',overflow:'hidden', background: 'url('+item+')'}}>
-        </div>
-     */
+
     let endDateContent = null;
     var startString = '';
     var endString = '';
@@ -149,12 +146,7 @@ class PostItem extends Component {
                               null }
 
                       </div>
-
-
-
-
                   </div>
-
               </div>
               <div>
 

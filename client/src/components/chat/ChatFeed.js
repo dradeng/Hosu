@@ -9,7 +9,7 @@ class ChatFeed extends Component {
     const { chats, chatId } = this.props;
     
     return chats.map(chat => 
-      <Link className="chatFeedUnit" style={{"textDecoration":"none", display:'inline-block', paddingLeft:40}} to={`/chat/${chat._id}`}>
+      <Link className="chatFeedUnit" style={{"textDecoration":"none", display:'inline-block', paddingLeft:40, width:"100%"}} to={`/chat/${chat._id}`}>
         <Chat key={chat._id} chat={chat} className="chat" chatId={chatId} />
       </Link>
     );

@@ -11,6 +11,12 @@ const ChatSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'users'
   },
+  user1ProfilePic: {
+    type: String,
+  },
+  user2ProfilePic: {
+    type: String,
+  },
   user1Name: {
     type: String,
     required: true

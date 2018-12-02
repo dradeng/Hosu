@@ -16,6 +16,8 @@ class Post extends Component {
     this.state = {
       user1: null,
       user2: null,
+      user1ProfilePic: '',
+      user2ProfilePic: '',
       user1Name: '',
       user2Name: '',
       messages: []
@@ -33,11 +35,13 @@ class Post extends Component {
 
     const { user } = this.props.auth;
     const { post } = this.props.post;
-
+    const { profile } = this.props.profile;
     const newChat = {
       
       user1: user.id,
       user2: post.user,
+      user1ProfilePic: profile.profilePic,
+      user2ProfilePic: post.avatar,
       user1Name: user.name,
       user2Name: post.name,
       messages: []
@@ -47,6 +51,8 @@ class Post extends Component {
     this.props.addChat(newChat);
     this.setState({ user1: null });
     this.setState({ user2: null });
+    this.setState({ user1ProfilePic: '' });
+    this.setState({ user2ProfilePic: '' });
     this.setState({ user1Name: '' });
     this.setState({ user2Name: '' });
     this.setState({ messages: [] });
