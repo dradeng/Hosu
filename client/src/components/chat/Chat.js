@@ -24,16 +24,6 @@ class Chat extends Component {
     const { user } = this.props.auth;
 
     const { chat, loading } = this.props;
-
-    this.props.getCurrentProfile();
-
-    if(user.id == chat.user1){
-   
-      this.props.getProfileByID(chat.user2);
-    } else {
-    
-      this.props.getProfileByID(chat.user1);
-    }
   }
   componentWillReceiveProps(newProps) {
     if (newProps.errors) {
@@ -80,11 +70,11 @@ class Chat extends Component {
     }
 
 
-    if(recieverSrc != '') {
+    if(recieverSrc.length > 0) {
       recieverImage = <img
         className="rounded-circle"
         src={recieverSrc}
-        style={{ width: '100px', marginRight: '5px' }}
+        style={{ borderRadius: '50%', height: '100px', width: '100px', marginRight: '5px' }}
         title="You must have a Gravatar connected to your email to display an image" />;
 
     } else {
@@ -104,16 +94,20 @@ class Chat extends Component {
       {   
           while(count < 1) { 
             count += 1;
-            return <p key={message._id} className="chatPreview" message={message}> {message.content} </p> 
+            return <p style={{marginLeft: '15px'}} key={message._id} className="chatPreview" message={message}> {message.content} </p> 
           }
       }
     );
     return (
       
-        <div>
-          {recieverImage}
-          {reciever} 
-          {messageContent}
+        <div class="row">
+          <div style={{padding: '15px'}} class="column">
+            {recieverImage}
+          </div>
+          <div style={{marginTop: '30px' }}class="column">
+            {reciever}
+            {messageContent}
+          </div>
           <br />
         </div>
       
