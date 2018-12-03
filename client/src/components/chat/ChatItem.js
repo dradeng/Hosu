@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import UserIcon from '../../assets/UserIcon.png';
 import classnames from 'classnames';
 import Spinner from '../common/Spinner';
 import { Link } from 'react-router-dom';
@@ -42,6 +43,16 @@ class ChatItem extends Component {
     newMessages.push(newMessage);
     this.setState({ socketMessages: newMessages});
     
+  }
+  formatAMPM(date) {
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    var strTime = hours + ':' + minutes + ' ' + ampm;
+    return strTime;
   }
   onSubmit(e) {
     e.preventDefault();
@@ -92,6 +103,12 @@ class ChatItem extends Component {
 
     });
 
+    let receiverName;
+    let recieverImage;
+    let recieverSrc;
+
+
+
 
     let messageContent;
     let socketMessagesContent;
@@ -101,34 +118,92 @@ class ChatItem extends Component {
       messageContent = <Spinner />;
     }
     else {
+
+
+      if(user.id == chat.user1){
+        receiverName = chat.user2Name;
+        recieverSrc = chat.user2ProfilePic;
+      } else {
+        receiverName = chat.user1Name;
+        recieverSrc = chat.user1ProfilePic;
+      }
+
+      if(recieverSrc.length > 0) {
+        recieverImage = <img
+          className="rounded-circle"
+          src={recieverSrc}
+          style={{ borderRadius: '50%', height: '100px', width: '100px', marginRight: '5px' }}
+          title="You must have a Gravatar connected to your email to display an image" />;
+
+      } else {
+        recieverImage = <img
+          className="rounded-circle"
+          src={UserIcon}
+          alt={user.name}
+          style={{ width: '100px', marginRight: '5px' }}
+          title="You must have a Gravatar connected to your email to display an image" />;
+      }
+
+
+
+
       messageContent = chat.messages.map(
         message => 
         { 
+          let formattedDate =  this.formatAMPM(new Date(message.date));
           lastMessage = message.content;
           if (user.id == message.sender)
           {
-            return <p key={message._id} align="right" > {message.content} </p> 
+            return (
+              <div className="row" style={{marginBottom: 15}} align="right">
+                <div className="col-md-11">
+                  <span style={{boxShadow: '0 1px 0.5px rgba(0, 0, 0, 0.13)', padding: 8, paddingLeft: 10, paddingRight: 10, background: '#C6DEFF', borderRadius: 5}} key={message._id} > {message.content} </span> 
+                  <div style={{fontSize: 9, marginTop: 4, color: '#B4B4B4'}}> {formattedDate} </div>
+                </div>
+              </div>
+            );
           }
           else{
-            return <p key={message._id} align="left" > {message.content} </p> 
+            return (
+              <div className="row" style={{marginBottom: 15}} align="left">
+                <div className="col-md-11">
+                  <span style={{boxShadow: '0 1px 0.5px rgba(0, 0, 0, 0.13)', padding: 8, paddingLeft: 10, paddingRight: 10, background: '#C6DEFF', borderRadius: 5}} key={message._id} > {message.content} </span> 
+                  <div style={{fontSize: 9, marginTop: 4, color: '#B4B4B4'}}> {formattedDate} </div>
+                </div>
+              </div>
+            );
           }
         }
       );
     }
   
     var oldMessage = '';
-    //Socket.io does something weird where it will try to add alot of messages
+   
     socketMessagesContent = newMessages.map(message => { 
       
         if(oldMessage != message.content && message.content != lastMessage) {
            
           oldMessage = message.content;
-
+          let oldFormattedDate =  this.formatAMPM(new Date(message.date));
           if (user.id == message.sender)
           {
-            return <p align="right"  key={message._id}>{message.content}</p>
+            return (
+              <div className="row" style={{marginBottom: 15}} align="left">
+                <div className="col-md-11">
+                  <span style={{boxShadow: '0 1px 0.5px rgba(0, 0, 0, 0.13)', padding: 8, paddingLeft: 10, paddingRight: 10, background: '#E1FAF5', borderRadius: 5}} key={message._id} > {message.content} </span> 
+                  <div style={{fontSize: 9, marginTop: 4, color: '#B4B4B4'}}> {oldFormattedDate} </div>
+                </div>
+              </div>
+            );
           } else {
-            return <p align="left"  key={message._id}>{message.content}</p>
+            return (
+              <div className="row" style={{marginBottom: 15}} align="right">
+                <div className="col-md-11">
+                  <span style={{boxShadow: '0 1px 0.5px rgba(0, 0, 0, 0.13)', padding: 8, paddingLeft: 10, paddingRight: 10, background: '#E1FAF5', borderRadius: 5}} key={message._id} > {message.content} </span> 
+                  <div style={{fontSize: 9, marginTop: 4, color: '#B4B4B4'}}> {oldFormattedDate} </div>
+                </div>
+              </div>
+            );
           }
         }
       }
@@ -138,9 +213,10 @@ class ChatItem extends Component {
       
         <div>
       
-          User1: {chat.user1}
-          <br />
-          User2: {chat.user2}
+          <span>
+            {recieverImage}
+            {receiverName}
+          </span>
           <br />
           Messages:
           <br />
