@@ -221,8 +221,7 @@ class ChatItem extends Component {
           Messages:
           <br />
           {messageContent}
-          SPLITTTTTTTT
-          {socketMessagesContent}
+          
           <form onSubmit={this.onSubmit}>
               <div className="form-group">
                 <TextAreaFieldGroup
