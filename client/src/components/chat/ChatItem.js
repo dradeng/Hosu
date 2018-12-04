@@ -70,8 +70,8 @@ class ChatItem extends Component {
       sender: user.id,
       date: Date.now,
     };
-    const socket = openSocket('http://localhost:5000');
-    //const socket = openSocket('https://salty-plateau-48594.herokuapp.com:5000');//NEED TO NOT HARD CODE THIS
+    //const socket = openSocket('http://localhost:5000');
+    const socket = openSocket('https://salty-plateau-48594.herokuapp.com:5000');//NEED TO NOT HARD CODE THIS
 
     socket.emit('addMessage', newMessage); // change 'red' to this.state.color
 
@@ -93,8 +93,8 @@ class ChatItem extends Component {
     const { chat, loading } = this.props.chat;
     const { user } = this.props.auth;
     
-    const socket = openSocket('http://localhost:5000');
-    //const socket = openSocket('https://salty-plateau-48594.herokuapp.com:5000');//NEED TO NOT HARD CODE THIS
+    //const socket = openSocket('http://localhost:5000');
+    const socket = openSocket('https://salty-plateau-48594.herokuapp.com:5000');//NEED TO NOT HARD CODE THIS
     var call = 'addMessage'+chat._id;
     socket.on(call, (message) => {
       console.log('client got new message');
