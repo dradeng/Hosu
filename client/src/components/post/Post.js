@@ -71,8 +71,11 @@ class Post extends Component {
       postContent = (
         <div>
           <NonFeedPostItem post={post} showActions={false} />
-          <CommentForm postId={post._id} />
-          <CommentFeed postId={post._id} comments={post.comments} />
+          <span style={{ display: 'block', margin: '15px'}}>{post.text}</span>
+          <div style={{borderStyle: 'solid',borderWidth:1, borderColor: '#B4B4B4'}}>
+            <CommentForm postId={post._id} />
+            <CommentFeed postId={post._id} comments={post.comments} />
+          </div>
         </div>
       );
     }

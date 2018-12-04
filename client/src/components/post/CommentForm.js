@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { getCurrentProfile } from '../../actions/profileActions';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import { addComment } from '../../actions/postActions';
+import UserIcon from '../../assets/UserIcon.png';
 
 class CommentForm extends Component {
   constructor(props) {
@@ -15,7 +17,9 @@ class CommentForm extends Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
-
+  componentDidMount() {
+    this.props.getCurrentProfile();
+  }
   componentWillReceiveProps(newProps) {
     if (newProps.errors) {
       this.setState({ errors: newProps.errors });
@@ -27,15 +31,16 @@ class CommentForm extends Component {
 
     const { user } = this.props.auth;
     const { postId } = this.props;
-
+    const { profile } = this.props.profile;
     const newComment = {
       text: this.state.text,
       name: user.name,
-      avatar: user.profilePic
+      avatar: profile.profilePic
     };
 
     this.props.addComment(postId, newComment);
     this.setState({ text: '' });
+    
   }
 
   onChange(e) {
@@ -45,15 +50,32 @@ class CommentForm extends Component {
   render() {
     const { errors } = this.state;
 
+    const { profile, loading } = this.props.profile;
+
+    let imgSrc = UserIcon;;
+
+    if (profile === null || loading) {
+      // dop nothign
+    } else {
+      if(profile.profilePic.length > 0) {
+        imgSrc = profile.profilePic;
+      }
+    }
+
     return (
       <div className="post-form mb-3">
-        <div className="card card-info">
+        <div className="card-info">
           <div className="card-header headercustom text-white">
             Make a comment...
           </div>
           <div className="card-body">
             <form onSubmit={this.onSubmit}>
               <div className="form-group">
+                <img
+                  className="rounded-circle"
+                  src={imgSrc}
+                  style={{ width:30, height:30, marginRight: '5px' }}
+                />
                 <TextAreaFieldGroup
                   placeholder="Reply to post"
                   name="text"
@@ -62,7 +84,7 @@ class CommentForm extends Component {
                   error={errors.text}
                 />
               </div>
-              <button type="submit" className="btncustom btn">
+              <button type="submit">
                 Submit
               </button>
             </form>
@@ -74,6 +96,7 @@ class CommentForm extends Component {
 }
 
 CommentForm.propTypes = {
+  getCurrentProfile: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   postId: PropTypes.string.isRequired,
   errors: PropTypes.object.isRequired
@@ -81,7 +104,8 @@ CommentForm.propTypes = {
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  errors: state.errors
+  errors: state.errors,
+  profile: state.profile,
 });
 
-export default connect(mapStateToProps, { addComment })(CommentForm);
+export default connect(mapStateToProps, { addComment, getCurrentProfile })(CommentForm);
