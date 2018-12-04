@@ -10,8 +10,6 @@ import update from 'immutability-helper';
 import { addMessage, getChat } from '../../actions/chatActions';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 
-var newMessages = [];
-
 class ChatItem extends Component {
   constructor(props) {
     super(props);
@@ -39,10 +37,10 @@ class ChatItem extends Component {
       sender: message.sender,
       date: Date.now
     };
-
-    newMessages.push(newMessage);
-    this.setState({ socketMessages: newMessages});
-    
+    var newArray = this.state.socketMessages.slice();    
+    newArray.push(newMessage);      
+    this.setState({ socketMessages: newArray});
+    console.log(this.state.socketMessages);
   }
   formatAMPM(date) {
     var hours = date.getHours();
@@ -72,7 +70,8 @@ class ChatItem extends Component {
       sender: user.id,
       date: Date.now,
     };
-    const socket = openSocket('https://salty-plateau-48594.herokuapp.com:5000');//NEED TO NOT HARD CODE THIS
+    const socket = openSocket('http://localhost:5000');
+    //const socket = openSocket('https://salty-plateau-48594.herokuapp.com:5000');//NEED TO NOT HARD CODE THIS
 
     socket.emit('addMessage', newMessage); // change 'red' to this.state.color
 
@@ -83,7 +82,7 @@ class ChatItem extends Component {
     //be saved on client side
     //this.props.getChat(this.props.match.params.id);
     this.setState({ content: '' });
-    newMessages = [];
+    this.setState({ socketMessages: [] });
   }
 
   onChange(e) {
@@ -94,8 +93,8 @@ class ChatItem extends Component {
     const { chat, loading } = this.props.chat;
     const { user } = this.props.auth;
     
-
-    const socket = openSocket('https://salty-plateau-48594.herokuapp.com:5000');//NEED TO NOT HARD CODE THIS
+    const socket = openSocket('http://localhost:5000');
+    //const socket = openSocket('https://salty-plateau-48594.herokuapp.com:5000');//NEED TO NOT HARD CODE THIS
     var call = 'addMessage'+chat._id;
     socket.on(call, (message) => {
       console.log('client got new message');
@@ -179,7 +178,7 @@ class ChatItem extends Component {
   
     var oldMessage = '';
    
-    socketMessagesContent = newMessages.map(message => { 
+    socketMessagesContent = this.state.socketMessages.map(message => { 
       
         if(oldMessage != message.content && message.content != lastMessage) {
            
@@ -188,18 +187,18 @@ class ChatItem extends Component {
           if (user.id == message.sender)
           {
             return (
-              <div className="row" style={{marginBottom: 15}} align="left">
+              <div className="row" style={{marginBottom: 15}} align="right">
                 <div className="col-md-11">
-                  <span style={{boxShadow: '0 1px 0.5px rgba(0, 0, 0, 0.13)', padding: 8, paddingLeft: 10, paddingRight: 10, background: '#E1FAF5', borderRadius: 5}} key={message._id} > {message.content} </span> 
+                  <span style={{boxShadow: '0 1px 0.5px rgba(0, 0, 0, 0.13)', padding: 8, paddingLeft: 10, paddingRight: 10, background: '#C6DEFF', borderRadius: 5}} key={message._id} > {message.content} </span> 
                   <div style={{fontSize: 9, marginTop: 4, color: '#B4B4B4'}}> {oldFormattedDate} </div>
                 </div>
               </div>
             );
           } else {
             return (
-              <div className="row" style={{marginBottom: 15}} align="right">
+              <div className="row" style={{marginBottom: 15}} align="left">
                 <div className="col-md-11">
-                  <span style={{boxShadow: '0 1px 0.5px rgba(0, 0, 0, 0.13)', padding: 8, paddingLeft: 10, paddingRight: 10, background: '#E1FAF5', borderRadius: 5}} key={message._id} > {message.content} </span> 
+                  <span style={{boxShadow: '0 1px 0.5px rgba(0, 0, 0, 0.13)', padding: 8, paddingLeft: 10, paddingRight: 10, background: '#C6DEFF', borderRadius: 5}} key={message._id} > {message.content} </span> 
                   <div style={{fontSize: 9, marginTop: 4, color: '#B4B4B4'}}> {oldFormattedDate} </div>
                 </div>
               </div>
@@ -218,10 +217,9 @@ class ChatItem extends Component {
             {receiverName}
           </span>
           <br />
-          Messages:
           <br />
           {messageContent}
-          
+          {socketMessagesContent}
           <form onSubmit={this.onSubmit}>
               <div className="form-group">
                 <TextAreaFieldGroup

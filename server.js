@@ -60,7 +60,7 @@ app.set('io', io);
 // This is what the socket.io syntax is like, we will work this later
 io.on('connection', socket => {
   app.set('socket', socket);
-  console.log('connect');
+  //console.log('connect');
 
   // just like on the client side, we have a socket.on method that takes a callback function
     socket.on('addMessage', (message) => {
@@ -68,6 +68,7 @@ io.on('connection', socket => {
       console.log('chat id'+message.chat);
       var chatID = message.chat;
       var call = 'addMessage'+chatID;
+      console.log('emitting '+ call);
       io.sockets.emit(call, message);
     });
     
