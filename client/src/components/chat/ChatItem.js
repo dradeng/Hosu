@@ -5,7 +5,7 @@ import UserIcon from '../../assets/UserIcon.png';
 import classnames from 'classnames';
 import Spinner from '../common/Spinner';
 import { Link } from 'react-router-dom';
-import openSocket from 'socket.io-client';
+import io from 'socket.io-client';
 import update from 'immutability-helper';
 import { addMessage, getChat } from '../../actions/chatActions';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
@@ -71,8 +71,9 @@ class ChatItem extends Component {
       date: Date.now,
     };
     //const socket = openSocket('http://localhost:5000');
-    const socket = openSocket('https://salty-plateau-48594.herokuapp.com:5000');//NEED TO NOT HARD CODE THIS
-
+    const socket = io.connect('https://salty-plateau-48594.herokuapp.com');//NEED TO NOT HARD CODE THIS
+    //const socket = io.connect(window.location.hostname);
+    console.log('message emited on client');
     socket.emit('addMessage', newMessage); // change 'red' to this.state.color
 
 
@@ -94,7 +95,9 @@ class ChatItem extends Component {
     const { user } = this.props.auth;
     
     //const socket = openSocket('http://localhost:5000');
-    const socket = openSocket('https://salty-plateau-48594.herokuapp.com:5000');//NEED TO NOT HARD CODE THIS
+    const socket = io.connect('https://salty-plateau-48594.herokuapp.com');
+    //const socket = io.connect(window.location.hostname);
+
     var call = 'addMessage'+chat._id;
     socket.on(call, (message) => {
       console.log('client got new message');
