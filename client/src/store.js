@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProduction';
 import rootReducer from './reducers';
 
 const initialState = {};
@@ -11,7 +12,7 @@ const store = createStore(
   initialState,
   compose(
     applyMiddleware(...middleware),
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+    composeWithDevTools(applyMiddleware(...middleware))
   )
 );
 
