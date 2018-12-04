@@ -35,12 +35,12 @@ class ChatItem extends Component {
     const newMessage = {
       content: message.content,
       sender: message.sender,
-      date: Date.now
+      date: new Date(),
     };
+
     var newArray = this.state.socketMessages.slice();    
     newArray.push(newMessage);      
     this.setState({ socketMessages: newArray});
-    console.log(this.state.socketMessages);
   }
   formatAMPM(date) {
     var hours = date.getHours();
@@ -70,10 +70,9 @@ class ChatItem extends Component {
       sender: user.id,
       date: Date.now,
     };
-    //const socket = openSocket('http://localhost:5000');
+    //const socket = io('http://localhost:5000');
     const socket = io.connect('https://salty-plateau-48594.herokuapp.com');//NEED TO NOT HARD CODE THIS
-    //const socket = io.connect(window.location.hostname);
-    console.log('message emited on client');
+  
     socket.emit('addMessage', newMessage); // change 'red' to this.state.color
 
 
@@ -94,13 +93,13 @@ class ChatItem extends Component {
     const { chat, loading } = this.props.chat;
     const { user } = this.props.auth;
     
-    //const socket = openSocket('http://localhost:5000');
+    //const socket = io('http://localhost:5000');
     const socket = io.connect('https://salty-plateau-48594.herokuapp.com');
-    //const socket = io.connect(window.location.hostname);
+   
 
     var call = 'addMessage'+chat._id;
     socket.on(call, (message) => {
-      console.log('client got new message');
+      
       this.setMessage(message);
 
     });
@@ -147,6 +146,13 @@ class ChatItem extends Component {
       }
 
 
+      // DATE SETUP IS DIFFERENT FOR SOCKET SERVER MESSAGES AND THOSE SAVED TO DB
+      // FASTER TO DO DATE.NOW FOR THOSE SAVING TO THE DB
+      // AND HAVE TO DO NEW DATE FOR THOSE COMING FROM THE SOCKET SERVER SO CLIENT CAN
+      // INTERPET WHATS GOING ON.
+      // REASON DOING THIS IS BECAUSE DATE.NOW IS NaN UNTIL SAVED TO THE DB, SO HAVE TO 
+      // DO NEW DATE FOR SOCKET SERVER MESSAGES 
+
 
 
       messageContent = chat.messages.map(
@@ -181,12 +187,15 @@ class ChatItem extends Component {
   
     var oldMessage = '';
    
+
+    //THIS IS THE MESSAGES NOT IN THE DB YET BUT THE SOCKET SERVER PICKS
+    //UP A NEW EMIT AND ADDS IT TO STATE
     socketMessagesContent = this.state.socketMessages.map(message => { 
       
         if(oldMessage != message.content && message.content != lastMessage) {
-           
+         
           oldMessage = message.content;
-          let oldFormattedDate =  this.formatAMPM(new Date(message.date));
+          let oldFormattedDate =  this.formatAMPM(message.date);
           if (user.id == message.sender)
           {
             return (
@@ -221,8 +230,10 @@ class ChatItem extends Component {
           </span>
           <br />
           <br />
+
           {messageContent}
           {socketMessagesContent}
+
           <form onSubmit={this.onSubmit}>
               <div className="form-group">
                 <TextAreaFieldGroup
@@ -232,9 +243,11 @@ class ChatItem extends Component {
                   onChange={this.onChange}
                 />
               </div>
+
               <button type="submit" className="btn btn-dark">
                 Submit
               </button>
+
             </form>
         </div>
       
