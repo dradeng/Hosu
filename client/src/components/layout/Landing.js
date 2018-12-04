@@ -14,7 +14,9 @@ class Landing extends Component {
     return (
       <div  className="landing">
         <div>
-          
+          <video id="background-video"  autoPlay loop muted>
+            <source src="https://s3.us-east-2.amazonaws.com/aveneu/Timelapse.mp4" type='video/mp4'/>
+          </video>
         </div>
         <div className="dark-overlay landing-inner text-light">
           <div className="container">
