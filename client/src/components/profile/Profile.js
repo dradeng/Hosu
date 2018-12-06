@@ -22,14 +22,7 @@ class Profile extends Component {
       profileContent = <Spinner />;
     } else {
       profileContent = (
-        <div>
-          <div className="row">
-            <div style={{alignContent: "flex-end"}} className="col-md-6">
-                <Link to="/add-review" className="btn btn-light">
-                    Add Review
-                </Link>
-            </div>
-          </div>
+        <div style={{maxWidth: 800, margin:'0 auto'}}>
           <ProfileHeader profile={profile} />
           <span>{profile.bio}</span>
           <ProfileReview profile={profile}/>
