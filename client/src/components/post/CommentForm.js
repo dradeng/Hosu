@@ -70,21 +70,24 @@ class CommentForm extends Component {
           </div>
           <div className="card-body">
             <form onSubmit={this.onSubmit}>
-              <div className="form-group">
+              <div style={{display:'flex'}} className="form-group">
+                
                 <img
+                  
                   className="rounded-circle"
                   src={imgSrc}
-                  style={{ width:30, height:30, marginRight: '5px' }}
-                />
-                <TextAreaFieldGroup
-                  placeholder="Reply to post"
-                  name="text"
-                  value={this.state.text}
-                  onChange={this.onChange}
-                  error={errors.text}
-                />
+                  style={{ width:30, height:30, marginRight: '15px'}} />
+                <input 
+                  
+                  name="text" 
+                  type="text" 
+                  value={this.state.text} 
+                  onChange={this.onChange} 
+                  style={{ borderRadius:2, borderWidth:1, width:'100%' }}/>
+                
+                
               </div>
-              <button type="submit">
+              <button type="submit" style={{display:"none"}}>
                 Submit
               </button>
             </form>

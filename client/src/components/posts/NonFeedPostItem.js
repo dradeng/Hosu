@@ -93,7 +93,9 @@ class PostItem extends Component {
 
     const allImage = post.images.map((item, index) => (
         <div>
-            <div style={{height: '100%', paddingTop: '66%', backgroundSize: 'cover', backgroundPosition: 'center center', backgroundImage: 'url("' + item + '")'}} />
+            <div style={{height: '100%', paddingTop: '66%', backgroundSize: 'cover', backgroundPosition: 'center center', backgroundImage: 'url("' + item + '")'}}>
+
+            </div>
         </div>)
     );
     /*
@@ -119,57 +121,59 @@ class PostItem extends Component {
       return (
           <div className="card card-body mb-3 col-md-6 feedTile">
             <div className="row">
-                  <div className="col-md-2">
-                      <a href="profile.html">
-                          <img
-                              className="rounded-circle d-none d-md-block postImage"
-                              src={post.avatar}
-                              alt=""
-                          />
-                      </a>
-                  </div>
-                  <div className="col-md-10">
-                      <div style={{minHeight: 49}} className="row">
-                          <div className="lead col-md-9">
-                              <Textfit
-                                  mode="single"
-                                  forceSingleModeWidth={false}>
-                                  {post.title}
-                                  </Textfit></div>
-                          <div className="col-md-1">
-                              
-                          </div>
-                          {post.user !== auth.user.id ? (
+              <div className="col-md-2">
+                <a href="profile.html">
+                  <img
+                    className="rounded-circle d-none d-md-block postImage"
+                    src={post.avatar}
+                    alt=""
+                  />
+                </a>
+              </div>
+              <div className="col-md-10">
+                <div style={{minHeight: 49}} className="row">
+                  <div className="lead col-md-9">
+                    <Textfit
+                      mode="single"
+                      forceSingleModeWidth={false}>
+                      {post.title}
+                    </Textfit></div>
+                  
+                    {post.user !== auth.user.id ? (
 
-                          <div style={{fontSize: 22, color: '#fac71e'}}  onClick={this.onFavorite.bind(this, auth.user.id, post._id)}>
-                            
-                            {starContent}
-
-                          </div> ):
-                              null }
+                      <div style={{fontSize: 22, color: '#fac71e'}}  onClick={this.onFavorite.bind(this, auth.user.id, post._id)}>
+                        
+                        {starContent}
 
                       </div>
-                  </div>
+                      ): null 
+                    }
 
+                </div>
               </div>
-              <div>
 
-                <Carousel style={{height:'40%',borderRadius: 5}} showThumbs={false}  showIndicators={false} showStatus={false}>
+            </div>
+            <div>
+
+              <div style={{height:'40%',borderRadius: 5}}>
+                <Carousel showThumbs={false}  showIndicators={false} showStatus={false}>
                   {allImage}
                 </Carousel>
-
-              </div>
-              <div className="row" style={{position: 'absolute', top: '25%', right: '10%',}}>
-                  <Month period="start" month={startString}/>
-                  {endDateContent}
-              </div>
-                  <div className="row" style={{position: 'absolute',textShadow: '0 .5px 0 rgba(0,0,0,0.6)', bottom: 60, left: 40, color: '#FFFFFF'}}>
-                      <i style={{border: '0 1px 0 rgba(0,0,0,0.6)'}} className="fas fa-dollar-sign"/>
-
-                      <p className="priceTag">{post.rent}</p>
+                <div>
+                  <div class="row" style={{position: 'absolute',textShadow: '0 .5px 0 rgba(0,0,0,0.6)', bottom: 10, left: 40, color: '#FFFFFF'}}>
+                    <p className="priceTag">${post.rent}</p>
 
                   </div>
+                </div>
               </div>
+
+            </div>
+            <div className="row" style={{position: 'absolute', top: '25%', right: '10%',}}>
+                <Month period="start" month={startString}/>
+                {endDateContent}
+            </div>
+
+          </div>
 
       );
   }

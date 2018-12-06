@@ -26,18 +26,24 @@ class CommentItem extends Component {
           </div>
 
           <div>
-            <span className="text-center">{comment.name}</span>
+            <span className="text-center" style={{}}>
+              <span style={{fontWeight:'bold'}}>{comment.name}</span>
+
+              {comment.user === auth.user.id ? (
+                <button
+                  onClick={this.onDeleteClick.bind(this, postId, comment._id)}
+                  type="button"
+                  class="close" 
+                  aria-label="Close"
+                >
+                  <i style={{width:15,height:12,paddingBottom:2, verticalAlign: 'middle', display:'inline-block'}} class="fa fa-trash"></i>
+                </button>
+              ) : null}
+
+
+            </span>
             <br />
             <span className="lead">{comment.text}</span>
-            {comment.user === auth.user.id ? (
-              <button
-                onClick={this.onDeleteClick.bind(this, postId, comment._id)}
-                type="button"
-                className="btncustom btn btn-danger mr-1"
-              >
-                <i className="fas fa-times" />
-              </button>
-            ) : null}
           </div>
         </div>
       </div>

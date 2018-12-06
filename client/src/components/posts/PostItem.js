@@ -149,23 +149,24 @@ class PostItem extends Component {
                   </div>
               </div>
               <div>
-
-                  <Carousel style={{height:'40%',borderRadius: 5}} showThumbs={false}  showIndicators={false} showStatus={false}>
+                <div style={{height:'40%',borderRadius: 5}}>
+                  <Carousel showThumbs={false}  showIndicators={false} showStatus={false}>
 
                       {allImage}
                   </Carousel>
+                  <div>
+                    <div class="row" style={{position: 'absolute',textShadow: '0 .5px 0 rgba(0,0,0,0.6)', bottom: 50, left: 40, color: '#FFFFFF'}}>
+                      <p className="priceTag">${post.rent}</p>
 
+                    </div>
+                  </div>
+                </div>
               </div>
               <div className="row" style={{position: 'absolute', top: '25%', right: '10%',}}>
                   <Month period="start" month={startString}/>
                   {endDateContent}
               </div>
-                  <div className="row" style={{position: 'absolute',textShadow: '0 .5px 0 rgba(0,0,0,0.6)', bottom: 60, left: 40, color: '#FFFFFF'}}>
-                      <i style={{border: '0 1px 0 rgba(0,0,0,0.6)'}} className="fas fa-dollar-sign"/>
-
-                      <p className="priceTag">{post.rent}</p>
-
-                  </div>
+  
               <Link to={`/post/${post._id}`} className="btn btncustom mr-1">
                   Comments
               </Link>
