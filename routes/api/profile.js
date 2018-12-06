@@ -38,6 +38,7 @@ router.get(
 // @route   GET api/profile/all
 // @desc    Get all profiles
 // @access  Public
+// Not ever used
 router.get('/all', (req, res) => {
   const errors = {};
 
@@ -54,13 +55,13 @@ router.get('/all', (req, res) => {
     .catch(err => res.status(404).json({ profile: 'There are no profiles' }));
 });
 
-// @route   GET api/profile/user/:user_id
+// @route   GET api/profile/:user_id
 // @desc    Get profile by user ID
 // @access  Public
 
-router.get('/user/:user_id', (req, res) => {
+router.get('/:id', (req, res) => {
   const errors = {};
-  Profile.findOne({ user: req.params.user_id })
+  Profile.findOne({ user: req.params.id })
     .populate('user', ['name', 'avatar'])
     .then(profile => {
       if (!profile) {
@@ -94,7 +95,8 @@ router.post(
     profileFields.user = req.user.id;
     if (req.body.location) profileFields.location = req.body.location;
     if (req.body.bio) profileFields.bio = req.body.bio;
-    if (req.body.profilePic) profileFields.profilePic = req.body.profilePic; 
+    if (req.body.profilePic) profileFields.profilePic = req.body.profilePic;
+    if (req.body.backgroundPic) profileFields.backgroundPic = req.body.backgroundPic;  
     // Social
     profileFields.social = {};
     if (req.body.youtube) profileFields.social.youtube = req.body.youtube;

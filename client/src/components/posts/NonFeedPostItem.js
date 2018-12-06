@@ -168,7 +168,7 @@ class PostItem extends Component {
               </div>
 
             </div>
-            <div className="row" style={{position: 'absolute', top: '25%', right: '10%',}}>
+            <div className="row" style={{position: 'absolute', top: '18%', right: '8%',}}>
                 <Month period="start" month={startString}/>
                 {endDateContent}
             </div>

@@ -110,6 +110,7 @@ router.post(
             name: req.body.name,
             rent: req.body.rent,
             avatar: req.body.avatar,
+            profile: req.body.profile,
             user: req.user.id,
             latitude: req.body.latitude,
             longitude: req.body.longitude,

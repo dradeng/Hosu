@@ -6,7 +6,6 @@ import axios from 'axios';
 import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import InputGroup from '../common/InputGroup';
-import SelectListGroup from '../common/SelectListGroup';
 import { createProfile } from '../../actions/profileActions';
 
 class CreateProfile extends Component {
@@ -22,6 +21,7 @@ class CreateProfile extends Component {
       youtube: '',
       instagram: '',
       profilePic: '',
+      backgroundPic: '',
       errors: {}
     };
 
@@ -58,6 +58,30 @@ class CreateProfile extends Component {
       axios.post('api/posts/uploads', formData);
     }
   }
+  fileChangedHandler2 = (event) => {
+    
+    if(event.target.files[0] != null) {
+      const file = event.target.files[0];
+      
+      // this.setState({selectedFile: event.target.files[0]});
+      const uuidv4 = require('uuid/v4');
+      const formData = new FormData();
+      var fileName = uuidv4();
+
+      formData.append('file', file, fileName);
+
+      // I do this after so it only affects the state, not whats uploaded to s3
+      // The state & model in the db stores the whole url
+      fileName = 'https://s3.us-east-2.amazonaws.com/aveneu/' + fileName;
+      
+
+    
+      this.setState({backgroundPic: fileName});
+     
+      
+      axios.post('api/posts/uploads', formData);
+    }
+  }
   onSubmit(e) {
     e.preventDefault();
 
@@ -65,6 +89,7 @@ class CreateProfile extends Component {
       location: this.state.location,
       bio: this.state.bio,
       profilePic: this.state.profilePic,
+      backgroundPic: this.state.backgroundPic,
       twitter: this.state.twitter,
       facebook: this.state.facebook,
       linkedin: this.state.linkedin,
@@ -165,6 +190,10 @@ class CreateProfile extends Component {
                 Profile Picture
                 <br />
                 <input type="file" name="file" id="file" onChange={this.fileChangedHandler}/>
+                <br />
+                Background Picture
+                <br />
+                <input type="file" name="file" id="file" onChange={this.fileChangedHandler2}/>
 
                 <div className="mb-3">
                   <button

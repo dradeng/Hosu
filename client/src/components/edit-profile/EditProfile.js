@@ -24,6 +24,7 @@ class CreateProfile extends Component {
       youtube: '',
       instagram: '',
       profilePic: '',
+      backgroundPic: '',
       errors: {}
     };
 
@@ -48,6 +49,7 @@ class CreateProfile extends Component {
     
       profile.bio = !isEmpty(profile.bio) ? profile.bio : '';
       profile.profilePic = !isEmpty(profile.profilePic) ? profile.profilePic : '';
+      profile.backgroundPic = !isEmpty(profile.backgroundPic) ? profile.backgroundPic : '';
       profile.social = !isEmpty(profile.social) ? profile.social : {};
       profile.twitter = !isEmpty(profile.social.twitter)
         ? profile.social.twitter
@@ -70,6 +72,7 @@ class CreateProfile extends Component {
         location: profile.location,
         bio: profile.bio,
         profilePic: profile.profilePic,
+        backgroundPic: profile.backgroundPic,
         twitter: profile.twitter,
         facebook: profile.facebook,
         linkedin: profile.linkedin,
@@ -93,10 +96,30 @@ class CreateProfile extends Component {
       // I do this after so it only affects the state, not whats uploaded to s3
       // The state & model in the db stores the whole url
       fileName = 'https://s3.us-east-2.amazonaws.com/aveneu/' + fileName;
-      
-      console.log("FILENAME" + fileName);
    
       this.setState({profilePic: fileName});
+     
+      
+      axios.post('api/posts/uploads', formData);
+    }
+  }
+  fileChangedHandler2 = (event) => {
+    
+    if(event.target.files[0] != null) {
+      const file = event.target.files[0];
+      
+      // this.setState({selectedFile: event.target.files[0]});
+      const uuidv4 = require('uuid/v4');
+      const formData = new FormData();
+      var fileName = uuidv4();
+
+      formData.append('file', file, fileName);
+
+      // I do this after so it only affects the state, not whats uploaded to s3
+      // The state & model in the db stores the whole url
+      fileName = 'https://s3.us-east-2.amazonaws.com/aveneu/' + fileName;
+      
+      this.setState({backgroundPic: fileName});
      
       
       axios.post('api/posts/uploads', formData);
@@ -112,6 +135,7 @@ class CreateProfile extends Component {
       githubusername: this.state.githubusername,
       bio: this.state.bio,
       profilePic: this.state.profilePic,
+      backgroundPic: this.state.backgroundPic,
       twitter: this.state.twitter,
       facebook: this.state.facebook,
       linkedin: this.state.linkedin,
@@ -214,6 +238,12 @@ class CreateProfile extends Component {
                 <br />
                 <img src={this.state.profilePic} />
                 <input type="file" name="file" id="file" onChange={this.fileChangedHandler}/>
+                <br />
+
+                Background Picture
+                <br />
+                <img src={this.state.backgroundPic} />
+                <input type="file" name="file" id="file" onChange={this.fileChangedHandler2}/>
 
                 <div className="mb-3">
                   <button

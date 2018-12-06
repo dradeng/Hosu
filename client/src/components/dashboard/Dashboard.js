@@ -29,13 +29,15 @@ class Dashboard extends Component {
       dashboardContent = <Spinner />;
     } else {
         
-  
+      
       // Check if logged in user has profile data
       if (Object.keys(profile).length > 0) {
+        
         dashboardContent = (
           <div>
+
             <p className="lead text-muted">
-              Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link>
+              Welcome <Link to={`/profile/${profile._id}`}>{user.name}</Link>
 
               
             </p>

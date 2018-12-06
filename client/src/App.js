@@ -22,7 +22,6 @@ import CreateProfile from './components/create-profile/CreateProfile';
 import EditProfile from './components/edit-profile/EditProfile';
 import EditPost from './components/edit-post/EditPost';
 import AddReview from './components/add-credentials/AddReview';
-import Profiles from './components/profiles/Profiles';
 import Profile from './components/profile/Profile';
 import Posts from './components/posts/Posts';
 import PostForm from './components/posts/PostForm';
@@ -68,10 +67,9 @@ class App extends Component {
             <div className="container">
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
-              <Route exact path="/profiles" component={Profiles} />
-                <Route exact path="/favorites" component={Favorites} />
+              <Route exact path="/favorites" component={Favorites} />
 
-              <Route exact path="/profile/:handle" component={Profile} />
+              <Route exact path="/profile/:id" component={Profile} />
               <Switch>
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
               </Switch>

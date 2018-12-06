@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ProfileHeader from './ProfileHeader';
-import ProfileAbout from './ProfileAbout';
 import ProfileReview from './ProfileReview';
 import { getProfileByID } from '../../actions/profileActions';
 import Spinner from '../common/Spinner';
@@ -12,12 +11,6 @@ class Profile extends Component {
   componentDidMount() {
     if (this.props.match.params.id) {
       this.props.getProfileByID(this.props.match.params.id);
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.profile.profile === null && this.props.profile.loading) {
-      this.props.history.push('/not-found');
     }
   }
 
@@ -31,20 +24,14 @@ class Profile extends Component {
       profileContent = (
         <div>
           <div className="row">
-            <div className="col-md-6">
-              <Link to="/profiles" className="btn btn-light mb-3 float-left">
-                Back To Profiles
-              </Link>
-            </div>
             <div style={{alignContent: "flex-end"}} className="col-md-6">
                 <Link to="/add-review" className="btn btn-light">
-                    <i className="fas fa-graduation-cap text-info mr-1" />
                     Add Review
                 </Link>
             </div>
           </div>
           <ProfileHeader profile={profile} />
-          <ProfileAbout profile={profile} />
+          <span>{profile.bio}</span>
           <ProfileReview profile={profile}/>
         </div>
       );

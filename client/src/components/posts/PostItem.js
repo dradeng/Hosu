@@ -117,13 +117,13 @@ class PostItem extends Component {
           <div className="card card-body mb-3 col-md-6 feedTile">
             <div className="row">
                   <div className="col-md-2">
-                      <a href="profile.html">
+                      <Link to={`/profile/${post.profile}`}>
                           <img
                               className="rounded-circle d-none d-md-block postImage"
                               src={post.avatar}
                               alt=""
                           />
-                      </a>
+                      </Link>
                   </div>
                   <div className="col-md-10">
                       <div style={{minHeight: 49}} className="row">
@@ -162,7 +162,7 @@ class PostItem extends Component {
                   </div>
                 </div>
               </div>
-              <div className="row" style={{position: 'absolute', top: '25%', right: '10%',}}>
+              <div className="row" style={{position: 'absolute', top: '20%', right: '10%',}}>
                   <Month period="start" month={startString}/>
                   {endDateContent}
               </div>

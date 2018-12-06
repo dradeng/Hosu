@@ -6,19 +6,17 @@ class ProfileHeader extends Component {
 
   render() {
     const { profile } = this.props;
-
+    console.log(profile.backgroundPic);
     return (
       <div>
         <div className="col-md-12">
-          <div className="card card-body bg-info text-white mb-3">
+          <div style={{backgroundImage: `url(${profile.backgroundPic})`, backgroundSize: '100% 100%'}}>
             <div className="row">
-              <div className="col-4 col-md-3 m-auto">
                 <img
                   className="rounded-circle"
-                  src={profile.user.profPic}
-                  alt=""
+                  src={profile.profilePic}
+                  style={{width:120, height:120,display: 'block', marginLeft: 'auto', marginRight: 'auto'}}
                 />
-              </div>
             </div>
             <div className="text-center">
               <h1 className="display-4 text-center">{profile.user.name}</h1>

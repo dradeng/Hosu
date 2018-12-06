@@ -62,6 +62,7 @@ class PostForm extends Component {
       rent: this.state.rent,
       startDate: this.state.startDate,
       endDate: this.state.endDate,
+      profile: profile._id,
     };
 
     this.props.addPost(newPost);

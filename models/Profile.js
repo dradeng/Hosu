@@ -17,6 +17,10 @@ const ProfileSchema = new Schema({
         type: String,
         default: null,
     },
+    backgroundPic: {
+        type: String,
+        default: null,
+    },
     posts: [String],
     favorites: [String],
     social: {
