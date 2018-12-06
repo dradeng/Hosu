@@ -4,40 +4,54 @@ import {Link} from "react-router-dom";
 import Rating from "react-rating";
 
 class ProfileReview extends Component {
+
     render() {
         const { profile } = this.props;
-        const reviews = profile.reviews.map(review => (
-            <div key={review.reviewer} className="card card-body mb-2">
-                <div className="row">
-                    <div className="col-md-6">
-                        <h4>
-                            {review.title}
-                        </h4>
-                    </div>
-                    <div className="col-md-6">
-                         <span className="badge badge-secondary mr-1">
-                          {review.date}
-                        </span>
-                    </div>
-                    <div className="col-md-6">
-                        <p>{review.description}</p>
+        const reviews = profile.reviews.map(review => { 
 
-                        <Rating
-                            style={{background: "#FFFFFF", color: 'red'}}
-                            readonly
-                            initialRating={review.rating}
-                        />
 
+            var date = new Date(review.date);
+
+            var month =date.getMonth();
+            var day = date.getDate();
+            var year = date.getFullYear();
+            date = month + '/' + day + '/' + year;
+
+            return (
+                <div key={review.reviewer} className="card card-body mb-2">
+                    <div className="row">
+                        <div className="col-md-10">
+                            <h4>
+                                {review.title}
+                                <Rating
+                                emptySymbol="far fa-star fa-2x"
+                                fullSymbol="fa fa-star fa-2x"
+                                readonly
+                                initialRating={review.rating}
+                                style={{fontSize: 10, paddingLeft: 10}}
+                                />
+                            </h4>
+                            
+                        </div>
+                        <div className="col-md-2">
+                             <span className="badge badge-secondary mr-1">
+                              {date}
+                            </span>
+                        </div>
+                        <div className="col-md-6">
+                            <p>{review.description}</p>
+                        </div>
                     </div>
+
                 </div>
 
-            </div>
-        ));
+            )
+        });
 
         return (
             <div ref="myRef">
                 <hr />
-                <h3 className="mb-4">Reviews</h3>
+                <h3 className="mb-4">Reviews ( {profile.numReviews} )</h3>
                 {reviews}
                 {profile.reviews.length === 0 && <div> none yet </div>}
             </div>

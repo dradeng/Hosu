@@ -40,6 +40,14 @@ const ProfileSchema = new Schema({
             type: String
         }
     },
+    reviewSum: {
+        type: Number,
+        default: 0
+    },
+    numReviews: {
+        type: Number,
+        default: 0
+    },
     reviews: [
         {
             title: {
@@ -61,7 +69,8 @@ const ProfileSchema = new Schema({
                 required: true
             },
             date: {
-                type: Date
+                type: Date,
+                default: Date.now
             },
         }
     ],

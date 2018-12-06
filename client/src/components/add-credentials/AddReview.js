@@ -81,6 +81,8 @@ class AddReview extends Component {
                                 <Rating
                                     onChange={this.updateRating}
                                     initialRating={this.state.rating}
+                                    emptySymbol="far fa-star fa-2x"
+                                    fullSymbol="fa fa-star fa-2x"
                                 />
                                 <h6>Description</h6>
                                 <TextAreaFieldGroup
@@ -90,11 +92,9 @@ class AddReview extends Component {
                                     onChange={this.onChange}
                                     error={errors.description}
                                 />
-                                <input
-                                    type="submit"
-                                    value="Submit"
-                                    className="btn btn-info btn-block mt-4"
-                                />
+                                <button type="submit" className="btncustom btn btn-block mt-4">
+                                    Submit
+                                </button>
                             </form>
                         </div>
                     </div>

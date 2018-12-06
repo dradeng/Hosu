@@ -176,6 +176,9 @@ router.post(
             };
             // Add to exp array
            profile.reviews.unshift(newReview);
+           profile.numReviews += 1;
+           profile.reviewSum += req.body.rating;
+
 
            profile.save().then(profile => res.json(profile));
         });
