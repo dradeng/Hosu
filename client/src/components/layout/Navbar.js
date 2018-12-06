@@ -86,7 +86,7 @@ class Navbar extends Component {
                   className="rounded-circle"
                   src={profile.profilePic }
                   alt={user.name}
-                  style={{ width: '25px', marginRight: '5px' }}
+                  style={{ width: 30, height:30, marginRight: '5px' }}
                   title="You must have a Gravatar connected to your email to display an image"
                 />
                       :
@@ -94,7 +94,7 @@ class Navbar extends Component {
                           className="rounded-circle"
                           src={UserIcon}
                           alt={user.name}
-                          style={{ width: '25px', marginRight: '5px' }}
+                          style={{ width: 30, height:30, marginRight: '5px' }}
                           title="You must have a Gravatar connected to your email to display an image"
                       />
                   }

@@ -19,31 +19,36 @@ class CommentItem extends Component {
               <img
                 className="rounded-circle d-none d-md-block"
                 src={comment.avatar}
-                style={{ marginLeft: 15, width:30,height:30}}
+                style={{ marginLeft: 15, marginRight: 15, width:30,height:30}}
               />
             </a>
             <br />
           </div>
 
-          <div>
-            <span className="text-center" style={{}}>
-              <span style={{fontWeight:'bold'}}>{comment.name}</span>
+         
+          <div class="column" className="text-center">
+          
+            <div class="row" style={{fontWeight:'bold'}}>
 
-              {comment.user === auth.user.id ? (
-                <button
-                  onClick={this.onDeleteClick.bind(this, postId, comment._id)}
-                  type="button"
-                  class="close" 
-                  aria-label="Close"
-                >
-                  <i style={{width:15,height:12,paddingBottom:2, verticalAlign: 'middle', display:'inline-block'}} class="fa fa-trash"></i>
-                </button>
-              ) : null}
+              {comment.name}
+
+              <div>
+                {comment.user === auth.user.id ? (
+                  <button
+                    style={{left:0}}
+                    onClick={this.onDeleteClick.bind(this, postId, comment._id)}
+                    type="button"
+                    class="close" 
+                    aria-label="Close"
+                  >
+                    <i style={{paddingBottom:5, height:18}} class="fa fa-trash"></i>
+                  </button>
+                ) : null}
+              </div>
 
 
-            </span>
-            <br />
-            <span className="lead">{comment.text}</span>
+            </div>
+            <div class="row">{comment.text}</div>
           </div>
         </div>
       </div>
