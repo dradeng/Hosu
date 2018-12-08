@@ -20,7 +20,7 @@ class ProfileReview extends Component {
             return (
                 <div className="card card-body mb-2">
                     <div class="row">
-                        <div style={{marginLeft:15, marginRight:15}} class="column">
+                        <div style={{ verticalAlign: 'middle', marginLeft:15, marginRight:15}} class="column">
                             <img
                                 className="rounded-circle d-none d-md-block"
                                 src={review.profilePic}
@@ -28,19 +28,22 @@ class ProfileReview extends Component {
                         </div>
                         <div style={{paddingLeft:15}} class="column">
                             <div class="row">
-                                
-                                {review.userName}
-                                
-                                <Rating
-                                    emptySymbol="far fa-star fa-2x"
-                                    fullSymbol="fa fa-star fa-2x"
-                                    readonly
-                                    initialRating={review.rating}
-                                    style={{marginLeft:15, fontSize: 10}}/>
-                             
-                                <div style={{marginLeft:'auto', marginRight: 0}} className="badge badge-secondary">
-                                    {date}
+                                <div class="column">
+                                    {review.userName}
+                                    
+                                    <Rating
+                                        emptySymbol="far fa-star fa-2x"
+                                        fullSymbol="fa fa-star fa-2x"
+                                        readonly
+                                        initialRating={review.rating}
+                                        style={{marginLeft:15, fontSize: 10}}/>
                                 </div>
+                            
+                                <div style={{position:'absolute', right:10 }} class="column" className="badge badge-secondary">
+                                    {date}
+                              
+                                </div>
+                                 
                             </div>
                            
                             <div>

@@ -15,13 +15,11 @@ class CommentItem extends Component {
       <div>
         <div className="row">
           <div style={{margin:15}}>
-            <a href="profile.html">
               <img
                 className="rounded-circle d-none d-md-block"
                 src={comment.avatar}
                 style={{ marginLeft: 15, marginRight: 15, width:30,height:30}}
               />
-            </a>
             <br />
           </div>
 
