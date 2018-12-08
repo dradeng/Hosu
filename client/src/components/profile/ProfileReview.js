@@ -18,32 +18,38 @@ class ProfileReview extends Component {
             date = month + '/' + day + '/' + year;
 
             return (
-                <div key={review.reviewer} className="card card-body mb-2">
-                    <div className="row">
-                        <div className="col-md-10">
-                            <h4>
-                                {review.title}
+                <div className="card card-body mb-2">
+                    <div class="row">
+                        <div style={{marginLeft:15, marginRight:15}} class="column">
+                            <img
+                                className="rounded-circle d-none d-md-block"
+                                src={review.profilePic}
+                                style={{ width:30,height:30}} />
+                        </div>
+                        <div style={{paddingLeft:15}} class="column">
+                            <div class="row">
+                                
+                                {review.userName}
+                                
                                 <Rating
-                                emptySymbol="far fa-star fa-2x"
-                                fullSymbol="fa fa-star fa-2x"
-                                readonly
-                                initialRating={review.rating}
-                                style={{fontSize: 10, paddingLeft: 10}}
-                                />
-                            </h4>
-                            
-                        </div>
-                        <div className="col-md-2">
-                             <span className="badge badge-secondary mr-1">
-                              {date}
-                            </span>
-                        </div>
-                        <div className="col-md-6">
-                            <p>{review.description}</p>
+                                    emptySymbol="far fa-star fa-2x"
+                                    fullSymbol="fa fa-star fa-2x"
+                                    readonly
+                                    initialRating={review.rating}
+                                    style={{marginLeft:15, fontSize: 10}}/>
+                             
+                                <div style={{marginLeft:'auto', marginRight: 0}} className="badge badge-secondary">
+                                    {date}
+                                </div>
+                            </div>
+                           
+                            <div>
+                                {review.description}
+                            </div>
                         </div>
                     </div>
-
                 </div>
+
 
             )
         });

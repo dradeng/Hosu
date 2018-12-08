@@ -61,17 +61,14 @@ router.get('/all', (req, res) => {
 
 router.get('/:id', (req, res) => {
   const errors = {};
-  Profile.findOne({ user: req.params.id })
-    .populate('user', ['name', 'avatar'])
+  console.log(req.params.id);
+  Profile.findById(req.params.id)
     .then(profile => {
-      if (!profile) {
-        errors.noprofile = 'There is no profile for this user';
-        res.status(404).json(errors);
-      }
+      console.log(profile);
       res.json(profile);
     })
     .catch(err =>
-      res.status(404).json({ profile: 'There is no profile for this user' })
+      res.status(404).json({ noprofilefound: 'No profile found with that ID' })
     );
 });
 
@@ -166,22 +163,33 @@ router.post(
             // Return any errors with 400 status
             return res.status(400).json(errors);
         }
-        Profile.findOne({ user: req.body.target }).then(profile => {
-            const newReview = {
-                title: req.body.title,
-                reviewer: req.user.id,
-                description: req.body.description,
-                rating: req.body.rating,
-                date: Date.now(),
-            };
+        Profile.findOne({ user: req.user.id }).then(profile => {
+       
+          console.log('before');
+          const newReview = {
+              profilePic: req.body.profilePic,
+              userName: req.body.userName,
+              description: req.body.description,
+              rating: req.body.rating,
+          };
+          console.log('after');
             // Add to exp array
-           profile.reviews.unshift(newReview);
-           profile.numReviews += 1;
-           profile.reviewSum += req.body.rating;
+          console.log('profpic' + newReview.profilePic);
+          console.log('use' + newReview.userName);
+          console.log('desc' + newReview.description);
+          console.log('rating' + newReview.rating);
+          profile.numReviews += 1;
+          profile.reviewSum += req.body.rating;
+          console.log('added poitns');
+          profile.reviews.unshift(newReview);
+          console.log('heyyy');
+          console.log('jhh'+profile.reviews);
+          
 
-
+           console.log('we meafe it');
            profile.save().then(profile => res.json(profile));
-        });
+        })
+        .catch(err => res.status(404).json(err));
     }
 );
 

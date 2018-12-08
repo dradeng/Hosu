@@ -2,7 +2,6 @@ import axios from 'axios';
 
 import {
     GET_PROFILE,
-    GET_PROFILE_BY_ID,
     GET_PROFILES,
     PROFILE_LOADING,
     CLEAR_CURRENT_PROFILE,
@@ -31,22 +30,22 @@ export const getCurrentProfile = () => dispatch => {
 };
 
 // Get profile by id
-export const getProfileByID = user_id => dispatch => {
-    dispatch(setProfileLoading());
-    axios
-        .get(`/api/profile/${user_id}`)
-        .then(res =>
-            dispatch({
-                type: GET_PROFILE_BY_ID,
-                payload: res.data
-            })
-        )
-        .catch(err =>
-            dispatch({
-                type: GET_PROFILE_BY_ID,
-                payload: err.response.data
-            })
-        );
+export const getProfile = id => dispatch => {
+  dispatch(setProfileLoading());
+  axios
+    .get(`/api/profile/${id}`)
+    .then(res =>
+      dispatch({
+        type: GET_PROFILE,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_PROFILE,
+        payload: null
+      })
+    );
 };
 
 

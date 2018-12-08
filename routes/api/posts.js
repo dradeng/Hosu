@@ -80,7 +80,7 @@ router.post(
         if(post) {
           
           const updatePost = {};
-          console.log('editting post info');
+         
           updatePost.title = req.body.title,
           updatePost.address = req.body.address,
           updatePost.text = req.body.text,
@@ -101,7 +101,7 @@ router.post(
             { new: true }
           ).then(post => res.json(post));
         } else {
-          console.log('post created');
+          //console.log('post created');
 
           const newPost = new Post({
             title: req.body.title,

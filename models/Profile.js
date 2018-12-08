@@ -50,28 +50,26 @@ const ProfileSchema = new Schema({
     },
     reviews: [
         {
-            title: {
+            userName: {
                 type: String,
-                required: true
+                default: null
             },
-            reviewer: {
+            profilePic: {
                 type: String,
-                required: true
+                default: null
             },
             description: {
-                type: String
-            },
-            target: {
-                type: String
+                type: String,
+                default: null
             },
             rating: {
                 type: Number,
-                required: true
+                default: 5
             },
             date: {
                 type: Date,
                 default: Date.now
-            },
+            }
         }
     ],
     date: {

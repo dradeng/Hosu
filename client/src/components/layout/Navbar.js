@@ -22,7 +22,7 @@ class Navbar extends Component {
         messageOpen: false,
     };
   }
-  ComponentDidMount() {
+  componentWillMount() {
     this.props.getCurrentProfile();
   }
   toggle() {

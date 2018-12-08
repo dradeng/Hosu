@@ -5,13 +5,12 @@ import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import Rating from 'react-rating';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addReview } from '../../actions/profileActions';
+import { addReview, getCurrentProfile } from '../../actions/profileActions';
 
 class AddReview extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: '',
             description: '',
             rating: 0,
             errors: {},
@@ -23,7 +22,9 @@ class AddReview extends Component {
         this.onSubmit = this.onSubmit.bind(this);
         this.onCheck = this.onCheck.bind(this);
     }
-
+    componentDidMount() {
+        this.props.getCurrentProfile();
+    }
     componentWillReceiveProps(nextProps) {
         if (nextProps.errors) {
             this.setState({ errors: nextProps.errors });
@@ -32,10 +33,12 @@ class AddReview extends Component {
 
     onSubmit(e) {
         e.preventDefault();
+        const { user } = this.props.auth;
+        const { profile } = this.props.profile;
 
         const reviewData = {
-            title: this.state.title,
-            target: this.props.profile.profile.user._id,
+            userName: user.name,
+            profilePic: profile.profilePic,
             description: this.state.description,
             rating: this.state.rating,
         };
@@ -70,13 +73,6 @@ class AddReview extends Component {
                             <h1 className="display-4 text-center">Write {this.props.target} a review</h1>
                             <small className="d-block pb-3">* = required fields</small>
                             <form onSubmit={this.onSubmit}>
-                                <TextFieldGroup
-                                    placeholder="* Review title"
-                                    name="title"
-                                    value={this.state.title}
-                                    onChange={this.onChange}
-                                    error={errors.title}
-                                />
                                 <h6>Rating</h6>
                                 <Rating
                                     onChange={this.updateRating}
@@ -105,16 +101,19 @@ class AddReview extends Component {
 }
 
 AddReview.propTypes = {
+    getCurrentProfile: PropTypes.func.isRequired,
     addReview: PropTypes.func.isRequired,
     profile: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
+    auth: state.auth,
     profile: state.profile,
-    errors: state.errors
+    errors: state.errors,
 });
 
-export default connect(mapStateToProps, { addReview })(
+export default connect(mapStateToProps, { addReview, getCurrentProfile })(
     withRouter(AddReview)
 );
