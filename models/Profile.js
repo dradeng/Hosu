@@ -10,7 +10,7 @@ const ProfileSchema = new Schema({
     avatar: {
         type: String,
         default: null,
-    }
+    },
     location: {
         type: String
     },
