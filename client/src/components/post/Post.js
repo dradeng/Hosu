@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import NonFeedPostItem from '../posts/NonFeedPostItem';
 import CommentForm from './CommentForm';
 import CommentFeed from './CommentFeed';
+import MapContainer from "../map/MapContainer";
 import Spinner from '../common/Spinner';
 import { getPost } from '../../actions/postActions';
 import { getCurrentProfile } from '../../actions/profileActions';
@@ -65,6 +66,20 @@ class Post extends Component {
     let postContent;
     let editContent;
 
+
+    var geojson = [];
+    geojson['type'] = 'FeatureCollection';
+    geojson['features'] = [];
+
+    for (var k in post) {
+        if (!post[k].latitude)
+        {
+          continue;
+        }
+        
+        geojson.push(post[k]);
+    }
+
     if (post === null || loading || Object.keys(post).length === 0) {
       postContent = <Spinner />;
     } else {
@@ -93,6 +108,9 @@ class Post extends Component {
               <Link to="/feed" className="btn btn-light mb-3">
                 Back To Feed
               </Link>
+              <div style={{height: '49%',width: '50%', float:'right', marginTop: 122}}>
+                  <MapContainer id="map" geojson={geojson}/>
+              </div>
               <Link onClick={this.createChat} style={{position:'absolute', right:0}} className="btn btn-light mb-3" to="/chats">Message</Link>
               {postContent}
             </div>

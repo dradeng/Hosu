@@ -26,21 +26,7 @@ class Posts extends Component {
           {
             continue;
           }
-          /*
-          var newFeature = {
-              "type": "Feature",
-              "geometry": {
-                  "type": "Point",
-                  "coordinates": [parseFloat(posts[k].latitude), parseFloat(posts[k].longitude)]
-               },
-          "properties": {
-              "title": posts[k].title,
-                  "description": posts[k].text
-          }
-      }
-
-          geojson['features'].push(newFeature);
-*/
+          
           geojson.push(posts[k]);
       }
 
@@ -53,17 +39,17 @@ class Posts extends Component {
 
     return (
       <div style={{margin: 5, marginTop: '-1.5em'}}  className="feed">
-        <div >
-            <div  style={{overflow: 'scroll',marginBottom: '10%',background: '#FFFFFF',position: 'absolute',zIndex: 100, maxWidth: 840, height: '100vh',borderRight: '1px solid rgba(0,0,0,0.25)'}} className="col-md-8 row">
-                {postContent}
+        <div>
+          <div  style={{overflow: 'scroll',marginBottom: '10%',background: '#FFFFFF',position: 'absolute',zIndex: 100, maxWidth: 840, height: '100vh',borderRight: '1px solid rgba(0,0,0,0.25)'}} className="col-md-8 row">
+            {postContent}
 
-            </div>
+          </div>
           <div className="row">
             <div className="col-md-4">
 
             </div>
               <div style={{height: '100vh',width: '100vh', right: 5,top: 0}} className="col-md-8">
-                  <MapContainer id="map" geojson={geojson}/>
+                <MapContainer id="map" geojson={geojson}/>
               </div>
           </div>
         </div>

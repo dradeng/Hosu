@@ -16,7 +16,7 @@ class PostFeed extends Component {
 
   	this.state = {
   		min: 0,
-  		max: 2500,
+  		max: 10000,
         startYear: 2018,
         endYear: 2018,
         startMonth: 11,

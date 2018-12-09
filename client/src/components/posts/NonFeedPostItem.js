@@ -8,7 +8,7 @@ import ReactDom from 'react-dom';
 import { Link } from 'react-router-dom';
 import { FaStar, FaRegStar } from 'react-icons/fa';
 import { Textfit } from 'react-textfit';
-
+import MapContainer from "../map/MapContainer";
 import { addLike, removeLike } from '../../actions/postActions';
 import { addFavorite, getCurrentProfile } from '../../actions/profileActions';
 import Month from '../availability/Month';
@@ -91,6 +91,20 @@ class PostItem extends Component {
       
     }
 
+
+    var geojson = [];
+      geojson['type'] = 'FeatureCollection';
+      geojson['features'] = [];
+
+    for (var k in post) {
+        if (!post[k].latitude)
+        {
+          continue;
+        }
+        
+        geojson.push(post[k]);
+    }
+
     const allImage = post.images.map((item, index) => (
         <div>
             <div style={{height: '100%', paddingTop: '66%', backgroundSize: 'cover', backgroundPosition: 'center center', backgroundImage: 'url("' + item + '")'}}>
@@ -108,74 +122,67 @@ class PostItem extends Component {
     var format = { month : 'short', day : 'numeric' };
 
     startString = new Date(post.startDate).toLocaleDateString('en-US', format);
-    
-
-
-
 
     if(post.endDate != null && post.endDate.length > 1){
       endString = new Date(post.endDate).toLocaleDateString('en-US', format);
       endDateContent = <Month period="end" month={endString}/>
     }
 
-      return (
-          <div className="card card-body mb-3 col-md-6 feedTile">
-            <div className="row">
-              <div className="col-md-2">
-                <a href="profile.html">
-                  <img
-                    className="rounded-circle d-none d-md-block postImage"
-                    src={post.avatar}
-                    alt=""
-                  />
-                </a>
-              </div>
-              <div className="col-md-10">
-                <div style={{minHeight: 49}} className="row">
-                  <div className="lead col-md-9">
-                    <Textfit
-                      mode="single"
-                      forceSingleModeWidth={false}>
-                      {post.title}
-                    </Textfit></div>
-                  
-                    {post.user !== auth.user.id ? (
-
-                      <div style={{fontSize: 22, color: '#fac71e'}}  onClick={this.onFavorite.bind(this, auth.user.id, post._id)}>
-                        
-                        {starContent}
-
-                      </div>
-                      ): null 
-                    }
-
-                </div>
-              </div>
-
+    return (
+        <div className="card card-body mb-3 col-md-6 feedTile">
+          <div className="row">
+            <div className="col-md-2">
+  
+              <img
+                className="rounded-circle d-none d-md-block postImage"
+                src={post.avatar}
+                alt=""
+              />
+          
             </div>
+            <div className="col-md-10">
+              <div style={{minHeight: 49}} className="row">
+                <div className="lead col-md-9">
+                  <Textfit
+                    mode="single"
+                    forceSingleModeWidth={false}>
+                    {post.title}
+                  </Textfit></div>
+                
+                  {post.user !== auth.user.id ? (
+
+                    <div style={{fontSize: 22, color: '#fac71e'}}  onClick={this.onFavorite.bind(this, auth.user.id, post._id)}>
+                      
+                      {starContent}
+
+                    </div>
+                    ): null 
+                  }
+
+              </div>
+            </div>
+          </div>
+          <div>
+
+          <div style={{height:'40%',borderRadius: 5}}>
+            <Carousel showThumbs={false}  showIndicators={false} showStatus={false}>
+              {allImage}
+            </Carousel>
             <div>
+              <div class="row" style={{position: 'absolute',textShadow: '0 .5px 0 rgba(0,0,0,0.6)', bottom: 10, left: 40, color: '#FFFFFF'}}>
+                <p className="priceTag">${post.rent}</p>
 
-              <div style={{height:'40%',borderRadius: 5}}>
-                <Carousel showThumbs={false}  showIndicators={false} showStatus={false}>
-                  {allImage}
-                </Carousel>
-                <div>
-                  <div class="row" style={{position: 'absolute',textShadow: '0 .5px 0 rgba(0,0,0,0.6)', bottom: 10, left: 40, color: '#FFFFFF'}}>
-                    <p className="priceTag">${post.rent}</p>
-
-                  </div>
-                </div>
               </div>
-
-            </div>
-            <div className="row" style={{position: 'absolute', top: '18%', right: '8%',}}>
-                <Month period="start" month={startString}/>
-                {endDateContent}
             </div>
 
           </div>
-
-      );
+        </div>
+        <div className="row" style={{position: 'absolute', top: 75, right: 40}}>
+          <Month period="start" month={startString}/>
+          {endDateContent}
+        </div>
+      </div>
+    );
   }
 }
 
