@@ -92,7 +92,7 @@ router.post(
     profileFields.user = req.user.id;
     if (req.body.location) profileFields.location = req.body.location;
     if (req.body.bio) profileFields.bio = req.body.bio;
-    
+    if (req.body.avatar) profileFields.avatar = req.body.avatar;
     if (req.body.backgroundPic) profileFields.backgroundPic = req.body.backgroundPic;  
     // Social
     profileFields.social = {};
@@ -172,18 +172,11 @@ router.post(
               description: req.body.description,
               rating: req.body.rating,
           };
-          console.log('after');
-            // Add to exp array
-          console.log('profpic' + newReview.profilePic);
-          console.log('use' + newReview.userName);
-          console.log('desc' + newReview.description);
-          console.log('rating' + newReview.rating);
+          //add to reviews
           profile.numReviews += 1;
           profile.reviewSum += req.body.rating;
-          console.log('added poitns');
           profile.reviews.unshift(newReview);
-          console.log('heyyy');
-          console.log('jhh'+profile.reviews);
+     
           
 
            console.log('we meafe it');

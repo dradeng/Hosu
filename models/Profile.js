@@ -7,15 +7,15 @@ const ProfileSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'users'
     },
+    avatar: {
+        type: String,
+        default: null,
+    }
     location: {
         type: String
     },
     bio: {
         type: String
-    },
-    profilePic: {
-        type: String,
-        default: null,
     },
     backgroundPic: {
         type: String,

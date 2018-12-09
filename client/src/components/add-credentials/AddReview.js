@@ -38,7 +38,7 @@ class AddReview extends Component {
 
         const reviewData = {
             userName: user.name,
-            profilePic: profile.profilePic,
+            profilePic: user.profilePic,
             description: this.state.description,
             rating: this.state.rating,
         };

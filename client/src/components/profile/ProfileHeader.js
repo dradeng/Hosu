@@ -15,7 +15,7 @@ class ProfileHeader extends Component {
             <div className="row">
               <img
                 className="rounded-circle"
-                src={profile.profilePic}
+                src={profile.avatar}
                 style={{width:120, height:120,display: 'block', position: 'absolute', left: 20, bottom: 60, border:'4px solid white'}} />
               
 

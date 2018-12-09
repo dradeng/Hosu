@@ -60,10 +60,13 @@ class CreateProfile extends Component {
   onSubmit(e) {
     e.preventDefault();
 
+    const { user } = this.props.auth;
+
     const profileData = {
       location: this.state.location,
       bio: this.state.bio,
       backgroundPic: this.state.backgroundPic,
+      avatar: user.profilePic,
       twitter: this.state.twitter,
       facebook: this.state.facebook,
       linkedin: this.state.linkedin,
@@ -194,11 +197,13 @@ class CreateProfile extends Component {
 }
 
 CreateProfile.propTypes = {
+  auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
+  auth: state.auth,
   profile: state.profile,
   errors: state.errors
 });
