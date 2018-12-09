@@ -20,7 +20,6 @@ class CreateProfile extends Component {
       linkedin: '',
       youtube: '',
       instagram: '',
-      profilePic: '',
       backgroundPic: '',
       errors: {}
     };
@@ -32,30 +31,6 @@ class CreateProfile extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
-    }
-  }
-  fileChangedHandler = (event) => {
-    
-    if(event.target.files[0] != null) {
-      const file = event.target.files[0];
-      
-      // this.setState({selectedFile: event.target.files[0]});
-      const uuidv4 = require('uuid/v4');
-      const formData = new FormData();
-      var fileName = uuidv4();
-
-      formData.append('file', file, fileName);
-
-      // I do this after so it only affects the state, not whats uploaded to s3
-      // The state & model in the db stores the whole url
-      fileName = 'https://s3.us-east-2.amazonaws.com/aveneu/' + fileName;
-      
-
-    
-      this.setState({profilePic: fileName});
-     
-      
-      axios.post('api/posts/uploads', formData);
     }
   }
   fileChangedHandler2 = (event) => {
@@ -88,7 +63,6 @@ class CreateProfile extends Component {
     const profileData = {
       location: this.state.location,
       bio: this.state.bio,
-      profilePic: this.state.profilePic,
       backgroundPic: this.state.backgroundPic,
       twitter: this.state.twitter,
       facebook: this.state.facebook,
@@ -187,10 +161,7 @@ class CreateProfile extends Component {
                   error={errors.bio}
                   info="Tell us a little about yourself"
                 />
-                Profile Picture
-                <br />
-                <input type="file" name="file" id="file" onChange={this.fileChangedHandler}/>
-                <br />
+                
                 Background Picture
                 <br />
                 <input type="file" name="file" id="file" onChange={this.fileChangedHandler2}/>

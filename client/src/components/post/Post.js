@@ -40,7 +40,7 @@ class Post extends Component {
       
       user1: user.id,
       user2: post.user,
-      user1ProfilePic: profile.profilePic,
+      user1ProfilePic: user.profilePic,
       user2ProfilePic: post.avatar,
       user1Name: user.name,
       user2Name: post.name,

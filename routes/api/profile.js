@@ -92,7 +92,7 @@ router.post(
     profileFields.user = req.user.id;
     if (req.body.location) profileFields.location = req.body.location;
     if (req.body.bio) profileFields.bio = req.body.bio;
-    if (req.body.profilePic) profileFields.profilePic = req.body.profilePic;
+    
     if (req.body.backgroundPic) profileFields.backgroundPic = req.body.backgroundPic;  
     // Social
     profileFields.social = {};
@@ -165,7 +165,7 @@ router.post(
         }
         Profile.findOne({ user: req.user.id }).then(profile => {
        
-          console.log('before');
+        
           const newReview = {
               profilePic: req.body.profilePic,
               userName: req.body.userName,

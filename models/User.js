@@ -19,6 +19,10 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  profilePic: {
+        type: String,
+        default: null,
+  },
   chats: [
     {
       chat: {

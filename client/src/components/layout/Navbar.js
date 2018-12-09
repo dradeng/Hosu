@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { logoutUser } from '../../actions/authActions';
-import { clearCurrentProfile,getCurrentProfile } from '../../actions/profileActions';
+import { clearCurrentProfile } from '../../actions/profileActions';
 import { getChats } from '../../actions/chatActions';
 import HausFlexLogo from '../../assets/hausflex.jpg';
 import UserIcon from '../../assets/UserIcon.png';
@@ -21,9 +21,6 @@ class Navbar extends Component {
       dropdownOpen: false,
         messageOpen: false,
     };
-  }
-  componentWillMount() {
-    this.props.getCurrentProfile();
   }
   toggle() {
     this.setState(prevState => ({
@@ -43,7 +40,6 @@ class Navbar extends Component {
 
   render() {
     const { isAuthenticated, user } = this.props.auth;
-    const { profile, loading } = this.props.profile;
     let options = [
       {
         text: 'Profile',
@@ -81,10 +77,10 @@ class Navbar extends Component {
           <span className="nav-link">
            <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
               <DropdownToggle style={{backgroundColor: 'transparent', borderWidth:0, padding:0,margin:0}}>
-                  {(profile !== null && !loading && profile.profilePic !== null) ?
+                  {( user.profilePic !== null) ?
                 <img
                   className="rounded-circle"
-                  src={profile.profilePic }
+                  src={user.profilePic }
                   alt={user.name}
                   style={{ width: 30, height:30, marginRight: '5px' }}
                   title="You must have a Gravatar connected to your email to display an image"
@@ -163,7 +159,6 @@ class Navbar extends Component {
 }
 
 Navbar.propTypes = {
-  getCurrentProfile: PropTypes.func.isRequired,
   logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   chat: PropTypes.object.isRequired,
@@ -173,9 +168,8 @@ Navbar.propTypes = {
 const mapStateToProps = state => ({
   auth: state.auth,
   chat: state.chat,
-  profile: state.profile
 });
 
-export default connect(mapStateToProps, { logoutUser, clearCurrentProfile, getCurrentProfile })(
+export default connect(mapStateToProps, { logoutUser, clearCurrentProfile })(
   Navbar
 );

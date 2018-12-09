@@ -47,9 +47,9 @@ class Dashboard extends Component {
                 <i className="fas fa-user-circle text-info mr-1" /> Edit Profile
               </Link>
             </div>
-            {(profile.profilePic !== null) ?
+            {(user.profilePic !== null) ?
               <img
-                src={profile.profilePic }
+                src={user.profilePic }
                 alt={user.name}
                 style={{ width: '150px', marginRight: '5px' }}
                 title="You must have a Gravatar connected to your email to display an image"
