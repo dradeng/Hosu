@@ -198,7 +198,7 @@ componentWillReceiveProps(nextProps) {
 
     if (index !== -1) {
       tmpImages.splice(index, 1);
-      this.setState({ removed: [...this.state.removed, index] });
+      this.setState({ removed: [...this.state.removed, this.state.newImages.indexOf(imageURL)] });
       this.setState({images: tmpImages});
       this.setState({newImages: tmpImages});
     }
@@ -250,24 +250,24 @@ componentWillReceiveProps(nextProps) {
     let existingImages = null;
   
     //HAVE TO USE CURRFILE for files not yet saved to s3
+    console.log('new render');
     if(this.state.newImages != null) {
      
       var i = 0;
       existingImages = this.state.newImages.map( image => {   
-        while(i < this.state.newImages.length - this.state.currFile.length)
-        {
-            i++;
-            var len = "https://s3.us-east-2.amazonaws.com/aveneu/".length;
-            var localFile = image.substring(len);
-            if(this.state.removed.indexOf(i) == -1)
+        
+            if(this.state.removed.indexOf(image) < 0)
             {
+             
+              //onError={(e)=>{e.target.onerror = null; e.target.src={localFile}}}
+              // CODE for if the src doesnt exist, might add later
               return <img
               onClick={this.onDeleteExistingImage.bind(this, image)}
               style={{width: 100, height: 100, border:0}} 
-              src={image} 
-              onError={(e)=>{e.target.onerror = null; e.target.src={localFile}}} />
+              onError={(e)=>{e.target.onerror = null; e.target.style.display='none'}}
+              src={image} />  
             }
-        }
+        
       });
       imagePreviewContent = this.state.currFile.map( image => {
    
