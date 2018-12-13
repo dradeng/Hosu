@@ -27,7 +27,7 @@ import Posts from './components/posts/Posts';
 import PostForm from './components/posts/PostForm';
 import Post from './components/post/Post';
 import NotFound from './components/not-found/NotFound';
-
+import FormSubmitted from './components/common/FormSubmitted';
 import Chats from './components/chat/Chats';
 import ChatItem from './components/chat/ChatItem';
 
@@ -120,6 +120,8 @@ class App extends Component {
               </Switch>
 
               <Route exact path="/not-found" component={NotFound} />
+
+              <Route exact path="/form-submitted" component={FormSubmitted} />
             </div>
             <div>
                 <Switch>

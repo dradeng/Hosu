@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Geocode from 'react-geocode';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
@@ -27,6 +27,7 @@ class PostForm extends Component {
       currFile: [],
       newImages: [],
       removed: [],
+      redirect: false,
     };
 
     this.onChange = this.onChange.bind(this);
@@ -105,9 +106,7 @@ componentWillReceiveProps(nextProps) {
     this.setState({ endDate: '' });
     this.setState({ currFile: []});
     this.setState({ removed: []});
-  
-    
-    
+    this.setState({ redirect: true });
   }
   //THIS IS FOR A FILE BE UPLOADED
   fileChangedHandler = (event) => {
@@ -240,6 +239,12 @@ componentWillReceiveProps(nextProps) {
   }
 
   render() {
+
+    if (this.state.redirect) {
+      return <Redirect to="/form-submitted" />;
+    }
+
+
     const { errors } = this.state;
     let imagePreviewContent = null;
     let existingImages = null;
@@ -252,12 +257,15 @@ componentWillReceiveProps(nextProps) {
         while(i < this.state.newImages.length - this.state.currFile.length)
         {
             i++;
-
+            var len = "https://s3.us-east-2.amazonaws.com/aveneu/".length;
+            var localFile = image.substring(len);
             if(this.state.removed.indexOf(i) == -1)
             {
               return <img
               onClick={this.onDeleteExistingImage.bind(this, image)}
-              style={{width: 100, height: 100, border:0}} src={image} />
+              style={{width: 100, height: 100, border:0}} 
+              src={image} 
+              onError={(e)=>{e.target.onerror = null; e.target.src={localFile}}} />
             }
         }
       });
