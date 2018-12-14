@@ -26,8 +26,8 @@ class PostForm extends Component {
       endDate: '',
       currFile: [],
       newImages: [],
-      removed: [],
       redirect: false,
+      removed: [],
     };
 
     this.onChange = this.onChange.bind(this);
@@ -105,8 +105,8 @@ componentWillReceiveProps(nextProps) {
     this.setState({ startDate: '' });
     this.setState({ endDate: '' });
     this.setState({ currFile: []});
-    this.setState({ removed: []});
     this.setState({ redirect: true });
+    this.setState({ removed: [] });
   }
   //THIS IS FOR A FILE BE UPLOADED
   fileChangedHandler = (event) => {
@@ -167,19 +167,22 @@ componentWillReceiveProps(nextProps) {
     }
   }
   onDeleteClick(imageURL) {
-    console.log('IMAGE URL'+imageURL);
+    console.log('IMAGE URL from delete'+imageURL);
     
     var index = this.state.currFile.indexOf(imageURL);
     var fileName = this.state.images[index];//HAVE TO FUCKING USE IMAGES NOT CURR FILE
 
+    console.log("file deleted is with index: " + index + " name: " + fileName);
    
     var leng = ('https://s3.us-east-2.amazonaws.com/aveneu/').length;
     fileName = fileName.substring(leng);
     var tmpCF = [...this.state.currFile];
     
     var tmpImages = [...this.state.images];
+    var imagesIndex = tmpImages.length + index - 1;
+    console.log("index we cutting " + imagesIndex);
     tmpCF.splice(index, 1);
-    tmpImages.splice(index,1);
+    tmpImages.splice(imagesIndex, 1);
     this.setState({images: tmpImages});
     this.setState({ currFile: tmpCF });
 
@@ -196,16 +199,20 @@ componentWillReceiveProps(nextProps) {
     var index = this.state.newImages.indexOf(imageURL);
     var tmpImages = [...this.state.newImages];
 
+    console.log("file deleted is with index: " + index);
+
     if (index !== -1) {
+      console.log("newimages length" + tmpImages.length);
       tmpImages.splice(index, 1);
-      this.setState({ removed: [...this.state.removed, this.state.newImages.indexOf(imageURL)] });
       this.setState({images: tmpImages});
       this.setState({newImages: tmpImages});
+      console.log("newimages length after" + tmpImages.length);
     }
-  
+    console.log("iamgeURL" + imageURL);
+    this.setState({ removed: [...this.state.removed, imageURL]});
     var leng = ('https://s3.us-east-2.amazonaws.com/aveneu/').length;
     var fileName = imageURL.substring(leng);
-    
+    console.log("file name for " + fileName);
     
     const newFile = {
       fileName : fileName
@@ -255,19 +262,13 @@ componentWillReceiveProps(nextProps) {
      
       var i = 0;
       existingImages = this.state.newImages.map( image => {   
-        
-            if(this.state.removed.indexOf(image) < 0)
-            {
-             
-              //onError={(e)=>{e.target.onerror = null; e.target.src={localFile}}}
-              // CODE for if the src doesnt exist, might add later
-              return <img
-              onClick={this.onDeleteExistingImage.bind(this, image)}
-              style={{width: 100, height: 100, border:0}} 
-              onError={(e)=>{e.target.onerror = null; e.target.style.display='none'}}
-              src={image} />  
-            }
-        
+        if(this.state.removed.indexOf(image) == -1) {
+          return <img
+          onClick={this.onDeleteExistingImage.bind(this, image)}
+          style={{width: 100, height: 100, border:0}} 
+          onError={(e)=>{e.target.onerror = null; e.target.style.display='none'}}
+          src={image} />  
+        }
       });
       imagePreviewContent = this.state.currFile.map( image => {
    
