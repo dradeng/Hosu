@@ -8,12 +8,12 @@ const PropertyMapCard = (props) => {
 
 
     return (
-        <Item>
+        <Item style={{maxWidth:120}}>
             <Item.Image
                 src={pro.images[0]}
                 size="tiny"
                 className="img-responsive"
-                style={{maxWidth: 100}}
+                style={{width: "100%"}}
             />
             <Item.Content>
                 <Item.Header >
@@ -32,11 +32,6 @@ const PropertyMapCard = (props) => {
                     <br />
                     <span className="cinema">
 
-						<br />
-						<strong>
-                            {pro.text}
-						</strong>
-						<br />
 					</span>
                 </Item.Meta>
             </Item.Content>

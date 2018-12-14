@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Geocode from 'react-geocode';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { logoutUser } from '../../actions/authActions';
 import { clearCurrentProfile } from '../../actions/profileActions';
@@ -18,8 +19,10 @@ class Navbar extends Component {
       this.messageToggle = this.messageToggle.bind(this);
 
       this.state = {
-      dropdownOpen: false,
+        dropdownOpen: false,
         messageOpen: false,
+        latitude: 34.05, 
+        longitude: -118.644, 
     };
   }
   toggle() {
@@ -37,7 +40,38 @@ class Navbar extends Component {
     this.props.clearCurrentProfile();
     this.props.logoutUser();
   }
+  onSubmit(e) {
+    e.preventDefault();
 
+
+    //this.props.createProfile(profileData, this.props.history);
+  }
+
+  onChange(e) {
+    var address = e.target.value;
+
+    // set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
+    
+    const GoogleMapsApi = require('../../config/index').GoogleMapsApi;
+    Geocode.setApiKey(GoogleMapsApi);
+     
+    // Enable or disable logs. Its optional.
+    Geocode.enableDebug();
+     
+    // Get latidude & longitude from address.
+    Geocode.fromAddress(address).then(
+      response => {
+        const { lat, lng } = response.results[0].geometry.location;
+        
+        this.setState({ latitude: lat});
+        this.setState({ longitude: lng});
+      },
+      error => {
+        //console.error(error);
+        //Commented out because it says an error when ur not done typing out address
+      }
+    );
+  }
   render() {
     const { isAuthenticated, user } = this.props.auth;
     let options = [
@@ -134,11 +168,12 @@ class Navbar extends Component {
 
     return (
       <nav style={{backgroundColor: '#ffffff',borderBottom: '1px solid rgba(0,0,0,0.25)'}} className="navbar navbar-expand-sm navbar-dark  mb-4">
-          <img style={{width: 40}} src={HausFlexLogo}/>
+        <img style={{width: 40}} src={HausFlexLogo}/>
+        <form style={{marginLeft: 15}}>
+          <input type="text" name="addressSearch" placeholder="search" />
+        </form>
+        <div className="container">
 
-          <div className="container">
-          <Link className="navbar-brand" to="/">
-          </Link>
           <button
             className="navbar-toggler"
             type="button"

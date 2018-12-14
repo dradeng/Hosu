@@ -6,7 +6,7 @@ import MapContainer from "./MapContainer";
 const Map = withScriptjs(withGoogleMap((props) =>{
 
         const markers = props.propies.map( property => {
-            console.log(property);
+          
             let marker = <PropertyMarker
                 key={property._id}
                 uid={property._id}

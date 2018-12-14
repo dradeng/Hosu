@@ -44,14 +44,15 @@ class Dashboard extends Component {
             <p style={{position:'absolute', top: 0, right:0}}>hihhh</p>
             <div style={{position:'absolute', top: 0, right:0}} className="btn-group mb-4" role="group">
               <Link to="/edit-profile" className="btn btn-light">
-                <i className="fas fa-user-circle text-info mr-1" /> Edit Profile
+                Edit Profile
               </Link>
             </div>
             {(user.profilePic !== null) ?
               <img
+                className="rounded-circle"
                 src={user.profilePic }
                 alt={user.name}
-                style={{ width: '150px', marginRight: '5px' }}
+                style={{ width: 120, height: 120, marginRight: '5px' }}
                 title="You must have a Gravatar connected to your email to display an image"
               />
                 :
