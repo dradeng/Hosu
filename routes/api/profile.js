@@ -80,7 +80,6 @@ router.post(
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     const { errors, isValid } = validateProfileInput(req.body);
-    console.log('creating profi;le');
     // Check Validation
     if (!isValid) {
       // Return any errors with 400 status
@@ -118,6 +117,47 @@ router.post(
     });
   }
 );
+
+
+
+// @route   POST api/profile/updateSearch
+// @desc    updating location search
+// @access  Private
+router.post(
+  '/updateSearch',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateProfileInput(req.body);
+    // Check Validation
+    if (!isValid) {
+      // Return any errors with 400 status
+      return res.status(400).json(errors);
+    }
+
+    Profile.findOne({ user: req.user.id }).then(profile => {
+      if (profile) {
+        // Update
+
+        var address = {
+          latitude: req.body.latitude,
+          longitude: req.body.longitude
+        };
+
+
+        Profile.findOneAndUpdate(
+          { user: req.user.id },
+          { $set: address },
+          { new: true }
+        ).then(profile => res.json(profile));
+    
+      } else {
+        console.log('NO USER FOUND FOR UPDATING SEARCH');
+      }
+    });
+  }
+);
+
+
 
 // @route   POST api/profile/favorites/:userID
 // @desc    Add favorite to profile or if already favorited removes it

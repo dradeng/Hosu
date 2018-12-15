@@ -110,6 +110,28 @@ export const getProfiles = () => dispatch => {
     );
 };
 
+
+// Update Search location
+export const updateSearch = (address) => dispatch => {
+  dispatch(setProfileLoading());
+  axios
+    .post('/api/profile/updateSearch', address)
+    .then(res =>
+      dispatch({
+        type: GET_PROFILE,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_PROFILE,
+        payload: null
+      })
+    );
+};
+
+
+
 // Delete account & profile
 export const deleteAccount = () => dispatch => {
   if (window.confirm('Are you sure? This can NOT be undone!')) {

@@ -122,15 +122,16 @@ class App extends Component {
               <Route exact path="/not-found" component={NotFound} />
 
               <Route exact path="/form-submitted" component={FormSubmitted} />
+            
+              <Switch>
+                  <PrivateRoute exact path="/feed" component={Posts} />
+              </Switch>
+              <Switch>
+                  <PrivateRoute exact path="/chats" component={Chats} />
+              </Switch>
+
             </div>
-            <div>
-                <Switch>
-                    <PrivateRoute exact path="/feed" component={Posts} />
-                </Switch>
-                <Switch>
-                    <PrivateRoute exact path="/chats" component={Chats} />
-                </Switch>
-            </div>
+
             <Footer />
           </div>
         </Router>

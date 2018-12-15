@@ -14,6 +14,14 @@ const ProfileSchema = new Schema({
     location: {
         type: String
     },
+    latitude: {
+        type: Number,
+        default: 34.05,
+    },
+    longitude: {
+        type: Number,
+        default: -118.644,
+    },
     bio: {
         type: String
     },

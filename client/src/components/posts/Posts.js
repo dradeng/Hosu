@@ -6,16 +6,20 @@ import PostForm from './PostForm';
 import PostFeed from './PostFeed';
 import Spinner from '../common/Spinner';
 import { getPosts } from '../../actions/postActions';
+import { getCurrentProfile } from '../../actions/profileActions';
 import MapContainer from "../map/MapContainer";
 import Month from '../availability/Month';
 
 class Posts extends Component {
   componentDidMount() {
     this.props.getPosts();
+    this.props.getCurrentProfile();
   }
 
   render() {
     const { posts, loading } = this.props.post;
+    const { profile } = this.props.profile;
+
     let postContent;
       var geojson = [];
       geojson['type'] = 'FeatureCollection';
@@ -30,6 +34,18 @@ class Posts extends Component {
           geojson.push(posts[k]);
       }
 
+    var address;
+    if (profile === null) {
+      address = {
+        latitude: 34.05,
+        longitude: -118.644
+      };
+    } else {
+      address = {
+        latitude: profile.latitude,
+        longitude: profile.longitude
+      };
+    }
 
     if (posts === null || loading) {
       postContent = <Spinner />;
@@ -49,7 +65,7 @@ class Posts extends Component {
 
             </div>
               <div style={{height: '100vh',width: '100vh', right: 5,top: 0}} className="col-md-8">
-                <MapContainer id="map" geojson={geojson}/>
+                <MapContainer id="map" address={address} geojson={geojson}/>
               </div>
           </div>
         </div>
@@ -60,12 +76,14 @@ class Posts extends Component {
 
 Posts.propTypes = {
   getPosts: PropTypes.func.isRequired,
-  post: PropTypes.object.isRequired
+  getCurrentProfile: PropTypes.func.isRequired,
+  post: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
   post: state.post,
-
+  profile: state.profile,
 });
 
-export default connect(mapStateToProps, { getPosts })(Posts);
+export default connect(mapStateToProps, { getPosts, getCurrentProfile })(Posts);

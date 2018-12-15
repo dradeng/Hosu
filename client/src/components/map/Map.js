@@ -5,8 +5,10 @@ import MapContainer from "./MapContainer";
 
 const Map = withScriptjs(withGoogleMap((props) =>{
 
+        var longitude = props.address.longitude;
+        var latitude = props.address.latitude;
+        console.log("lat and long is " + longitude +" "+ latitude);
         const markers = props.propies.map( property => {
-          
             let marker = <PropertyMarker
                 key={property._id}
                 uid={property._id}
@@ -21,7 +23,7 @@ const Map = withScriptjs(withGoogleMap((props) =>{
             <GoogleMap
 
                 defaultZoom={10}
-                defaultCenter={{ lat: 34.05, lng: -118.644 }}
+                defaultCenter={{ lat: latitude, lng: longitude }}
 
             >
                 {markers}

@@ -39,8 +39,10 @@ export default class MapContainer extends React.Component {
 
     render() {
         const properties = this.props.geojson;
+        const address = this.props.address;
         return (
             <Map
+                address={address}
                 propies={properties}
                 googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBob7qS5XZFENWz5u8UCRFvLaOXxhh3geE"
                 loadingElement={<div style={{ height: `100%` }} />}

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
+import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Geocode from 'react-geocode';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { logoutUser } from '../../actions/authActions';
-import { clearCurrentProfile } from '../../actions/profileActions';
+import { clearCurrentProfile, updateSearch } from '../../actions/profileActions';
 import { getChats } from '../../actions/chatActions';
 import HausFlexLogo from '../../assets/hausflex.jpg';
 import UserIcon from '../../assets/UserIcon.png';
@@ -21,9 +22,9 @@ class Navbar extends Component {
       this.state = {
         dropdownOpen: false,
         messageOpen: false,
-        latitude: 34.05, 
-        longitude: -118.644, 
     };
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
   toggle() {
     this.setState(prevState => ({
@@ -42,9 +43,14 @@ class Navbar extends Component {
   }
   onSubmit(e) {
     e.preventDefault();
-
-
-    //this.props.createProfile(profileData, this.props.history);
+    console.log('frontend lat long' + this.state.longitude + " " + this.state.latitude);
+    var searchInfo = {
+      longitude: this.state.longitude,
+      latitude: this.state.latitude
+    };
+    this.props.updateSearch(searchInfo);
+    this.props.history.push('/feed');
+    window.location.reload();
   }
 
   onChange(e) {
@@ -74,6 +80,7 @@ class Navbar extends Component {
   }
   render() {
     const { isAuthenticated, user } = this.props.auth;
+
     let options = [
       {
         text: 'Profile',
@@ -169,8 +176,12 @@ class Navbar extends Component {
     return (
       <nav style={{backgroundColor: '#ffffff',borderBottom: '1px solid rgba(0,0,0,0.25)'}} className="navbar navbar-expand-sm navbar-dark  mb-4">
         <img style={{width: 40}} src={HausFlexLogo}/>
-        <form style={{marginLeft: 15}}>
-          <input type="text" name="addressSearch" placeholder="search" />
+        <form onSubmit={this.onSubmit} style={{marginLeft: 15}}>
+          <input onChange={this.onChange} type="text" name="addressSearch" placeholder="search" />
+          <button type="submit" style={{display:"none"}}>
+            Submit
+          </button>
+
         </form>
         <div className="container">
 
@@ -205,6 +216,6 @@ const mapStateToProps = state => ({
   chat: state.chat,
 });
 
-export default connect(mapStateToProps, { logoutUser, clearCurrentProfile })(
-  Navbar
+export default connect(mapStateToProps, { logoutUser, clearCurrentProfile, updateSearch })(
+  withRouter(Navbar)
 );
