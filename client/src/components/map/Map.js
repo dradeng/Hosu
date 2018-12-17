@@ -1,35 +1,75 @@
 import React from "react";
 import { withScriptjs, withGoogleMap, GoogleMap } from "react-google-maps";
 import PropertyMarker from "./PropertyMarker"
-import MapContainer from "./MapContainer";
 
-const Map = withScriptjs(withGoogleMap((props) =>{
+export class Map extends React.Component {
+  constructor(props) {
+    super(props);
 
-        var longitude = props.address.longitude;
-        var latitude = props.address.latitude;
-        console.log("lat and long is " + longitude +" "+ latitude);
-        const markers = props.propies.map( property => {
-            let marker = <PropertyMarker
-                key={property._id}
-                uid={property._id}
-                closeMarkers={props.closeOtherMarkers}
-                property={property}
-                location={{lat: property.latitude, lng: property.longitude}}
-                activeMarker={property._id === props.activeMarker ? true : false}
-            />
-            return marker
-        })
-        return (
-            <GoogleMap
-
-                defaultZoom={10}
-                defaultCenter={{ lat: latitude, lng: longitude }}
-
-            >
-                {markers}
-            </GoogleMap>
-        )
+    const {lat, lng} = this.props.initialCenter;
+    this.state = {
+      currentLocation: {
+        lat: lat,
+        lng: lng
+      }
     }
-))
+  }
+  componentDidMount() {
+    this.loadMap();
+  }
+  loadMap() {
+    if (this.props && this.props.google) {
+      // google is available
+      const {google} = this.props;
+      const maps = google.maps;
+
+      const mapRef = this.refs.map;
+      const node = ReactDOM.findDOMNode(mapRef);
+      const curr = this.state.currentLocation;
+      const center = new maps.LatLng(curr.lat, curr.lng);
+     
+      const mapConfig = Object.assign({}, {
+        center: center,
+        zoom: zoom
+      })
+      this.map = new maps.Map(node, mapConfig);
+
+      let centerChangedTimeout;
+      this.map.addListener('dragend', (evt) => {
+        if (centerChangedTimeout) {
+          clearTimeout(centerChangedTimeout);
+          centerChangedTimeout = null;
+        }
+        centerChangedTimeout = setTimeout(() => {
+          this.props.onMove(this.map);
+        }, 0);
+      })
+    }
+  }
+  render() {
+    return (
+      <div ref='map'>
+        Loading map...
+      </div>
+    )
+  }
+}
+
+Map.propTypes = {
+  google: React.PropTypes.object,
+  zoom: React.PropTypes.number,
+  initialCenter: React.PropTypes.object,
+  onMove: React.PropTypes.func
+}
+Map.defaultProps = {
+  zoom: 13,
+  // San Francisco, by default
+  initialCenter: {
+    lat: 37.774929,
+    lng: -122.419416
+  },
+  onMove: function() {} // default prop
+}
+
 
 export default Map

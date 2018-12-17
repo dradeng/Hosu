@@ -43,13 +43,15 @@ class Navbar extends Component {
   }
   onSubmit(e) {
     e.preventDefault();
-    console.log('frontend lat long' + this.state.longitude + " " + this.state.latitude);
+    
     var searchInfo = {
       longitude: this.state.longitude,
       latitude: this.state.latitude
     };
     this.props.updateSearch(searchInfo);
+    //THIS ALWAYS MAKES SURE THE SEARCH GOES TO THE FEED
     this.props.history.push('/feed');
+    //THIS ENSURES THE LOCATION IS LOADED PROPERLY
     window.location.reload();
   }
 

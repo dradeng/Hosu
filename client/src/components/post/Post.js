@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import NonFeedPostItem from '../posts/NonFeedPostItem';
 import CommentForm from './CommentForm';
 import CommentFeed from './CommentFeed';
-import MapContainer from "../map/MapContainer";
+import Container from "../map/Container";
 import Spinner from '../common/Spinner';
 import { getPost } from '../../actions/postActions';
 import { getCurrentProfile } from '../../actions/profileActions';
@@ -109,7 +109,7 @@ class Post extends Component {
                 Back To Feed
               </Link>
               <div style={{height: '49%',width: '50%', float:'right', marginTop: 122}}>
-                  <MapContainer id="map" geojson={geojson}/>
+                  <Container id="map" geojson={geojson}/>
               </div>
               <Link onClick={this.createChat} style={{position:'absolute', right:0}} className="btn btn-light mb-3" to="/chats">Message</Link>
               {postContent}

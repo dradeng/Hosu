@@ -260,12 +260,10 @@ class PostForm extends Component {
 
                           <h6>Start Date:</h6>
                           <div>
-                            {!startDate && <p>Choose a day</p>}
                             <DayPickerInput onDayChange={this.onStartDateChange} />
                           </div>
                           <h6>End Date:</h6>
                           <div>
-                            {!endDate && <p>Choose a day</p>}
                             <DayPickerInput onDayChange={this.onEndDateChange} />
                           </div>
                           <br/>
