@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import NonFeedPostItem from '../posts/NonFeedPostItem';
 import CommentForm from './CommentForm';
 import CommentFeed from './CommentFeed';
-import Container from "../map/Container";
+import MapContainer from "../map/MapContainer";
 import Spinner from '../common/Spinner';
 import { getPost } from '../../actions/postActions';
 import { getCurrentProfile } from '../../actions/profileActions';
@@ -100,6 +100,11 @@ class Post extends Component {
       editContent = <Link to={`/edit-post/${post._id}`} className="btn btn-light">Edit Post</Link>
     }
 
+    var address = {
+      latitude: post.latitude,
+      longitude: post.longitude
+    };
+
     return (
       <div className="post">
         <div className="container">
@@ -109,7 +114,7 @@ class Post extends Component {
                 Back To Feed
               </Link>
               <div style={{height: '49%',width: '50%', float:'right', marginTop: 122}}>
-                  <Container id="map" geojson={geojson}/>
+                  <MapContainer id="map" address={address} geojson={geojson}/>
               </div>
               <Link onClick={this.createChat} style={{position:'absolute', right:0}} className="btn btn-light mb-3" to="/chats">Message</Link>
               {postContent}

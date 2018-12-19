@@ -1,5 +1,6 @@
 import React from "react";
 import { Marker, InfoWindow } from "react-google-maps";
+import Marker from "./Marker"
 import PropertyMapCard from "./PropertyMapCard";
 import MapMarker from '../../assets/marker50.png'
 export default class PropertyMarker extends React.Component {

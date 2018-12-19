@@ -22,17 +22,17 @@ const PropertyMapCard = (props) => {
                     </strong>
                 </Item.Header>
                 <Item.Meta>
-					<span>
-						<i>{pro.address.length
+                    <span>
+                        <i>{pro.address.length
                             ? pro.address
                             : null}
-						</i>
-					</span>
+                        </i>
+                    </span>
                     <br />
                     <br />
                     <span className="cinema">
 
-					</span>
+                    </span>
                 </Item.Meta>
             </Item.Content>
         </Item>

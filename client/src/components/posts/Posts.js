@@ -7,7 +7,7 @@ import PostFeed from './PostFeed';
 import Spinner from '../common/Spinner';
 import { getPosts } from '../../actions/postActions';
 import { getCurrentProfile } from '../../actions/profileActions';
-import Container from "../map/Container";
+import MapContainer from "../map/MapContainer";
 import Month from '../availability/Month';
 
 class Posts extends Component {
@@ -50,7 +50,7 @@ class Posts extends Component {
     if (posts === null || loading) {
       postContent = <Spinner />;
     } else {
-      postContent = <PostFeed  posts={posts} />;
+      postContent = <PostFeed  addressBounds={address} posts={posts} />;
     }
 
     return (
@@ -65,7 +65,7 @@ class Posts extends Component {
 
             </div>
               <div style={{height: '100vh',width: '100vh', right: 5,top: 0}} className="col-md-8">
-                <Container id="map" address={address} geojson={geojson}/>
+                <MapContainer id="map" address={address} geojson={geojson}/>
               </div>
           </div>
         </div>
