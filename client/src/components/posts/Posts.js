@@ -47,10 +47,11 @@ class Posts extends Component {
       };
     }
 
-    if (posts === null || loading) {
+    if (posts === null || loading || profile === null) {
       postContent = <Spinner />;
     } else {
-      postContent = <PostFeed  addressBounds={address} posts={posts} />;
+      console.log("prpfoiel inside" + profile);
+      postContent = <PostFeed profile={profile} addressBounds={address} posts={posts} />;
     }
 
     return (

@@ -65,12 +65,23 @@ class PostFeed extends Component {
   render() {
   	
     const { posts } = this.props;
-  
+    const { profile } = this.props;
     let newPosts = posts.filter(post => 
       post.rent >= this.state.min && post.rent <= this.state.max
     );
-
-    let feedContent = newPosts.map(post => <PostItem className="col-md-6" key={post._id} post={post} />);
+    let feedContent = null;
+    if(profile === null) {
+      //do nothign
+    } else {
+      console.log('profile' + profile);
+      feedContent = newPosts.map(post => {
+          if(Math.abs(post.latitude - post.latitude) < 2 && Math.abs(profile.longitude - post.longitude) < 2) {
+            return <PostItem className="col-md-6" key={post._id} post={post} />;
+          } else {
+            return; // do nothing
+          }
+      });
+    }
 
     return (
     	<div className="col-md-12">
