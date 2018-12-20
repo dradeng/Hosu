@@ -93,7 +93,16 @@ class Navbar extends Component {
         value: 'Logout',
       },
     ];
+    const showSearchBar = isAuthenticated && user.profile != null;
+    const searchBar = (
+      <form onSubmit={this.onSubmit} style={{marginLeft: 15}}>
+        <input onChange={this.onChange} type="text" name="addressSearch" placeholder="search" />
+        <button type="submit" style={{display:"none"}}>
+          Submit
+        </button>
 
+      </form>
+    );
     const authLinks = (
       <ul  className="navbar-nav ml-auto">
         <li className="nav-item">
@@ -178,13 +187,7 @@ class Navbar extends Component {
     return (
       <nav style={{backgroundColor: '#ffffff',borderBottom: '1px solid rgba(0,0,0,0.25)'}} className="navbar navbar-expand-sm navbar-dark  mb-4">
         <img style={{width: 40}} src={HausFlexLogo}/>
-        <form onSubmit={this.onSubmit} style={{marginLeft: 15}}>
-          <input onChange={this.onChange} type="text" name="addressSearch" placeholder="search" />
-          <button type="submit" style={{display:"none"}}>
-            Submit
-          </button>
-
-        </form>
+        {showSearchBar ? searchBar : null }
         <div className="container">
 
           <button

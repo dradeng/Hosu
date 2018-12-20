@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps";
+import { Redirect } from 'react-router-dom';
 import PostForm from './PostForm';
 import PostFeed from './PostFeed';
 import Spinner from '../common/Spinner';
@@ -17,6 +18,11 @@ class Posts extends Component {
   }
 
   render() {
+    const {user} = this.props.auth;
+
+    if (user.profile == null) {
+      return <Redirect to='/dashboard' />
+    }
     const { posts, loading } = this.props.post;
     const { profile } = this.props.profile;
 
@@ -80,11 +86,13 @@ Posts.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
   post: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
   post: state.post,
   profile: state.profile,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, { getPosts, getCurrentProfile })(Posts);

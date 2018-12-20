@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Geocode from 'react-geocode';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
@@ -177,6 +177,11 @@ class PostForm extends Component {
   }
 
   render() {
+    const {user} = this.props.auth;
+
+    if (user.profile == null) {
+      return <Redirect to='/dashboard' />
+    }
     const { errors } = this.state;
     let imagePreviewContent = null;
   

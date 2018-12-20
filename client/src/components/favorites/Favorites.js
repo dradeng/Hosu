@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Spinner from '../common/Spinner';
 import PostItem from "../posts/PostItem";
 import PostFeed from '../posts/PostFeed';
+import { Redirect } from 'react-router-dom';
 import { getCurrentProfile } from '../../actions/profileActions';
 import { getPosts } from '../../actions/postActions';
 
@@ -17,6 +18,10 @@ class Favorites extends Component {
 
   render() {
     const { user } = this.props.auth;
+
+    if (user.profile == null) {
+      return <Redirect to='/dashboard' />
+    }
     const { profile, loading } = this.props.profile;
     const { posts } = this.props.post; //const { posts, loading } = this.props.post; might need to add loading
     let favoritesContent;

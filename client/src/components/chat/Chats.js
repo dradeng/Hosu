@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
+import { Redirect } from 'react-router-dom';
 import ChatFeed from './ChatFeed';
 import { getChats } from '../../actions/chatActions';
 import Spinner from '../common/Spinner';
@@ -10,10 +10,13 @@ import Spinner from '../common/Spinner';
 class Chats extends Component {
   componentDidMount() {
     this.props.getChats();
-    
   }
   render() {
- 
+    const {user} = this.props.auth;
+
+    if (user.profile == null) {
+      return <Redirect to='/dashboard' />
+    }
     const { chats, loading } = this.props.chat;
     let chatContent;
    
@@ -38,11 +41,13 @@ class Chats extends Component {
 
 Chats.propTypes = {
   getChats: PropTypes.func.isRequired,
-  chat: PropTypes.object.isRequired
+  chat: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  chat: state.chat
+  chat: state.chat,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, { getChats })(Chats);
