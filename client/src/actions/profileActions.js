@@ -54,6 +54,7 @@ export const getProfile = id => dispatch => {
 // Create Profile
 export const createProfile = (profileData, history) => dispatch => {
   //make user have a profile be true
+  console.log('we updating');
   axios.post('/api/users/updateUser', profileData);
   axios
     .post('/api/profile', profileData)

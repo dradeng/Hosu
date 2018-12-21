@@ -71,8 +71,8 @@ class Posts extends Component {
             <div className="col-md-4">
 
             </div>
-              <div style={{height: '100vh',width: '100vh', right: 5,top: 0}} className="col-md-8">
-                <MapContainer id="map" address={address} geojson={geojson}/>
+              <div style={{height: '100vh', width: '100vh', right: 5,top: 0}} className="col-md-8">
+                <MapContainer id="map"address={address} geojson={geojson}/>
               </div>
           </div>
         </div>

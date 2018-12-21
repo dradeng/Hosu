@@ -76,7 +76,7 @@ class CreateProfile extends Component {
     };
 
     //makes the user.profile be true so can go to other pages
-    
+    console.log('email' + user.email);
     this.props.createProfile(profileData, this.props.history);
   }
 

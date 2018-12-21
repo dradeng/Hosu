@@ -25,13 +25,11 @@ router.get('/test', (req, res) => res.json({ msg: 'Users Works' }));
 router.post('/updateUser',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-
-  User.findOne({ user: req.user.id }).then(user => {
-    user.profile = 1;
+  User.findById(req.user.id).then(user => {
+    user.profile = true;
     user.save(function (err) {
-      console.log('updated');
     }).then(user => res.json(user));
-  });
+  }).catch(console.log("no user found"));
 });
 
 

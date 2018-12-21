@@ -180,7 +180,7 @@ class PostForm extends Component {
     const { user } = this.props.auth;
 
     console.log('actual user is ' + user);
-    console.log("user mane "+user.name);
+    console.log("user mane "+user.profile);
     if (!user.profile) {
       return <Redirect to='/dashboard' />
     }
