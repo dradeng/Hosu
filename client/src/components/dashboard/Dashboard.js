@@ -114,6 +114,9 @@ class Dashboard extends Component {
               {dashboardContent}
               {postContent}
               {deleteContent}
+              hi
+              {user.profile}
+              bye
             </div>
           </div>
         </div>

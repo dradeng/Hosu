@@ -177,9 +177,11 @@ class PostForm extends Component {
   }
 
   render() {
-    const {user} = this.props.auth;
+    const { user } = this.props.auth;
 
-    if (user.profile == null) {
+    console.log('actual user is ' + user);
+    console.log("user mane "+user.name);
+    if (!user.profile) {
       return <Redirect to='/dashboard' />
     }
     const { errors } = this.state;

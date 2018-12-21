@@ -25,18 +25,12 @@ router.get('/test', (req, res) => res.json({ msg: 'Users Works' }));
 router.post('/updateUser',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-  console.log('we out here');
-
-  const userFields = {};
-  userFields.profile = true;
 
   User.findOne({ user: req.user.id }).then(user => {
-    console.log('we in here');
-    User.findOneAndUpdate(
-        { user: req.user.id },
-        { $set: userFields },
-        { new: true }
-      ).then(user => res.json(user));
+    user.profile = 1;
+    user.save(function (err) {
+      console.log('updated');
+    }).then(user => res.json(user));
   });
 });
 
@@ -108,7 +102,7 @@ router.post('/login', (req, res) => {
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
         // User Matched
-        const payload = { id: user.id, name: user.name, avatar: user.avatar, profilePic: user.profilePic }; // Create JWT Payload
+        const payload = { id: user.id, name: user.name, avatar: user.avatar, profilePic: user.profilePic, profile: user.profile }; // Create JWT Payload
 
         // Sign Token
         jwt.sign(
