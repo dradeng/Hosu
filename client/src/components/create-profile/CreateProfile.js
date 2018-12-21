@@ -7,6 +7,8 @@ import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import InputGroup from '../common/InputGroup';
 import { createProfile } from '../../actions/profileActions';
+import { updateUser } from '../../actions/authActions';
+
 
 class CreateProfile extends Component {
   constructor(props) {
@@ -74,6 +76,13 @@ class CreateProfile extends Component {
       instagram: this.state.instagram
     };
 
+    //makes the user.profile be true so can go to other pages
+    const userDate = {
+      email: user.email,
+      profile: true
+    };
+
+    this.props.updateUser(userDate);
     this.props.createProfile(profileData, this.props.history);
   }
 
@@ -197,6 +206,7 @@ class CreateProfile extends Component {
 }
 
 CreateProfile.propTypes = {
+  updateUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
@@ -208,6 +218,6 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { createProfile })(
+export default connect(mapStateToProps, { createProfile, updateUser })(
   withRouter(CreateProfile)
 );

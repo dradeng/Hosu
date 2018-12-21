@@ -18,6 +18,25 @@ const User = require('../../models/User');
 // @access  Public
 router.get('/test', (req, res) => res.json({ msg: 'Users Works' }));
 
+
+// @route   POST api/users/updateUser
+// @desc    Update user info
+// @access  Public
+router.post('/updateUser', (req, res) => {
+  console.log('we out here');
+  User.findOne({ email: req.body.email }).then(user => {
+    console.log('we in here');
+    User.findOneAndUpdate(
+        { user: req.user.id },
+        { $set: req.body.profile },
+        { new: true }
+      ).then(user => res.json(user));
+  });
+});
+
+
+
+
 // @route   POST api/users/register
 // @desc    Register user
 // @access  Public
@@ -34,11 +53,7 @@ router.post('/register', (req, res) => {
       errors.email = 'Email already exists';
       return res.status(400).json(errors);
     } else {
-      const avatar = gravatar.url(req.body.email, {
-        s: '200', // Size
-        r: 'pg', // Rating
-        d: 'mm' // Default
-      });
+      
 
       const newUser = new User({
         name: req.body.name,

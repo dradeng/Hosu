@@ -32,8 +32,7 @@ const UserSchema = new Schema({
     default: null,
   },
   profile: {
-    type: Schema.Types.ObjectId,
-    ref: 'profile',
+    type: Boolean,
     default: null
   },
   chats: [
