@@ -58,23 +58,3 @@ export const logoutUser = () => dispatch => {
   // Set current user to {} which will set isAuthenticated to false
   dispatch(setCurrentUser({}));
 };
-
-
-//update user
-export const updateUser = (userData) => dispatch => {
-  console.log('we made it inside the action' + userData);
-  axios
-    .post('api/users/updateUser', userData)
-    .then(res =>
-      dispatch({
-        type: GET_PROFILE,
-        payload: res.data
-      })
-    )
-    .catch(err =>
-      dispatch({
-        type: GET_PROFILE,
-        payload: {}
-      })
-    )
-};

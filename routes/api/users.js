@@ -22,13 +22,19 @@ router.get('/test', (req, res) => res.json({ msg: 'Users Works' }));
 // @route   POST api/users/updateUser
 // @desc    Update user info
 // @access  Public
-router.post('/updateUser', (req, res) => {
+router.post('/updateUser',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
   console.log('we out here');
-  User.findOne({ email: req.body.email }).then(user => {
+
+  const userFields = {};
+  userFields.profile = true;
+
+  User.findOne({ user: req.user.id }).then(user => {
     console.log('we in here');
     User.findOneAndUpdate(
         { user: req.user.id },
-        { $set: req.body.profile },
+        { $set: userFields },
         { new: true }
       ).then(user => res.json(user));
   });

@@ -14,7 +14,7 @@ class Chats extends Component {
   render() {
     const {user} = this.props.auth;
 
-    if (user.profile == null) {
+    if (!user.profile) {
       return <Redirect to='/dashboard' />
     }
     const { chats, loading } = this.props.chat;

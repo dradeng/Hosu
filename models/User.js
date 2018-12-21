@@ -33,7 +33,7 @@ const UserSchema = new Schema({
   },
   profile: {
     type: Boolean,
-    default: null
+    default: false
   },
   chats: [
     {

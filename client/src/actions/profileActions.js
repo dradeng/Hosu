@@ -53,6 +53,8 @@ export const getProfile = id => dispatch => {
 
 // Create Profile
 export const createProfile = (profileData, history) => dispatch => {
+  //make user have a profile be true
+  axios.post('/api/users/updateUser', profileData);
   axios
     .post('/api/profile', profileData)
     .then(res => history.push('/dashboard'))
@@ -62,6 +64,7 @@ export const createProfile = (profileData, history) => dispatch => {
         payload: err.response.data
       })
     );
+
 };
 
 // Add Favorite or remove if already favorited

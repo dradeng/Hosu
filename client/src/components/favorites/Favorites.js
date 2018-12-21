@@ -19,7 +19,7 @@ class Favorites extends Component {
   render() {
     const { user } = this.props.auth;
 
-    if (user.profile == null) {
+    if (!user.profile) {
       return <Redirect to='/dashboard' />
     }
     const { profile, loading } = this.props.profile;

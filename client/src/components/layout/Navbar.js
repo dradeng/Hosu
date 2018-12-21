@@ -93,7 +93,7 @@ class Navbar extends Component {
         value: 'Logout',
       },
     ];
-    const showSearchBar = isAuthenticated && user.profile != null;
+    const showSearchBar = isAuthenticated && user.profile;
     const searchBar = (
       <form onSubmit={this.onSubmit} style={{marginLeft: 15}}>
         <input onChange={this.onChange} type="text" name="addressSearch" placeholder="search" />
