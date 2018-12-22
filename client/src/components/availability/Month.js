@@ -63,13 +63,12 @@ class Month extends Component {
       "Sep" : 8,
       "Oct" : 9,
       "Nov" : 10,
-      "Dec" : 12
+      "Dec" : 11
     }
     const month = this.props.month.split(" ")[0]
     const date = this.props.month.split(" ")[1]
 
-    const propDate = new Date(new Date().getYear(),months[month],date);
-
+    const propDate = new Date(new Date().getFullYear(),months[month],date);
     return (
       <div style={styles.month} className="card container-fluid">
         <div
@@ -78,7 +77,7 @@ class Month extends Component {
         >
           {this.props.period}
         </div>
-        {  this.props.period == "start" && ( propDate < new Date(new Date().toDateString())) ? (
+        {  this.props.period == "start" && ( propDate < new Date()) ? (
           <div style={styles.textStyle} className="row">
             Now
           </div>
