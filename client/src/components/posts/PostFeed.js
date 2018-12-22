@@ -37,7 +37,6 @@ class PostFeed extends Component {
   }
   
   onChange(e) {
-    console.log(e);
     this.setState({ [e.target.name]: e.target.value });
   }
   onPriceChange(min,max)
@@ -73,7 +72,6 @@ class PostFeed extends Component {
     if(profile === null) {
       //do nothign
     } else {
-      console.log('profile' + profile);
       feedContent = newPosts.map(post => {
           if(Math.abs(post.latitude - post.latitude) < 2 && Math.abs(profile.longitude - post.longitude) < 2) {
             return <PostItem className="col-md-6" key={post._id} post={post} />;

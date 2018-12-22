@@ -167,7 +167,7 @@ class PostItem extends Component {
                   {endDateContent}
               </div>
   
-              <Link to={`/post/${post._id}`} className="btn btncustom mr-1">
+              <Link to={`/post/${post._id}`} className="btn btncustom">
                   Comments
               </Link>
               </div>
