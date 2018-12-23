@@ -69,7 +69,7 @@ router.post('/register', (req, res) => {
       sgMail.send({
         to:       req.body.email,
         from:     'youremail@example.com',
-        subject:  'Confirm your email with HausFlex',
+        subject:  'Confirm your email with HausFlex!',
         html:     '<a target=_blank href=\"' + authenticationURL + '\">Confirm your email</a>'
         }, function(err, json) {
             if (err) { return console.error(err); }
