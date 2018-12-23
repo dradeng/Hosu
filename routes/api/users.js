@@ -4,11 +4,16 @@ const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
+const SendGridApiKey = require('../../config/keys').SendGridApiKey;
 const passport = require('passport');
 
 // Load Input Validation
 const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login');
+
+//Sendgrid info
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(SendGridApiKey)
 
 // Load User model
 const User = require('../../models/User');
@@ -59,6 +64,19 @@ router.post('/register', (req, res) => {
         profilePic: req.body.profilePic,
         password: req.body.password,
       });
+
+
+      const authenticationURL = 'google.com';
+
+      sgMail.send({
+        to:       req.body.email,
+        from:     'youremail@example.com',
+        subject:  'Confirm your email',
+        html:     '<a target=_blank href=\"' + authenticationURL + '\">Confirm your email</a>'
+        }, function(err, json) {
+            if (err) { return console.error(err); }
+        console.log(json);
+    });
 
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {

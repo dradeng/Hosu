@@ -5,4 +5,5 @@ module.exports = {
   IAmUserKey: process.env.I_AM_USER_KEY,
   IAmUserSecret: process.env.I_AM_USER_SECRET,
   BucketName: process.env.BUCKET_NAME,
+  SendGridApiKey: process.env.SEND_GRID_API_KEY,
 };
