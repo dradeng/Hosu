@@ -56,7 +56,6 @@ router.post('/register', (req, res) => {
       errors.email = 'Email already exists';
       return res.status(400).json(errors);
     } else {
-      
 
       const newUser = new User({
         name: req.body.name,
@@ -65,13 +64,12 @@ router.post('/register', (req, res) => {
         password: req.body.password,
       });
 
-
       const authenticationURL = 'google.com';
 
       sgMail.send({
         to:       req.body.email,
         from:     'youremail@example.com',
-        subject:  'Confirm your email',
+        subject:  'Confirm your email with HausFlex',
         html:     '<a target=_blank href=\"' + authenticationURL + '\">Confirm your email</a>'
         }, function(err, json) {
             if (err) { return console.error(err); }
