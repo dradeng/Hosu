@@ -57,6 +57,11 @@ router.post('/register', (req, res) => {
       return res.status(400).json(errors);
     } else {
 
+
+      if(req.body.profilePic.length < 1) {
+        req.body.profilePic = "https://s3.us-east-2.amazonaws.com/aveneu/UserIcon.png";
+      }
+
       const newUser = new User({
         name: req.body.name,
         email: req.body.email,
@@ -68,8 +73,8 @@ router.post('/register', (req, res) => {
 
       sgMail.send({
         to:       req.body.email,
-        from:     'youremail@example.com',
-        subject:  'Confirm your email with HausFlex!',
+        from:     'Support@Aveneu.com',
+        subject:  'Confirm your email with Aveneu!',
         html:     '<a target=_blank href=\"' + authenticationURL + '\">Confirm your email</a>'
         }, function(err, json) {
             if (err) { return console.error(err); }
