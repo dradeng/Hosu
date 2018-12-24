@@ -69,22 +69,11 @@ class Chat extends Component {
       recieverSrc = chat.user1ProfilePic;
     }
 
-
-    if(recieverSrc.length > 0) {
-      recieverImage = <img
-        className="rounded-circle"
-        src={recieverSrc}
-        style={{ borderRadius: '50%', height: '100px', width: '100px', marginRight: '5px' }}
-        title="You must have a Gravatar connected to your email to display an image" />;
-
-    } else {
-      recieverImage = <img
-        className="rounded-circle"
-        src={UserIcon}
-        alt={user.name}
-        style={{ width: '100px', marginRight: '5px' }}
-        title="You must have a Gravatar connected to your email to display an image" />;
-    }
+    recieverImage = <img
+      className="rounded-circle"
+      src={recieverSrc}
+      style={{ borderRadius: '50%', height: '100px', width: '100px', marginRight: '5px' }}
+      title="You must have a Gravatar connected to your email to display an image" />;
 
 
     let messageContent;

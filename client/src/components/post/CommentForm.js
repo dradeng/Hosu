@@ -51,14 +51,12 @@ class CommentForm extends Component {
     const { user } = this.props.auth;
     const { profile, loading } = this.props.profile;
 
-    let imgSrc = UserIcon;;
+    let imgSrc;
 
     if (profile === null || loading) {
       // dop nothign
     } else {
-      if(user.profilePic.length > 0) {
-        imgSrc = user.profilePic;
-      }
+      imgSrc = user.profilePic;
     }
 
     return (

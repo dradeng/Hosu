@@ -47,24 +47,14 @@ class Dashboard extends Component {
                 Edit Profile
               </Link>
             </div>
-            {(user.profilePic !== null) ?
-              <img
-                className="rounded-circle"
-                src={user.profilePic }
-                alt={user.name}
-                style={{ width: 120, height: 120, marginRight: '5px' }}
-                title="You must have a Gravatar connected to your email to display an image"
-              />
-                :
-              <img
-                  className="rounded-circle"
-                  src={UserIcon}
-                  alt={user.name}
-                  style={{ width: '150px', marginRight: '5px' }}
-                  title="You must have a Gravatar connected to your email to display an image"
-              />
-            }
-
+          
+            <img
+              className="rounded-circle"
+              src={user.profilePic }
+              alt={user.name}
+              style={{ width: 120, height: 120, marginRight: '5px' }}
+              title="You must have a Gravatar connected to your email to display an image"
+            />
 
             <p>Location: {profile.location}</p>
             <p>{profile.bio}</p>

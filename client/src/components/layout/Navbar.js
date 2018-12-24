@@ -129,7 +129,6 @@ class Navbar extends Component {
           <span className="nav-link">
            <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
               <DropdownToggle style={{backgroundColor: 'transparent', borderWidth:0, padding:0,margin:0}}>
-                  {( user.profilePic !== null) ?
                 <img
                   className="rounded-circle"
                   src={user.profilePic }
@@ -137,15 +136,6 @@ class Navbar extends Component {
                   style={{ width: 30, height:30, marginRight: '5px' }}
                   title="You must have a Gravatar connected to your email to display an image"
                 />
-                      :
-                      <img
-                          className="rounded-circle"
-                          src={UserIcon}
-                          alt={user.name}
-                          style={{ width: 30, height:30, marginRight: '5px' }}
-                          title="You must have a Gravatar connected to your email to display an image"
-                      />
-                  }
               </DropdownToggle>
               <DropdownMenu>
                 <DropdownItem>

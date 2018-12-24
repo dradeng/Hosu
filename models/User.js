@@ -21,7 +21,7 @@ const UserSchema = new Schema({
   },
   profilePic: {
     type: String,
-    default: null,
+    default: 'https://s3.us-east-2.amazonaws.com/aveneu/UserIcon.png',
   },
   profile: {
     type: Boolean,

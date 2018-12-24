@@ -8,7 +8,6 @@ import ReactDom from 'react-dom';
 import { Link } from 'react-router-dom';
 import { FaStar, FaRegStar } from 'react-icons/fa';
 import { Textfit } from 'react-textfit';
-
 import { addLike, removeLike } from '../../actions/postActions';
 import { addFavorite, getCurrentProfile } from '../../actions/profileActions';
 import Month from '../availability/Month';

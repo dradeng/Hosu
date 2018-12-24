@@ -12,7 +12,6 @@ const Map = withScriptjs(withGoogleMap((props) =>{
         var markers;
 
         if(props.address.circle) {
-            console.log('we inside the circle');
             markers = <MarkerCircle address={props.address}  />;
 
         } else {
