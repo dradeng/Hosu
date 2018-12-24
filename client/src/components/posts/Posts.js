@@ -44,12 +44,14 @@ class Posts extends Component {
     if (profile === null) {
       address = {
         latitude: 34.05,
-        longitude: -118.644
+        longitude: -118.644,
+        circle: false
       };
     } else {
       address = {
         latitude: profile.latitude,
-        longitude: profile.longitude
+        longitude: profile.longitude,
+        circle: false
       };
     }
 
@@ -59,7 +61,11 @@ class Posts extends Component {
       postContent = <PostFeed profile={profile} addressBounds={address} posts={posts} />;
     }
 
-    var circle = false;
+    var circle = {
+      latitude: 0,
+      longitude: 0,
+      exist: false,
+    };
 
     return (
       <div style={{margin: 5, marginTop: '-1.5em'}}  className="feed">
@@ -73,7 +79,7 @@ class Posts extends Component {
 
             </div>
               <div style={{height: '100vh', width: '100vh', right: 5,top: 0}} className="col-md-8">
-                <MapContainer id="map"address={address} circle={circle} geojson={geojson}/>
+                <MapContainer id="map"address={address} geojson={geojson}/>
               </div>
           </div>
         </div>

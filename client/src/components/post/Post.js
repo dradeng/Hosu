@@ -102,7 +102,8 @@ class Post extends Component {
 
     var address = {
       latitude: post.latitude,
-      longitude: post.longitude
+      longitude: post.longitude,
+      circle: true
     };
 
     return (
@@ -114,7 +115,7 @@ class Post extends Component {
                 Back To Feed
               </Link>
               <div style={{height: '49%',width: '50%', float:'right', marginTop: 122}}>
-                  <MapContainer id="map" address={address} circle={true} geojson={geojson}/>
+                  <MapContainer id="map" address={address} geojson={geojson}/>
               </div>
               <Link onClick={this.createChat} style={{position:'absolute', right:0}} className="btn btn-light mb-3" to="/chats">Message</Link>
               {postContent}
