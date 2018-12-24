@@ -33,61 +33,46 @@ export default class PropertyMarker extends React.Component {
         let display;
 
         if(this.props.circle) {
-            let display = 
-                <div>
-                    <Marker
-                        onClick={this.toggleOpen}
-                        label={"$"+this.props.property.rent}
-                        key={`marker${this.props.property._id}`}
-                        position={this.props.location}
-                        icon={MapMarker}
-                        
-                    >
-                        { this.state.isOpen && this.state.activeMarker ?
-                            <InfoWindow maxWidth={800} defaultPosition={ this.props.location } onCloseClick={this.props.onToggleOpen}>
-                                <PropertyMapCard pro={this.props.property}/>
-                            </InfoWindow> : null
-                        }
-                    </Marker>
-                </div>;
+            display = <div>
+                <Marker
+                    onClick={this.toggleOpen}
+                    label={"$"+this.props.property.rent}
+                    key={`marker${this.props.property._id}`}
+                    position={this.props.location}
+                    icon={MapMarker}
+                    
+                >
+                    { this.state.isOpen && this.state.activeMarker ?
+                        <InfoWindow maxWidth={800} defaultPosition={ this.props.location } onCloseClick={this.props.onToggleOpen}>
+                            <PropertyMapCard pro={this.props.property}/>
+                        </InfoWindow> : null
+                    }
+                </Marker>
+            </div>;
 
         } else {
-            let display = 
-                <div>
-                    <Marker
-                        onClick={this.toggleOpen}
-                        label={"$"+this.props.property.rent}
-                        key={`marker${this.props.property._id}`}
-                        position={this.props.location}
-                        icon={MapMarker}
-                        
-                    >
-                        { this.state.isOpen && this.state.activeMarker ?
-                            <InfoWindow maxWidth={800} defaultPosition={ this.props.location } onCloseClick={this.props.onToggleOpen}>
-                                <PropertyMapCard pro={this.props.property}/>
-                            </InfoWindow> : null
-                        }
-                    </Marker>
-                </div>;
+            display =  <div>
+                <Marker
+                    onClick={this.toggleOpen}
+                    label={"$"+this.props.property.rent}
+                    key={`marker${this.props.property._id}`}
+                    position={this.props.location}
+                    icon={MapMarker}
+                    
+                >
+                    { this.state.isOpen && this.state.activeMarker ?
+                        <InfoWindow maxWidth={800} defaultPosition={ this.props.location } onCloseClick={this.props.onToggleOpen}>
+                            <PropertyMapCard pro={this.props.property}/>
+                        </InfoWindow> : null
+                    }
+                </Marker>
+            </div>;
         }
 
         return(
             <div>
-                    <Marker
-                        onClick={this.toggleOpen}
-                        label={"$"+this.props.property.rent}
-                        key={`marker${this.props.property._id}`}
-                        position={this.props.location}
-                        icon={MapMarker}
-                        
-                    >
-                        { this.state.isOpen && this.state.activeMarker ?
-                            <InfoWindow maxWidth={800} defaultPosition={ this.props.location } onCloseClick={this.props.onToggleOpen}>
-                                <PropertyMapCard pro={this.props.property}/>
-                            </InfoWindow> : null
-                        }
-                    </Marker>
-                </div>
+                {display}
+            </div>
         )
 
     }
