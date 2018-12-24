@@ -7,6 +7,7 @@ import Spinner from '../common/Spinner';
 import PostItem from "../posts/PostItem";
 import UserIcon from '../../assets/UserIcon.png';
 import { getPosts } from '../../actions/postActions';
+import DashboardHeader from './DashboardHeader';
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -41,22 +42,15 @@ class Dashboard extends Component {
 
               
             </p>
-            <p style={{position:'absolute', top: 0, right:0}}>hihhh</p>
             <div style={{position:'absolute', top: 0, right:0}} className="btn-group mb-4" role="group">
               <Link to="/edit-profile" className="btn btn-light">
                 Edit Profile
               </Link>
             </div>
           
-            <img
-              className="rounded-circle"
-              src={user.profilePic }
-              alt={user.name}
-              style={{ width: 120, height: 120, marginRight: '5px' }}
-              title="You must have a Gravatar connected to your email to display an image"
-            />
+            <DashboardHeader/>
 
-            <p>Location: {profile.location}</p>
+            <p style={{paddingTop: 70}}>Location: {profile.location}</p>
             <p>{profile.bio}</p>
 
             <div style={{ marginBottom: '60px' }} />
@@ -101,7 +95,10 @@ class Dashboard extends Component {
           <div className="row">
             <div className="col-md-12">
               <h1 className="display-4">Dashboard</h1>
-              {dashboardContent}
+              <div style={{marginLeft: 15}}>
+                {dashboardContent}
+              </div>
+              <h1>Posts</h1>
               {postContent}
               {deleteContent}
             </div>
