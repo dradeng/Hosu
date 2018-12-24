@@ -114,7 +114,7 @@ class Post extends Component {
                 Back To Feed
               </Link>
               <div style={{height: '49%',width: '50%', float:'right', marginTop: 122}}>
-                  <MapContainer id="map" address={address} geojson={geojson}/>
+                  <MapContainer id="map" address={address} circle={true} geojson={geojson}/>
               </div>
               <Link onClick={this.createChat} style={{position:'absolute', right:0}} className="btn btn-light mb-3" to="/chats">Message</Link>
               {postContent}
@@ -143,5 +143,6 @@ const mapStateToProps = state => ({
   chat: state.chat,
   profile: state.profile
 });
+
 
 export default connect(mapStateToProps, { getPost, addChat, getCurrentProfile })(Post);

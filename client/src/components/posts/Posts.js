@@ -56,9 +56,10 @@ class Posts extends Component {
     if (posts === null || loading || profile === null) {
       postContent = <Spinner />;
     } else {
-      console.log("prpfoiel inside" + profile);
       postContent = <PostFeed profile={profile} addressBounds={address} posts={posts} />;
     }
+
+    var circle = false;
 
     return (
       <div style={{margin: 5, marginTop: '-1.5em'}}  className="feed">
@@ -72,7 +73,7 @@ class Posts extends Component {
 
             </div>
               <div style={{height: '100vh', width: '100vh', right: 5,top: 0}} className="col-md-8">
-                <MapContainer id="map"address={address} geojson={geojson}/>
+                <MapContainer id="map"address={address} circle={circle} geojson={geojson}/>
               </div>
           </div>
         </div>

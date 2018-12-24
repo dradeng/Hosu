@@ -6,11 +6,12 @@ import MapContainer from "./MapContainer";
 const Map = withScriptjs(withGoogleMap((props) =>{
         var longitude = props.address.longitude;
         var latitude = props.address.latitude;
-        console.log("lat and long is " + longitude +" "+ latitude);
+        var circle = props.circle;
         const markers = props.propies.map( property => {
             let marker = <PropertyMarker
                 key={property._id}
                 uid={property._id}
+                circle={circle}
                 closeMarkers={props.closeOtherMarkers}
                 property={property}
                 location={{lat: property.latitude, lng: property.longitude}}

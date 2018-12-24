@@ -14,6 +14,7 @@ export default class MapContainer extends React.Component {
     render() {
         const properties = this.props.geojson;
         const address = this.props.address;
+        const circle = this.props.circle;
         return (
             <Map
                 address={address}

@@ -92,10 +92,9 @@ class PostItem extends Component {
     }
 
     const allImage = post.images.map((item, index) => (
-        <div>
-            <div style={{height: '100%', paddingTop: '66%', backgroundSize: 'cover', backgroundPosition: 'center center', backgroundImage: 'url("' + item + '")'}} />
-        </div>)
-    );
+      <div>
+        <div style={{height: '100%', paddingTop: '66%', backgroundSize: 'cover', backgroundPosition: 'center center', backgroundImage: 'url("' + item + '")'}} />
+      </div>) );
 
     let endDateContent = null;
     var startString = '';
@@ -105,7 +104,11 @@ class PostItem extends Component {
     startString = new Date(post.startDate).toLocaleDateString('en-US', format);
     
 
+    var title = post.title;
 
+    if(title.length > 26) {
+      title = title.substring(0,29) + '...'
+    }
 
 
     if(post.endDate != null && post.endDate.length > 1){
@@ -131,7 +134,7 @@ class PostItem extends Component {
                               <Textfit
                                   mode="single"
                                   forceSingleModeWidth={false}>
-                                  {post.title}
+                                  {title}
                                   </Textfit></div>
                           <div className="col-md-1">
                               
