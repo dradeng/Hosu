@@ -31,7 +31,7 @@ module.exports = function validatePostInput(data) {
   }
 
   if(data.images == 0) {
-    errors.rent = 'Need atleast one image';
+    errors.images = 'Need atleast one image';
   }
 
   return {

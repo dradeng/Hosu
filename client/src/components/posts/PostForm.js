@@ -11,6 +11,7 @@ import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import { addPost, addImage, deleteImage } from '../../actions/postActions';
 import AWS from 'aws-sdk';
 import TextFieldGroup from "../common/TextFieldGroup";
+import InputGroup from "../common/InputGroup";
 import LocationSearchInput from "../common/LocationSearchInput";
 import { getCurrentProfile } from '../../actions/profileActions';
 
@@ -210,16 +211,13 @@ class PostForm extends Component {
                               <h6>
                                  Provide a title
                               </h6>
-                              <input
+                              <InputGroup
                                 placeholder="ex. Draden's Magic Bungalow"
                                 name="title"
-                                type="text"
-                                className="form-control"
                                 value={this.state.title}
                                 onChange={this.onChange}
                                 error={errors.title}
                               />
-                              <br/>
                               <h6>
                                   Provide details
                               </h6>
@@ -235,11 +233,9 @@ class PostForm extends Component {
                               <h6>
                                   Enter your address
                               </h6>
-                              <input
+                              <InputGroup
                                 placeholder="ex. 320 14th St NW"
                                 name="address"
-                                type="text"
-                                className="form-control"
                                 value={this.state.address}
                                 onChange={this.onChange}
                                 error={errors.address}
@@ -249,19 +245,13 @@ class PostForm extends Component {
                               <h6>
                                   Price per week
                               </h6>
-                              <div className="input-group mb-3">
-                                  <div className="input-group-prepend">
-                                      <span className="input-group-text">$</span>
-                                  </div>
-                                  <input type="text" className="form-control"
-                                         placeholder="Enter number for rent"
-                                         name="rent"
-                                         type="number"
-                                         className="form-control"
-                                         value={this.state.rent}
-                                         onChange={this.onChange}
-                                         aria-label="Amount (to the nearest dollar)"/>
-                              </div>
+                              <InputGroup
+                                placeholder="Enter number for rent"
+                                name="rent"
+                                icon="fas fa-dollar-sign"
+                                value={this.state.rent}
+                                onChange={this.onChange}
+                              />
                           </div>
 
 

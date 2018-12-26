@@ -11,13 +11,25 @@ const InputGroup = ({
   type,
   onChange
 }) => {
-  return (
-    <div className="input-group mb-3">
+
+  let iconContent = null;
+
+  if(icon == null) {
+    // do nothing
+  } else {
+    iconContent = 
       <div className="input-group-prepend">
         <span className="input-group-text">
           <i className={icon} />
         </span>
       </div>
+  }
+
+
+
+  return (
+    <div className="input-group mb-3">
+      {iconContent}
       <input
         className={classnames('form-control form-control-lg', {
           'is-invalid': error
