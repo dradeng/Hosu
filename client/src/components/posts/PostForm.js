@@ -4,8 +4,6 @@ import Geocode from 'react-geocode';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import DayPickerInput from 'react-day-picker/DayPickerInput';
-import 'react-day-picker/lib/style.css';
 import Dropzone from 'react-dropzone'
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import { addPost, addImage, deleteImage } from '../../actions/postActions';
@@ -14,6 +12,10 @@ import TextFieldGroup from "../common/TextFieldGroup";
 import InputGroup from "../common/InputGroup";
 import LocationSearchInput from "../common/LocationSearchInput";
 import { getCurrentProfile } from '../../actions/profileActions';
+
+import 'flatpickr/dist/themes/material_green.css'
+
+import Flatpickr from 'react-flatpickr'
 
 class PostForm extends Component {
   constructor(props) {
@@ -30,11 +32,11 @@ class PostForm extends Component {
       startDate: undefined,
       endDate: undefined,
       currFile: [],
+      date: [new Date(), new Date()]
     };
 
     this.onChange = this.onChange.bind(this);
-    this.onStartDateChange = this.onStartDateChange.bind(this);
-    this.onEndDateChange = this.onEndDateChange.bind(this);
+
     this.onSubmit = this.onSubmit.bind(this);
   }
   componentDidMount() {
@@ -55,8 +57,8 @@ class PostForm extends Component {
       title: this.state.title,
       text: this.state.text,
       address: this.state.address,
-      longitude: this.state.longitude, 
-      latitude: this.state.latitude, 
+      longitude: this.state.longitude,
+      latitude: this.state.latitude,
       name: user.name,
       avatar: user.profilePic,
       images: this.state.images,
@@ -77,16 +79,16 @@ class PostForm extends Component {
     this.setState({ startDate: '' });
     this.setState({ endDate: '' });
     this.setState({ currFile: []});
-  
-    
-    
+
+
+
   }
   //THIS IS FOR A FILE BE UPLOADED
   fileChangedHandler = (event) => {
-    
+
     if(event.target.files[0] != null) {
       const file = event.target.files[0];
-      
+
       const uuidv4 = require('uuid/v4');
       const formData = new FormData();
       var fileName = uuidv4();
@@ -96,33 +98,25 @@ class PostForm extends Component {
       // I do this after so it only affects the state, not whats uploaded to s3
       // The state & model in the db stores the whole url
       fileName = 'https://s3.us-east-2.amazonaws.com/aveneu/' + fileName;
-      
 
-      
+
+
       this.setState({ images: [...this.state.images, fileName] });
       this.setState({ currFile: [...this.state.currFile, URL.createObjectURL(event.target.files[0])] });
 
-     
+
       this.props.addImage(formData);
     }
 
 
   }
-  onStartDateChange(day){
-    
-    this.setState({ startDate: day });
-  }
 
-  onEndDateChange(day){
-
-    this.setState({ endDate: day });
-  }
 
   onChange(e) {
 
 
     this.setState({ [e.target.name]: e.target.value });
- 
+
     if( e.target.name === 'address')
     {
       this.getLatLong(e.target.value);
@@ -132,11 +126,11 @@ class PostForm extends Component {
     var index = this.state.currFile.indexOf(imageURL);
     var fileName = this.state.images[index];//HAVE TO FUCKING USE IMAGES NOT CURR FILE
 
-   
+
     var leng = ('https://s3.us-east-2.amazonaws.com/aveneu/').length;
     fileName = fileName.substring(leng);
     var tmpCF = [...this.state.currFile];
-    
+
     var tmpImages = [...this.state.images];
     tmpCF.splice(index, 1);
     tmpImages.splice(index,1);
@@ -147,24 +141,24 @@ class PostForm extends Component {
       fileName : fileName
     };
 
-    
+
     this.props.deleteImage(newFile);
 
   }
   getLatLong(address) {
     // set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
-    
+
     const GoogleMapsApi = require('../../config/index').GoogleMapsApi;
     Geocode.setApiKey(GoogleMapsApi);
-     
+
     // Enable or disable logs. Its optional.
     Geocode.enableDebug();
-     
+
     // Get latidude & longitude from address.
     Geocode.fromAddress(address).then(
       response => {
         const { lat, lng } = response.results[0].geometry.location;
-        
+
         this.setState({ latitude: lat});
         this.setState({ longitude: lng});
       },
@@ -173,8 +167,8 @@ class PostForm extends Component {
         //Commented out because it says an error when ur not done typing out address
       }
     );
-  
-  
+
+
   }
 
   render() {
@@ -187,13 +181,13 @@ class PostForm extends Component {
     }
     const { errors } = this.state;
     let imagePreviewContent = null;
-  
+
     //HAVE TO USE CURRFILE IF USE IMAGES THE SRC DOES NOT RECOGNOIZE THE URL FOR SOME REASON
-    //MIGHT COME BACK TO< BUT PAIN IN THE ASS 
+    //MIGHT COME BACK TO< BUT PAIN IN THE ASS
     if(this.state.images != null) {
-     
+
       imagePreviewContent = this.state.currFile.map( image => {
-   
+
         return <img onClick={this.onDeleteClick.bind(this, image)}
           style={{width: 100, height: 100, border:0}} src={image} />
       });
@@ -255,15 +249,13 @@ class PostForm extends Component {
                           </div>
 
 
-                          <h6>Start Date:</h6>
-                          <div>
-                            <DayPickerInput onDayChange={this.onStartDateChange} />
-                          </div>
-                          <h6>End Date:</h6>
-                          <div>
-                            <DayPickerInput onDayChange={this.onEndDateChange} />
-                          </div>
+                          <h6>Availability</h6>
+                          <Flatpickr
+                          options = {{mode: "range",minDate: "today"}}
+                          value={this.state.date}
+                          onChange={date => { this.setState({date: date, startDate: date[0], endDate:date[1] }); }} />
                           <br/>
+
 
                           <div>
                               <h6> Add Photos </h6>
@@ -273,11 +265,11 @@ class PostForm extends Component {
                           </div>
                           <br/>
 
-                          
+
                           <button type="submit" className="btn btncustom">
                             Submit
                           </button>
-                          
+
                       </form>
                   </div>
               </div>
