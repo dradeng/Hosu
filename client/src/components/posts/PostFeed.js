@@ -17,25 +17,21 @@ class PostFeed extends Component {
   	this.state = {
   		min: 0,
   		max: 10000,
-        startYear: 2018,
-        endYear: 2018,
-        startMonth: 11,
-        endMonth: 12,
         showFilter: false,
         showStartDate: false,
         showCalendar: false,
         showPriceTool: false,
+        startDate: new Date(),
+        endDate: null
   	};
   	this.onChange = this.onChange.bind(this);
     this.onPriceChange = this.onPriceChange.bind(this);
-    this.onChangeStartYear = this.onChangeStartYear.bind(this);
-    this.onChangeEndYear = this.onChangeEndYear.bind(this);
-      this.onChangeStartMonth = this.onChangeStartMonth.bind(this);
-      this.onChangeEndMonth = this.onChangeEndMonth.bind(this);
+    this.onChangeDates = this.onChangeDates.bind(this);
+
 
 
   }
-  
+
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
@@ -43,36 +39,27 @@ class PostFeed extends Component {
   {
       this.setState({ min: min, max: max });
   }
-  onChangeStartMonth(num)
+  onChangeDates(dates)
   {
-      this.setState({ startMonth: num});
-
+    console.log(dates);
+    this.setState({ startDate: dates[0], endDate: dates[1]});
   }
-    onChangeEndMonth(num)
-    {
-        this.setState({ endMonth: num});
 
-    }
-  onChangeStartYear(num)
-  {
-        this.setState({ startYear: this.state.startYear+num});
-  }
-    onChangeEndYear(num)
-    {
-        this.setState({ endYear: this.state.endYear+num});
-    }
   render() {
-  	
     const { posts } = this.props;
     const { profile } = this.props;
-    let newPosts = posts.filter(post => 
+    let newPosts = posts.filter(post =>
       post.rent >= this.state.min && post.rent <= this.state.max
     );
+    let dateFilteredPosts = newPosts.filter(post =>
+      new Date(post.startDate).getTime() <= this.state.startDate.getTime() && new Date(post.endDate).getTime() >= this.state.startDate.getTime()
+    );
+
     let feedContent = null;
     if(profile === null) {
       //do nothign
     } else {
-      feedContent = newPosts.map(post => {
+      feedContent = dateFilteredPosts.map(post => {
           if(Math.abs(post.latitude - post.latitude) < 2 && Math.abs(profile.longitude - post.longitude) < 2) {
             return <PostItem className="col-md-6" key={post._id} post={post} />;
           } else {
@@ -112,7 +99,9 @@ class PostFeed extends Component {
                         <span style={{padding: 2,paddingTop: 6, paddingBottom: 6}}> Dates </span>
                     </button>
                         <div className="filterPopUp">
-                            <Calendar />
+                            <Calendar
+                            onChangeDates={this.onChangeDates}
+                            />
                         </div>
                     </div>:
                     <button className="filterButtonSelected"  onClick={() => this.setState({showCalendar: true,showPriceTool: false, showStartDate: false})}>

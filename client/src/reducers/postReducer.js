@@ -13,7 +13,6 @@ import {
 const initialState = {
     posts: [],
     post: {},
-    currentMonth: new Date(),
     selectedDate: null,
     selectedEndDate: null,
     loading: false
@@ -47,11 +46,6 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 posts: state.posts.filter(post => post._id !== action.payload)
-            };
-        case UPDATE_SELECTED_CURRENT:
-            return {
-                ...state,
-                currentMonth: action.payload
             };
         case UPDATE_SELECTED_DATE:
             return {

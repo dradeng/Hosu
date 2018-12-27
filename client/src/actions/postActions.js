@@ -211,9 +211,6 @@ export const deleteImage = formData => dispatch => {
 
 
 //update state
-export const updateCurrentDate= (date) => dispatch => {
-    dispatch({ type: UPDATE_SELECTED_CURRENT, payload: date });
-};
 
 export const updateStartDate= (date) => dispatch => {
     dispatch({ type: UPDATE_SELECTED_DATE, payload: date });
