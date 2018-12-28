@@ -281,13 +281,16 @@ componentWillReceiveProps(nextProps) {
     return (
       <div className="post-form mb-3">
         <div className="card card-info">
-          <div className="card-header bg-info text-white">Say Somthing...</div>
+          <div className="card-header headercustom text-white">
+            Say Something...
+          </div>
           <div className="card-body">
             <form onSubmit={this.onSubmit} method="POST" enctype="multipart/form-data">
               <div className="form-group">
                 <button
                     onClick={this.onDeleteClick.bind(this, this.state.postID)}
                     type="button"
+                    style={{position:'absolute', right:0,top:5}}
                     className="btn btn-danger mr-1"
                   >
                     <i className="fas fa-times" />
@@ -338,13 +341,14 @@ componentWillReceiveProps(nextProps) {
                 name="endDate"
                 value={this.state.endDate}
                 onDayChange={this.onEndDateChange}/>
-              <br/>
-
+                
+              <br />
+              <br />
               <input type="file" name="file" id="file" onChange={this.fileChangedHandler}/>
               {existingImages}
-              <p>BREAK</p>
               {imagePreviewContent}
 
+              <br />
               <br />
               
                 <button type="submit" className="btn btn-dark">

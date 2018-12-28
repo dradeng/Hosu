@@ -70,9 +70,6 @@ router.post(
       return res.status(400).json(errors);
     }
 
-    
-    
-
     Profile.findOne({ user: req.user.id }).then(profile => {
   
     
@@ -102,7 +99,7 @@ router.post(
           ).then(post => res.json(post));
         } else {
           //console.log('post created');
-
+          console.log('images'+req.body.images);
           const newPost = new Post({
             title: req.body.title,
             address: req.body.address,

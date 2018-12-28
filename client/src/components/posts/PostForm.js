@@ -49,6 +49,8 @@ class PostForm extends Component {
   onSubmit(e) {
     e.preventDefault();
 
+    console.log(this.state.images);
+
     const { user } = this.props.auth;
     const { profile } = this.props.profile;
     const newPost = {
@@ -180,8 +182,6 @@ class PostForm extends Component {
   render() {
     const { user } = this.props.auth;
 
-    console.log('actual user is ' + user);
-    console.log("user mane "+user.profile);
     if (!user.profile) {
       return <Redirect to='/dashboard' />
     }
