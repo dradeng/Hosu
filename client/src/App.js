@@ -64,6 +64,9 @@ class App extends Component {
           <div className="App">
             <Navbar curPath={window.location.pathname} />
             <Route exact path="/" component={Landing} />
+            <Switch>
+              <PrivateRoute exact path="/feed" component={Posts} />
+            </Switch>
             <div className="container">
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
@@ -123,9 +126,7 @@ class App extends Component {
 
               <Route exact path="/form-submitted" component={FormSubmitted} />
             
-              <Switch>
-                  <PrivateRoute exact path="/feed" component={Posts} />
-              </Switch>
+              
               <Switch>
                   <PrivateRoute exact path="/chats" component={Chats} />
               </Switch>
