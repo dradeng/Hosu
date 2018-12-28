@@ -73,6 +73,7 @@ componentWillReceiveProps(nextProps) {
   }
   onDeleteClick(id) {
     this.props.deletePost(id);
+    this.props.history.push("/feed");
   }
   onSubmit(e) {
     e.preventDefault();
@@ -166,7 +167,7 @@ componentWillReceiveProps(nextProps) {
       this.getLatLong(e.target.value);
     }
   }
-  onDeleteClick(imageURL) {
+  onDeleteClickImage(imageURL) {
     console.log('IMAGE URL from delete'+imageURL);
     
     var index = this.state.currFile.indexOf(imageURL);
@@ -272,7 +273,7 @@ componentWillReceiveProps(nextProps) {
       });
       imagePreviewContent = this.state.currFile.map( image => {
    
-        return <img onClick={this.onDeleteClick.bind(this, image)}
+        return <img onClick={this.onDeleteClickImage.bind(this, image)}
           style={{width: 100, height: 100, border:0}} src={image} />
       });
     }
