@@ -36,7 +36,7 @@ class Posts extends Component {
           {
             continue;
           }
-          
+
           geojson.push(posts[k]);
       }
 
