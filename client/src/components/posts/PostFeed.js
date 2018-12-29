@@ -22,7 +22,7 @@ class PostFeed extends Component {
         showCalendar: false,
         showPriceTool: false,
         startDate: new Date(),
-        endDate: null
+        endDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1))
   	};
   	this.onChange = this.onChange.bind(this);
     this.onPriceChange = this.onPriceChange.bind(this);
