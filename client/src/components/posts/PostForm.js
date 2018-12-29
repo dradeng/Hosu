@@ -13,9 +13,9 @@ import InputGroup from "../common/InputGroup";
 import LocationSearchInput from "../common/LocationSearchInput";
 import { getCurrentProfile } from '../../actions/profileActions';
 
-import 'flatpickr/dist/themes/material_green.css'
+import 'flatpickr/dist/themes/material_blue.css';
 
-import Flatpickr from 'react-flatpickr'
+import Flatpickr from 'react-flatpickr';
 
 class PostForm extends Component {
   constructor(props) {
