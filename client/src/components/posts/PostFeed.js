@@ -41,7 +41,6 @@ class PostFeed extends Component {
   }
   onChangeDates(dates)
   {
-    console.log(dates);
     this.setState({ startDate: dates[0], endDate: dates[1]});
   }
 

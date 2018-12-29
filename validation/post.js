@@ -25,8 +25,13 @@ module.exports = function validatePostInput(data) {
     errors.address = 'Address field is required';
   }
 
-  if(data.rent < 1) {
-    errors.rent = 'Rent needs to above zero';
+  if(!isNaN(parseFloat(data.rent)) && isFinite(data.rent)) {
+    
+    if(Number(data.rent) < 1) {
+      errors.rent = 'Rent needs to be above zero';
+    }
+  } else {
+    errors.rent = 'Rent needs to a valid number';
   }
 
   if(data.images.length == 0) {
