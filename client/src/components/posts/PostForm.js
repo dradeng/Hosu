@@ -194,7 +194,7 @@ class PostForm extends Component {
     }
     const { startDate, endDate } = this.state;
 
-    var borderStyle = errors.images ? {borderColor:'red'} : null;
+    var borderStyle = errors.images ? {borderColor:'rgb(220, 53, 69)'} : null;
 
 
 
@@ -272,7 +272,7 @@ class PostForm extends Component {
                               <h6> Add Photos </h6>
                           <input style={borderStyle} className="form-control" type="file" name="file" id="file" onChange={this.fileChangedHandler}/>
 
-                          <div style={{fontSize:13,color:'red', paddingTop:5, fontFamily:"-apple-system, BlinkMacSystemFont, Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Apple Color Emoji, Segoe UI Emoji,Segoe UI Symbol"}}>
+                          <div style={{fontSize:13,color:'rgb(220, 53, 69)', paddingTop:5, fontFamily:'-apple-system, BlinkMacSystemFont, Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Apple Color Emoji, Segoe UI Emoji,Segoe UI Symbol'}}>
                             
                             {errors.images ? errors.images : ''}
                           </div>
