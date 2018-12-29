@@ -8,7 +8,6 @@ module.exports = function validatePostInput(data) {
   data.title = !isEmpty(data.title) ? data.title : '';
   data.address = !isEmpty(data.address) ? data.address : '';
   data.rent = !isEmpty(data.rent) ? data.rent : 0;
-  data.images = !isEmpty(data.images) ? data.images.length : 0;
 
   if (!Validator.isLength(data.text, { min: 1, max: 300 })) {
     errors.text = 'Post must be between 1 and 300 characters';
@@ -30,7 +29,7 @@ module.exports = function validatePostInput(data) {
     errors.rent = 'Rent needs to above zero';
   }
 
-  if(data.images == 0) {
+  if(data.images.length == 0) {
     errors.images = 'Need atleast one image';
   }
 
