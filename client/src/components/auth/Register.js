@@ -16,7 +16,8 @@ class Register extends Component {
       password: '',
       password2: '',
       profilePic: '',
-      errors: {}
+      errors: {},
+      verified: false
     };
 
     this.onChange = this.onChange.bind(this);
@@ -64,7 +65,7 @@ class Register extends Component {
   }
 
   verifyCaptcha(event) {
-    console.log(event);
+    this.setState({ verified: true });
   }
 
   onSubmit(e) {
@@ -83,6 +84,9 @@ class Register extends Component {
 
   render() {
     const { errors } = this.state;
+
+    var submitButtonStyle = this.state.verified ? null : { display: 'none'};
+
 
     return (
       <div className="register">
@@ -131,12 +135,15 @@ class Register extends Component {
                 <br />
                 <input type="file" name="file" id="file" onChange={this.fileChangedHandler}/>
 
+                <br />
+                <br />
+
                 <Recaptcha
-                  sitekey="6LeMnoUUAAAAABKSIFBxMrEMsZl71U7HpUxlViqk"
+                  sitekey="6Lc5oYUUAAAAAF6sHPPXu6MVEar5pMIVNNxFlZEe"
                   onChange={this.verifyCaptcha}
                 />
 
-                <button type="submit" className="btncustom btn btn-block mt-4">
+                <button type="submit" style={submitButtonStyle} className="btncustom btn btn-block mt-4">
                   Submit
                 </button>
               </form>
