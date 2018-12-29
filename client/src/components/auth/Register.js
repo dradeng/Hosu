@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Recaptcha from 'react-google-recaptcha';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -20,6 +21,7 @@ class Register extends Component {
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.verifyCaptcha = this.verifyCaptcha.bind(this);
   }
 
   componentDidMount() {
@@ -60,6 +62,11 @@ class Register extends Component {
       axios.post('api/posts/uploads', formData);
     }
   }
+
+  verifyCaptcha(event) {
+    console.log(event);
+  }
+
   onSubmit(e) {
     e.preventDefault();
 
@@ -123,6 +130,11 @@ class Register extends Component {
                 Profile Picture
                 <br />
                 <input type="file" name="file" id="file" onChange={this.fileChangedHandler}/>
+
+                <Recaptcha
+                  sitekey="6LeMnoUUAAAAABKSIFBxMrEMsZl71U7HpUxlViqk"
+                  onChange={this.verifyCaptcha}
+                />
 
                 <button type="submit" className="btncustom btn btn-block mt-4">
                   Submit
