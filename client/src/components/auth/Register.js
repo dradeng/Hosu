@@ -4,6 +4,7 @@ import Recaptcha from 'react-google-recaptcha';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import {Helmet} from "react-helmet";
 import { registerUser } from '../../actions/authActions';
 import TextFieldGroup from '../common/TextFieldGroup';
 
@@ -17,18 +18,26 @@ class Register extends Component {
       password2: '',
       profilePic: '',
       errors: {},
-      verified: false
+      recaptchaValue: ''
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.verifyCaptcha = this.verifyCaptcha.bind(this);
+    this.verifyRecaptcha = this.verifyRecaptcha.bind(this);
   }
 
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
       this.props.history.push('/dashboard');
     }
+
+    //Recaptcha script needed in the header
+    const script = document.createElement("script");
+
+    script.src = "https://www.google.com/recaptcha/api.js";
+    script.async = true;
+
+    document.body.appendChild(script);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -63,11 +72,10 @@ class Register extends Component {
       axios.post('api/posts/uploads', formData);
     }
   }
-
-  verifyCaptcha(event) {
-    this.setState({ verified: true });
+  verifyRecaptcha(value) {
+    console.log("Captcha value:", value);
+    this.setState({ recaptchaValue: value });
   }
-
   onSubmit(e) {
     e.preventDefault();
 
@@ -77,16 +85,15 @@ class Register extends Component {
       password: this.state.password,
       password2: this.state.password2,
       profilePic: this.state.profilePic,
+      recaptchaValue: this.state.recaptchaValue
     };
 
     this.props.registerUser(newUser, this.props.history);
   }
 
   render() {
+    //<div class="g-recaptcha" data-sitekey="6Lc5oYUUAAAAAF6sHPPXu6MVEar5pMIVNNxFlZEe"></div>
     const { errors } = this.state;
-
-    var submitButtonStyle = this.state.verified ? null : { display: 'none'};
-
 
     return (
       <div className="register">
@@ -137,13 +144,13 @@ class Register extends Component {
 
                 <br />
                 <br />
-
+                
                 <Recaptcha
                   sitekey="6Lc5oYUUAAAAAF6sHPPXu6MVEar5pMIVNNxFlZEe"
-                  onChange={this.verifyCaptcha}
+                  onChange={this.verifyRecaptcha}
                 />
-
-                <button type="submit" style={submitButtonStyle} className="btncustom btn btn-block mt-4">
+              
+                <button type="submit" className="btncustom btn btn-block mt-4">
                   Submit
                 </button>
               </form>
