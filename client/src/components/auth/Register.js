@@ -30,14 +30,6 @@ class Register extends Component {
     if (this.props.auth.isAuthenticated) {
       this.props.history.push('/dashboard');
     }
-
-    //Recaptcha script needed in the header
-    const script = document.createElement("script");
-
-    script.src = "https://www.google.com/recaptcha/api.js";
-    script.async = true;
-
-    document.body.appendChild(script);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -92,7 +84,6 @@ class Register extends Component {
   }
 
   render() {
-    //<div class="g-recaptcha" data-sitekey="6Lc5oYUUAAAAAF6sHPPXu6MVEar5pMIVNNxFlZEe"></div>
     const { errors } = this.state;
 
     return (
@@ -145,11 +136,17 @@ class Register extends Component {
                 <br />
                 <br />
                 
+
+
                 <Recaptcha
                   sitekey="6Lc5oYUUAAAAAF6sHPPXu6MVEar5pMIVNNxFlZEe"
                   onChange={this.verifyRecaptcha}
                 />
               
+                <div style={{fontSize:13,color:'rgb(220, 53, 69)', paddingTop:5, fontFamily:'-apple-system, BlinkMacSystemFont, Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Apple Color Emoji, Segoe UI Emoji,Segoe UI Symbol'}}>
+                  {errors.recaptchaValue ? errors.recaptchaValue : ''}
+                </div>
+
                 <button type="submit" className="btncustom btn btn-block mt-4">
                   Submit
                 </button>

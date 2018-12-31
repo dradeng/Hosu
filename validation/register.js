@@ -41,6 +41,10 @@ module.exports = function validateRegisterInput(data) {
     errors.password2 = 'Passwords must match';
   }
 
+  if(data.recaptchaValue === undefined || data.recaptchaValue === '' || data.recaptchaValue === null) {
+    errors.recaptchaValue = 'Need to click on the recaptchaValue';
+  }
+
   return {
     errors,
     isValid: isEmpty(errors)
