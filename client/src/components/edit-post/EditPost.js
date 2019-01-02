@@ -28,6 +28,7 @@ class PostForm extends Component {
       newImages: [],
       redirect: false,
       removed: [],
+      deleteExistingImages: []
     };
 
     this.onChange = this.onChange.bind(this);
@@ -74,40 +75,6 @@ componentWillReceiveProps(nextProps) {
   onDeleteClick(id) {
     this.props.deletePost(id);
     this.props.history.push("/feed");
-  }
-  onSubmit(e) {
-    e.preventDefault();
-
-    const { user } = this.props.auth;
-    const { post } = this.props.post;
-    const newPost = {
-      title: this.state.title,
-      text: this.state.text,
-      address: this.state.address,
-      longitude: this.state.longitude, 
-      latitude: this.state.latitude, 
-      name: user.name,
-      avatar: user.profilePic,
-      images: this.state.images,
-      rent: this.state.rent,
-      startDate: this.state.startDate,
-      endDate: this.state.endDate,
-      id: post._id // ADDED THIS SO I CAN FIND IT IN WHEN UPDATING
-    };
-
-    this.props.addPost(newPost, this.props.history);
-    this.setState({ text: '' });
-    this.setState({ title: '' });
-    this.setState({ address: '' });
-    this.setState({ images: [] });
-    this.setState({ latitude: 0 });
-    this.setState({ longitude: 0 });
-    this.setState({ rent: 0 });
-    this.setState({ startDate: '' });
-    this.setState({ endDate: '' });
-    this.setState({ currFile: []});
-    this.setState({ redirect: true });
-    this.setState({ removed: [] });
   }
   //THIS IS FOR A FILE BE UPLOADED
   fileChangedHandler = (event) => {
@@ -200,6 +167,10 @@ componentWillReceiveProps(nextProps) {
     var index = this.state.newImages.indexOf(imageURL);
     var tmpImages = [...this.state.newImages];
 
+    var newDeleteExistingImages = [...this.state.deleteExistingImages];
+    newDeleteExistingImages.push(imageURL);
+    this.setState({ deleteExistingImages: newDeleteExistingImages });
+
     console.log("file deleted is with index: " + index);
 
     if (index !== -1) {
@@ -244,6 +215,42 @@ componentWillReceiveProps(nextProps) {
       }
     );
   
+  }
+  onSubmit(e) {
+    e.preventDefault();
+
+    const { user } = this.props.auth;
+    const { post } = this.props.post;
+    const newPost = {
+      title: this.state.title,
+      text: this.state.text,
+      address: this.state.address,
+      longitude: this.state.longitude, 
+      latitude: this.state.latitude, 
+      name: user.name,
+      avatar: user.profilePic,
+      images: this.state.images,
+      rent: this.state.rent,
+      startDate: this.state.startDate,
+      endDate: this.state.endDate,
+      id: post._id, // ADDED THIS SO I CAN FIND IT IN WHEN UPDATING
+      deleteExistingImages: this.state.deleteExistingImages,
+    };
+
+    this.props.addPost(newPost, this.props.history);
+    this.setState({ text: '' });
+    this.setState({ title: '' });
+    this.setState({ address: '' });
+    this.setState({ images: [] });
+    this.setState({ latitude: 0 });
+    this.setState({ longitude: 0 });
+    this.setState({ rent: 0 });
+    this.setState({ startDate: '' });
+    this.setState({ endDate: '' });
+    this.setState({ currFile: []});
+    this.setState({ redirect: true });
+    this.setState({ removed: [] });
+    this.setState({ deleteExistingImages: [] });
   }
 
   render() {

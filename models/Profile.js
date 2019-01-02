@@ -27,7 +27,7 @@ const ProfileSchema = new Schema({
     },
     backgroundPic: {
         type: String,
-        default: null,
+        default: "s3://aveneu/DefaultBackgroundPicture.jpg",
     },
     posts: [String],
     favorites: [String],

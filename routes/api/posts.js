@@ -75,22 +75,35 @@ router.post(
     
       Post.findById(req.body.id).then(post => {
         if(post) {
-          
+          //post updatinf
           const updatePost = {};
          
-          updatePost.title = req.body.title,
-          updatePost.address = req.body.address,
-          updatePost.text = req.body.text,
-          updatePost.name = req.body.name,
-          updatePost.rent = req.body.rent,
-          updatePost.avatar = req.body.avatar,
-          updatePost.user = req.user.id,
-          updatePost.latitude = req.body.latitude,
-          updatePost.longitude = req.body.longitude,
-          updatePost.images = req.body.images,
-          updatePost.startDate = req.body.startDate,
-          updatePost.endDate = req.body.endDate
+          updatePost.title = req.body.title;
+          updatePost.address = req.body.address;
+          updatePost.text = req.body.text;
+          updatePost.name = req.body.name;
+          updatePost.rent = req.body.rent;
+          updatePost.avatar = req.body.avatar;
+          updatePost.user = req.user.id;
+          updatePost.latitude = req.body.latitude;
+          updatePost.longitude = req.body.longitude;
+          updatePost.startDate = req.body.startDate;
+          updatePost.endDate = req.body.endDate;
 
+          var existingImages = req.body.images;
+          
+          for( var i = 0; i < req.body.deleteExistingImages.length; i++) {
+            var url = req.body.deleteExistingImages[i];
+            if(existingImages.includes(url))
+            {
+              var index = existingImages.indexOf(url);
+              if(index > -1) {
+                existingImages.splice(index, 1);
+              }
+            }
+          }
+
+          updatePost.images = existingImages;
 
           Post.findOneAndUpdate(
             { _id: req.body.id },
@@ -98,8 +111,7 @@ router.post(
             { new: true }
           ).then(post => res.json(post));
         } else {
-          //console.log('post created');
-          console.log('images'+req.body.images);
+          //creating a new post
           const newPost = new Post({
             title: req.body.title,
             address: req.body.address,
