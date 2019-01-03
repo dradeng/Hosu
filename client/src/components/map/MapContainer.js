@@ -1,17 +1,21 @@
-import React from "react";
+import React, { Component } from 'react';
 import Map from "./Map";
 
-export default class MapContainer extends React.Component {
-    state = {
-        properties: [],
-        location: this.props.location,
-        activeMarker: null
+class MapContainer extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          properties: [],
+            location: this.props.location,
+            activeMarker: null
+        };
     }
-
     closeOtherMarkers = (uid) => {
         this.setState({activeMarker: uid})
     }
     render() {
+        //this is different than the state.properties
+        //idk why this is, bad implementation
         const properties = this.props.geojson;
         const address = this.props.address;
         const circle = this.props.circle;
@@ -31,3 +35,5 @@ export default class MapContainer extends React.Component {
         );
     }
 }
+
+export default MapContainer;

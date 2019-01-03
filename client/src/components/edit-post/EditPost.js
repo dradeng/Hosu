@@ -16,8 +16,6 @@ class PostForm extends Component {
       title: '',
       text: '',
       address: '',
-      longitude: 0,
-      latitude: 0,
       rent: 0,
       images: [],
       errors: {},
@@ -59,8 +57,6 @@ componentWillReceiveProps(nextProps) {
         title: post.title,
         text: post.text,
         address: post.address,
-        longitude: post.longitude, 
-        latitude: post.latitude, 
         name: user.name,
         avatar: user.profilePic,
         newImages: post.images,
@@ -194,8 +190,6 @@ componentWillReceiveProps(nextProps) {
       title: this.state.title,
       text: this.state.text,
       address: this.state.address,
-      longitude: this.state.longitude, 
-      latitude: this.state.latitude, 
       name: user.name,
       avatar: user.profilePic,
       images: this.state.images,
@@ -211,8 +205,6 @@ componentWillReceiveProps(nextProps) {
     this.setState({ title: '' });
     this.setState({ address: '' });
     this.setState({ images: [] });
-    this.setState({ latitude: 0 });
-    this.setState({ longitude: 0 });
     this.setState({ rent: 0 });
     this.setState({ startDate: '' });
     this.setState({ endDate: '' });

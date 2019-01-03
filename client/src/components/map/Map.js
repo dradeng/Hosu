@@ -4,7 +4,7 @@ import PropertyMarker from "./PropertyMarker"
 import MapContainer from "./MapContainer";
 import MarkerCircle from "./MarkerCircle";
 
-const Map = withScriptjs(withGoogleMap((props) =>{
+const Map = withScriptjs(withGoogleMap((props) => {
         var longitude = props.address.longitude;
         var latitude = props.address.latitude;
         var circle = props.circle;
@@ -32,7 +32,7 @@ const Map = withScriptjs(withGoogleMap((props) =>{
 
         return (
             <GoogleMap
-
+                ref={(map) => this._map = map}
                 defaultZoom={10}
                 defaultCenter={{ lat: latitude, lng: longitude }}
 
