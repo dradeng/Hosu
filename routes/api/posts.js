@@ -82,45 +82,46 @@ router.post(
       Post.findById(req.body.id).then(post => {
         if(post) {
           //post updatinf
-          const updatePost = {};
-         
-          updatePost.title = req.body.title;
-          updatePost.address = req.body.address;
-          updatePost.text = req.body.text;
-          updatePost.name = req.body.name;
-          updatePost.rent = req.body.rent;
-          updatePost.avatar = req.body.avatar;
-          updatePost.user = req.user.id;
-          updatePost.longitude = req.body.longitude;
-          updatePost.latitude = req.body.latitude;
-          //const {latitude, longitude} = googleLocationSearch(req.body.address);
-          //updatePost.latitude = latitude;
-          //updatePost.longitude = longitude;
-          //console.log('we here'+latitude);
-          //console.log(longitude)
-          updatePost.startDate = req.body.startDate;
-          updatePost.endDate = req.body.endDate;
 
-          var existingImages = req.body.images;
+          googleMapsApi.locationSearch(req.body.address, function(latlng) {
+            const latitude = latlng.latitude;
+            const longitude = latlng.longitude;
+   
+            const updatePost = {};
+           
+            updatePost.title = req.body.title;
+            updatePost.address = req.body.address;
+            updatePost.text = req.body.text;
+            updatePost.name = req.body.name;
+            updatePost.rent = req.body.rent;
+            updatePost.avatar = req.body.avatar;
+            updatePost.user = req.user.id;
+            updatePost.longitude = longitude;
+            updatePost.latitude = latitude;
+            updatePost.startDate = req.body.startDate;
+            updatePost.endDate = req.body.endDate;
 
-          for( var i = 0; i < req.body.deleteExistingImages.length; i++) {
-            var url = req.body.deleteExistingImages[i];
-            if(existingImages.includes(url))
-            {
-              var index = existingImages.indexOf(url);
-              if(index > -1) {
-                existingImages.splice(index, 1);
+            var existingImages = req.body.images;
+
+            for( var i = 0; i < req.body.deleteExistingImages.length; i++) {
+              var url = req.body.deleteExistingImages[i];
+              if(existingImages.includes(url))
+              {
+                var index = existingImages.indexOf(url);
+                if(index > -1) {
+                  existingImages.splice(index, 1);
+                }
               }
             }
-          }
 
-          updatePost.images = existingImages;
+            updatePost.images = existingImages;
 
-          Post.findOneAndUpdate(
-            { _id: req.body.id },
-            { $set: updatePost },
-            { new: true }
-          ).then(post => res.json(post));
+            Post.findOneAndUpdate(
+              { _id: req.body.id },
+              { $set: updatePost },
+              { new: true }
+            ).then(post => res.json(post));
+          });
         } else {
           //creating a new post
 
@@ -129,7 +130,7 @@ router.post(
           googleMapsApi.locationSearch(req.body.address, function(latlng) {
             const latitude = latlng.latitude;
             const longitude = latlng.longitude;
-   
+
             const newPost = new Post({
               title: req.body.title,
               address: req.body.address,
@@ -153,7 +154,6 @@ router.post(
               res.json(post);
              
             });
-
           });
         }
       })

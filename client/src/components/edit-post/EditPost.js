@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Geocode from 'react-geocode';
 import { Link, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
@@ -126,13 +125,8 @@ componentWillReceiveProps(nextProps) {
 
   onChange(e) {
 
-
     this.setState({ [e.target.name]: e.target.value });
  
-    if( e.target.name === 'address')
-    {
-      this.getLatLong(e.target.value);
-    }
   }
   onDeleteClickImage(imageURL) {
     console.log('IMAGE URL from delete'+imageURL);
@@ -190,31 +184,6 @@ componentWillReceiveProps(nextProps) {
       fileName : fileName
     };
     this.props.deleteImage(newFile);
-  }
-  
-  getLatLong(address) {
-    // set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
-    
-    const GoogleMapsApi = require('../../config/index').GoogleMapsApi;
-    Geocode.setApiKey(GoogleMapsApi);
-     
-    // Enable or disable logs. Its optional.
-    Geocode.enableDebug();
-     
-    // Get latidude & longitude from address.
-    Geocode.fromAddress(address).then(
-      response => {
-        const { lat, lng } = response.results[0].geometry.location;
-        
-        this.setState({ latitude: lat});
-        this.setState({ longitude: lng});
-      },
-      error => {
-        //console.error(error);
-        //Commented out because it says an error when ur not done typing out address
-      }
-    );
-  
   }
   onSubmit(e) {
     e.preventDefault();
