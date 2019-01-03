@@ -67,6 +67,7 @@
     "react-simple-dropdown": "^3.2.3",
     "react-textfit": "^1.1.0",
     "reactstrap": "^6.5.0",
+    "recompose": "^0.30.0",
     "redux-devtools-extension": "^2.13.7",
     "request": "^2.88.0",
     "rheostat": "^3.0.1",
