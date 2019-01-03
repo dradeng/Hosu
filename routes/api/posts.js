@@ -26,8 +26,14 @@ const multer = require('multer');
 const stream = require('stream');
 const storage = multer.memoryStorage()
 const upload = multer({storage: storage});
+const googleLocationSearch = require('../../controllers/googleLocationSearch.js');
+
+
 const awsUploader = require('../../controllers/awsUpload.js');
 const awsDeleter = require('../../controllers/awsDelete.js');
+
+
+
 router.post('/uploads', upload.any(), awsUploader.doUpload);
 router.post('/delete/uploads', awsDeleter.doDelete);
 /*######################################################*/
@@ -85,13 +91,18 @@ router.post(
           updatePost.rent = req.body.rent;
           updatePost.avatar = req.body.avatar;
           updatePost.user = req.user.id;
-          updatePost.latitude = req.body.latitude;
           updatePost.longitude = req.body.longitude;
+          updatePost.latitude = req.body.latitude;
+          //const {latitude, longitude} = googleLocationSearch(req.body.address);
+          //updatePost.latitude = latitude;
+          //updatePost.longitude = longitude;
+          //console.log('we here'+latitude);
+          //console.log(longitude)
           updatePost.startDate = req.body.startDate;
           updatePost.endDate = req.body.endDate;
 
           var existingImages = req.body.images;
-          
+
           for( var i = 0; i < req.body.deleteExistingImages.length; i++) {
             var url = req.body.deleteExistingImages[i];
             if(existingImages.includes(url))
@@ -112,6 +123,14 @@ router.post(
           ).then(post => res.json(post));
         } else {
           //creating a new post
+
+
+          //const {latitude, longitude} = googleLocationSearch(req.body.address);
+          
+          //console.log('we here'+latitude);
+          //console.log(longitude)
+
+
           const newPost = new Post({
             title: req.body.title,
             address: req.body.address,

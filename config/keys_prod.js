@@ -7,5 +7,5 @@ module.exports = {
   BucketName: process.env.BUCKET_NAME,
   SendGridApiKey: process.env.SEND_GRID_API_KEY,
   RecaptchaSecretKey: process.env.RECAPTCHA_SECRET_KEY,
-  RecaptchaSiteKeu: process.env.RECAPTCHA_SITE_KEY,
+  RecaptchaSiteKey: process.env.RECAPTCHA_SITE_KEY,
 };
