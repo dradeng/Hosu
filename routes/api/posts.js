@@ -26,7 +26,7 @@ const multer = require('multer');
 const stream = require('stream');
 const storage = multer.memoryStorage()
 const upload = multer({storage: storage});
-const googleLocationSearch = require('../../controllers/googleLocationSearch.js');
+const googleMapsApi = require('../../controllers/googleMapsApi.js');
 
 
 const awsUploader = require('../../controllers/awsUpload.js');
@@ -125,34 +125,35 @@ router.post(
           //creating a new post
 
 
-          //const {latitude, longitude} = googleLocationSearch(req.body.address);
-          
-          //console.log('we here'+latitude);
-          //console.log(longitude)
-
-
-          const newPost = new Post({
-            title: req.body.title,
-            address: req.body.address,
-            text: req.body.text,
-            name: req.body.name,
-            rent: req.body.rent,
-            avatar: req.body.avatar,
-            profile: req.body.profile,
-            user: req.user.id,
-            latitude: req.body.latitude,
-            longitude: req.body.longitude,
-            images: req.body.images,
-            startDate: req.body.startDate,
-            endDate: req.body.endDate
-          });
-      
-          profile.posts.push(newPost._id);
         
-          profile.save();
-          newPost.save().then(post => {
-            res.json(post);
-           
+          googleMapsApi.locationSearch(req.body.address, function(latlng) {
+            const latitude = latlng.latitude;
+            const longitude = latlng.longitude;
+   
+            const newPost = new Post({
+              title: req.body.title,
+              address: req.body.address,
+              text: req.body.text,
+              name: req.body.name,
+              rent: req.body.rent,
+              avatar: req.body.avatar,
+              profile: req.body.profile,
+              user: req.user.id,
+              latitude: latitude,
+              longitude: longitude,
+              images: req.body.images,
+              startDate: req.body.startDate,
+              endDate: req.body.endDate
+            });
+        
+            profile.posts.push(newPost._id);
+          
+            profile.save();
+            newPost.save().then(post => {
+              res.json(post);
+             
+            });
+
           });
         }
       })
