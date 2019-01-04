@@ -4,6 +4,10 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 
 
+// Load Controllers
+const googleMapsApi = require('../../controllers/googleMapsApi.js');
+
+
 // Load Validation
 const validateProfileInput = require('../../validation/profile');
 const validateReviewInput = require('../../validation/review');
@@ -137,19 +141,20 @@ router.post(
     Profile.findOne({ user: req.user.id }).then(profile => {
       if (profile) {
         // Update
+        googleMapsApi.locationSearch(req.body.address, function(latlng) {
+          const latitude = latlng.latitude;
+          const longitude = latlng.longitude;
+          var address = {
+            latitude: latitude,
+            longitude: longitude
+          };
 
-        var address = {
-          latitude: req.body.latitude,
-          longitude: req.body.longitude
-        };
-
-
-        Profile.findOneAndUpdate(
-          { user: req.user.id },
-          { $set: address },
-          { new: true }
-        ).then(profile => res.json(profile));
-    
+          Profile.findOneAndUpdate(
+            { user: req.user.id },
+            { $set: address },
+            { new: true }
+          ).then(profile => res.json(profile));
+        });
       } else {
         console.log('NO USER FOUND FOR UPDATING SEARCH');
       }

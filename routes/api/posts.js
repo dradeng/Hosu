@@ -26,12 +26,12 @@ const multer = require('multer');
 const stream = require('stream');
 const storage = multer.memoryStorage()
 const upload = multer({storage: storage});
-const googleMapsApi = require('../../controllers/googleMapsApi.js');
 
 
+//controllers
 const awsUploader = require('../../controllers/awsUpload.js');
 const awsDeleter = require('../../controllers/awsDelete.js');
-
+const googleMapsApi = require('../../controllers/googleMapsApi.js');
 
 
 router.post('/uploads', upload.any(), awsUploader.doUpload);

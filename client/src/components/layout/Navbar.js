@@ -45,8 +45,7 @@ class Navbar extends Component {
     e.preventDefault();
     
     var searchInfo = {
-      longitude: this.state.longitude,
-      latitude: this.state.latitude
+      address: this.state.addressSearch
     };
     this.props.updateSearch(searchInfo);
     //THIS ALWAYS MAKES SURE THE SEARCH GOES TO THE FEED
@@ -56,29 +55,7 @@ class Navbar extends Component {
   }
 
   onChange(e) {
-    var address = e.target.value;
-
-    // set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
-    
-    const GoogleMapsApi = require('../../config/index').GoogleMapsApi;
-    Geocode.setApiKey(GoogleMapsApi);
-     
-    // Enable or disable logs. Its optional.
-    Geocode.enableDebug();
-     
-    // Get latidude & longitude from address.
-    Geocode.fromAddress(address).then(
-      response => {
-        const { lat, lng } = response.results[0].geometry.location;
-        
-        this.setState({ latitude: lat});
-        this.setState({ longitude: lng});
-      },
-      error => {
-        //console.error(error);
-        //Commented out because it says an error when ur not done typing out address
-      }
-    );
+    this.setState({ [e.target.name]: e.target.value });
   }
   render() {
     const { isAuthenticated, user } = this.props.auth;
