@@ -12,11 +12,17 @@ import MapContainer from "../map/MapContainer";
 import Month from '../availability/Month';
 
 class Posts extends Component {
+  constructor(props) {
+        super(props);
+        this.state = {
+          latitude: 0,
+          longitude: 0
+      };
+  }
   componentDidMount() {
     this.props.getPosts();
     this.props.getCurrentProfile();
   }
-
   render() {
     const {user} = this.props.auth;
 
@@ -27,38 +33,35 @@ class Posts extends Component {
     const { profile } = this.props.profile;
 
     let postContent;
-      var geojson = [];
-      geojson['type'] = 'FeatureCollection';
-      geojson['features'] = [];
+    let mapContent;
 
-      for (var k in posts) {
-          if (!posts[k].latitude)
-          {
-            continue;
-          }
+    var geojson = [];
+    geojson['type'] = 'FeatureCollection';
+    geojson['features'] = [];
 
-          geojson.push(posts[k]);
-      }
+    for (var k in posts) {
+        if (!posts[k].latitude)
+        {
+          continue;
+        }
+
+        geojson.push(posts[k]);
+    }
 
     var address;
-    if (profile === null) {
-      address = {
-        latitude: 34.05,
-        longitude: -118.644,
-        circle: false
-      };
+
+    if (posts === null || loading || profile === null) {
+      postContent = <Spinner />;
     } else {
+      console.log('posts lat and lng' + profile.latitude +" "+ profile.longitude);
       address = {
         latitude: profile.latitude,
         longitude: profile.longitude,
         circle: false
       };
-    }
 
-    if (posts === null || loading || profile === null) {
-      postContent = <Spinner />;
-    } else {
       postContent = <PostFeed profile={profile} addressBounds={address} posts={posts} />;
+      mapContent = <MapContainer id="map"address={address} geojson={geojson}/>;
     }
 
     var circle = {
@@ -79,7 +82,7 @@ class Posts extends Component {
 
             </div>
               <div style={{height: '100vh', width: '100vh', right: 5,top: 0}} className="col-md-8">
-                <MapContainer id="map"address={address} geojson={geojson}/>
+                {mapContent}
               </div>
           </div>
         </div>

@@ -4,6 +4,7 @@ import {
     GET_PROFILE,
     GET_PROFILES,
     PROFILE_LOADING,
+    GEt_CURRENT_PROFILE,
     CLEAR_CURRENT_PROFILE,
     GET_ERRORS,
     GET_POST,
@@ -53,8 +54,7 @@ export const getProfile = id => dispatch => {
 
 // Create Profile
 export const createProfile = (profileData, history) => dispatch => {
-  //make user have a profile be true
-  console.log('we updating');
+  //make user have a profile be true in auth router
   axios.post('/api/users/updateUser', profileData);
   axios
     .post('/api/profile', profileData)
@@ -116,20 +116,21 @@ export const getProfiles = () => dispatch => {
 
 
 // Update Search location
-export const updateSearch = (address) => dispatch => {
+export const updateSearch = (address, history) => dispatch => {
   dispatch(setProfileLoading());
   axios
     .post('/api/profile/updateSearch', address)
-    .then(res =>
-      dispatch({
-        type: GET_PROFILE,
-        payload: res.data
-      })
-    )
+    .then(res => {
+      //DO NOT FUCK WITH THIS CODE, VERY PRONE TO BUGS IF CHANGED THE WAY THIS IS HANDLED
+      //THE HISTORY PUSH THE USER TO THE FEED NO MATTER WHAT 
+      history.push('/feed');
+      //THIS MAKES SURE IT GRABS THE LATEST LAT AND LNG
+      window.location.reload();
+    })
     .catch(err =>
       dispatch({
-        type: GET_PROFILE,
-        payload: null
+        type: GET_ERRORS,
+        payload: err.response.data
       })
     );
 };

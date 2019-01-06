@@ -54,7 +54,7 @@ class Favorites extends Component {
 
 Favorites.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
-  getPost: PropTypes.func.isRequired,
+  getPosts: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired
 };

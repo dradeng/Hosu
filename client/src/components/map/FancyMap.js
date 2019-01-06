@@ -39,7 +39,6 @@ const Map = compose(
                 return marker;
             });
         }
-
         return (
         <GoogleMap
             defaultZoom={10}

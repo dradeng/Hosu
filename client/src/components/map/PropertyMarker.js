@@ -31,9 +31,9 @@ class PropertyMarker extends Component {
 
 
         let display;
-        console.log('out');
+        
         if(this.props.address.circle) {
-            console.log('we in');
+        
             display = <div>
 
                 <Marker

@@ -44,14 +44,19 @@ class Navbar extends Component {
   onSubmit(e) {
     e.preventDefault();
     
-    var searchInfo = {
-      address: this.state.addressSearch
-    };
-    this.props.updateSearch(searchInfo);
-    //THIS ALWAYS MAKES SURE THE SEARCH GOES TO THE FEED
-    this.props.history.push('/feed');
-    //THIS ENSURES THE LOCATION IS LOADED PROPERLY
-    window.location.reload();
+    //make sure not empty search
+    if(this.state.addressSearch) 
+    {
+      var searchInfo = {
+        address: this.state.addressSearch
+      };
+      //THIS ALWAYS MAKES SURE THE SEARCH GOES TO THE FEED
+      this.props.updateSearch(searchInfo, this.props.history);
+      //CAN NOT HAVE WINDOW.LOCAITON>RELOAD HERE OR ELSE IT WONT GO TO THE FEED
+      //window.location.reload();
+      //THIS ENSURES THE LOCATION IS LOADED PROPERLY
+      
+    }
   }
 
   onChange(e) {
