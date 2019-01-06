@@ -27,11 +27,54 @@ class PostFeed extends Component {
   	this.onChange = this.onChange.bind(this);
     this.onPriceChange = this.onPriceChange.bind(this);
     this.onChangeDates = this.onChangeDates.bind(this);
-
-
-
+    
+    this.handleClickPrice = this.handleClickPrice.bind(this);
+    this.handleOutsideClickPrice = this.handleOutsideClickPrice.bind(this);
+    this.handleClickCalendar = this.handleClickCalendar.bind(this);
+    this.handleOutsideClickCalendar = this.handleOutsideClickCalendar.bind(this);
   }
+  handleClickPrice() {
+    if (!this.state.showPriceTool) {
+      // attach/remove event handler
+      document.addEventListener('click', this.handleOutsideClickPrice, false);
+    } else {
+      document.removeEventListener('click', this.handleOutsideClickPrice, false);
+    }
 
+    this.setState(prevState => ({
+       showPriceTool: !prevState.showPriceTool,
+    }));
+  }
+  
+  handleOutsideClickPrice(e) {
+    // ignore clicks on the component itself
+    if (this.nodePrice.contains(e.target)) {
+      return;
+    }
+    
+    this.handleClickPrice();
+  }
+  handleClickCalendar() {
+    if (!this.state.showCalendar) {
+      // attach/remove event handler
+      document.addEventListener('click', this.handleOutsideClickCalendar, false);
+    } else {
+      document.removeEventListener('click', this.handleOutsideClickCalendar, false);
+    }
+
+    this.setState(prevState => ({
+       showCalendar: !prevState.showCalendar,
+    }));
+  }
+  
+  handleOutsideClickCalendar(e) {
+    // ignore clicks on the component itself
+    if (this.nodeCalendar.contains(e.target)) {
+      return;
+    }
+    
+    this.handleClickCalendar();
+  }
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
@@ -72,40 +115,45 @@ class PostFeed extends Component {
             <div style={{ borderBottom: '1px solid #eeedf1', padding: 10, paddingLeft: 50}} className="row">
 
                 {this.state.showPriceTool ?
-                    <div>
-                        <button className="filterButton" onClick={() => this.setState({showPriceTool: false})}>
-                            <span style={{padding: 2, paddingTop: 6, paddingBottom: 6}}>  Price </span>
-                        </button>
-                        <div  className="filterPopUp" >
-                        <Range  style={{
-                            padding: 10,
-                            width: 200
-                        }}   tipTransitionName='rc-slider-tooltip-zoom-down' onChange={(evt) => this.onPriceChange(evt[0], evt[1])}  defaultValue={[0, 5000]} max={5000}  min={0}/>
-                            <span> ${this.state.min} , ${this.state.max}  </span>
-
-
-                        </div>
-                    </div> :
-                    <div>
-                        <button className="filterButtonSelected" onClick={() => this.setState({showPriceTool: true})}>
-                            <span style={{padding: 2, paddingTop: 6, paddingBottom: 6}}>  Price </span>
-                        </button>
-
+                  <div ref={nodePrice => { this.nodePrice = nodePrice; }}>
+                    <button className="filterButton">
+                      <span style={{padding: 2, paddingTop: 6, paddingBottom: 6}}>  Price </span>
+                    </button>
+                    <div  className="filterPopUp" >
+                    <Range  
+                      style={{ padding: 10, width: 200 }}   
+                      tipTransitionName='rc-slider-tooltip-zoom-down'
+                      onChange={(evt) => this.onPriceChange(evt[0], evt[1])}  
+                      defaultValue={[0, 10000]} max={10000}  min={0} 
+                    />
+                    <span>
+                      ${this.state.min} , ${this.state.max}  
+                    </span>
                     </div>
+                  </div> 
+                  :
+                  <div>
+                    <button className="filterButtonSelected" onClick={() => this.handleClickPrice()}>
+                      <span style={{padding: 2, paddingTop: 6, paddingBottom: 6}}>  Price </span>
+                    </button>
+                  </div>
                 }
 
-                {this.state.showCalendar ?   <div>  <button className="filterButton" onClick={() => this.setState({showCalendar: false})}>
-                        <span style={{padding: 2,paddingTop: 6, paddingBottom: 6}}> Dates </span>
+                {this.state.showCalendar ?  
+                  <div ref={nodeCalendar => { this.nodeCalendar = nodeCalendar; }}>  
+                    <button className="filterButton">
+                      <span style={{padding: 2,paddingTop: 6, paddingBottom: 6}}> Dates </span>
                     </button>
-                        <div className="filterPopUp">
-                            <Calendar
-                            onChangeDates={this.onChangeDates}
-                            />
-                        </div>
-                    </div>:
-                    <button className="filterButtonSelected"  onClick={() => this.setState({showCalendar: true,showPriceTool: false, showStartDate: false})}>
-                        <span style={{padding: 2,paddingTop: 6, paddingBottom: 6}}> Dates </span>
-                    </button>}
+                    <div className="filterPopUp">
+                      <Calendar
+                      onChangeDates={this.onChangeDates}
+                      />
+                    </div>
+                  </div>
+                :
+                  <button className="filterButtonSelected"  onClick={() => this.handleClickCalendar()}>
+                      <span style={{padding: 2,paddingTop: 6, paddingBottom: 6}}> Dates </span>
+                  </button>}
             </div>
     		<div className="row">
                 {this.state.showFilter && <Filter priceChange={this.onPriceChange}/> }

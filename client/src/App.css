@@ -246,7 +246,7 @@ i.fa.fa-circle.half:after {
 
 .filterButton {
   border-radius: 2px;
-  background: linear-gradient(97deg, #04edc3, #47dce4);
+  background: rgb(2, 136, 228);
   border: none;
   font-family: HiraMaruProN-W4;
   margin-right: 8px;
