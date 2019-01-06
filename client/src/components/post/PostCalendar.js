@@ -21,7 +21,13 @@ class PostCalendar extends Component {
       <div style={{padding:15}}>
 
         <Flatpickr
-        options = {{mode: "range",inline: true, minDate: this.props.startDate, maxDate: this.props.endDate}}
+        options = {{
+          mode: "range",
+          inline: true, 
+          minDate: this.props.startDate, 
+          altInput: true, altFormat: "F j, Y", 
+          maxDate: 
+          this.props.endDate }}
         value={this.state.date}
         />
       </div>

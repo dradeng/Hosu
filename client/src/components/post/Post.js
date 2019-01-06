@@ -64,8 +64,10 @@ class Post extends Component {
   render() {
     const { post, loading } = this.props.post;
     const { profile } = this.props.profile;
+
     let postContent;
     let editContent;
+    let calendarContent;
 
 
     var geojson = [];
@@ -96,13 +98,13 @@ class Post extends Component {
       }
       postContent = (
         <div>
-          <NonFeedPostItem post={post} showActions={false} />
-          <span style={{ display: 'block', margin: '15px'}}>{post.text}</span>
-
-          <div>
-            Availibilty
-            <PostCalendar startDate={startDate} endDate={endDate}/>
+          <div class="row">
+            <NonFeedPostItem class="col-md-4" post={post} showActions={false} style={{float: 'left'}} />
+            <div class="col-md-4" style={{float:'right', display: 'flex', alignItems: 'center'}}>
+              <PostCalendar startDate={startDate} endDate={endDate}/>
+            </div>
           </div>
+          <span style={{ display: 'block', margin: '15px'}}>{post.text}</span>
           <div style={{borderStyle: 'solid',borderWidth:1, borderColor: '#B4B4B4'}}>
             <CommentForm postId={post._id} />
             <CommentFeed postId={post._id} comments={post.comments} />

@@ -128,36 +128,35 @@ class PostItem extends Component {
     }
 
     return (
-        <div className="card card-body mb-3 col-md-6 feedTile">
-          <div className="row">
-            <div className="col-md-2">
-  
-              <img
-                className="rounded-circle d-none d-md-block postImage"
-                src={post.avatar}
-                alt=""
-              />
-          
-            </div>
-            <div className="col-md-10">
-              <div style={{minHeight: 49}} className="row">
-                <div className="lead col-md-9">
-                  <Textfit
-                    mode="single"
-                    forceSingleModeWidth={false}>
-                    {post.title}
-                  </Textfit></div>
-                
-                  {post.user !== auth.user.id ? (
+      <div className="card card-body feedTile">
+        <div className="row">
+          <div className="col-md-2">
 
-                    <div style={{fontSize: 22, color: '#fac71e'}}  onClick={this.onFavorite.bind(this, auth.user.id, post._id)}>
-                      
-                      {starContent}
+            <img
+              className="rounded-circle d-none d-md-block postImage"
+              src={post.avatar}
+              alt=""
+            />
+        
+          </div>
+          <div className="col-md-10">
+            <div style={{minHeight: 49}} className="row">
+              <div className="lead col-md-9">
+                <Textfit
+                  mode="single"
+                  forceSingleModeWidth={false}>
+                  {post.title}
+                </Textfit></div>
+              
+                {post.user !== auth.user.id ? (
 
-                    </div>
-                    ): null 
-                  }
+                  <div style={{fontSize: 22, color: '#fac71e'}}  onClick={this.onFavorite.bind(this, auth.user.id, post._id)}>
+                    
+                    {starContent}
 
+                  </div>
+                  ): null 
+                }
               </div>
             </div>
           </div>
