@@ -10,6 +10,7 @@ import Spinner from '../common/Spinner';
 import { getPost } from '../../actions/postActions';
 import { getCurrentProfile } from '../../actions/profileActions';
 import { addChat } from '../../actions/chatActions';
+import PostCalendar from "./PostCalendar.js";
 
 class Post extends Component {
   constructor(props) {
@@ -71,6 +72,7 @@ class Post extends Component {
     geojson['type'] = 'FeatureCollection';
     geojson['features'] = [];
 
+
     for (var k in post) {
         if (!post[k].latitude)
         {
@@ -83,10 +85,24 @@ class Post extends Component {
     if (post === null || loading || Object.keys(post).length === 0) {
       postContent = <Spinner />;
     } else {
+
+
+      var startDate = post.startDate;
+      var endDate = post.endDate;
+      var now = new Date();
+
+      if(now > startDate) {
+        startDate = now;
+      }
       postContent = (
         <div>
           <NonFeedPostItem post={post} showActions={false} />
           <span style={{ display: 'block', margin: '15px'}}>{post.text}</span>
+
+          <div>
+            Availibilty
+            <PostCalendar startDate={startDate} endDate={endDate}/>
+          </div>
           <div style={{borderStyle: 'solid',borderWidth:1, borderColor: '#B4B4B4'}}>
             <CommentForm postId={post._id} />
             <CommentFeed postId={post._id} comments={post.comments} />
@@ -106,6 +122,14 @@ class Post extends Component {
       circle: true
     };
 
+
+
+    //THIS WAS ORIGINALLY IN THE RETURN STATEMENT
+    //NOT SURE IF I WANT TO INCLUDE THE MAP
+    //<div style={{height: '49%',width: '50%', float:'right', marginTop: 122}}>
+    // <MapContainer id="map" address={address} geojson={geojson}/>
+    //</div>
+
     return (
       <div className="post">
         <div className="container">
@@ -114,9 +138,7 @@ class Post extends Component {
               <Link to="/feed" className="btn btn-light mb-3">
                 Back To Feed
               </Link>
-              <div style={{height: '49%',width: '50%', float:'right', marginTop: 122}}>
-                  <MapContainer id="map" address={address} geojson={geojson}/>
-              </div>
+              
               <Link onClick={this.createChat} style={{position:'absolute', right:0}} className="btn btn-light mb-3" to="/chats">Message</Link>
               {postContent}
             </div>

@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-
-
 import { updateCurrentDate,updateEndDate, updateStartDate } from '../../../actions/postActions';
 import connect from "react-redux/es/connect/connect";
 

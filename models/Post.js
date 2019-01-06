@@ -87,6 +87,18 @@ const PostSchema = new Schema({
       }
     }
   ],
+  bookedDates: [
+    {
+      startDate: {
+        type: String,
+        required: true
+      },
+      endDate: {
+        type: String,
+        required: true
+      }
+    }
+  ],
   date: {
     type: Date,
     default: Date.now

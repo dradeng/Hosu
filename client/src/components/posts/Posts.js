@@ -53,7 +53,6 @@ class Posts extends Component {
     if (posts === null || loading || profile === null) {
       postContent = <Spinner />;
     } else {
-      console.log('posts lat and lng' + profile.latitude +" "+ profile.longitude);
       address = {
         latitude: profile.latitude,
         longitude: profile.longitude,
