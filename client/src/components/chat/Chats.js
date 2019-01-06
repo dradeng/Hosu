@@ -12,11 +12,7 @@ class Chats extends Component {
     this.props.getChats();
   }
   render() {
-    const {user} = this.props.auth;
 
-    if (!user.profile) {
-      return <Redirect to='/dashboard' />
-    }
     const { chats, loading } = this.props.chat;
     let chatContent;
    

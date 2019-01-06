@@ -53,8 +53,9 @@ class Navbar extends Component {
       //THIS ALWAYS MAKES SURE THE SEARCH GOES TO THE FEED
       this.props.updateSearch(searchInfo, this.props.history);
       //CAN NOT HAVE WINDOW.LOCAITON>RELOAD HERE OR ELSE IT WONT GO TO THE FEED
-      //window.location.reload();
-      //THIS ENSURES THE LOCATION IS LOADED PROPERLY
+      //THIS CODE WAS HELLA BUGGY, PRONE TO BUGS
+      //DO MOST OF IT ON IN ACTIONS OR BACKEND
+      //DONT FUCK WITH
       
     }
   }

@@ -17,11 +17,7 @@ class Favorites extends Component {
   }
 
   render() {
-    const { user } = this.props.auth;
-
-    if (!user.profile) {
-      return <Redirect to='/dashboard' />
-    }
+  
     const { profile, loading } = this.props.profile;
     const { posts } = this.props.post; //const { posts, loading } = this.props.post; might need to add loading
     let favoritesContent;

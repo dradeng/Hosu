@@ -42,7 +42,9 @@ router.post('/delete/uploads', awsDeleter.doDelete);
 // @route   GET api/posts
 // @desc    Get posts
 // @access  Public
-router.get('/', (req, res) => {
+router.get('/',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
   Post.find()
     .sort({ date: -1 })
     .then(posts => res.json(posts))

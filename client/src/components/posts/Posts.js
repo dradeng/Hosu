@@ -24,11 +24,6 @@ class Posts extends Component {
     this.props.getCurrentProfile();
   }
   render() {
-    const {user} = this.props.auth;
-
-    if (!user.profile) {
-      return <Redirect to='/dashboard' />
-    }
     const { posts, loading } = this.props.post;
     const { profile } = this.props.profile;
 
