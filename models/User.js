@@ -30,11 +30,19 @@ const UserSchema = new Schema({
   },
   chats: [
     {
+      //chat containes the chat id, the _id in user chats does not matter or have significance
       chat: {
         type: Schema.Types.ObjectId,
         ref: 'chats'
       },
-      
+      user1: {
+        type: String,
+        required: true
+      },
+      user2: {
+        type: String,
+        required: true
+      }
     }
   ]
 });

@@ -2,12 +2,13 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const passport = require('passport');
-
+const fetch = require("node-fetch");
 
 // Post model
 const Chat = require('../../models/Chat');
 // Profile model
 const Profile = require('../../models/Profile');
+const User = require('../../models/User');
 
 // Validation
 //const validatePostInput = require('../../validation/post');
@@ -42,11 +43,19 @@ router.post(
   
   (req, res) => {
 
+    //will validate later maybe lol
     isValid = true
     if (!isValid) {
       // If any errors, send 400 with errors object
       return res.status(400).json('bad chat');
     }
+
+    /*req.user.chats.forEach(function(chat)) {
+
+      if(chat.user1 === req.user.id || chat.user2 === req.user.id) {
+        return;
+      }
+    });*/
 
     const newChat = new Chat({
     	user1: req.user.id,
@@ -58,6 +67,22 @@ router.post(
     	messages: []
 
       //No need to add date
+    });
+
+    const userChat = {
+      chat: newChat._id,
+      user1: req.user.id,
+      user2: req.body.user2
+    };
+
+    //Add the chat info to each user respectively
+    User.findById(req.user.id).then( user => {
+      user.chats.push(userChat);
+      user.save();
+    });
+    User.findById(req.body.user2).then( user => {
+      user.chats.push(userChat);
+      user.save();
     });
 
     newChat.save().then(chat => res.json(chat));
@@ -74,6 +99,7 @@ router.post(
   (req, res) => {
 
 
+    //probably dont need this will come back to
     var socket = req.app.get('socket');
 
 
