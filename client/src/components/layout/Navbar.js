@@ -18,14 +18,9 @@ class Navbar extends Component {
       this.state = {
         dropdownOpen: false,
         messageOpen: false,
-        displayIcon: true
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.changeIcon = this.changeIcon.bind(this);
-  }
-  changeIcon(e) {
-    this.setState({displayIcon: false});
   }
   toggle() {
     this.setState(prevState => ({
@@ -75,11 +70,7 @@ class Navbar extends Component {
       <form onSubmit={this.onSubmit} style={{marginLeft: 25}}>
         <div style={{width:350}} class="input-group md-form form-sm form-1 pl-0">
           <div class="input-group-prepend">
-            { this.state.displayIcon ?
-              <span onClick={this.onSubmit} onMouseEnter={this.changeIcon} class="input-group-text lighten-3" id="basic-text1"><i class="fas fa-search text-white" aria-hidden="true"></i></span>
-              :
-              <span onClick={this.onSubmit} onMouseEnter={this.changeIcon} class="input-group-text lighten-3" id="basic-text1"><i class="fab fa-bitcoin" aria-hidden="true"></i></span>
-            }
+            <span onClick={this.onSubmit}  class="input-group-text lighten-3" id="basic-text1"><i class="fas fa-search text-white" aria-hidden="true"></i></span>
           </div>
           <input onChange={this.onChange} class="form-control my-0 py-1" type="text" placeholder="Search" name="addressSearch" aria-label="Search"/>
         </div>
