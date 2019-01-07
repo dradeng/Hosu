@@ -50,7 +50,7 @@ class Post extends Component {
       
     };
   
-    this.props.addChat(newChat);
+    this.props.addChat(newChat, this.props.history);
     this.setState({ user1: null });
     this.setState({ user2: null });
     this.setState({ user1ProfilePic: '' });
@@ -132,6 +132,12 @@ class Post extends Component {
     // <MapContainer id="map" address={address} geojson={geojson}/>
     //</div>
 
+
+
+    //LINK TO CHATS DOES NOT WORK WEIRD
+    //HAD TO ADD IT AS HISTORY.PUSH IN CHAT ACTIONS
+    //PROBABLY WORKS BEST SINCE THE NEW CHAT NEEDS TO 
+    //BE ADDED TO THE DB BEFORE USER IS REDIRECTED
     return (
       <div className="post">
         <div className="container">
@@ -141,7 +147,7 @@ class Post extends Component {
                 Back To Feed
               </Link>
               
-              <Link onClick={this.createChat} style={{position:'absolute', right:0}} className="btn btn-light mb-3" to="/chats">Message</Link>
+              <Link to="/chats" onClick={this.createChat} style={{position:'absolute', right:0}} className="btn btn-light mb-3">Message</Link>
               {postContent}
             </div>
             {editContent}      

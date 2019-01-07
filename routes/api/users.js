@@ -37,7 +37,8 @@ router.post('/updateUser',
     user.profile = true;
     user.save()
       .then(user => res.json(user))
-        .catch(console.log('unable to send res.json(user)'));
+        .catch(console.log('unable to send res.json(user)')); //this always logs for some reason
+        //wll come back to later
   }).catch(console.log("no user found"));
 });
 

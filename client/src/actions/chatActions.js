@@ -11,16 +11,11 @@ import {
 } from './types';
 
 // Add Post
-export const addChat = chatData => dispatch => {
+export const addChat = (chatData, history) => dispatch => {
   dispatch(clearChatErrors());
   axios
     .post('/api/chats', chatData)
-    .then(res =>
-      dispatch({
-        type: ADD_CHAT,
-        payload: res.data
-      })
-    )
+    .then(res => history.push('/chats'))
     .catch(err =>
       dispatch({
         type: GET_CHAT_ERRORS,
