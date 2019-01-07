@@ -93,7 +93,7 @@ class Register extends Component {
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Sign Up</h1>
               <p className="lead text-center">
-                Create your HausFlex account
+                Create your Aveneu account
               </p>
               <form noValidate onSubmit={this.onSubmit}>
                 <TextFieldGroup

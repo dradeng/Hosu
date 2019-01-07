@@ -159,7 +159,9 @@ class Navbar extends Component {
 
     return (
       <nav style={{backgroundColor: '#ffffff',borderBottom: '1px solid rgba(0,0,0,0.25)'}} className="navbar navbar-expand-sm navbar-dark  mb-4">
-        <img style={{width: 40}} src={HausFlexLogo}/>
+        <a href="/feed">
+          <img style={{width: 40}} src={HausFlexLogo}/>
+        </a>
         {showSearchBar ? searchBar : null }
         <div className="container">
 

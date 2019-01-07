@@ -22,7 +22,7 @@ class Landing extends Component {
           <div className="container">
             <div className="row">
               <div className="col-md-12 text-center">
-                <h1 className="display-3 mb-4">HausFlex</h1>
+                <h1 className="display-3 mb-4">Aveneu</h1>
                 <p className="lead">
                   {' '}
                   Create an account to start exploring the world!
