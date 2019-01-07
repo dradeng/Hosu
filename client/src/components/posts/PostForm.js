@@ -7,6 +7,7 @@ import Dropzone from 'react-dropzone'
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import { addPost, addImage, deleteImage } from '../../actions/postActions';
 import AWS from 'aws-sdk';
+import Spinner from '../common/Spinner';
 import TextFieldGroup from "../common/TextFieldGroup";
 import InputGroup from "../common/InputGroup";
 import LocationSearchInput from "../common/LocationSearchInput";
@@ -136,9 +137,17 @@ class PostForm extends Component {
 
   }
   render() {
-  
+    const { user }  = this.props.auth;
     const { errors } = this.state;
     let imagePreviewContent = null;
+
+    if(user === null) {
+      //do nothing
+    } else {
+      if(!user.profile) {
+        return <Redirect to='/dashboard' />;
+      }
+    }
 
     //HAVE TO USE CURRFILE IF USE IMAGES THE SRC DOES NOT RECOGNOIZE THE URL FOR SOME REASON
     //MIGHT COME BACK TO< BUT PAIN IN THE ASS
@@ -160,7 +169,9 @@ class PostForm extends Component {
     //WOULD NEED TO DO A FILEINPUTGROUP FILE
 
     return (
-      <div className="post-form mb-3">
+
+      <div>
+      { user !== null ? <div className="post-form mb-3">
           <div className="container">
               <div className="row">
                   <div className="col-md-8 m-auto">
@@ -249,7 +260,12 @@ class PostForm extends Component {
                   </div>
               </div>
           </div>
-      </div>
+      </div> :
+      <Spinner/>
+
+
+    }
+    </div>
     );
   }
 }

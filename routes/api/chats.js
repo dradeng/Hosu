@@ -21,6 +21,7 @@ const Profile = require('../../models/Profile');
 router.get('/',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
+
   Chat.find()
     .sort({ date: 1 })
     .then(chats => {

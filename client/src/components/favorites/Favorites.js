@@ -17,21 +17,26 @@ class Favorites extends Component {
   }
 
   render() {
-  
+    const { user } = this.props.auth;
     const { profile, loading } = this.props.profile;
     const { posts } = this.props.post; //const { posts, loading } = this.props.post; might need to add loading
     let favoritesContent;
     
-    if (profile === null) {
+    if (profile === null || user=== null ) {
       favoritesContent = <Spinner />;
     } else {
-        favoritesContent = posts.map(post => { 
-            if(profile.favorites.indexOf(post._id) >= 0) {
-                return <PostItem className="col-md-6" key={post._id} post={post} />
-            } else {
-                return // nothing
-            }
-        });
+
+      if(!user.profile) {
+        return <Redirect to='/dashboard' />;
+      }
+
+      favoritesContent = posts.map(post => { 
+          if(profile.favorites.indexOf(post._id) >= 0) {
+              return <PostItem className="col-md-6" key={post._id} post={post} />
+          } else {
+              return // nothing
+          }
+      });
     }
     return (
       <div className="dashboard">

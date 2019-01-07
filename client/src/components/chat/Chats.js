@@ -13,13 +13,18 @@ class Chats extends Component {
   }
   render() {
 
+    const { user } = this.props.auth;
     const { chats, loading } = this.props.chat;
     let chatContent;
    
-    if(chats === null || loading) {
+    if(user === null || chats === null || loading) {
       chatContent = <Spinner />;
 
     } else {
+
+      if(!user.profile) {
+        return <Redirect to='/dashboard' />;
+      }
       chatContent = <ChatFeed chats={chats} />;
     }
 

@@ -24,6 +24,7 @@ class Posts extends Component {
     this.props.getCurrentProfile();
   }
   render() {
+    const { user } = this.props.auth;
     const { posts, loading } = this.props.post;
     const { profile } = this.props.profile;
 
@@ -45,9 +46,12 @@ class Posts extends Component {
 
     var address;
 
-    if (posts === null || loading || profile === null) {
+    if (posts === null || loading || profile === null || user === null) {
       postContent = <Spinner />;
     } else {
+      if(!user.profile) {
+        return <Redirect to='/dashboard' />;
+      }
       address = {
         latitude: profile.latitude,
         longitude: profile.longitude,

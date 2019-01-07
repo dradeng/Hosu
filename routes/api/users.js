@@ -35,8 +35,9 @@ router.post('/updateUser',
   (req, res) => {
   User.findById(req.user.id).then(user => {
     user.profile = true;
-    user.save(function (err) {
-    }).then(user => res.json(user));
+    user.save()
+      .then(user => res.json(user))
+        .catch(console.log('unable to send res.json(user)'));
   }).catch(console.log("no user found"));
 });
 
