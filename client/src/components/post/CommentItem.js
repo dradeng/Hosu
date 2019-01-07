@@ -19,6 +19,7 @@ class CommentItem extends Component {
                 className="rounded-circle d-none d-md-block"
                 src={comment.avatar}
                 style={{ marginLeft: 15, marginRight: 15, width:30,height:30}}
+                alt="Profile picture"
               />
             <br />
           </div>

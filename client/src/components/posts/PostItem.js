@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import classnames from 'classnames';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import {Carousel} from 'react-responsive-carousel';
-import ReactDom from 'react-dom';
 import { Link } from 'react-router-dom';
 import { FaStar, FaRegStar } from 'react-icons/fa';
 import { Textfit } from 'react-textfit';
@@ -25,7 +23,7 @@ class PostItem extends Component {
     const { post } = this.props;
     const { profile, loading } = this.props.profile;
 
-    if(profile != null && profile.favorites != undefined) {
+    if(profile !== null && profile.favorites !== undefined) {
 
       if (profile.favorites.includes(post._id)) {
 

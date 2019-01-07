@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import classnames from 'classnames';
-import { Link } from 'react-router-dom';
 import { addMessage } from '../../actions/chatActions';
-import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
-import UserIcon from '../../assets/UserIcon.png';
 
 class Chat extends Component {
   constructor(props) {
@@ -58,7 +54,7 @@ class Chat extends Component {
     let reciever;
     let recieverImage;
     let recieverSrc;
-    if(user.id == chat.user1){
+    if(user.id === chat.user1){
 
       reciever = <p className="chatName">{chat.user2Name}</p>;
       recieverSrc = chat.user2ProfilePic;

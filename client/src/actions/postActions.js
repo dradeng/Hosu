@@ -12,7 +12,6 @@ import {
     DELETE_POST,
     UPDATE_SELECTED_DATE,
     UPDATE_SELECTED_ENDDATE,
-    UPDATE_SELECTED_CURRENT,
 
 } from './types';
 

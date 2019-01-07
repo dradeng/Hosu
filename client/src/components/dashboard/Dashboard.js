@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { getCurrentProfile, deleteAccount } from '../../actions/profileActions';
 import Spinner from '../common/Spinner';
 import PostItem from "../posts/PostItem";
-import UserIcon from '../../assets/UserIcon.png';
 import { getPosts } from '../../actions/postActions';
 import DashboardHeader from './DashboardHeader';
 
@@ -26,7 +25,7 @@ class Dashboard extends Component {
     let dashboardContent;
     let postContent;
     let deleteContent;
-    if (profile === null || posts == null) {
+    if (profile === null || posts == null || loading) {
       dashboardContent = <Spinner />;
     } else {
         
@@ -64,14 +63,14 @@ class Dashboard extends Component {
               Delete My Account
           </button>
         );
-        if (profile === null || posts === null || profile.posts == undefined) {
+        if (profile === null || posts === null || profile.posts === undefined) {
           postContent = <p>No post to show</p>
         } else {
             postContent = posts.map(post => { 
                 if(profile.posts.indexOf(post._id) >= 0) {
                     return <PostItem className="col-md-6" key={post._id} post={post} />
                 } else {
-                    return // nothing
+                    return; // nothing
                 }
             });
         }

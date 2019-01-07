@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps";
 import { Redirect } from 'react-router-dom';
-import PostForm from './PostForm';
 import PostFeed from './PostFeed';
 import Spinner from '../common/Spinner';
 import { getPosts } from '../../actions/postActions';
 import { getCurrentProfile } from '../../actions/profileActions';
 import MapContainer from "../map/MapContainer";
-import Month from '../availability/Month';
 
 class Posts extends Component {
   constructor(props) {

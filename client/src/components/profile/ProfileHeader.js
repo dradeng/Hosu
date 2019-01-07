@@ -16,7 +16,9 @@ class ProfileHeader extends Component {
               <img
                 className="rounded-circle"
                 src={profile.avatar}
-                style={{width:120, height:120,display: 'block', position: 'absolute', left: 20, bottom: -20, border:'4px solid white'}} />
+                style={{width:120, height:120,display: 'block', position: 'absolute', left: 20, bottom: -20, border:'4px solid white'}}
+                alt="Profile picture"
+              />
               
 
                 <div style={{position: 'absolute', top:5,right:20, opacity: .7}}>

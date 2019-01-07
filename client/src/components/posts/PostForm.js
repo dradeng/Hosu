@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link, Redirect } from 'react-router-dom';
-import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Dropzone from 'react-dropzone'
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import { addPost, addImage, deleteImage } from '../../actions/postActions';
-import AWS from 'aws-sdk';
 import Spinner from '../common/Spinner';
-import TextFieldGroup from "../common/TextFieldGroup";
 import InputGroup from "../common/InputGroup";
 import LocationSearchInput from "../common/LocationSearchInput";
 import { getCurrentProfile } from '../../actions/profileActions';
@@ -156,7 +152,9 @@ class PostForm extends Component {
       imagePreviewContent = this.state.currFile.map( image => {
 
         return <img onClick={this.onDeleteClick.bind(this, image)}
-          style={{width: 100, height: 100, border:0}} src={image} />
+          style={{width: 100, height: 100, border:0}} src={image} 
+          alt="Images to be added"
+          />
       });
     }
     const { startDate, endDate } = this.state;

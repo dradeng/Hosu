@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getCurrentProfile } from '../../actions/profileActions';
-import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import { addComment } from '../../actions/postActions';
-import UserIcon from '../../assets/UserIcon.png';
 
 class CommentForm extends Component {
   constructor(props) {

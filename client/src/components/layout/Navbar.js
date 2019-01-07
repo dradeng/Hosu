@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Geocode from 'react-geocode';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { logoutUser } from '../../actions/authActions';
 import { clearCurrentProfile, updateSearch } from '../../actions/profileActions';
-import { getChats } from '../../actions/chatActions';
 import HausFlexLogo from '../../assets/hausflex.jpg';
-import UserIcon from '../../assets/UserIcon.png';
-import Chat from "../chat/Chat";
 
 class Navbar extends Component {
   constructor(props) {
@@ -66,16 +62,6 @@ class Navbar extends Component {
   render() {
     const { isAuthenticated, user } = this.props.auth;
 
-    let options = [
-      {
-        text: 'Profile',
-        value: 'Profile',
-      },
-      {
-        text: 'Logout',
-        value: 'Logout',
-      },
-    ];
     const showSearchBar = isAuthenticated && user.profile;
     const searchBar = (
       <form onSubmit={this.onSubmit} style={{marginLeft: 15}}>
@@ -186,14 +172,11 @@ class Navbar extends Component {
 
 Navbar.propTypes = {
   logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  chat: PropTypes.object.isRequired,
-
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  chat: state.chat,
 });
 
 export default connect(mapStateToProps, { logoutUser, clearCurrentProfile, updateSearch })(

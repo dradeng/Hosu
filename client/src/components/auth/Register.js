@@ -4,7 +4,6 @@ import Recaptcha from 'react-google-recaptcha';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import {Helmet} from "react-helmet";
 import { registerUser } from '../../actions/authActions';
 import TextFieldGroup from '../common/TextFieldGroup';
 

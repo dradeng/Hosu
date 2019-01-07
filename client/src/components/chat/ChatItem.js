@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import UserIcon from '../../assets/UserIcon.png';
-import classnames from 'classnames';
 import Spinner from '../common/Spinner';
 import { Link } from 'react-router-dom';
 import io from 'socket.io-client';
-import update from 'immutability-helper';
 import { addMessage, getChat } from '../../actions/chatActions';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 
@@ -121,7 +118,7 @@ class ChatItem extends Component {
     else {
 
 
-      if(user.id == chat.user1){
+      if(user.id === chat.user1){
         receiverName = chat.user2Name;
         recieverSrc = chat.user2ProfilePic;
       } else {
@@ -146,14 +143,12 @@ class ChatItem extends Component {
       // REASON DOING THIS IS BECAUSE DATE.NOW IS NaN UNTIL SAVED TO THE DB, SO HAVE TO 
       // DO NEW DATE FOR SOCKET SERVER MESSAGES 
 
-
-
       messageContent = chat.messages.map(
         message => 
         { 
           let formattedDate =  this.formatAMPM(new Date(message.date));
           lastMessage = message.content;
-          if (user.id == message.sender)
+          if (user.id === message.sender)
           {
             return (
               <div className="row" style={{marginBottom: 15}} align="right">
@@ -185,11 +180,11 @@ class ChatItem extends Component {
     //UP A NEW EMIT AND ADDS IT TO STATE
     socketMessagesContent = this.state.socketMessages.map(message => { 
       
-        if(oldMessage != message.content && message.content != lastMessage) {
+        if(oldMessage !== message.content && message.content !== lastMessage) {
          
           oldMessage = message.content;
           let oldFormattedDate =  this.formatAMPM(message.date);
-          if (user.id == message.sender)
+          if (user.id === message.sender)
           {
             return (
               <div className="row" style={{marginBottom: 15}} align="right">
