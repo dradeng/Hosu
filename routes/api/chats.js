@@ -53,10 +53,10 @@ router.post(
     req.user.chats.forEach(function(chat) {
 
       if(chat.user1 === req.user.id || chat.user2 === req.body.user2) {
-        //set it to res.status 200 sp push.history happes in chat actions
+        //set it to res.json(chat already...) so push.history happes in chat actions
         //there is no error, this just make sures the user doesn't already have
         //a chat open with the other user
-        return res.status(200).json('Chat already added for this user');
+        return;
       }
     });
 
