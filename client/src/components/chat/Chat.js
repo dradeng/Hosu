@@ -36,6 +36,8 @@ class Chat extends Component {
 
     const newMessage = {
       content: this.state.content,
+      user1:  chat.user1,
+      user2: chat.user2
     };
    
     this.props.addMessage(chat._id, newMessage);

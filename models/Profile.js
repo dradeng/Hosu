@@ -16,18 +16,18 @@ const ProfileSchema = new Schema({
     },
     latitude: {
         type: Number,
-        default: 34.05,
+        default: 38.037173,
     },
     longitude: {
         type: Number,
-        default: -118.644,
+        default: -78.497807,
     },
     bio: {
         type: String
     },
     backgroundPic: {
         type: String,
-        default: "s3://aveneu/DefaultBackgroundPicture.jpg",
+        default: "https://s3.us-east-2.amazonaws.com/aveneu/DefaultBackgroundPicture.jpg",
     },
     posts: [String],
     favorites: [String],

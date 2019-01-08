@@ -32,7 +32,7 @@ class DashboardHeader extends Component {
                 className="rounded-circle"
                 src={user.profilePic }
                 alt={user.name}
-                style={{width:120, height:120,display: 'block', position: 'absolute', left: 35, top: 360, border:'4px solid white'}}
+                style={{width:120, height:120,display: 'block', position: 'absolute', left: 35, top: 360, border:'4px solid white', backgroundColor: 'white'}}
                 title="You must have a Gravatar connected to your email to display an image"
               />
             </div>

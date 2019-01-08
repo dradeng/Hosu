@@ -38,6 +38,11 @@ const ChatSchema = new Schema({
       sender: {
         type: String,
         required: true
+      },
+      //read by the reciever only
+      read: {
+        type: Boolean,
+        default: false
       }
     }
   ],

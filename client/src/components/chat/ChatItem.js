@@ -66,6 +66,8 @@ class ChatItem extends Component {
       content: this.state.content,
       sender: user.id,
       date: Date.now,
+      user1: chat.user1,
+      user2: chat.user2
     };
     //const socket = io('http://localhost:5000');
     const socket = io.connect('https://salty-plateau-48594.herokuapp.com');//NEED TO NOT HARD CODE THIS

@@ -105,6 +105,24 @@ router.post(
     //probably dont need this will come back to
     var socket = req.app.get('socket');
 
+    var reciever; 
+
+    //seeing if the sender is equal to user1
+    if(req.user.id == req.body.user1) {
+      reciever = req.body.user2;
+    } else {
+      reciever = req.body.user1;
+    }
+
+    console.log('user2' + req.body.user1 + " " + req.body.user2);
+
+    console.log('receive' + reciever);
+
+    User.findById(reciever).then( user => {
+      user.unreadMessages += 1;
+      user.save();
+    }).catch(err => res.status(404).json({ noUserFound: 'No User found' }));
+
 
     Chat.findById(req.params.id)
       .then(chat => {

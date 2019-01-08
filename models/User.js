@@ -26,11 +26,14 @@ const UserSchema = new Schema({
   profilePic: {
     type: String,
     default: "https://s3.us-east-2.amazonaws.com/aveneu/UserIcon.png",
-    //this also needs to be defined in the routes, ^^ this does nothing
   },
   profile: {
     type: Boolean,
     default: false
+  },
+  unreadMessages: {
+    type: Number,
+    default: 0
   },
   chats: [
     {
