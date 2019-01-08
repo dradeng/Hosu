@@ -58,3 +58,15 @@ export const logoutUser = () => dispatch => {
   // Set current user to {} which will set isAuthenticated to false
   dispatch(setCurrentUser({}));
 };
+
+export const authenticateEmail = (id, history) => dispatch => {
+  axios
+    .post('/api/users/verify-email', id)
+    .then(res => history.push('/login'))
+    .catch(err => 
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+}

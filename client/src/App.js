@@ -30,6 +30,8 @@ import NotFound from './components/not-found/NotFound';
 import FormSubmitted from './components/common/FormSubmitted';
 import Chats from './components/chat/Chats';
 import ChatItem from './components/chat/ChatItem';
+import EmailAuthentication from './components/auth/EmailAuthentication';
+
 
 import './App.css';
 
@@ -70,6 +72,7 @@ class App extends Component {
             <div className="container">
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
+              <Route exact path="/verify-email" component={EmailAuthentication} />
               
               <Switch>
                 <PrivateRoute exact path="/favorites" component={Favorites} />

@@ -97,9 +97,10 @@ router.post('/register', (req, res) => {
           email: req.body.email,
           profilePic: req.body.profilePic,
           password: req.body.password,
+          emailAuthenticated: false
         });
 
-        const authenticationURL = 'google.com';
+        const authenticationURL = 'http://localhost:3000/verify-email?id=' + newUser._id;
 
         sgMail.send({
           to:       req.body.email,
@@ -125,6 +126,41 @@ router.post('/register', (req, res) => {
     }
   });
 });
+
+// @route   POST api/users/verify_email
+// @desc    Verify user's email confirmation
+// @access  Public
+router.get('/verify-email', function(req,res) {
+  console.log('verify-email token: ');
+
+  User.findById(req.query.id)
+    .then(user => {
+      if (err) { 
+        return console.error(err); 
+      }
+
+      user.isAuthenticated = true;
+      user.save(function (err) {
+          if (err) return console.error(err);
+          console.log('succesfully updated user');
+          console.log(user);
+
+          res.send(user);
+    });
+  });
+
+  res.render('index', {title: 'Authenticating...'});
+  sendgrid.send({
+    to:       req.user.email,
+    from:     'Support@Aveneu.com',
+    subject:  'Email confirmed!',
+    html:     'Awesome! We can now send you kick-ass emails'
+    }, function(err, json) {
+        if (err) { return console.error(err); }
+    console.log(json);
+  });
+});
+
 
 // @route   GET api/users/login
 // @desc    Login User / Returning JWT Token
