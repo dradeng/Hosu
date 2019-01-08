@@ -25,7 +25,7 @@ class Dashboard extends Component {
     let dashboardContent;
     let postContent;
     let deleteContent;
-    if (profile === null || posts == null || loading) {
+    if (profile === null || posts == null && loading) {
       dashboardContent = <Spinner />;
     } else {
         

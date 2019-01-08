@@ -34,6 +34,7 @@ router.get('/test', (req, res) => res.json({ msg: 'Users Works' }));
 router.post('/updateUser',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
+  console.log('id is '+req.user.id);
   User.findById(req.user.id).then(user => {
     user.profile = true;
     user.save()
@@ -146,7 +147,7 @@ router.get('/verify-email/:id', (req, res) => {
           return console.error(err);
         }
         console.log('succesfully updated user');
-        console.log(user);
+       
 
         res.send(user);
       });

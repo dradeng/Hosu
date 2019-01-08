@@ -29,13 +29,20 @@ class Favorites extends Component {
         return <Redirect to='/dashboard' />;
       }
 
-      favoritesContent = posts.map(post => { 
-          if(profile.favorites.indexOf(post._id) >= 0) {
-              return <PostItem className="col-md-6" key={post._id} post={post} />
-          } else {
-              return // nothing
-          }
-      });
+
+      //Looks over all posts to find which one user likes
+      //this is inefficient will come back and fix later
+      if(profile.favorites.length === 0) {
+        favoritesContent = <div>No favorites yet. Start favoriting posts by clicking on the gold start and they will appear here!</div>
+      } else {
+        favoritesContent = posts.map(post => { 
+            if(profile.favorites.indexOf(post._id) >= 0) {
+                return <PostItem className="col-md-6" key={post._id} post={post} />
+            } else {
+              // nothing
+            }
+        });
+      }
     }
     return (
       <div className="dashboard">

@@ -101,13 +101,22 @@ class PostFeed extends Component {
     if(profile === null) {
       //do nothign
     } else {
-      feedContent = dateFilteredPosts.map(post => {
+      feedContent = dateFilteredPosts.filter(post =>
+          Math.abs(post.latitude - post.latitude) < 2 && Math.abs(profile.longitude - post.longitude) < 2)
+          .map(post => {
+            return <PostItem className="col-md-6" key={post._id} post={post} />;
+          });
+      /*feedContent = dateFilteredPosts.map(post => {
           if(Math.abs(post.latitude - post.latitude) < 2 && Math.abs(profile.longitude - post.longitude) < 2) {
             return <PostItem className="col-md-6" key={post._id} post={post} />;
-          } else {
-            return; // do nothing
           }
-      });
+      });*/
+    }
+    if(feedContent.length === 0) {
+      feedContent = 
+        <div style={{paddingTop: 30, display: 'block', textAlign:'center', marginLeft: 'auto', marginRight: 'auto'}}>
+          <div>There are no posts listed in this area yet for the given availibility and price range chosen!</div>
+        </div>
     }
 
     return (
