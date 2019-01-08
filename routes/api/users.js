@@ -8,6 +8,7 @@ const keys = require('../../config/keys');
 const SendGridApiKey = require('../../config/keys').SendGridApiKey;
 const RecaptchaSiteKey = require('../../config/keys').RecaptchaSiteKey;
 const RecaptchaSecretKey = require('../../config/keys').RecaptchaSecretKey;
+const LocalOrHeroku = require('../../config/keys').LocalOrHeroku;
 const passport = require('passport');
 
 // Load Input Validation
@@ -95,7 +96,7 @@ router.post('/register', (req, res) => {
           emailAuthenticated: false
         });
 
-        const authenticationURL = "http://localhost:3000/verify-email/"+newUser._id;
+        const authenticationURL = LocalOrHeroku+"/verify-email/"+newUser._id;
 
         sgMail.send({
           to:       req.body.email,
@@ -184,7 +185,12 @@ router.post('/login', (req, res) => {
       errors.email = 'User not found';
       return res.status(404).json(errors);
     }
-
+    var errors = {};
+    errors.email = 'Email needs to confirmed';
+    if(!user.emailAuthenticated) {
+      console.log('email is ' + user.emailAuthenticated);
+      return res.status(404).json(errors);
+    }
     // Check Password
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {

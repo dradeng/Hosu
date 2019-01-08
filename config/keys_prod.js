@@ -8,4 +8,5 @@ module.exports = {
   SendGridApiKey: process.env.SEND_GRID_API_KEY,
   RecaptchaSecretKey: process.env.RECAPTCHA_SECRET_KEY,
   RecaptchaSiteKey: process.env.RECAPTCHA_SITE_KEY,
+  LocalOrHeroku: process.env.LOCAL_OR_HEROKU,
 };
