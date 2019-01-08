@@ -62,8 +62,6 @@ router.post('/register', (req, res) => {
       return res.status(400).json(errors);
     } else {
 
-      console.log('we inside the req');
-
       if(req.body.profilePic.length < 1) {
         req.body.profilePic = "https://s3.us-east-2.amazonaws.com/aveneu/UserIcon.png";
       }
@@ -79,9 +77,6 @@ router.post('/register', (req, res) => {
       // req.connection.remoteAddress will provide IP address of connected user.
       var verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body.recaptchaValue + "&remoteip=" + req.connection.remoteAddress;
       // Hitting GET request to the URL, Google will respond with success or error scenario.
-
-      console.log('we right before request');
-
 
       request(verificationUrl,function(error,response,body) {
         body = JSON.parse(body);
@@ -100,7 +95,7 @@ router.post('/register', (req, res) => {
           emailAuthenticated: false
         });
 
-        const authenticationURL = 'http://localhost:3000/verify-email?id=' + newUser._id;
+        const authenticationURL = "http://localhost:3000/verify-email/"+newUser._id;
 
         sgMail.send({
           to:       req.body.email,
@@ -127,37 +122,43 @@ router.post('/register', (req, res) => {
   });
 });
 
-// @route   POST api/users/verify_email
+// @route   GET api/users/verify-email
 // @desc    Verify user's email confirmation
 // @access  Public
-router.get('/verify-email', function(req,res) {
+router.get('/verify-email/:id', (req, res) => {
+  console.log('we insdie the funciton');
   console.log('verify-email token: ');
 
-  User.findById(req.query.id)
+  User.findById(req.params.id)
     .then(user => {
-      if (err) { 
-        return console.error(err); 
+
+
+      if (!user) {
+        console.log('user is null');
+        console.log('id'+req.params.id);
+        return res.status(404).json('User is not found');
       }
 
-      user.isAuthenticated = true;
+      user.emailAuthenticated = true;
       user.save(function (err) {
-          if (err) return console.error(err);
-          console.log('succesfully updated user');
-          console.log(user);
+        if (err) {
+          return console.error(err);
+        }
+        console.log('succesfully updated user');
+        console.log(user);
 
-          res.send(user);
-    });
-  });
+        res.send(user);
+      });
 
-  res.render('index', {title: 'Authenticating...'});
-  sendgrid.send({
-    to:       req.user.email,
-    from:     'Support@Aveneu.com',
-    subject:  'Email confirmed!',
-    html:     'Awesome! We can now send you kick-ass emails'
-    }, function(err, json) {
-        if (err) { return console.error(err); }
-    console.log(json);
+      sgMail.send({
+        to:       user.email,
+        from:     'Support@Aveneu.com',
+        subject:  'Email confirmed!',
+        html:     'Awesome! We can now send you kick-ass emails'
+        }, function(err, json) {
+            if (err) { return console.error(err); }
+        console.log(json);
+      });
   });
 });
 

@@ -72,7 +72,7 @@ class App extends Component {
             <div className="container">
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
-              <Route exact path="/verify-email" component={EmailAuthentication} />
+              <Route exact path="/verify-email/:id" component={EmailAuthentication} />
               
               <Switch>
                 <PrivateRoute exact path="/favorites" component={Favorites} />

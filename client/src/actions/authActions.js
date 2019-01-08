@@ -59,9 +59,9 @@ export const logoutUser = () => dispatch => {
   dispatch(setCurrentUser({}));
 };
 
-export const authenticateEmail = (id, history) => dispatch => {
+export const authenticateEmail = ( id, history) => dispatch => {
   axios
-    .post('/api/users/verify-email', id)
+    .get(`/api/users/verify-email/${id}`)
     .then(res => history.push('/login'))
     .catch(err => 
       dispatch({
