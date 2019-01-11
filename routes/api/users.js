@@ -186,10 +186,8 @@ router.post('/login', (req, res) => {
       errors.email = 'User not found';
       return res.status(404).json(errors);
     }
-    var errors = {};
-    errors.email = 'Email needs to confirmed';
     if(!user.emailAuthenticated) {
-      console.log('email is ' + user.emailAuthenticated);
+      errors.email = 'Email needs to confirmed';
       return res.status(404).json(errors);
     }
     // Check Password
