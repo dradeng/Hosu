@@ -88,19 +88,6 @@ class PostItem extends Component {
     }
 
 
-    var geojson = [];
-      geojson['type'] = 'FeatureCollection';
-      geojson['features'] = [];
-
-    for (var k in post) {
-        if (!post[k].latitude)
-        {
-          continue;
-        }
-        
-        geojson.push(post[k]);
-    }
-
     const allImage = post.images.map((item, index) => (
         <div>
             <div style={{height: '100%', paddingTop: '66%', backgroundSize: 'cover', backgroundPosition: 'center center', backgroundImage: 'url("' + item + '")'}}>

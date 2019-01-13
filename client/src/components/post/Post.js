@@ -70,20 +70,6 @@ class Post extends Component {
     let calendarContent;
 
 
-    var geojson = [];
-    geojson['type'] = 'FeatureCollection';
-    geojson['features'] = [];
-
-
-    for (var k in post) {
-        if (!post[k].latitude)
-        {
-          continue;
-        }
-        
-        geojson.push(post[k]);
-    }
-
     if (post === null || loading || Object.keys(post).length === 0) {
       postContent = <Spinner />;
     } else {

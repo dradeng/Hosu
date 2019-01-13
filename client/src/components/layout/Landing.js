@@ -2,22 +2,21 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
-//import Timelapse from '../../assets/Timelapse.mp4';
+import ReactPlayer from 'react-player';
+
 class Landing extends Component {
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
       this.props.history.push('/dashboard');
     }
   }
-
   render() {
     return (
-      <div  className="landing">
-        <div>
-          <video id="background-video"  autoPlay loop muted>
-            <source src="https://s3.us-east-2.amazonaws.com/aveneu/Timelapse.mp4" type='video/mp4'/>
-          </video>
-        </div>
+      //overflow style is needed so video doesn;t cut into footer
+      <div className="landing" style={{overflow:'hidden'}}>
+        <video style={{ minWidth: '100%', minHeight: '100%'}} autoPlay loop muted>
+          <source src="https://s3.us-east-2.amazonaws.com/aveneu/Timelapse.mp4" type='video/mp4'/>
+        </video>
         <div className="dark-overlay landing-inner text-light">
           <div className="container">
             <div className="row">
