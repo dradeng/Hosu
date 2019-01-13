@@ -168,7 +168,7 @@ class CreateProfile extends Component {
                   info="Tell us a little about yourself"
                 />
                 
-                Background Picture
+                Background Picture (suggested dimensions are 851 wide, 315 tall)
                 <br />
                 <input type="file" name="file" id="file" onChange={this.fileChangedHandler2}/>
 

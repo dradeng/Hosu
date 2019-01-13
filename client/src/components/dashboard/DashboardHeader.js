@@ -26,7 +26,7 @@ class DashboardHeader extends Component {
       if (Object.keys(profile).length > 0) {
         
         dashboardContent = (
-          <div style={{backgroundImage: `url(${profile.backgroundPic})`, backgroundSize: '100% 100%', height: 300, width: 800}}>
+          <div style={{backgroundImage: `url(${profile.backgroundPic})`, backgroundSize: '100% 100%', height: 315, width: 851}}>
             <div className="row">
               <img
                 className="rounded-circle"

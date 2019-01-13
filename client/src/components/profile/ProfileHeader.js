@@ -11,7 +11,7 @@ class ProfileHeader extends Component {
     return (
       <div>
         <div className="col-md-12">
-          <div style={{backgroundImage: `url(${profile.backgroundPic})`, backgroundSize: '100% 100%', minHeight: 235}}>
+          <div style={{backgroundImage: `url(${profile.backgroundPic})`, backgroundSize: '100% 100%',height: 315, width: 851}}>
             <div className="row">
               <img
                 className="rounded-circle"
