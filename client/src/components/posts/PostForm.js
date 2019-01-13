@@ -29,8 +29,8 @@ class PostForm extends Component {
       date: [new Date(), new Date()],
     };
 
+    this.changeAddress = this.changeAddress.bind(this);
     this.onChange = this.onChange.bind(this);
-
     this.onSubmit = this.onSubmit.bind(this);
   }
   componentDidMount() {
@@ -107,6 +107,11 @@ class PostForm extends Component {
   onChange(e) {
 
     this.setState({ [e.target.name]: e.target.value });
+
+  }
+  changeAddress(e) {
+    console.log(e);
+    this.setState({ address: e });
 
   }
   onDeleteClick(imageURL) {
@@ -202,12 +207,9 @@ class PostForm extends Component {
                               <h6>
                                   Enter your address
                               </h6>
-                              <InputGroup
-                                placeholder="ex. 320 14th St NW"
-                                name="address"
+                              <LocationSearchInput
+                                changeAddress={this.changeAddress}
                                 value={this.state.address}
-                                onChange={this.onChange}
-                                error={errors.address}
                               />
                           </div>
                           <div key="3" className="form-group">

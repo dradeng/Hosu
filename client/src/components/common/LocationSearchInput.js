@@ -13,7 +13,7 @@ class LocationSearchInput extends React.Component {
 
     handleSelect = (address) => {
         this.setState({ address });
-        this.props.changeIt(address);
+        this.props.changeAddress(address);
     }
 
     render() {

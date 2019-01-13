@@ -128,10 +128,18 @@ router.post(
           //creating a new post
 
 
-        
+          console.log('bout to add address');
           googleMapsApi.locationSearch(req.body.address, function(latlng) {
             const latitude = latlng.latitude;
             const longitude = latlng.longitude;
+
+            console.log('lat and long' + latitude + longitude);
+
+            if(latitude === null || longitude === null) {
+              const errors = {};
+              errors.address = "Needs to be a valid address";
+              return res.status(400).json(errors);
+            }
 
             const newPost = new Post({
               title: req.body.title,
