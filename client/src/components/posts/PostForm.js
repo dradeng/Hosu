@@ -166,10 +166,10 @@ class PostForm extends Component {
 
     var borderStyle = errors.images ? {borderColor:'rgb(220, 53, 69)'} : null;
 
-
-
     //MIGHT TRY TO REFFACTOR THE FILE INPUT LATER BUT ATM IT WILL DO
     //WOULD NEED TO DO A FILEINPUTGROUP FILE
+
+
 
     return (
 
@@ -210,7 +210,11 @@ class PostForm extends Component {
                               <LocationSearchInput
                                 changeAddress={this.changeAddress}
                                 value={this.state.address}
+                                error={errors.address}
                               />
+                              <div style={{fontSize:13,color:'rgb(220, 53, 69)', paddingTop:5, fontFamily:'-apple-system, BlinkMacSystemFont, Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Apple Color Emoji, Segoe UI Emoji,Segoe UI Symbol'}}>
+                               {errors.address ? errors.address : ''}
+                              </div>
                           </div>
                           <div key="3" className="form-group">
                               <h6>

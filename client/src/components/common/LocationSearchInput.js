@@ -16,7 +16,12 @@ class LocationSearchInput extends React.Component {
         this.props.changeAddress(address);
     }
 
+
     render() {
+        var addressStyle = {}
+        if(this.props.error) {
+          addressStyle = {borderColor:'red'};
+        }
         return (
             <PlacesAutocomplete
                 value={this.state.address}
@@ -30,7 +35,7 @@ class LocationSearchInput extends React.Component {
 
                         <input
 
-
+                            style={addressStyle}
                             {...getInputProps({
                                 type: "text", className: "form-control",
                                 placeholder: 'Complete your address...',
