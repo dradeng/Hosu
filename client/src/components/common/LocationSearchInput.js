@@ -9,11 +9,12 @@ class LocationSearchInput extends React.Component {
 
     handleChange = (address) => {
         this.setState({ address });
+        this.props.changeAddress(address);
     }
 
     handleSelect = (address) => {
         this.setState({ address });
-        this.props.changeAddress(address);
+        this.props.onSubmit(address);
     }
 
 
@@ -30,7 +31,7 @@ class LocationSearchInput extends React.Component {
                 onSelect={this.handleSelect}
             >
                 {({ getInputProps, suggestions, getSuggestionItemProps }) => (
-                    <div >
+                    <div>
 
 
                         <input
@@ -38,7 +39,7 @@ class LocationSearchInput extends React.Component {
                             style={addressStyle}
                             {...getInputProps({
                                 type: "text", className: "form-control",
-                                placeholder: 'Complete your address...',
+                                placeholder: this.props.placeholder,
                             })}
                         />
 

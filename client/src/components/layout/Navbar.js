@@ -7,6 +7,7 @@ import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap
 import { logoutUser } from '../../actions/authActions';
 import { clearCurrentProfile, updateSearch } from '../../actions/profileActions';
 import HausFlexLogo from '../../assets/hausflex.jpg';
+import LocationSearchInput from '../common/LocationSearchInput';
 
 class Navbar extends Component {
   constructor(props) {
@@ -19,7 +20,7 @@ class Navbar extends Component {
         dropdownOpen: false,
         messageOpen: false,
     };
-    this.onChange = this.onChange.bind(this);
+    this.changeAddress = this.changeAddress.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
   toggle() {
@@ -38,8 +39,7 @@ class Navbar extends Component {
     this.props.logoutUser();
   }
   onSubmit(e) {
-    e.preventDefault();
-    
+
     //make sure not empty search
     if(this.state.addressSearch) 
     {
@@ -53,18 +53,18 @@ class Navbar extends Component {
       //DO MOST OF IT ON IN ACTIONS OR BACKEND
       //DONT FUCK WITH
       
-
-      this.setState({ displayIcon: true});
-      
     }
   }
 
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+  changeAddress(addressSearch) {
+    this.setState({ addressSearch: addressSearch });
   }
   render() {
     const { isAuthenticated, user } = this.props.auth;
 
+
+    //<input onChange={this.onChange} class="form-control my-0 py-1" type="text" placeholder="Search" name="addressSearch" aria-label="Search"/>
+      
     const showSearchBar = isAuthenticated && user.profile;
     const searchBar = (
       <form onSubmit={this.onSubmit} style={{marginLeft: 25}}>
@@ -72,7 +72,7 @@ class Navbar extends Component {
           <div class="input-group-prepend">
             <span onClick={this.onSubmit}  class="input-group-text lighten-3" id="basic-text1"><i class="fas fa-search text-white" aria-hidden="true"></i></span>
           </div>
-          <input onChange={this.onChange} class="form-control my-0 py-1" type="text" placeholder="Search" name="addressSearch" aria-label="Search"/>
+          <LocationSearchInput changeAddress={this.changeAddress} onSubmit={this.onSubmit} value={this.state.address} placeholder="Search" />
         </div>
         <button type="submit" style={{display:"none"}}>
           Submit
@@ -152,7 +152,7 @@ class Navbar extends Component {
     );
 
     return (
-      <nav style={{backgroundColor: '#ffffff',borderBottom: '1px solid rgba(0,0,0,0.25)'}} className="navbar navbar-expand-sm navbar-dark  mb-4">
+      <nav style={{backgroundColor: '#ffffff', maxHeight: 60, borderBottom: '1px solid rgba(0,0,0,0.25)'}} className="navbar navbar-expand-sm navbar-dark  mb-4">
         <a href="/feed">
           <img style={{width: 40}} src={HausFlexLogo}/>
         </a>

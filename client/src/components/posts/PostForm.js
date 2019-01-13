@@ -110,7 +110,6 @@ class PostForm extends Component {
 
   }
   changeAddress(e) {
-    console.log(e);
     this.setState({ address: e });
 
   }
