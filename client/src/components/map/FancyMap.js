@@ -19,6 +19,7 @@ const Map = compose(
             var longitude = props.address.longitude;
             var latitude = props.address.latitude;
             var circle = props.circle;
+            var highlight = props.highlight;
 
         var markers;
 
@@ -26,7 +27,9 @@ const Map = compose(
             markers = <MarkerCircle address={props.address}  />;
 
         } else {
+
             markers = props.propies.map( property => {
+                console.log(property._id === highlight);
                 let marker = <PropertyMarker
                     key={property._id}
                     uid={property._id}
@@ -35,7 +38,7 @@ const Map = compose(
                     property={property}
                     address={props.address}
                     location={{lat: property.latitude, lng: property.longitude}}
-                    activeMarker={property._id === props.activeMarker ? true : false}/>
+                    activeMarker={property._id === highlight ? true : false}/>
                 return marker;
             });
         }
@@ -62,6 +65,7 @@ class FancyMap extends Component {
     }
     render() {
         var address = this.props.address;
+        var highlight = this.props.highlight;
         var circle = this.props.circle;
         var properties = this.props.propies;
         var toggleShowPage= this.props.toggleShowPage;
@@ -69,6 +73,7 @@ class FancyMap extends Component {
         var closeOtherMarkers= this.props.closeOtherMarkers;
         return (
             <Map
+                highlight={highlight}
                 address={address}
                 circle={circle}
                 propies={properties}

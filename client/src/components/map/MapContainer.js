@@ -18,9 +18,12 @@ class MapContainer extends Component {
         //idk why this is, bad implementation
         const properties = this.props.geojson;
         const address = this.props.address;
+        const highlight = this.props.highlight;
         const circle = this.props.circle;
+        console.log('highligh in container' + highlight);
         return (
             <FancyMap
+                highlight={highlight}
                 address={address}
                 propies={properties}
                 toggleShowPage={this.props.toggleShowPage}

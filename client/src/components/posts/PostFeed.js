@@ -86,7 +86,10 @@ class PostFeed extends Component {
   {
     this.setState({ startDate: dates[0], endDate: dates[1]});
   }
-
+  updateParentPostFeed(post) {
+    console.log('made it to postfeed'+post);
+    this.props.updateParentPosts(post);
+  }
   render() {
     const { posts } = this.props;
     const { profile } = this.props;
@@ -104,13 +107,13 @@ class PostFeed extends Component {
       feedContent = dateFilteredPosts.filter(post =>
           Math.abs(post.latitude - post.latitude) < 2 && Math.abs(profile.longitude - post.longitude) < 2)
           .map(post => {
-            return <PostItem className="col-md-6" key={post._id} post={post} />;
+            return <PostItem 
+              updateParentPostFeed={this.updateParentPostFeed.bind(this)}
+              className="col-md-6" 
+              key={post._id} 
+              post={post} 
+            />;
           });
-      /*feedContent = dateFilteredPosts.map(post => {
-          if(Math.abs(post.latitude - post.latitude) < 2 && Math.abs(profile.longitude - post.longitude) < 2) {
-            return <PostItem className="col-md-6" key={post._id} post={post} />;
-          }
-      });*/
     }
     if(feedContent.length === 0) {
       feedContent = 

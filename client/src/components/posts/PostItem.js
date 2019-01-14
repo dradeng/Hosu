@@ -15,7 +15,10 @@ class PostItem extends Component {
     super(props);
     this.state = {
       favorited: false,
+      hover: false
     }
+    this.onMouseLeave = this.onMouseLeave.bind(this);
+    this.onMouseEnter = this.onMouseEnter.bind(this);
   }
   componentDidMount() {
  
@@ -32,7 +35,16 @@ class PostItem extends Component {
 
     }
   }
-
+  onMouseEnter(e) {
+    const { post } = this.props;
+    console.log('entering');
+    this.setState({ hover: !this.state.hover});
+    this.props.updateParentPostFeed(post._id);
+  }
+  onMouseLeave(e) {
+    console.log('exiting');
+    this.setState({ hover: !this.state.hover});
+  }
   onLikeClick(id) {
     this.props.addLike(id);
   }
@@ -114,7 +126,7 @@ class PostItem extends Component {
     }
 
       return (
-          <div className="card card-body mb-3 col-md-6 feedTile">
+          <div className="card card-body mb-3 col-md-6 feedTile" onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}>
             <div className="row">
                   <div className="col-md-2">
                       <Link to={`/profile/${post.profile}`}>

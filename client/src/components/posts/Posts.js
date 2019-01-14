@@ -13,12 +13,17 @@ class Posts extends Component {
         super(props);
         this.state = {
           latitude: 0,
-          longitude: 0
+          longitude: 0,
+          highlight: null
       };
   }
   componentDidMount() {
     this.props.getPosts();
     this.props.getCurrentProfile();
+  }
+  updateParentPosts(post) {
+    console.log('made it to posts'+post);
+    this.setState({highlight: post});
   }
   render() {
     const { user } = this.props.auth;
@@ -55,8 +60,14 @@ class Posts extends Component {
         circle: false
       };
 
-      postContent = <PostFeed profile={profile} addressBounds={address} posts={posts} />;
-      mapContent = <MapContainer id="map"address={address} geojson={geojson}/>;
+      postContent = <PostFeed 
+        updateParentPosts={this.updateParentPosts.bind(this)}
+        profile={profile} 
+        addressBounds={address} 
+        posts={posts} 
+      />;
+      console.log('highlight is ' + this.state.highlight);
+      mapContent = <MapContainer highlight={this.state.highlight} id="map"address={address} geojson={geojson}/>;
     }
 
     var circle = {
