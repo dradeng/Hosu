@@ -20,7 +20,7 @@ const Map = compose(
             var latitude = props.address.latitude;
             var circle = props.circle;
             var highlight = props.highlight;
-
+            var highlightSame;
         var markers;
 
         if(props.address.circle) {
@@ -29,8 +29,10 @@ const Map = compose(
         } else {
 
             markers = props.propies.map( property => {
-                console.log(property._id === highlight);
+                
+                highlightSame = highlight === property._id;
                 let marker = <PropertyMarker
+                    highlight={highlightSame}
                     key={property._id}
                     uid={property._id}
                     circle={circle}
@@ -38,7 +40,7 @@ const Map = compose(
                     property={property}
                     address={props.address}
                     location={{lat: property.latitude, lng: property.longitude}}
-                    activeMarker={property._id === highlight ? true : false}/>
+                    activeMarker={property._id === props.activeMarker ? true : false}/>
                 return marker;
             });
         }

@@ -23,13 +23,13 @@ class PropertyMarker extends Component {
     }
 
     componentWillReceiveProps(nextProps){
+
         this.setState({activeMarker: nextProps.activeMarker})
     
     }
 
     render(){
-
-
+        const highlight = this.props.highlight;
         let display;
         
         if(this.props.address.circle) {
@@ -52,7 +52,7 @@ class PropertyMarker extends Component {
                     icon={MapMarker}
                     
                 >
-                    { this.state.isOpen && this.state.activeMarker ?
+                    { this.state.isOpen && this.state.activeMarker || highlight ?
                         <InfoWindow maxWidth={800} defaultPosition={ this.props.location } onCloseClick={this.props.onToggleOpen}>
                             <PropertyMapCard pro={this.props.property}/>
                         </InfoWindow> : null

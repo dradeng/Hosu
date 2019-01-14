@@ -22,7 +22,6 @@ class Posts extends Component {
     this.props.getCurrentProfile();
   }
   updateParentPosts(post) {
-    console.log('made it to posts'+post);
     this.setState({highlight: post});
   }
   render() {
@@ -42,10 +41,9 @@ class Posts extends Component {
         {
           continue;
         }
-
         geojson.push(posts[k]);
     }
-
+    console.log(geojson);
     var address;
 
     if (posts === null || loading || profile === null || user === null) {

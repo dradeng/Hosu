@@ -87,7 +87,6 @@ class PostFeed extends Component {
     this.setState({ startDate: dates[0], endDate: dates[1]});
   }
   updateParentPostFeed(post) {
-    console.log('made it to postfeed'+post);
     this.props.updateParentPosts(post);
   }
   render() {

@@ -15,7 +15,6 @@ class PostItem extends Component {
     super(props);
     this.state = {
       favorited: false,
-      hover: false
     }
     this.onMouseLeave = this.onMouseLeave.bind(this);
     this.onMouseEnter = this.onMouseEnter.bind(this);
@@ -37,13 +36,10 @@ class PostItem extends Component {
   }
   onMouseEnter(e) {
     const { post } = this.props;
-    console.log('entering');
-    this.setState({ hover: !this.state.hover});
     this.props.updateParentPostFeed(post._id);
   }
   onMouseLeave(e) {
-    console.log('exiting');
-    this.setState({ hover: !this.state.hover});
+    this.props.updateParentPostFeed(null);
   }
   onLikeClick(id) {
     this.props.addLike(id);
