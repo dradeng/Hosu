@@ -19,7 +19,7 @@ class LocationSearchInput extends React.Component {
 
 
     render() {
-        var addressStyle = {}
+        var addressStyle = {position: 'absolute', top:0,left:40, height:40}
         if(this.props.error) {
           addressStyle = {borderColor:'red'};
         }
@@ -44,7 +44,7 @@ class LocationSearchInput extends React.Component {
                         />
 
 
-                        <div className="autocomplete-dropdown-container">
+                        <div style={{border:'1px solid rgba(0,0,0,0.25)', position: 'absolute', top:40, zIndex:1000}} className="autocomplete-dropdown-container">
                             {suggestions.map(suggestion => {
                                 const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item';
                                 // inline style for demonstration purpose
@@ -52,7 +52,7 @@ class LocationSearchInput extends React.Component {
                                     ? { backgroundColor: '#fafafa', cursor: 'pointer' }
                                     : { backgroundColor: '#ffffff', cursor: 'pointer' };
                                 return (
-                                    <div {...getSuggestionItemProps(suggestion, { className, style })}>
+                                    <div style={{overflow: 'auto'}} {...getSuggestionItemProps(suggestion, { className, style })}>
                                         <span>{suggestion.description}</span>
                                     </div>
                                 )
