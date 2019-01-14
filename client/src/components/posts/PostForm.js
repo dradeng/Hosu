@@ -6,7 +6,7 @@ import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import { addPost, addImage, deleteImage } from '../../actions/postActions';
 import Spinner from '../common/Spinner';
 import InputGroup from "../common/InputGroup";
-import LocationSearchInput from "../common/LocationSearchInput";
+import LocationAutoComplete from "../common/LocationAutoComplete";
 import { getCurrentProfile } from '../../actions/profileActions';
 
 import 'flatpickr/dist/themes/material_blue.css';
@@ -206,7 +206,7 @@ class PostForm extends Component {
                               <h6>
                                   Enter your address
                               </h6>
-                              <LocationSearchInput
+                              <LocationAutoComplete
                                 changeAddress={this.changeAddress}
                                 value={this.state.address}
                                 error={errors.address}
