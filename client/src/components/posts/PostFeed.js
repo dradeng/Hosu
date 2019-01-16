@@ -20,8 +20,9 @@ class PostFeed extends Component {
         showFilter: false,
         showStartDate: false,
         showCalendar: false,
+        initialDateRange: true,
         showPriceTool: false,
-        startDate: new Date(),
+        startDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
         endDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1))
   	};
   	this.onChange = this.onChange.bind(this);
@@ -84,26 +85,38 @@ class PostFeed extends Component {
   }
   onChangeDates(dates)
   {
+    if(this.state.initialDateRange) {
+      this.setState({initialDateRange: false});
+    }
     this.setState({ startDate: dates[0], endDate: dates[1]});
   }
+  //this is for hovering over a post in a feed
   updateParentPostFeed(post) {
     this.props.updateParentPosts(post);
   }
   render() {
     const { posts } = this.props;
     const { profile } = this.props;
+
+    //filter by price
     let newPosts = posts.filter(post =>
       post.rent >= this.state.min && post.rent <= this.state.max
     );
-    let dateFilteredPosts = newPosts.filter(post =>
-      new Date(post.startDate).getTime() <= this.state.startDate.getTime() && new Date(post.endDate).getTime() >= this.state.startDate.getTime()
-    );
+    let dateFilteredPosts = newPosts.filter(post => {
+      if(this.state.initialDateRange) {
+        console.log('we here');
+        return new Date(post.startDate).getYear() <= this.state.startDate.getYear();
+      } else {
+        return new Date(post.startDate).getTime() <= this.state.startDate.getTime() && new Date(post.endDate).getTime() >= this.state.startDate.getTime();
+      }
+    });
 
     let feedContent = null;
     if(profile === null) {
       //do nothign
     } else {
       feedContent = dateFilteredPosts.filter(post =>
+          //returns nearby posts by 2 degrees latitude, will make more sophisticated later
           Math.abs(post.latitude - post.latitude) < 2 && Math.abs(profile.longitude - post.longitude) < 2)
           .map(post => {
             return <PostItem 
@@ -114,6 +127,8 @@ class PostFeed extends Component {
             />;
           });
     }
+
+    //checks to see if there are any posts in the time frame, price range and location search
     if(feedContent.length === 0) {
       feedContent = 
         <div style={{paddingTop: 30, display: 'block', textAlign:'center', marginLeft: 'auto', marginRight: 'auto'}}>

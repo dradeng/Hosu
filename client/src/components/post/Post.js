@@ -88,6 +88,7 @@ class Post extends Component {
             <NonFeedPostItem class="col-md-4" post={post} showActions={false} style={{float: 'left'}} />
             <div class="col-md-4" style={{float:'right', display: 'flex', alignItems: 'center'}}>
               <PostCalendar startDate={startDate} endDate={endDate}/>
+              
             </div>
           </div>
           <span style={{ display: 'block', margin: '15px'}}>{post.text}</span>
@@ -98,10 +99,13 @@ class Post extends Component {
         </div>
       );
     }
-    if (profile === null || null) {
+    var messageOrEditButtonContent;
+    if (profile === null) {
       //do nothing
     } else if (profile.posts.indexOf(post._id) >= 0) {
-      editContent = <Link to={`/edit-post/${post._id}`} className="btn btn-light">Edit Post</Link>
+      messageOrEditButtonContent = <Link to={`/edit-post/${post._id}`} style={{position:'absolute', right:0}} className="btn btn-light">Edit Post</Link>;
+    } else {
+      messageOrEditButtonContent = <Link to="/chats" onClick={this.createChat} style={{position:'absolute', right:0}} className="btn btn-light mb-3">Message</Link>;
     }
 
     var address = {
@@ -133,7 +137,7 @@ class Post extends Component {
                 Back To Feed
               </Link>
               
-              <Link to="/chats" onClick={this.createChat} style={{position:'absolute', right:0}} className="btn btn-light mb-3">Message</Link>
+              {messageOrEditButtonContent}
               {postContent}
             </div>
             {editContent}      

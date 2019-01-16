@@ -43,7 +43,7 @@ class Posts extends Component {
         }
         geojson.push(posts[k]);
     }
-    console.log(geojson);
+
     var address;
 
     if (posts === null || loading || profile === null || user === null) {
@@ -64,7 +64,7 @@ class Posts extends Component {
         addressBounds={address} 
         posts={posts} 
       />;
-      console.log('highlight is ' + this.state.highlight);
+     
       mapContent = <MapContainer highlight={this.state.highlight} id="map"address={address} geojson={geojson}/>;
     }
 
