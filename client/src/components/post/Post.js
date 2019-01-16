@@ -39,7 +39,9 @@ class Post extends Component {
     const request = {
       post: post._id,
       user: user.id,
-      landLord: post.user
+      landLord: post.user,
+      startDate: this.state.startDate,
+      endDate: this.state.endDate
     };
     this.props.requestSublet(request);
   }

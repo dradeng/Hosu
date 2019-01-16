@@ -4,7 +4,10 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 
 
-//const upload = require('../../server').upload;
+//Sendgrid info
+const SendGridApiKey = require('../../config/keys').SendGridApiKey;
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(SendGridApiKey)
 
 // Post model
 const Post = require('../../models/Post');
@@ -265,4 +268,31 @@ router.delete(
   }
 );
 
+// @route   POST api/posts/requestSublet
+// @desc    Sends email to landlord for approval or denial
+// @access  Private
+router.post(
+  '/requestSublet',
+  passport.authenticate('jwt', { session: false}),
+  (req, res) => {
+    User.findById(req.body.landLord)
+      .then(landLord => {
+
+        const requestURL = LocalOrHeroku;
+
+        var htmlContent = (
+         '<div>Someone has request to sublet your property! Log in to view the request<a target=_blank href=\"' + requestURL + '\">here</a>!</div>'
+        );
+        sgMail.send({
+          to:       landLord.email,
+          from:     'Support@Aveneu.com',
+          subject:  'Request for subletting your property!',
+          html:     htmlContent
+          }, function(err, json) {
+              if (err) { return console.error(err); }
+          console.log(json);
+        });
+      })
+  }
+);
 module.exports = router;
