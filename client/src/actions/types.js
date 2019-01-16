@@ -13,6 +13,7 @@ export const POST_LOADING = 'POST_LOADING';
 export const GET_POSTS = 'GET_POSTS';
 export const GET_POST = 'GET_POST';
 export const ADD_POST = 'ADD_POST';
+export const REQUEST_SUBLET = 'REQUEST_SUBLET';
 //stuff for images
 export const ADD_IMAGE = 'ADD_IMAGE';
 export const DELETE_IMAGE = 'DELETE_IMAGE';

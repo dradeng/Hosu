@@ -209,7 +209,6 @@ class PostForm extends Component {
                               <LocationAutoComplete
                                 changeAddress={this.changeAddress}
                                 value={this.state.address}
-                                error={errors.address}
                               />
                               <div style={{fontSize:13,color:'rgb(220, 53, 69)', paddingTop:5, fontFamily:'-apple-system, BlinkMacSystemFont, Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Apple Color Emoji, Segoe UI Emoji,Segoe UI Symbol'}}>
                                {errors.address ? errors.address : ''}

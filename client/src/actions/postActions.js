@@ -204,7 +204,22 @@ export const deleteImage = formData => dispatch => {
       })
     );
 };
-
+export const requestSublet = requestData => dispatch => {
+  axios
+    .post('/api/posts/requestSublet', requestData)
+    .then(res => 
+      dispatch({
+        type: GET_POST,
+        payload: res.data
+      })
+    )
+    .catch(err => 
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+}
 
 
 

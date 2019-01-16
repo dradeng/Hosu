@@ -7,7 +7,7 @@ import CommentForm from './CommentForm';
 import CommentFeed from './CommentFeed';
 import MapContainer from "../map/MapContainer";
 import Spinner from '../common/Spinner';
-import { getPost } from '../../actions/postActions';
+import { getPost, requestSublet } from '../../actions/postActions';
 import { getCurrentProfile } from '../../actions/profileActions';
 import { addChat } from '../../actions/chatActions';
 import PostCalendar from "./PostCalendar.js";
@@ -25,13 +25,24 @@ class Post extends Component {
       messages: []
     };
     this.createChat = this.createChat.bind(this);
+    this.requestSublet = this.requestSublet.bind(this);
   }
 
   componentDidMount() {
     this.props.getPost(this.props.match.params.id);
     this.props.getCurrentProfile();
   }
+  requestSublet() {
+    const { post } = this.props.post;
+    const { user } = this.props.auth;
 
+    const request = {
+      post: post._id,
+      user: user.id,
+      landLord: post.user
+    };
+    this.props.requestSublet(request);
+  }
   createChat(e) {
     e.preventDefault();
 
@@ -87,8 +98,13 @@ class Post extends Component {
           <div class="row">
             <NonFeedPostItem class="col-md-4" post={post} showActions={false} style={{float: 'left'}} />
             <div class="col-md-4" style={{float:'right', display: 'flex', alignItems: 'center'}}>
-              <PostCalendar startDate={startDate} endDate={endDate}/>
+              <div>
+                <PostCalendar style={{position:'relative'}} startDate={startDate} endDate={endDate}/>
               
+                <button onClick={this.requestSublet} style={{position:'relative', maxWidth: 275, display:'block', marginLeft: 'auto', marginRight: 'auto'}} className="btncustom btn btn-block mt-2">
+                  Request to Sublet
+                </button>
+              </div>
             </div>
           </div>
           <span style={{ display: 'block', margin: '15px'}}>{post.text}</span>
@@ -166,4 +182,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps, { getPost, addChat, getCurrentProfile })(Post);
+export default connect(mapStateToProps, { getPost, addChat, getCurrentProfile, requestSublet })(Post);

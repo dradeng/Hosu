@@ -23,6 +23,7 @@ class Dashboard extends Component {
     const { posts } = this.props.post;
 
     let dashboardContent;
+    let postHeader;
     let postContent;
     let deleteContent;
     if (profile === null || posts == null && loading) {
@@ -63,9 +64,13 @@ class Dashboard extends Component {
               Delete My Account
           </button>
         );
-        if (profile === null || posts === null || profile.posts === undefined) {
-          postContent = <p>No post to show</p>
+        if (profile === null) {
+          //do nothing
+        } else if(posts === null || profile.posts === undefined) {
+          postHeader = <h1>Posts</h1>;
+          postContent = <p>No post to show</p>;
         } else {
+            postHeader = <h1>Posts</h1>;
             postContent = posts.map(post => { 
                 if(profile.posts.indexOf(post._id) >= 0) {
                     return <PostItem className="col-md-6" key={post._id} post={post} />
@@ -79,7 +84,7 @@ class Dashboard extends Component {
         dashboardContent = (
           <div>
             <p className="lead text-muted">Welcome {user.name}</p>
-            <p>You have not yet setup a profile, please add some info</p>
+            <p>You have not yet setup a profile, please create a profile. User's can not access other pages before creating a profile</p>
             <Link to="/create-profile" className="btn btncustom">
               Create Profile
             </Link>
@@ -97,8 +102,9 @@ class Dashboard extends Component {
               <div style={{marginLeft: 15}}>
                 {dashboardContent}
               </div>
-              <h1>Posts</h1>
+              {postHeader}
               {postContent}
+
               {deleteContent}
             </div>
           </div>
