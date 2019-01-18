@@ -79,7 +79,6 @@ class Post extends Component {
     const { profile } = this.props.profile;
 
     let postContent;
-    let editContent;
     let calendarContent;
 
 
@@ -109,7 +108,10 @@ class Post extends Component {
               </div>
             </div>
           </div>
+
+          <span style={{ display: 'block', margin: '15px'}}><b>Minimum Stay: </b>{post.minimumStay} days</span>
           <span style={{ display: 'block', margin: '15px'}}>{post.text}</span>
+
           <div style={{borderStyle: 'solid',borderWidth:1, borderColor: '#B4B4B4'}}>
             <CommentForm postId={post._id} />
             <CommentFeed postId={post._id} comments={post.comments} />
@@ -157,8 +159,7 @@ class Post extends Component {
               
               {messageOrEditButtonContent}
               {postContent}
-            </div>
-            {editContent}      
+            </div>   
           </div>
         </div>
       </div>

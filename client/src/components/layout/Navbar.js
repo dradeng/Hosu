@@ -113,10 +113,15 @@ class Navbar extends Component {
                   title="You must have a Gravatar connected to your email to display an image"
                 />
               </DropdownToggle>
-              <DropdownMenu>
+              <DropdownMenu right>
                 <DropdownItem>
                   <Link className="nav-link" to="/dashboard">
                      <span style={{color: '#B4B4B4'}}>Profile</span>
+                  </Link>
+                </DropdownItem>
+                <DropdownItem>
+                  <Link className="nav-link" to="/dashboard">
+                     <span style={{color: '#B4B4B4'}}>Stays</span>
                   </Link>
                 </DropdownItem>
                 <DropdownItem>
