@@ -37,6 +37,9 @@ module.exports = function validatePostInput(data) {
   if(data.images.length == 0) {
     errors.images = 'Need atleast one image';
   }
+  if(data.minimumStay == 0) {
+    errors.minimumStay = 'Need minimum stay to be atleast one night long';
+  }
 
   return {
     errors,

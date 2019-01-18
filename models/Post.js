@@ -99,6 +99,11 @@ const PostSchema = new Schema({
       }
     }
   ],
+  minimumStay: {
+    type: Number,
+    requered: true,
+    default: 1,
+  },
   date: {
     type: Date,
     default: Date.now

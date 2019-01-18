@@ -31,7 +31,7 @@ class Request extends Component {
   }
 }
 
-Favorites.propTypes = {
+Request.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired

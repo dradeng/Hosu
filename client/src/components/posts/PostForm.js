@@ -27,6 +27,7 @@ class PostForm extends Component {
       endDate: undefined,
       currFile: [],
       date: [new Date(), new Date()],
+      minimumStay: 0,
     };
 
     this.changeAddress = this.changeAddress.bind(this);
@@ -60,6 +61,7 @@ class PostForm extends Component {
       startDate: this.state.startDate,
       endDate: this.state.endDate,
       profile: profile._id,
+      minimumStay: this.state.minimumStay
     };
 
     this.props.addPost(newPost);
@@ -71,6 +73,7 @@ class PostForm extends Component {
     this.setState({ startDate: '' });
     this.setState({ endDate: '' });
     this.setState({ currFile: []});
+    this.setState({ minimumStay: 0 });
 
 
 
@@ -215,6 +218,18 @@ class PostForm extends Component {
                               </div>
                           </div>
                           <div key="3" className="form-group">
+                              <h6>
+                                  Minimum Stay
+                              </h6>
+                              <InputGroup
+                                placeholder="Enter the minimum number of days for a single stay"
+                                name="minimumStay"
+                                error={errors.minimumStay}
+                                value={this.state.minimumStay}
+                                onChange={this.onChange}
+                              />
+                          </div>
+                          <div key="4" className="form-group">
                               <h6>
                                   Price per week
                               </h6>

@@ -105,6 +105,7 @@ router.post(
             updatePost.latitude = latitude;
             updatePost.startDate = req.body.startDate;
             updatePost.endDate = req.body.endDate;
+            updatePost.minimumStay = req.body.minimumStay;
 
             var existingImages = req.body.images;
 
@@ -130,13 +131,9 @@ router.post(
         } else {
           //creating a new post
 
-
-          console.log('bout to add address');
           googleMapsApi.locationSearch(req.body.address, function(latlng) {
             const latitude = latlng.latitude;
             const longitude = latlng.longitude;
-
-            console.log('lat and long' + latitude + longitude);
 
             if(latitude === null || longitude === null) {
               const errors = {};
@@ -157,7 +154,8 @@ router.post(
               longitude: longitude,
               images: req.body.images,
               startDate: req.body.startDate,
-              endDate: req.body.endDate
+              endDate: req.body.endDate,
+              minimumStay: req.body.minimumStay
             });
         
             profile.posts.push(newPost._id);
