@@ -7,7 +7,8 @@ import CommentForm from './CommentForm';
 import CommentFeed from './CommentFeed';
 import MapContainer from "../map/MapContainer";
 import Spinner from '../common/Spinner';
-import { getPost, requestSublet } from '../../actions/postActions';
+import { getPost } from '../../actions/postActions';
+import { addStay } from '../../actions/stayActions';
 import { getCurrentProfile } from '../../actions/profileActions';
 import { addChat } from '../../actions/chatActions';
 import PostCalendar from "./PostCalendar.js";
@@ -38,12 +39,12 @@ class Post extends Component {
 
     const request = {
       post: post._id,
-      subtenant: user.id,
-      landLord: post.user,
+      subtenant: user.profile,
+      landLord: post.profile,
       startDate: this.state.startDate,
       endDate: this.state.endDate
     };
-    this.props.requestSublet(request);
+    this.props.addStay(request);
   }
   createChat(e) {
     e.preventDefault();
@@ -185,4 +186,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps, { getPost, addChat, getCurrentProfile, requestSublet })(Post);
+export default connect(mapStateToProps, { getPost, addChat, getCurrentProfile, addStay })(Post);

@@ -28,8 +28,8 @@ export const GET_CHAT = 'GET_CHAT';
 export const GET_CHATS = 'GET_CHATS';
 export const ADD_CHAT = 'ADD_CHAT';
 export const CHAT_LOADING = 'CHAT_LOADING';
-export const CLEAR_CHAT_ERRORS = 'CLEAR_ERRORS';
-export const GET_CHAT_ERRORS = 'CLEAR_ERRORS';
+export const CLEAR_CHAT_ERRORS = 'CLEAR_CHAT_ERRORS';
+export const GET_CHAT_ERRORS = 'CLEAR_CHAT_ERRORS';
 
 //stuff for messages
 export const GET_MESSAGE = 'GET_MESSAGE';
@@ -38,5 +38,11 @@ export const ADD_MESSAGE = 'ADD_MESSAGE';
 export const MESSAGE_LOADING = 'MESSAGE_LOADING';
 export const CLEAR_MESSAGE_ERRORS = 'CLEAR_MESSAGE_ERRORS';
 export const GET_MESSAGE_ERRORS = 'CLEAR_MESSAGE_ERRORS';
+
+//stuff for stays
+export const ADD_STAY = 'ADD_STAY';
+export const CLEAR_STAY_ERRORS = 'CLEAR_STAY_ERRORS';
+export const STAY_LOADING = 'STAY_LOADING';
+export const GET_STAY_ERRORS = 'GET_STAY_ERRORS';
 
 

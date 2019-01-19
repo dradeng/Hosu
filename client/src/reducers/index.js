@@ -4,6 +4,7 @@ import errorReducer from './errorReducer';
 import profileReducer from './profileReducer';
 import postReducer from './postReducer';
 import chatReducer from './chatReducer';
+import stayReducer from './stayReducer';
 
 export default combineReducers({
   auth: authReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   profile: profileReducer,
   post: postReducer,
   chat: chatReducer,
+  stay: stayReducer,
 });

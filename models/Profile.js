@@ -30,6 +30,7 @@ const ProfileSchema = new Schema({
         default: "https://s3.us-east-2.amazonaws.com/aveneu/DefaultBackgroundPicture.jpg",
     },
     posts: [String],
+    stays: [String],
     favorites: [String],
     social: {
         youtube: {

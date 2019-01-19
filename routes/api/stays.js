@@ -34,7 +34,31 @@ router.post('/',
     endDate: req.body.endDate
   });
 
-  stay.save().then(stay => res.json(stay));
+
+  //ADD TRIP TO SUBTENTANT
+  Profile.findById(req.body.subtenant)
+    .then(subtenant => {
+      subtenant.stays.push(stay);
+      subtenant.save();
+    })
+    .catch(err => 
+      res.status(404).json({ nosubtenantfound: 'No subtenant found with that profile id'})
+    );
+
+  //Add trip to landlords profile
+  Profile.findById(req.body.landlord)
+    .then(landlord => {
+      landlord.stays.push(stay);
+      landlord.save();
+    })
+    .catch(err => 
+      res.status(404).json({ nolandlordfound: 'No landlord found with that profile id'})
+    );
+
+  stay.save().then(stay => res.json(stay))
+    .catch(err => {
+      res.status(404).json({ savingstay: 'Unable to save stay or error'})
+    });
   
 });
 
