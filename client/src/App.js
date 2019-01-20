@@ -29,6 +29,7 @@ import Post from './components/post/Post';
 import NotFound from './components/not-found/NotFound';
 import FormSubmitted from './components/common/FormSubmitted';
 import Chats from './components/chat/Chats';
+import Stays from './components/stays/Stays';
 import ChatItem from './components/chat/ChatItem';
 import EmailAuthentication from './components/auth/EmailAuthentication';
 
@@ -132,6 +133,10 @@ class App extends Component {
               
               <Switch>
                   <PrivateRoute exact path="/chats" component={Chats} />
+              </Switch>
+
+              <Switch>
+                  <PrivateRoute exact path="/stays" component={Stays} />
               </Switch>
 
             </div>

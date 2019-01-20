@@ -16,7 +16,7 @@ const User = require('../../models/User');
 /*######################################################*/
 
 
-// @route   GET api/stays
+// @route   POST api/stays
 // @desc    add a stay
 // @access  Public
 router.post('/',
@@ -38,7 +38,7 @@ router.post('/',
   //ADD TRIP TO SUBTENTANT
   Profile.findById(req.body.subtenant)
     .then(subtenant => {
-      subtenant.stays.push(stay);
+      subtenant.stays.push(stay._id);
       subtenant.save();
     })
     .catch(err => 
@@ -48,7 +48,7 @@ router.post('/',
   //Add trip to landlords profile
   Profile.findById(req.body.landlord)
     .then(landlord => {
-      landlord.stays.push(stay);
+      landlord.stays.push(stay._id);
       landlord.save();
     })
     .catch(err => 
@@ -60,6 +60,21 @@ router.post('/',
       res.status(404).json({ savingstay: 'Unable to save stay or error'})
     });
   
+});
+
+
+// @route   GET api/stays
+// @desc    GET all stays pertaining to a user
+// @access  Public
+router.get('/',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+
+    Stay.find()
+      .then(stays => {
+        var response = stays.filter(filteredStays => req.body.stays.includes(filteredStays._id));
+        res.json(response);
+      });
 });
 
 

@@ -120,7 +120,7 @@ class Navbar extends Component {
                   </Link>
                 </DropdownItem>
                 <DropdownItem>
-                  <Link className="nav-link" to="/dashboard">
+                  <Link className="nav-link" to="/stays">
                      <span style={{color: '#B4B4B4'}}>Stays</span>
                   </Link>
                 </DropdownItem>

@@ -44,5 +44,6 @@ export const ADD_STAY = 'ADD_STAY';
 export const CLEAR_STAY_ERRORS = 'CLEAR_STAY_ERRORS';
 export const STAY_LOADING = 'STAY_LOADING';
 export const GET_STAY_ERRORS = 'GET_STAY_ERRORS';
+export const GET_STAYS = 'GET_STAYS';
 
 
