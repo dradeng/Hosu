@@ -4,6 +4,14 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const fetch = require("node-fetch");
 
+
+//Sendgrid info
+const SendGridApiKey = require('../../config/keys').SendGridApiKey;
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(SendGridApiKey);
+const LocalOrHeroku = require('../../config/keys').LocalOrHeroku;
+
+
 // Stay model
 const Stay = require('../../models/Stay');
 // Profile model
@@ -30,10 +38,29 @@ router.post('/',
     subtenant: req.body.subtenant,
     landLord: req.body.landLord,
     approved: false,
+    decided: false,
     startDate: req.body.startDate,
     endDate: req.body.endDate
   });
 
+  User.findById(req.body.landLord)
+    .then(landLord => {
+
+      const requestURL = LocalOrHeroku;
+
+      var htmlContent = (
+       '<div>Someone has request to sublet your property! Log in to view the request <a target=_blank href=\"' + requestURL + '\">here</a>!</div>'
+      );
+      sgMail.send({
+        to:       landLord.email,
+        from:     'Support@Aveneu.com',
+        subject:  'Request for subletting your property!',
+        html:     htmlContent
+        }, function(err, json) {
+            if (err) { return console.error(err); }
+        console.log(json);
+      });
+    });
 
   //ADD TRIP TO SUBTENTANT
   User.findById(req.body.subtenant)

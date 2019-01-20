@@ -23,6 +23,10 @@ const StaySchema = new Schema({
     type: String,
     default: null
   },
+  decided: {
+    type: Boolean,
+    default: false
+  },
   approved: {
     type: Boolean,
     default: false

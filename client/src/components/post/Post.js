@@ -44,8 +44,6 @@ class Post extends Component {
     const { post } = this.props.post;
     const { user } = this.props.auth;
 
-    console.log('post id is ' + post.user);
-
     const request = {
       post: post._id,
       subtenant: user.id,

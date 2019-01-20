@@ -15,8 +15,8 @@ class StayFeed extends Component {
     if(stays.length === 0) {
       stayContent = <div>You have no trips. Be patient!</div>;
     } else {
-      stayContent = stays.map(stays => 
-         <Stay/>
+      stayContent = stays.map(stay => 
+         <Stay stay={stay} />
       );
     }
 
