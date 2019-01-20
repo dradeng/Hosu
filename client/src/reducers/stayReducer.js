@@ -5,8 +5,8 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  stay: null,
-  stays: null,
+  stay: {},
+  stays: [],
   loading: false
 };
 

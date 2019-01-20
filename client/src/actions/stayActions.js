@@ -20,8 +20,8 @@ export const addStay = (stayData, history) => dispatch => {
       })
     );
 };
-
-export const getStays = (stayData) => dispatch => {
+// Get Stays
+export const getStays = () => dispatch => {
   dispatch(setStayLoading());
   axios
     .get('/api/stays')
@@ -37,8 +37,7 @@ export const getStays = (stayData) => dispatch => {
         payload: null
       })
     );
-
-}
+};
 
 // STAY loading
 export const setStayLoading = () => {

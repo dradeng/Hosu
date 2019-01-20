@@ -36,7 +36,7 @@ router.post('/',
 
 
   //ADD TRIP TO SUBTENTANT
-  Profile.findById(req.body.subtenant)
+  User.findById(req.body.subtenant)
     .then(subtenant => {
       subtenant.stays.push(stay._id);
       subtenant.save();
@@ -46,7 +46,7 @@ router.post('/',
     );
 
   //Add trip to landlords profile
-  Profile.findById(req.body.landlord)
+  USer.findById(req.body.landlord)
     .then(landlord => {
       landlord.stays.push(stay._id);
       landlord.save();
@@ -72,8 +72,8 @@ router.get('/',
 
     Stay.find()
       .then(stays => {
-        var response = stays.filter(filteredStays => req.body.stays.includes(filteredStays._id));
-        res.json(response);
+        //var response = stays.filter(filteredStays => req.user.stays.includes(filteredStays._id));
+        res.json(stays);
       });
 });
 

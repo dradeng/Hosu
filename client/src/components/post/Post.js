@@ -39,8 +39,8 @@ class Post extends Component {
 
     const request = {
       post: post._id,
-      subtenant: user.profile,
-      landLord: post.profile,
+      subtenant: user.id,
+      landLord: post.user,
       startDate: this.state.startDate,
       endDate: this.state.endDate
     };

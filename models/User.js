@@ -35,6 +35,7 @@ const UserSchema = new Schema({
     type: Number,
     default: 0
   },
+  stays: [String],
   chats: [
     {
       //chat containes the chat id, the _id in user chats does not matter or have significance

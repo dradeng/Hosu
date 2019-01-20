@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import StayFeed from './StayFeed';
 import Spinner from '../common/Spinner';
-import { getCurrentProfile } from '../../actions/profileActions';
+import { getStays } from '../../actions/stayActions';
 import MapContainer from "../map/MapContainer";
 
 class Stays extends Component {
@@ -14,28 +15,43 @@ class Stays extends Component {
       };
   }
   componentDidMount() {
-    this.props.getCurrentProfile();
+    this.props.getStays();
   }
- 
   render() {
    
+    var stayFeedContent;
+
+    const { user } = this.props.auth;
+    const { stays, loading } = this.props.stay;
+
+    if (stays === null || loading || user === null) {
+      stayFeedContent = <Spinner />;
+    } else {
+
+      stayFeedContent = <StayFeed 
+        stays={stays} 
+      />;
+
+    }
+
     return (
       <div>
       Stays
+        {stayFeedContent}
       </div>
     );
   }
 }
 
 Stays.propTypes = {
-  getCurrentProfile: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired,
+  getStays: PropTypes.func.isRequired,
+  stay: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
-  profile: state.profile,
+  stay: state.stays,
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getCurrentProfile })(Stays);
+export default connect(mapStateToProps, { getStays })(Stays);
