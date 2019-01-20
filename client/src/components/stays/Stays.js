@@ -50,7 +50,7 @@ Stays.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  stay: state.stays,
+  stay: state.stay,
   auth: state.auth,
 });
 

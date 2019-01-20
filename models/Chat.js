@@ -52,4 +52,4 @@ const ChatSchema = new Schema({
   }
 });
 
-module.exports = Message = mongoose.model('chats', ChatSchema);
+module.exports = Chat = mongoose.model('chats', ChatSchema);

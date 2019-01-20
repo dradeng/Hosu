@@ -29,4 +29,4 @@ const StaySchema = new Schema({
   }
 });
 
-module.exports = User = mongoose.model('stay', StaySchema);
+module.exports = Stay = mongoose.model('stays', StaySchema);

@@ -46,7 +46,7 @@ router.post('/',
     );
 
   //Add trip to landlords profile
-  USer.findById(req.body.landlord)
+  User.findById(req.body.landlord)
     .then(landlord => {
       landlord.stays.push(stay._id);
       landlord.save();
@@ -73,6 +73,8 @@ router.get('/',
     Stay.find()
       .then(stays => {
         //var response = stays.filter(filteredStays => req.user.stays.includes(filteredStays._id));
+        console.log('stays are');
+        console.log(JSON.stringify(stays));
         res.json(stays);
       });
 });
