@@ -27,6 +27,25 @@ class Stay extends Component {
     const { user } = this.props.auth;
     const { stay } = this.props;
     var approveContent;
+    var dateContent;
+    var landLordContent;
+    var subtenantContent;
+
+
+    if(stay.landLord === user._id) {
+      subtenantContent = (
+        <div>
+          <b>Subtenant: </b>
+        </div>
+        )
+    } else {
+      landLordContent = (
+        <div>
+          <b>Landlord: </b>
+        </div>
+      );
+    }
+
     if(!stay.decided) {
       approveContent = (
         <div>
@@ -39,12 +58,30 @@ class Stay extends Component {
         </div>
       );
     }
+
+    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    var start = new Date(stay.startDate).toLocaleDateString("en-US", options);
+    var end = new Date(stay.endDate).toLocaleDateString("en-US", options);
+
+
+
+    dateContent = (
+      <div>
+        <b>Start Date: </b>{start}<br />
+        <b>End Date: </b>{end}
+      </div>
+    );
+
+
     return (
       <div className="dashboard">
         <div className="container">
           <div className="row">
             <div className="col-md-12">
               Made it to requests
+              {landLordContent}
+              {subtenantContent}
+              {dateContent}
               {approveContent}
             </div>
           </div>

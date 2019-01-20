@@ -38,6 +38,23 @@ export const getStays = () => dispatch => {
       })
     );
 };
+export const updateStay = (updatedDate) => dispatch => {
+  dispatch(clearStayErrors());
+  axios
+    .post('/api/stays/update')
+    .then(res =>
+      dispatch({
+        type: GET_STAYS,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_STAYS,
+        payload: null
+      })
+    );
+}
 
 // STAY loading
 export const setStayLoading = () => {
