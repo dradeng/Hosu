@@ -28,7 +28,7 @@ router.post('/',
   const stay = new Stay({
     post: req.body.post,
     subtenant: req.body.subtenant,
-    landlord: req.body.landlord,
+    landLord: req.body.landLord,
     approved: false,
     startDate: req.body.startDate,
     endDate: req.body.endDate

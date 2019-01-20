@@ -23,19 +23,28 @@ class Post extends Component {
       user2ProfilePic: '',
       user1Name: '',
       user2Name: '',
-      messages: []
+      messages: [],
+      startDate: null,
+      endDate: null
     };
     this.createChat = this.createChat.bind(this);
     this.requestSublet = this.requestSublet.bind(this);
+    this.onChangeDates = this.onChangeDates.bind(this);
   }
 
   componentDidMount() {
     this.props.getPost(this.props.match.params.id);
     this.props.getCurrentProfile();
   }
+  onChangeDates(date) {
+    this.setState({ startDate: date[0]});
+    this.setState({ endDate: date[1]});
+  }
   requestSublet() {
     const { post } = this.props.post;
     const { user } = this.props.auth;
+
+    console.log('post id is ' + post.user);
 
     const request = {
       post: post._id,
@@ -101,7 +110,7 @@ class Post extends Component {
             <NonFeedPostItem class="col-md-4" post={post} showActions={false} style={{float: 'left'}} />
             <div class="col-md-4" style={{float:'right', display: 'flex', alignItems: 'center'}}>
               <div>
-                <PostCalendar style={{position:'relative'}} startDate={startDate} endDate={endDate}/>
+                <PostCalendar style={{position:'relative'}} onChangeDates={this.onChangeDates} startDate={startDate} endDate={endDate}/>
               
                 <button onClick={this.requestSublet} style={{position:'relative', maxWidth: 275, display:'block', marginLeft: 'auto', marginRight: 'auto'}} className="btncustom btn btn-block mt-2">
                   Request to Sublet

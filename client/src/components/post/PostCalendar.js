@@ -28,7 +28,8 @@ class PostCalendar extends Component {
           altInput: true, altFormat: "F j, Y", 
           maxDate: 
           this.props.endDate }}
-        value={this.state.date}
+          onChange={date => { this.setState({date: date, selectedDate: date[0], selectedEndDate:date[1] }); this.props.onChangeDates(date);}}
+          value={this.state.date}
         />
       </div>
     );
