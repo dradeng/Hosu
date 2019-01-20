@@ -38,10 +38,10 @@ export const getStays = () => dispatch => {
       })
     );
 };
-export const updateStay = (updatedDate) => dispatch => {
+export const updateStay = (updatedData) => dispatch => {
   dispatch(clearStayErrors());
   axios
-    .post('/api/stays/update')
+    .post('/api/stays/update', updatedData)
     .then(res =>
       dispatch({
         type: GET_STAYS,

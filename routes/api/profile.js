@@ -149,9 +149,6 @@ router.post(
             longitude: longitude
           };
 
-          
-          console.log('bout to update lat and long');
-          console.log('lat and lnog is ' + latitude+longitude);
           Profile.findOneAndUpdate(
             { user: req.user.id },
             { $set: address },

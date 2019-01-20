@@ -100,11 +100,61 @@ router.get('/',
     Stay.find()
       .then(stays => {
         //var response = stays.filter(filteredStays => req.user.stays.includes(filteredStays._id));
-        console.log('stays are');
-        console.log(JSON.stringify(stays));
+       
         res.json(stays);
       });
 });
+
+
+// @route   POST api/stays/update
+// @desc    POST update the stay info, mainly for approving
+// @access  Public
+router.post('/update',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+
+    console.log('approved' + req.body.approved);
+    
+    var updatedInfo = {
+      decided: true,
+      approved: req.body.approved
+    };
+
+    User.findById(req.body.subtenant)
+    .then(subtenant => {
+
+      const requestURL = LocalOrHeroku;
+      var approved;
+
+      if(req.body.approved) {
+        approved = 'Your sublet request has been approved!';
+      } else {
+        approved = 'Your sublet request has been denied. Keep on looking!'
+      }
+
+      var htmlContent = (
+       '<div>' + approved + '</div>'
+      );
+      sgMail.send({
+        to:       subtenant.email,
+        from:     'Support@Aveneu.com',
+        subject:  'Request for subletting your property!',
+        html:     htmlContent
+        }, function(err, json) {
+            if (err) { return console.error(err); }
+        console.log(json);
+      });
+    });
+
+
+
+    Stay.findOneAndUpdate(
+      { id: req.body.id },
+      { $set: updatedInfo },
+      { new: true }
+    ).then(stay => res.json(stay));
+});
+
 
 
 module.exports = router;

@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../common/Spinner';
 import { Redirect } from 'react-router-dom';
+import { updateStay } from '../../actions/stayActions';
 
 
 class Stay extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      accepted: false
+
     };
     this.approveSublet = this.approveSublet.bind(this);
     this.denySublet = this.denySublet.bind(this);
@@ -18,11 +19,19 @@ class Stay extends Component {
     
   }
   approveSublet() {
-
+    
+    var updatedInfo = {
+      approved: true
+    };
+    this.props.updateStay(updatedInfo);
   }
   denySublet() {
-
-  }
+  
+    var updatedInfo = {
+      approved: false
+    };
+    this.props.updateStay(updatedInfo);
+  } 
   render() {
     const { user } = this.props.auth;
     const { stay } = this.props;
@@ -52,7 +61,7 @@ class Stay extends Component {
           <button onClick={this.approveSublet} className="btncustom btn mt-4">
             Approve
           </button>
-          <button onClick={this.denySublet} type="submit" className="btncustom btn mt-4">
+          <button onClick={this.denySublet} className="btncustom btn mt-4">
             Deny
           </button>
         </div>
@@ -92,6 +101,7 @@ class Stay extends Component {
 }
 
 Stay.propTypes = {
+  updateStay: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
 };
 
@@ -99,6 +109,6 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, {  })(
+export default connect(mapStateToProps, { updateStay })(
   Stay
 );
