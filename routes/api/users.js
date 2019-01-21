@@ -34,7 +34,6 @@ router.get('/test', (req, res) => res.json({ msg: 'Users Works' }));
 router.post('/updateUser',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-  console.log('id is '+req.user.id);
   User.findById(req.user.id).then(user => {
     user.profile = true;
     user.save()
@@ -106,7 +105,7 @@ router.post('/register', (req, res) => {
           html:     '<a target=_blank href=\"' + authenticationURL + '\">Confirm your email</a>'
           }, function(err, json) {
               if (err) { return console.error(err); }
-          console.log(json);
+
         });
 
         bcrypt.genSalt(10, (err, salt) => {
@@ -128,16 +127,13 @@ router.post('/register', (req, res) => {
 // @desc    Verify user's email confirmation
 // @access  Public
 router.get('/verify-email/:id', (req, res) => {
-  console.log('we insdie the funciton');
-  console.log('verify-email token: ');
+
 
   User.findById(req.params.id)
     .then(user => {
 
 
       if (!user) {
-        console.log('user is null');
-        console.log('id'+req.params.id);
         return res.status(404).json('User is not found');
       }
 
@@ -146,8 +142,6 @@ router.get('/verify-email/:id', (req, res) => {
         if (err) {
           return console.error(err);
         }
-        console.log('succesfully updated user');
-       
 
         res.send(user);
       });

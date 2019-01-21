@@ -10,13 +10,13 @@ class StayFeed extends Component {
   render() {
 
     const { stays } = this.props;
-
+    console.log('stays'+stays);
     let stayContent;
     if(stays.length === 0) {
       stayContent = <div>You have no trips. Be patient!</div>;
     } else {
       stayContent = stays.map(stay => 
-         <Stay stay={stay} />
+         <Stay key={stay._id} stay={stay} />
       );
     }
 

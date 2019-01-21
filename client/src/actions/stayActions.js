@@ -12,7 +12,7 @@ export const addStay = (stayData, history) => dispatch => {
   dispatch(clearStayErrors());
   axios
     .post('/api/stays', stayData)
-    .then(res => history.push('/dashboard'))
+    .then(res => history.push('/stays'))
     .catch(err =>
       dispatch({
         type: GET_STAY_ERRORS,
@@ -38,22 +38,23 @@ export const getStays = () => dispatch => {
       })
     );
 };
-export const updateStay = (updatedData) => dispatch => {
+export const updateStay = (updatedData, history) => dispatch => {
   dispatch(clearStayErrors());
   axios
     .post('/api/stays/update', updatedData)
-    .then(res =>
-      dispatch({
+    .then(res => dispatch({
         type: GET_STAYS,
         payload: res.data
       })
     )
-    .catch(err =>
+    .catch(err => {
+      console.log('err is ' + err);
       dispatch({
-        type: GET_STAYS,
+        type: GET_STAY_ERRORS,
         payload: null
       })
-    );
+      
+    });
 }
 
 // STAY loading

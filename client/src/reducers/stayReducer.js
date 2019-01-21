@@ -1,7 +1,7 @@
 import {
   STAY_LOADING,
   GET_STAYS,
-  ADD_STAY
+  ADD_STAY,
 } from '../actions/types';
 
 const initialState = {

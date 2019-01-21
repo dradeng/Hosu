@@ -36,15 +36,15 @@ router.post('/',
   const stay = new Stay({
     post: req.body.post,
     subtenant: req.body.subtenant,
-    landLord: req.body.landLord,
+    landlord: req.body.landlord,
     approved: false,
     decided: false,
     startDate: req.body.startDate,
     endDate: req.body.endDate
   });
 
-  User.findById(req.body.landLord)
-    .then(landLord => {
+  User.findById(req.body.landlord)
+    .then(landlord => {
 
       const requestURL = LocalOrHeroku;
 
@@ -52,13 +52,12 @@ router.post('/',
        '<div>Someone has request to sublet your property! Log in to view the request <a target=_blank href=\"' + requestURL + '\">here</a>!</div>'
       );
       sgMail.send({
-        to:       landLord.email,
+        to:       landlord.email,
         from:     'Support@Aveneu.com',
         subject:  'Request for subletting your property!',
         html:     htmlContent
         }, function(err, json) {
             if (err) { return console.error(err); }
-        console.log(json);
       });
     });
 
@@ -112,8 +111,6 @@ router.get('/',
 router.post('/update',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-
-    console.log('approved' + req.body.approved);
     
     var updatedInfo = {
       decided: true,
@@ -122,14 +119,16 @@ router.post('/update',
 
     User.findById(req.body.subtenant)
     .then(subtenant => {
-
       const requestURL = LocalOrHeroku;
       var approved;
+      var subjectContent
 
       if(req.body.approved) {
         approved = 'Your sublet request has been approved!';
+        subjectContent = 'Sublet Request Approved';
       } else {
-        approved = 'Your sublet request has been denied. Keep on looking!'
+        approved = 'Your sublet request has been denied. Keep on looking!';
+        subjectContent = 'Sublet Request Denied';
       }
 
       var htmlContent = (
@@ -138,21 +137,23 @@ router.post('/update',
       sgMail.send({
         to:       subtenant.email,
         from:     'Support@Aveneu.com',
-        subject:  'Request for subletting your property!',
+        subject:  subjectContent,
         html:     htmlContent
         }, function(err, json) {
             if (err) { return console.error(err); }
-        console.log(json);
       });
     });
-
-
 
     Stay.findOneAndUpdate(
       { id: req.body.id },
       { $set: updatedInfo },
       { new: true }
-    ).then(stay => res.json(stay));
+    ).then(stay => {
+      Stay.find().then(stays => {
+        res.json(stays)
+      })
+    })
+    .catch(err => console.log(err));
 });
 
 

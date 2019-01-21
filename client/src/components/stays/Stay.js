@@ -20,17 +20,21 @@ class Stay extends Component {
   }
   approveSublet() {
     
+    const { stay } = this.props;
     var updatedInfo = {
-      approved: true
+      approved: true,
+      subtenant: stay.subtenant
     };
-    this.props.updateStay(updatedInfo);
+    this.props.updateStay(updatedInfo, this.props.history);
   }
   denySublet() {
   
+    const { stay } = this.props;
     var updatedInfo = {
-      approved: false
+      approved: false,
+      subtenant: stay.subtenant
     };
-    this.props.updateStay(updatedInfo);
+    this.props.updateStay(updatedInfo, this.props.history);
   } 
   render() {
     const { user } = this.props.auth;
@@ -102,6 +106,7 @@ class Stay extends Component {
 
 Stay.propTypes = {
   updateStay: PropTypes.func.isRequired,
+  
   auth: PropTypes.object.isRequired,
 };
 

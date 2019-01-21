@@ -47,11 +47,11 @@ class Post extends Component {
     const request = {
       post: post._id,
       subtenant: user.id,
-      landLord: post.user,
+      landlord: post.user,
       startDate: this.state.startDate,
       endDate: this.state.endDate
     };
-    this.props.addStay(request);
+    this.props.addStay(request, this.props.history);
   }
   createChat(e) {
     e.preventDefault();

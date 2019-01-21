@@ -68,7 +68,7 @@ router.get('/:id', (req, res) => {
   console.log(req.params.id);
   Profile.findById(req.params.id)
     .then(profile => {
-      console.log(profile);
+      
       res.json(profile);
     })
     .catch(err =>
