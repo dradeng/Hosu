@@ -22,6 +22,7 @@ class Stay extends Component {
     
     const { stay } = this.props;
     var updatedInfo = {
+      id: stay._id,
       approved: true,
       subtenant: stay.subtenant
     };
@@ -31,6 +32,7 @@ class Stay extends Component {
   
     const { stay } = this.props;
     var updatedInfo = {
+      id: stay._id,
       approved: false,
       subtenant: stay.subtenant
     };
@@ -106,7 +108,7 @@ class Stay extends Component {
 
 Stay.propTypes = {
   updateStay: PropTypes.func.isRequired,
-  
+
   auth: PropTypes.object.isRequired,
 };
 

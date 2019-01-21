@@ -145,7 +145,7 @@ router.post('/update',
     });
 
     Stay.findOneAndUpdate(
-      { id: req.body.id },
+      { _id: req.body.id },
       { $set: updatedInfo },
       { new: true }
     ).then(stay => {
