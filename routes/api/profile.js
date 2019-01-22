@@ -96,6 +96,11 @@ router.post(
     if (req.body.location) profileFields.location = req.body.location;
     if (req.body.bio) profileFields.bio = req.body.bio;
     if (req.body.avatar) profileFields.avatar = req.body.avatar;
+    if (req.body.age) profileFields.age = req.body.age;  
+    if (req.body.university) profileFields.university = req.body.university;  
+    if (req.body.interests) profileFields.interests = req.body.interests;  
+    if (req.body.study) profileFields.study = req.body.study;  
+    if (req.body.job) profileFields.job = req.body.job;  
     if (req.body.backgroundPic) profileFields.backgroundPic = req.body.backgroundPic;  
     // Social
     profileFields.social = {};

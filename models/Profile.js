@@ -56,6 +56,21 @@ const ProfileSchema = new Schema({
         type: Number,
         default: 0
     },
+    university: {
+        type: String,
+    },
+    age: {
+        type: Number
+    },
+    interests: {
+        type: String
+    },
+    study: {
+        type: String
+    },
+    job: {
+        type: String
+    },
     reviews: [
         {
             userName: {

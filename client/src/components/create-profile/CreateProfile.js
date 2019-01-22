@@ -21,6 +21,11 @@ class CreateProfile extends Component {
       youtube: '',
       instagram: '',
       backgroundPic: '',
+      age: null,
+      university: '',
+      job: '',
+      study: '',
+      interests: '',
       errors: {}
     };
 
@@ -72,7 +77,12 @@ class CreateProfile extends Component {
       linkedin: this.state.linkedin,
       youtube: this.state.youtube,
       instagram: this.state.instagram,
-      email: user.email
+      email: user.email,
+      age: this.state.age,
+      university: this.state.university,
+      study: this.state.study,
+      job: this.state.job,
+      interests: this.state.interests
     };
 
     //makes the user.profile be true so can go to other pages
@@ -166,6 +176,46 @@ class CreateProfile extends Component {
                   onChange={this.onChange}
                   error={errors.bio}
                   info="Tell us a little about yourself"
+                />
+                <TextAreaFieldGroup
+                  placeholder="University"
+                  name="university"
+                  value={this.state.university}
+                  onChange={this.onChange}
+                  error={errors.university}
+                  info="What university did you go to"
+                />
+                <TextAreaFieldGroup
+                  placeholder="study"
+                  name="study"
+                  value={this.state.study}
+                  onChange={this.onChange}
+                  error={errors.study}
+                  info="What did you study"
+                />
+                <InputGroup
+                  placeholder="Age"
+                  name="age"
+                  error={errors.age}
+                  value={this.state.age}
+                  onChange={this.onChange}
+                  info="What is your age"
+                />
+                <TextAreaFieldGroup
+                  placeholder="Job"
+                  name="job"
+                  value={this.state.job}
+                  onChange={this.onChange}
+                  error={errors.job}
+                  info="What is your job"
+                />
+                <TextAreaFieldGroup
+                  placeholder="Interests"
+                  name="interests"
+                  value={this.state.interests}
+                  onChange={this.onChange}
+                  error={errors.interests}
+                  info="What are your interests"
                 />
                 
                 Background Picture (suggested dimensions are 851 wide, 315 tall)

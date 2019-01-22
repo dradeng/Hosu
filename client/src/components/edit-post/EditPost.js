@@ -7,7 +7,10 @@ import 'react-day-picker/lib/style.css';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import { addPost, getPost, deletePost, deleteImage, addImage } from '../../actions/postActions';
 import { getCurrentProfile } from '../../actions/profileActions';
-import AWS from 'aws-sdk';
+
+import 'flatpickr/dist/themes/material_blue.css';
+import Flatpickr from 'react-flatpickr';
+
 
 class PostForm extends Component {
   constructor(props) {
@@ -300,15 +303,12 @@ componentWillReceiveProps(nextProps) {
               </div>
               
 
-              <p>Start Date:</p>
-              <DayPickerInput
-                name="startDate"
-                value={this.state.startDate}
-                onDayChange={this.onStartDateChange}/>
-              <DayPickerInput
-                name="endDate"
-                value={this.state.endDate}
-                onDayChange={this.onEndDateChange}/>
+              <h6>Availability*</h6>
+              <Flatpickr
+              options = {{mode: "range",minDate: "today"}}
+              value={this.state.date}
+              onChange={date => { this.setState({date: date, startDate: date[0], endDate:date[1] }); }} />
+              <br/>
                 
               <br />
               <br />

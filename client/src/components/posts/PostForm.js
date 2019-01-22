@@ -185,7 +185,7 @@ class PostForm extends Component {
                       <form onSubmit={this.onSubmit} method="POST" encType="multipart/form-data">
                           <div key="1" className="form-group">
                               <h6>
-                                 Provide a title
+                                 Provide a title*
                               </h6>
                               <InputGroup
                                 placeholder="ex. Draden's Magic Bungalow"
@@ -195,7 +195,7 @@ class PostForm extends Component {
                                 error={errors.title}
                               />
                               <h6>
-                                  Provide details
+                                  Provide details*
                               </h6>
                               <TextAreaFieldGroup
                                   placeholder="Create a post"
@@ -207,7 +207,7 @@ class PostForm extends Component {
                           </div>
                           <div key="2" className="form-group">
                               <h6>
-                                  Enter your address
+                                  Enter your address*
                               </h6>
                               <LocationAutoComplete
                                 changeAddress={this.changeAddress}
@@ -219,7 +219,7 @@ class PostForm extends Component {
                           </div>
                           <div key="3" className="form-group">
                               <h6>
-                                  Minimum Stay
+                                  Minimum Stay*
                               </h6>
                               <InputGroup
                                 placeholder="Enter the minimum number of days for a single stay"
@@ -231,7 +231,7 @@ class PostForm extends Component {
                           </div>
                           <div key="4" className="form-group">
                               <h6>
-                                  Price per week
+                                  Price per week*
                               </h6>
                               <InputGroup
                                 placeholder="Enter number for rent"
@@ -244,7 +244,7 @@ class PostForm extends Component {
                           </div>
 
 
-                          <h6>Availability</h6>
+                          <h6>Availability*</h6>
                           <Flatpickr
                           options = {{mode: "range",minDate: "today"}}
                           value={this.state.date}
@@ -255,7 +255,7 @@ class PostForm extends Component {
                           
 
                           <div>
-                              <h6> Add Photos </h6>
+                              <h6> Add Photos* </h6>
                           <input style={borderStyle} className="form-control" type="file" name="file" id="file" onChange={this.fileChangedHandler}/>
 
                           <div style={{fontSize:13,color:'rgb(220, 53, 69)', paddingTop:5, fontFamily:'-apple-system, BlinkMacSystemFont, Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Apple Color Emoji, Segoe UI Emoji,Segoe UI Symbol'}}>

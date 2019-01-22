@@ -9,6 +9,7 @@ const InputGroup = ({
   error,
   icon,
   type,
+  info,
   onChange
 }) => {
 
@@ -39,6 +40,7 @@ const InputGroup = ({
         value={value}
         onChange={onChange}
       />
+      {info && <small style={{width: '100%'}} className="form-text text-muted">{info}</small>}
       {error && <div className="invalid-feedback">{error}</div>}
     </div>
   );
