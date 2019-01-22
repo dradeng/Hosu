@@ -46,8 +46,6 @@ class PostForm extends Component {
   onSubmit(e) {
     e.preventDefault();
 
-    console.log(this.state.images);
-
     const { user } = this.props.auth;
     const { profile } = this.props.profile;
     const newPost = {
@@ -64,7 +62,7 @@ class PostForm extends Component {
       minimumStay: this.state.minimumStay
     };
 
-    this.props.addPost(newPost);
+    this.props.addPost(newPost, this.props.history);
     this.setState({ text: '' });
     this.setState({ title: '' });
     this.setState({ address: '' });
@@ -74,8 +72,6 @@ class PostForm extends Component {
     this.setState({ endDate: '' });
     this.setState({ currFile: []});
     this.setState({ minimumStay: 0 });
-
-
 
   }
   //THIS IS FOR A FILE BE UPLOADED
@@ -182,6 +178,7 @@ class PostForm extends Component {
                   <div className="col-md-8 m-auto">
                       <h4 className="display-4 text-center">Sublet your room</h4>
                       <br/>
+                      <small className="d-block pb-3">* = required fields</small>
                       <form onSubmit={this.onSubmit} method="POST" encType="multipart/form-data">
                           <div key="1" className="form-group">
                               <h6>
