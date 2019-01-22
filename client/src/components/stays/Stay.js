@@ -65,7 +65,7 @@ class Stay extends Component {
       );
     }
 
-    if(!stay.decided) {
+    if(!stay.decided && stay.landlord === user.id) {
       approveContent = (
         <div>
           <button onClick={this.approveSublet} className="btncustom btn mt-4">
