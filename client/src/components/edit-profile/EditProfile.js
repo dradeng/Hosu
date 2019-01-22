@@ -24,6 +24,11 @@ class CreateProfile extends Component {
       youtube: '',
       instagram: '',
       backgroundPic: '',
+      age: null,
+      university: '',
+      study: '',
+      job: '',
+      interests: '',
       errors: {}
     };
 
@@ -47,6 +52,11 @@ class CreateProfile extends Component {
       profile.location = !isEmpty(profile.location) ? profile.location : '';
     
       profile.bio = !isEmpty(profile.bio) ? profile.bio : '';
+      profile.university = !isEmpty(profile.university) ? profile.university : '';
+      profile.study = !isEmpty(profile.study) ? profile.study : '';
+      profile.job = !isEmpty(profile.job) ? profile.job : '';
+      profile.age = profile.age !== null ? profile.age : null;
+      profile.interests = !isEmpty(profile.interests) ? profile.interests : '';
       profile.backgroundPic = !isEmpty(profile.backgroundPic) ? profile.backgroundPic : '';
       profile.social = !isEmpty(profile.social) ? profile.social : {};
       profile.twitter = !isEmpty(profile.social.twitter)
@@ -70,6 +80,11 @@ class CreateProfile extends Component {
         location: profile.location,
         bio: profile.bio,
         profilePic: profile.profilePic,
+        university: profile.university,
+        study: profile.study,
+        job: profile.job,
+        interests: profile.interests,
+        age: profile.age,
         backgroundPic: profile.backgroundPic,
         twitter: profile.twitter,
         facebook: profile.facebook,
@@ -110,6 +125,11 @@ class CreateProfile extends Component {
       skills: this.state.skills,
       githubusername: this.state.githubusername,
       bio: this.state.bio,
+      university: this.state.university,
+      study: this.state.study,
+      job: this.state.job,
+      interests: this.state.interests,
+      age: this.state.age,
       backgroundPic: this.state.backgroundPic,
       twitter: this.state.twitter,
       facebook: this.state.facebook,
@@ -207,6 +227,46 @@ class CreateProfile extends Component {
                   onChange={this.onChange}
                   error={errors.bio}
                   info="Tell us a little about yourself"
+                />
+                 <TextAreaFieldGroup
+                  placeholder="University"
+                  name="university"
+                  value={this.state.university}
+                  onChange={this.onChange}
+                  error={errors.university}
+                  info="What university did you go to"
+                />
+                <TextAreaFieldGroup
+                  placeholder="study"
+                  name="study"
+                  value={this.state.study}
+                  onChange={this.onChange}
+                  error={errors.study}
+                  info="What did you study"
+                />
+                <InputGroup
+                  placeholder="Age"
+                  name="age"
+                  error={errors.age}
+                  value={this.state.age}
+                  onChange={this.onChange}
+                  info="What is your age"
+                />
+                <TextAreaFieldGroup
+                  placeholder="Job"
+                  name="job"
+                  value={this.state.job}
+                  onChange={this.onChange}
+                  error={errors.job}
+                  info="What is your job"
+                />
+                <TextAreaFieldGroup
+                  placeholder="Interests"
+                  name="interests"
+                  value={this.state.interests}
+                  onChange={this.onChange}
+                  error={errors.interests}
+                  info="What are your interests"
                 />
 
                 Background Picture (suggested dimensions are 851 wide, 315 tall)
