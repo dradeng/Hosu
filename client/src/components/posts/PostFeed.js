@@ -104,7 +104,6 @@ class PostFeed extends Component {
     );
     let dateFilteredPosts = newPosts.filter(post => {
       if(this.state.initialDateRange) {
-        console.log('we here');
         return new Date(post.startDate).getYear() <= this.state.startDate.getYear();
       } else {
         return new Date(post.startDate).getTime() <= this.state.startDate.getTime() && new Date(post.endDate).getTime() >= this.state.startDate.getTime();

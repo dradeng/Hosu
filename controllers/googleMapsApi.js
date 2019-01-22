@@ -22,19 +22,22 @@ module.exports = {
 	    var geocoder = NodeGeocoder(options);
 
 	    var answer = {}
-	    geocoder.geocode(address, function(err, res) {
+	    console.log('address going in geocoder is ' + address);
+	    geocoder.geocode(address).then( res => {
 	    	
-	    	if(res[0] === null) {
+	    	if(res[0] === null || res[0].latitude === null || res[0].longitude === null) {
 
 	    		answer.latitude = -78.498149;
 		    	answer.longitude = 38.037275;
 		    	callback(answer);
 	    	} else {
-
+	    		console.log(res[0].latitude+" in bet "+res[0].longitude);
 		    	answer.latitude = res[0].latitude;
 		    	answer.longitude = res[0].longitude;
 		    	callback(answer);
 		    }
+	    }).catch(err => {
+	    	console.log('Google maps api error'+err);
 	    });
 		
 	}

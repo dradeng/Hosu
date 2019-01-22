@@ -21,6 +21,7 @@ class Navbar extends Component {
         messageOpen: false,
     };
     this.changeAddress = this.changeAddress.bind(this);
+    this.selected = this.selected.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
   toggle() {
@@ -37,6 +38,14 @@ class Navbar extends Component {
     e.preventDefault();
     this.props.clearCurrentProfile();
     this.props.logoutUser();
+  }
+  selected(address) {
+
+    var searchInfo = {
+      address: address
+    };
+    //THIS ALWAYS MAKES SURE THE SEARCH GOES TO THE FEED
+    this.props.updateSearch(searchInfo, this.props.history);
   }
   onSubmit(e) {
     //make sure not empty search
@@ -56,6 +65,7 @@ class Navbar extends Component {
   }
 
   changeAddress(addressSearch) {
+    console.log('address in changeAddress');
     this.setState({ addressSearch: addressSearch });
   }
   render() {
@@ -71,7 +81,7 @@ class Navbar extends Component {
           <div class="input-group-prepend" >
             <span onClick={this.onSubmit}  style={{height: 40}} class="input-group-text lighten-3" id="basic-text1"><i class="fas fa-search text-white" aria-hidden="true"></i></span>
           </div>
-          <LocationSearchInput style={{overflow:'visible'}} changeAddress={this.changeAddress} onSubmit={this.onSubmit} value={this.state.address} placeholder="Search" />
+          <LocationSearchInput style={{overflow:'visible'}} selected={this.selected} changeAddress={this.changeAddress} onSubmit={this.onSubmit} value={this.state.address} placeholder="Search" />
         </div>
         <button type="submit" style={{display:"none"}}>
           Submit
