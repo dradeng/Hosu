@@ -24,9 +24,17 @@ module.exports = {
 	    var answer = {}
 	    geocoder.geocode(address, function(err, res) {
 	    	
-	    	answer.latitude = res[0].latitude;
-	    	answer.longitude = res[0].longitude;
-	    	callback(answer);
+	    	if(res[0] === null) {
+
+	    		answer.latitude = -78.498149;
+		    	answer.longitude = 38.037275;
+		    	callback(answer);
+	    	} else {
+
+		    	answer.latitude = res[0].latitude;
+		    	answer.longitude = res[0].longitude;
+		    	callback(answer);
+		    }
 	    });
 		
 	}
