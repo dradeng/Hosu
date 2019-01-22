@@ -89,11 +89,11 @@ const PostSchema = new Schema({
   ],
   bookedDates: [
     {
-      startDate: {
+      to: {
         type: String,
         required: true
       },
-      endDate: {
+      from: {
         type: String,
         required: true
       }

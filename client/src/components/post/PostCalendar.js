@@ -17,6 +17,20 @@ class PostCalendar extends Component {
   }
   render() {
 
+    const { post } = this.props;
+   
+
+    /*[
+        {
+            from: "2019-01-26",
+            to: "2019-01-27"
+        },
+        {
+            from: "2025-09-01",
+            to: "2025-12-01"
+        }
+    ];*/
+    console.log('date is'+ JSON.stringify(post.bookedDates));
     return (
       <div style={{padding:15}}>
 
@@ -24,10 +38,12 @@ class PostCalendar extends Component {
         options = {{
           mode: "range",
           inline: true, 
+          dateFormat: "Y-m-d",
+          disable: post.bookedDates,
           minDate: this.props.startDate, 
           altInput: true, altFormat: "F j, Y", 
-          maxDate: 
-          this.props.endDate }}
+          maxDate: this.props.endDate
+          }}
           onChange={date => { this.setState({date: date, selectedDate: date[0], selectedEndDate:date[1] }); this.props.onChangeDates(date);}}
           value={this.state.date}
         />

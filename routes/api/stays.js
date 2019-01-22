@@ -128,8 +128,8 @@ router.post('/update',
         subjectContent = 'Sublet Request Approved';
 
         var bookedDate = {
-          startDate: req.body.startDate,
-          endDate: req.body.endDate
+          from: req.body.startDate,
+          to: req.body.endDate
         };
         Post.findById(req.body.post).then( post => {
           post.bookedDates.push(bookedDate);

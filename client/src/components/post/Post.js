@@ -108,7 +108,7 @@ class Post extends Component {
             <NonFeedPostItem class="col-md-4" post={post} showActions={false} style={{float: 'left'}} />
             <div class="col-md-4" style={{float:'right', display: 'flex', alignItems: 'center'}}>
               <div>
-                <PostCalendar style={{position:'relative'}} onChangeDates={this.onChangeDates} startDate={startDate} endDate={endDate}/>
+                <PostCalendar style={{position:'relative'}} onChangeDates={this.onChangeDates} post={post} startDate={startDate} endDate={endDate}/>
               
                 <button onClick={this.requestSublet} style={{position:'relative', maxWidth: 275, display:'block', marginLeft: 'auto', marginRight: 'auto'}} className="btncustom btn btn-block mt-2">
                   Request to Sublet

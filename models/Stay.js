@@ -15,7 +15,7 @@ const StaySchema = new Schema({
     type: Date,
     default: null
   },
-  landLord: {
+  landlord: {
     type: String,
     default: null
   },
