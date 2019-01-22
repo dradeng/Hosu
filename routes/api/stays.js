@@ -126,6 +126,16 @@ router.post('/update',
       if(req.body.approved) {
         approved = 'Your sublet request has been approved!';
         subjectContent = 'Sublet Request Approved';
+
+        var bookedDate = {
+          startDate: req.body.startDate,
+          endDate: req.body.endDate
+        };
+        Post.findById(req.body.post).then( post => {
+          post.bookedDates.push(bookedDate);
+          post.save();
+        });
+
       } else {
         approved = 'Your sublet request has been denied. Keep on looking!';
         subjectContent = 'Sublet Request Denied';
@@ -143,6 +153,7 @@ router.post('/update',
             if (err) { return console.error(err); }
       });
     });
+
 
     Stay.findOneAndUpdate(
       { _id: req.body.id },
