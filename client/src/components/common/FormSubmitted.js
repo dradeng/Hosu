@@ -32,6 +32,10 @@ class FormSubmitted extends Component {
     var imageURL = "s3.us-east-2.amazonaws.com/aveneu/DefaultBackgroundPicture.jpg";
 
 
+    //WHEN TESTING THE URLS FOR THE FB SHARE AND OTHER SHARES THE URLS ARE SUPER FINICKY
+    //POSSBILY NEED TO HAVE THE HTTPS AND / AT THE END, MAKE SURE TO DELETE CACHE AND CLOSE BROWSER
+    //EACH NEW RENDERING TO TEST TO SEE IF IT WORKS WITH THE NEWEST INFO
+
 	  return (
 	    <div style={{textAlign:'center'}}>
         <MetaTags>
@@ -41,13 +45,13 @@ class FormSubmitted extends Component {
         to share this post on Facebook, Twitter, or Whatsapp!</h3>
         <div>
           <div style={{display: 'inline-block'}}>
-            <FacebookShareButton style={{padding: 5, maxWidth: 100, float:'left'}} title='Posted my sublet on Aveneu' url='https://salty-plateau-48594.herokuapp.com'>
+            <FacebookShareButton style={{padding: 5, maxWidth: 100, float:'left'}} title='Posted my sublet on Aveneu' url='https://salty-plateau-48594.herokuapp.com/'>
               <FacebookIcon size={32} />
             </FacebookShareButton>
-            <TwitterShareButton style={{padding: 5,  maxWidth: 100, float: 'left'}} title='Posted my sublet on Aveneu' url='https://salty-plateau-48594.herokuapp.com'>
+            <TwitterShareButton style={{padding: 5,  maxWidth: 100, float: 'left'}} title='Posted my sublet on Aveneu' url='https://salty-plateau-48594.herokuapp.com/'>
               <TwitterIcon size={32} />
             </TwitterShareButton>
-            <WhatsappShareButton style={{padding: 5,  maxWidth: 100, float:'left'}} title='Posted my sublet on Aveneu' url='https://salty-plateau-48594.herokuapp.com'>
+            <WhatsappShareButton style={{padding: 5,  maxWidth: 100, float:'left'}} title='Posted my sublet on Aveneu' url='https://salty-plateau-48594.herokuapp.com/'>
               <WhatsappIcon size={32} />
             </WhatsappShareButton>
           </div>
