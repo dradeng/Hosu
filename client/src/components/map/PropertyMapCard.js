@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Item, Button } from "semantic-ui-react";
 import Rating from "react-rating";
 import { getProfile } from '../../actions/profileActions';
@@ -34,30 +35,34 @@ class PropertyMapCard extends Component {
 
         return (
             <Item style={{maxWidth:120}}>
-                <Item.Image
-                    src={pro.images[0]}
-                    size="tiny"
-                    className="img-responsive"
-                    style={{width: "100%"}}
-                />
-                <Item.Content>
-                    <Item.Header >
-                        <strong>
-                            {pro.title}
-                        </strong>
-                    </Item.Header>
-                    <Item.Meta>
-                        <span>
-                            <i>
-                                ${pro.rent}
-                                {reviews}
-                            </i>
-                        </span>
-                        <br />
-                        <br />
-                        <span className="cinema"></span>
-                    </Item.Meta>
-                </Item.Content>
+                <Link className="text-dark" style={{textDecoration: 'none'}} to={`/post/${pro._id}`}>
+                    <Item.Image
+                        src={pro.images[0]}
+                        size="tiny"
+                        className="img-responsive"
+                        style={{width: "100%"}}
+                    />
+                    <Item.Content>
+                        <Item.Header >
+                            <strong>
+                                {pro.title}
+                            </strong>
+
+                        </Item.Header>
+                        <Item.Meta>
+                            <span>
+                                <i>
+                                    ${pro.rent}
+                                    {reviews}
+                                </i>
+                            </span>
+                            <br />
+                            <br />
+                            Minium Stay: {pro.minimumStay}
+                            <span className="cinema"></span>
+                        </Item.Meta>
+                    </Item.Content>
+                </Link>
             </Item>
         );
     }
