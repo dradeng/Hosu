@@ -28,7 +28,9 @@ class PostForm extends Component {
       newImages: [],
       redirect: false,
       removed: [],
-      deleteExistingImages: []
+      deleteExistingImages: [],
+      disabledDates: null,
+      bookedDates: ["2019-01-30", "2019-02-01"],
     };
 
     this.onChange = this.onChange.bind(this);
@@ -67,6 +69,8 @@ componentWillReceiveProps(nextProps) {
         startDate: post.startDate,
         endDate: post.endDate,
         postID: post._id,
+        bookedDates: post.bookedDates,
+        disabledDates: post.bookedDates,
       });
     }
   }
@@ -189,6 +193,19 @@ componentWillReceiveProps(nextProps) {
 
     const { user } = this.props.auth;
     const { post } = this.props.post;
+
+    //starts with whats already there
+    var addedDates = this.state.bookedDates;
+
+
+    for(var i = 0; i < this.state.disabledDates.length; i++){
+      var tmp = {
+        from: this.state.disabledDates[i],
+        to: this.state.disabledDates[i],
+      };
+      addedDates.push(tmp);
+    }
+
     const newPost = {
       title: this.state.title,
       text: this.state.text,
@@ -201,6 +218,7 @@ componentWillReceiveProps(nextProps) {
       endDate: this.state.endDate,
       id: post._id, // ADDED THIS SO I CAN FIND IT IN WHEN UPDATING
       deleteExistingImages: this.state.deleteExistingImages,
+      bookedDates: addedDates
     };
 
     this.props.addPost(newPost, this.props.history);
@@ -215,6 +233,7 @@ componentWillReceiveProps(nextProps) {
     this.setState({ redirect: true });
     this.setState({ removed: [] });
     this.setState({ deleteExistingImages: [] });
+    this.setState({ disabledDates: null });
   }
 
   render() {
@@ -310,6 +329,19 @@ componentWillReceiveProps(nextProps) {
               onChange={date => { this.setState({date: date, startDate: date[0], endDate:date[1] }); }} />
               <br/>
                 
+
+              <h6>Blocked Dates</h6>
+                <Flatpickr
+                options = {{
+                  mode: "multiple", 
+                  minDate: "today", 
+                  dateFormat: "Y-m-d",
+                  disable: this.state.bookedDates, 
+                }}
+                value={this.state.disabledDates}
+                onChange={disabledDates => { this.setState({disabledDates: disabledDates }); }}
+                />
+              <br/>
               <br />
               <br />
               <input type="file" name="file" id="file" onChange={this.fileChangedHandler}/>

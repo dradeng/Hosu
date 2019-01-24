@@ -60,8 +60,6 @@ class PostForm extends Component {
       addedDates.push(tmp);
     }
 
-
-    console.log('added dates are '+addedDates);
     const newPost = {
       title: this.state.title,
       text: this.state.text,
