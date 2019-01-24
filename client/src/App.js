@@ -34,6 +34,9 @@ import Stays from './components/stays/Stays';
 import ChatItem from './components/chat/ChatItem';
 import EmailAuthentication from './components/auth/EmailAuthentication';
 
+import HowItWorks from './components/layout/footerComponents/HowItWorks';
+import Careers from './components/layout/footerComponents/Careers';
+import TermsOfService from './components/layout/footerComponents/TermsOfService';
 
 import './App.css';
 
@@ -137,7 +140,15 @@ class App extends Component {
               </Switch>
 
               <Switch>
-                  <PrivateRoute exact path="/stays" component={Stays} />
+                  <PrivateRoute exact path="/termsOfService" component={TermsOfService} />
+              </Switch>
+
+              <Switch>
+                  <PrivateRoute exact path="/howItWorks" component={HowItWorks} />
+              </Switch>
+
+              <Switch>
+                  <PrivateRoute exact path="/careers" component={Careers} />
               </Switch>
 
             </div>

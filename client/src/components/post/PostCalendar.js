@@ -19,18 +19,6 @@ class PostCalendar extends Component {
 
     const { post } = this.props;
    
-
-    /*[
-        {
-            from: "2019-01-26",
-            to: "2019-01-27"
-        },
-        {
-            from: "2025-09-01",
-            to: "2025-12-01"
-        }
-    ];*/
-    console.log('date is'+ JSON.stringify(post.bookedDates));
     return (
       <div style={{padding:15}}>
 
