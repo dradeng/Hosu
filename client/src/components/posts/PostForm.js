@@ -28,6 +28,7 @@ class PostForm extends Component {
       currFile: [],
       date: [new Date(), new Date()],
       minimumStay: 0,
+      disabledDates: null,
     };
 
     this.changeAddress = this.changeAddress.bind(this);
@@ -48,6 +49,19 @@ class PostForm extends Component {
 
     const { user } = this.props.auth;
     const { profile } = this.props.profile;
+  
+    var addedDates = [];
+
+    for(var i = 0; i < this.state.disabledDates.length; i++){
+      var tmp = {
+        from: this.state.disabledDates[i],
+        to: this.state.disabledDates[i],
+      };
+      addedDates.push(tmp);
+    }
+
+
+    console.log('added dates are '+addedDates);
     const newPost = {
       title: this.state.title,
       text: this.state.text,
@@ -59,7 +73,8 @@ class PostForm extends Component {
       startDate: this.state.startDate,
       endDate: this.state.endDate,
       profile: profile._id,
-      minimumStay: this.state.minimumStay
+      minimumStay: this.state.minimumStay,
+      bookedDates: addedDates,
     };
 
     this.props.addPost(newPost, this.props.history);
@@ -72,6 +87,7 @@ class PostForm extends Component {
     this.setState({ endDate: '' });
     this.setState({ currFile: []});
     this.setState({ minimumStay: 0 });
+    this.setState({ disabledDates: null });
 
   }
   //THIS IS FOR A FILE BE UPLOADED
@@ -248,6 +264,13 @@ class PostForm extends Component {
                           onChange={date => { this.setState({date: date, startDate: date[0], endDate:date[1] }); }} />
                           <br/>
 
+                          <h6>Blocked Dates</h6>
+                          <Flatpickr
+                          options = {{mode: "multiple", minDate: "today"}}
+                          value={this.state.disabledDates}
+                          onChange={disabledDates => { this.setState({disabledDates: disabledDates }); }}
+                          />
+                          <br/>
 
                           
 
