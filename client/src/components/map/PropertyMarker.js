@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Marker, InfoWindow } from "react-google-maps";
 import PropertyMapCard from "./PropertyMapCard";
+
 import MapMarker from '../../assets/marker50.png'
 class PropertyMarker extends Component {
 
@@ -53,8 +54,8 @@ class PropertyMarker extends Component {
                     
                 >
                     { this.state.isOpen && this.state.activeMarker || highlight ?
-                        <InfoWindow maxWidth={800} defaultPosition={ this.props.location } onCloseClick={this.props.onToggleOpen}>
-                            <PropertyMapCard pro={this.props.property}/>
+                        <InfoWindow tyle={{height:800}} maxWidth={800} defaultPosition={ this.props.location } onCloseClick={this.props.onToggleOpen}>
+                            <PropertyMapCard style={{height:800}} pro={this.props.property}/>
                         </InfoWindow> : null
                     }
                 </Marker>
