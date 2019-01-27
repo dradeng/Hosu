@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import {Carousel} from 'react-responsive-carousel';
 import { FaStar, FaRegStar } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import { Textfit } from 'react-textfit';
 import { addLike, removeLike } from '../../actions/postActions';
 import { addFavorite, getCurrentProfile } from '../../actions/profileActions';
@@ -113,12 +114,13 @@ class PostItem extends Component {
       <div className="card card-body feedTile">
         <div className="row">
           <div className="col-md-2">
-
-            <img
-              className="rounded-circle d-none d-md-block postImage"
-              src={post.avatar}
-              alt=""
-            />
+            <Link to={`/profile/${post.profile}`}>
+              <img
+                className="rounded-circle d-none d-md-block postImage"
+                src={post.avatar}
+                alt=""
+              />
+            </Link>
         
           </div>
           <div className="col-md-10">

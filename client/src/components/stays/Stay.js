@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../common/Spinner';
+import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 import { getPost } from '../../actions/postActions';
 import { updateStay } from '../../actions/stayActions';
-
+import NonFeedPostItem from '../posts/NonFeedPostItem';
 
 class Stay extends Component {
   constructor(props) {
@@ -47,37 +48,52 @@ class Stay extends Component {
   render() {
     const { user } = this.props.auth;
     const { stay } = this.props;
+    const { post, loading } = this.props.post;
+
     var approveContent;
     var dateContent;
     var landLordContent;
     var subtenantContent;
+    var postContent;
 
+    if (post === null || loading || Object.keys(post).length === 0) {
+      //do nothing while loading individual post
+    } else {
+      postContent = (
+        <div style={{width: 400}}>
+          <NonFeedPostItem post={post} showActions={false}/>
+        </div>
+      );
+    }
 
     if(stay.landLord === user._id) {
       subtenantContent = (
         <div>
-          <b>Subtenant: </b>
-          <img
-            className="rounded-circle"
-            src={stay.subtenantImage}
-            style={{ width: 30, height:30, marginRight: '5px' }}
-            title="You must have a Gravatar connected to your email to display an image"
-          />
-          {stay.subtenantName}
-
+          <Link className="text-dark" style={{textDecoration: 'none'}} to={`/profile/${stay.subtenantProfile}`}>
+            <b>Subtenant: </b>
+            <img
+              className="rounded-circle"
+              src={stay.subtenantImage}
+              style={{ width: 30, height:30, marginRight: '5px' }}
+              title="You must have a Gravatar connected to your email to display an image"
+            />
+            {stay.subtenantName}
+          </Link>
         </div>
         )
     } else {
       landLordContent = (
         <div>
-          <b>Landlord: </b>
-          <img
-            className="rounded-circle"
-            src={stay.landlordImage}
-            style={{ width: 30, height:30, marginRight: '5px' }}
-            title="You must have a Gravatar connected to your email to display an image"
-          />
-          {stay.landlordName}
+          <Link className="text-dark" style={{textDecoration: 'none'}} to={`/profile/${stay.landlordProfile}`}>
+            <b>Landlord: </b>
+            <img
+              className="rounded-circle"
+              src={stay.landlordImage}
+              style={{ width: 30, height:30, marginRight: '5px' }}
+              title="You must have a Gravatar connected to your email to display an image"
+            />
+            {stay.landlordName}
+          </Link>
         </div>
       );
     }
@@ -117,6 +133,7 @@ class Stay extends Component {
               {landLordContent}
               {subtenantContent}
               {dateContent}
+              {postContent}
               {approveContent}
             </div>
           </div>
@@ -129,10 +146,12 @@ class Stay extends Component {
 Stay.propTypes = {
   updateStay: PropTypes.func.isRequired,
   getPost: PropTypes.func.isRequired,
+  post: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
+  post: state.post,
   auth: state.auth
 });
 

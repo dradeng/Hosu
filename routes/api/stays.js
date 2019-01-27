@@ -43,8 +43,10 @@ router.post('/',
     endDate: req.body.endDate,
     landlordName: req.body.landlordName,
     landlordImage: req.body.landlordImage,
+    landlordProfile: req.body.landlordProfile,
     subtenantName: req.user.name,
     subtenantImage: req.user.profilePic,
+    subtenantProfile: req.body.subtenantProfile,
   });
 
   User.findById(req.body.landlord)

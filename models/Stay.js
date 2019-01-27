@@ -39,14 +39,22 @@ const StaySchema = new Schema({
     type: String,
     required: true
   },
+  landlordProfile: {
+    type: String,
+    required: true
+  },
   landlordImage: {
+    type: String,
+    required: true
+  },
+  subtenantProfile: {
     type: String,
     required: true
   },
   subtenantImage: {
     type: String,
     required: true
-  }
+  },
 });
 
 module.exports = Stay = mongoose.model('stays', StaySchema);

@@ -43,14 +43,18 @@ class Post extends Component {
   requestSublet() {
     const { post } = this.props.post;
     const { user } = this.props.auth;
+    const { profile } = this.props.profile;
 
+    console.log('prof is'+profile._id);
     const request = {
       post: post._id,
       landlord: post.user,
       startDate: this.state.startDate,
       endDate: this.state.endDate,
+      subtenantProfile: profile._id,
       landlordImage: post.avatar,
       landlordName: post.name,
+      landlordProfile: post.profile,
     };
     this.props.addStay(request, this.props.history);
   }
