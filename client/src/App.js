@@ -150,6 +150,9 @@ class App extends Component {
               <Switch>
                   <PrivateRoute exact path="/chats" component={Chats} />
               </Switch>
+              <Switch>
+                  <PrivateRoute exact path="/stays" component={Stays} />
+              </Switch>
             </div>
 
             <Footer/>

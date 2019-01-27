@@ -52,12 +52,14 @@ class PostForm extends Component {
   
     var addedDates = [];
 
-    for(var i = 0; i < this.state.disabledDates.length; i++){
-      var tmp = {
-        from: this.state.disabledDates[i],
-        to: this.state.disabledDates[i],
-      };
-      addedDates.push(tmp);
+    if(this.state.disabledDates) {
+      for(var i = 0; i < this.state.disabledDates.length; i++){
+        var tmp = {
+          from: this.state.disabledDates[i],
+          to: this.state.disabledDates[i],
+        };
+        addedDates.push(tmp);
+      }
     }
 
     const newPost = {

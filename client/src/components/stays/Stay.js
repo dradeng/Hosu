@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../common/Spinner';
 import { Redirect } from 'react-router-dom';
+import { getPost } from '../../actions/postActions';
 import { updateStay } from '../../actions/stayActions';
 
 
@@ -16,7 +17,8 @@ class Stay extends Component {
     this.denySublet = this.denySublet.bind(this);
   }
   componentDidMount() {
-    
+    const { stay } = this.props;
+    this.props.getPost(stay.post);
   }
   approveSublet() {
     
@@ -55,12 +57,27 @@ class Stay extends Component {
       subtenantContent = (
         <div>
           <b>Subtenant: </b>
+          <img
+            className="rounded-circle"
+            src={stay.subtenantImage}
+            style={{ width: 30, height:30, marginRight: '5px' }}
+            title="You must have a Gravatar connected to your email to display an image"
+          />
+          {stay.subtenantName}
+
         </div>
         )
     } else {
       landLordContent = (
         <div>
           <b>Landlord: </b>
+          <img
+            className="rounded-circle"
+            src={stay.landlordImage}
+            style={{ width: 30, height:30, marginRight: '5px' }}
+            title="You must have a Gravatar connected to your email to display an image"
+          />
+          {stay.landlordName}
         </div>
       );
     }
@@ -97,7 +114,6 @@ class Stay extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              Made it to requests
               {landLordContent}
               {subtenantContent}
               {dateContent}
@@ -112,7 +128,7 @@ class Stay extends Component {
 
 Stay.propTypes = {
   updateStay: PropTypes.func.isRequired,
-
+  getPost: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
 };
 
@@ -120,6 +136,6 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { updateStay })(
+export default connect(mapStateToProps, { updateStay, getPost })(
   Stay
 );

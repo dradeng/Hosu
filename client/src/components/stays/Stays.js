@@ -36,7 +36,8 @@ class Stays extends Component {
 
     return (
       <div>
-      Stays
+        <h1>Stays</h1>
+        
         {stayFeedContent}
       </div>
     );

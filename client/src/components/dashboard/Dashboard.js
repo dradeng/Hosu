@@ -18,7 +18,7 @@ class Dashboard extends Component {
     this.props.deleteAccount();
   }
   doNothing() {
-    
+    //does literally nothing
   }
   render() {
     const { user } = this.props.auth;
@@ -60,18 +60,21 @@ class Dashboard extends Component {
           </div>
         );
         deleteContent = (
-          <button
+          <div style={{paddingTop: 15}}>
+            <button
               onClick={this.onDeleteClick.bind(this)}
               className="btn btn-danger"
+
             >
               Delete My Account
-          </button>
+            </button>
+          </div>
         );
         if (profile === null) {
           //do nothing
-        } else if(posts === null || profile.posts === undefined) {
+        } else if(posts === null || profile.posts === undefined || profile.posts.length === 0) {
           postHeader = <h1>Posts</h1>;
-          postContent = <p>No post to show</p>;
+          postContent = <p style={{paddingLeft: 5}}>No post to show</p>;
         } else {
             postHeader = <h1>Posts</h1>;
             postContent = posts.map(post => { 
