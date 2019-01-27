@@ -41,7 +41,7 @@ import TermsOfService from './components/layout/footerComponents/TermsOfService'
 //careers
 import FrontEndDeveloper from './components/careers/FrontEndDeveloper';
 import ReactNativeDeveloper from './components/careers/ReactNativeDeveloper';
-
+import DirectorOfGrowthMarketing from './components/careers/DirectorOfGrowthMarketing';
 
 import './App.css';
 
@@ -85,6 +85,7 @@ class App extends Component {
               <Route exact path="/verify-email/:id" component={EmailAuthentication} />
               <Route exact path="/front-end-developer" component={FrontEndDeveloper} />
               <Route exact path="/react-native-developer" component={ReactNativeDeveloper} />
+              <Route exact path="/director-of-growth-marketing" component={DirectorOfGrowthMarketing} />
               <Route exact path="/terms-of-service" component={TermsOfService} />
               <Route exact path="/how-it-works" component={HowItWorks} />
               <Route exact path="/careers" component={Careers} />
