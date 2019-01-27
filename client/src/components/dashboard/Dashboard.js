@@ -17,6 +17,9 @@ class Dashboard extends Component {
   onDeleteClick(e) {
     this.props.deleteAccount();
   }
+  doNothing() {
+    
+  }
   render() {
     const { user } = this.props.auth;
     const { profile, loading } = this.props.profile;
@@ -73,7 +76,8 @@ class Dashboard extends Component {
             postHeader = <h1>Posts</h1>;
             postContent = posts.map(post => { 
                 if(profile.posts.indexOf(post._id) >= 0) {
-                    return <PostItem className="col-md-6" key={post._id} post={post} />
+                    //do nothing for updateParentPostFeed, only needed for feed with the map
+                    return <PostItem updateParentPostFeed={this.doNothing} className="col-md-6" key={post._id} post={post} />
                 } else {
                     return; // nothing
                 }
