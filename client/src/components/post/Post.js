@@ -46,10 +46,11 @@ class Post extends Component {
 
     const request = {
       post: post._id,
-      subtenant: user.id,
       landlord: post.user,
       startDate: this.state.startDate,
-      endDate: this.state.endDate
+      endDate: this.state.endDate,
+      landlordImage: post.avatar,
+      landlordName: post.name,
     };
     this.props.addStay(request, this.props.history);
   }

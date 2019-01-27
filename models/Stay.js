@@ -31,9 +31,17 @@ const StaySchema = new Schema({
     type: Boolean,
     default: false
   },
+  subtenantName: {
+    type: String,
+    required: true
+  },
+  landlordName: {
+    type: String,
+    required: true
+  },
   landlordImage: {
     type: String,
-    requied: true
+    required: true
   },
   subtenantImage: {
     type: String,

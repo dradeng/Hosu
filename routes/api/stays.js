@@ -35,12 +35,16 @@ router.post('/',
 
   const stay = new Stay({
     post: req.body.post,
-    subtenant: req.body.subtenant,
+    subtenant: req.user.id,
     landlord: req.body.landlord,
     approved: false,
     decided: false,
     startDate: req.body.startDate,
-    endDate: req.body.endDate
+    endDate: req.body.endDate,
+    landlordName: req.body.landlordName,
+    landlordImage: req.body.landlordImage,
+    subtenantName: req.user.name,
+    subtenantImage: req.user.profilePic,
   });
 
   User.findById(req.body.landlord)
@@ -59,10 +63,12 @@ router.post('/',
         }, function(err, json) {
             if (err) { return console.error(err); }
       });
+    }).catch(err => {
+      console.log('No landlord found');
     });
 
   //ADD TRIP TO SUBTENTANT
-  User.findById(req.body.subtenant)
+  User.findById(req.user.id)
     .then(subtenant => {
       subtenant.stays.push(stay._id);
       subtenant.save();
