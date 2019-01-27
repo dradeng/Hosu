@@ -38,6 +38,11 @@ import HowItWorks from './components/layout/footerComponents/HowItWorks';
 import Careers from './components/layout/footerComponents/Careers';
 import TermsOfService from './components/layout/footerComponents/TermsOfService';
 
+//careers
+import FrontEndDeveloper from './components/careers/FrontEndDeveloper';
+import ReactNativeDeveloper from './components/careers/ReactNativeDeveloper';
+
+
 import './App.css';
 
 // Check for token
@@ -78,7 +83,13 @@ class App extends Component {
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/verify-email/:id" component={EmailAuthentication} />
+              <Route exact path="/front-end-developer" component={FrontEndDeveloper} />
+              <Route exact path="/react-native-developer" component={ReactNativeDeveloper} />
+              <Route exact path="/terms-of-service" component={TermsOfService} />
+              <Route exact path="/how-it-works" component={HowItWorks} />
+              <Route exact path="/careers" component={Careers} />
               
+
               <Switch>
                 <PrivateRoute exact path="/favorites" component={Favorites} />
               </Switch>
@@ -138,19 +149,6 @@ class App extends Component {
               <Switch>
                   <PrivateRoute exact path="/chats" component={Chats} />
               </Switch>
-
-              <Switch>
-                  <PrivateRoute exact path="/termsOfService" component={TermsOfService} />
-              </Switch>
-
-              <Switch>
-                  <PrivateRoute exact path="/howItWorks" component={HowItWorks} />
-              </Switch>
-
-              <Switch>
-                  <PrivateRoute exact path="/careers" component={Careers} />
-              </Switch>
-
             </div>
 
             <Footer/>
