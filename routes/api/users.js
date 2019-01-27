@@ -88,9 +88,11 @@ router.post('/register', (req, res) => {
         }
         //res.json({"responseCode" : 0,"responseDesc" : "Sucess"});
 
+        var lowerCaseEmail = req.body.email.toLowerCase();
+
         const newUser = new User({
           name: req.body.name,
-          email: req.body.email,
+          email: lowerCaseEmail,
           profilePic: req.body.profilePic,
           password: req.body.password,
           emailAuthenticated: false
@@ -170,7 +172,7 @@ router.post('/login', (req, res) => {
     return res.status(400).json(errors);
   }
 
-  const email = req.body.email;
+  const email = req.body.email.toLowerCase();
   const password = req.body.password;
 
   // Find user by email
