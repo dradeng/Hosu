@@ -31,6 +31,8 @@ class PostForm extends Component {
       deleteExistingImages: [],
       disabledDates: null,
       bookedDates: ["2019-01-30", "2019-02-01"],
+      deletedCount: 0,
+      awsCF: [],
     };
 
     this.onChange = this.onChange.bind(this);
@@ -94,13 +96,16 @@ componentWillReceiveProps(nextProps) {
       // I do this after so it only affects the state, not whats uploaded to s3
       // The state & model in the db stores the whole url
       fileName = 'https://s3.us-east-2.amazonaws.com/aveneu/' + fileName;
-      
-      //console.log('miages before upload    ' +this.state.images.length+ this.state.images);
-      //console.log('currfile before upload    ' +this.state.currFile.length+ this.state.currFile);
+      console.log('image uploaded' + fileName);
       
       var tmpImages = this.state.newImages;
+      var awsCF = this.state.awsCF;
+      awsCF.push(fileName);
+
       tmpImages.push(fileName);
+
       this.setState({ images: tmpImages});
+      this.setState({ awsCF: awsCF})
       //HAVE TO DO THIS OR ELSE IT DOESNT WORK, CANT DO ...this.state.images
 
       this.setState({ currFile: [...this.state.currFile, URL.createObjectURL(event.target.files[0])] });
@@ -132,24 +137,33 @@ componentWillReceiveProps(nextProps) {
  
   }
   onDeleteClickImage(imageURL) {
-    console.log('IMAGE URL from delete'+imageURL);
+    //imageurl is localhost technically or aveneu.co
     
-    var index = this.state.currFile.indexOf(imageURL);
-    var fileName = this.state.images[index];//HAVE TO FUCKING USE IMAGES NOT CURR FILE
+    console.log(imageURL);
+    var indexCF = this.state.currFile.indexOf(imageURL);
+    console.log('indexCF ' + indexCF);
+    var AWSImage = this.state.awsCF[indexCF];
 
-    console.log("file deleted is with index: " + index + " name: " + fileName);
-   
-    var leng = ('https://s3.us-east-2.amazonaws.com/aveneu/').length;
-    fileName = fileName.substring(leng);
+    var indexImages = this.state.images.indexOf(AWSImage);
+    console.log('indexIMages is '+ indexImages +' and image is ' + AWSImage);
+    //so wrong
+    var fileName = this.state.images[indexCF];//HAVE TO FUCKING USE IMAGES NOT CURR FILE
+    //gets the name of file from aws
+    fileName.slice(-36);
+
+    
     var tmpCF = [...this.state.currFile];
     
     var tmpImages = [...this.state.images];
-    var imagesIndex = tmpImages.length + index - 1;
-    console.log("index we cutting " + imagesIndex);
-    tmpCF.splice(index, 1);
-    tmpImages.splice(imagesIndex, 1);
+    var tmpAwsCF = [...this.state.awsCF];
+ 
+    
+    tmpCF.splice(indexCF, 1);
+    tmpImages.splice(indexImages, 1);
+    tmpAwsCF.splice(indexCF, 1);
     this.setState({images: tmpImages});
     this.setState({ currFile: tmpCF });
+    this.setState({ awsCF: tmpAwsCF });
 
     const newFile = {
       fileName : fileName
@@ -157,10 +171,10 @@ componentWillReceiveProps(nextProps) {
 
     
     this.props.deleteImage(newFile);
-
   }
   onDeleteExistingImage(imageURL){
 
+   
     var index = this.state.newImages.indexOf(imageURL);
     var tmpImages = [...this.state.newImages];
 
@@ -168,25 +182,26 @@ componentWillReceiveProps(nextProps) {
     newDeleteExistingImages.push(imageURL);
     this.setState({ deleteExistingImages: newDeleteExistingImages });
 
-    console.log("file deleted is with index: " + index);
+  
 
     if (index !== -1) {
-      console.log("newimages length" + tmpImages.length);
+
       tmpImages.splice(index, 1);
       this.setState({images: tmpImages});
       this.setState({newImages: tmpImages});
       console.log("newimages length after" + tmpImages.length);
     }
-    console.log("iamgeURL" + imageURL);
+   
     this.setState({ removed: [...this.state.removed, imageURL]});
     var leng = ('https://s3.us-east-2.amazonaws.com/aveneu/').length;
     var fileName = imageURL.substring(leng);
-    console.log("file name for " + fileName);
+   
     
     const newFile = {
       fileName : fileName
     };
     this.props.deleteImage(newFile);
+
   }
   onSubmit(e) {
     e.preventDefault();
@@ -234,6 +249,7 @@ componentWillReceiveProps(nextProps) {
     this.setState({ removed: [] });
     this.setState({ deleteExistingImages: [] });
     this.setState({ disabledDates: null });
+    this.setState({ awsCF: [] });
   }
 
   render() {
@@ -344,8 +360,15 @@ componentWillReceiveProps(nextProps) {
               <br/>
               <br />
               <br />
-              <input type="file" name="file" id="file" onChange={this.fileChangedHandler}/>
+              Existing Images
+              <br />
+              <br />
               {existingImages}
+              <br />
+              <br />
+              New Images
+              <br />
+              <input type="file" name="file" id="file" onChange={this.fileChangedHandler}/>
               {imagePreviewContent}
 
               <br />

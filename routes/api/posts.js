@@ -23,7 +23,8 @@ const multer = require('multer');
 const stream = require('stream');
 const storage = multer.memoryStorage()
 const upload = multer({storage: storage});
-
+const fs = require('fs');
+const parser = require('xml2json');
 
 //controllers
 const awsUploader = require('../../controllers/awsUpload.js');
@@ -105,13 +106,15 @@ router.post(
 
             var existingImages = req.body.images;
 
-            for( var i = 0; i < req.body.deleteExistingImages.length; i++) {
-              var url = req.body.deleteExistingImages[i];
-              if(existingImages.includes(url))
-              {
-                var index = existingImages.indexOf(url);
-                if(index > -1) {
-                  existingImages.splice(index, 1);
+            if(req.body.deleteExistingImages) {
+              for( var i = 0; i < req.body.deleteExistingImages.length; i++) {
+                var url = req.body.deleteExistingImages[i];
+                if(existingImages.includes(url))
+                {
+                  var index = existingImages.indexOf(url);
+                  if(index > -1) {
+                    existingImages.splice(index, 1);
+                  }
                 }
               }
             }
