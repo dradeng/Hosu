@@ -1,0 +1,26 @@
+version: "3.3"
+
+services:
+  web:
+     build: .
+     container_name: web
+     restart: always
+     env_file:
+       - .env
+     expose:
+       - "5000"
+
+  front-end:
+    build:
+      context: .
+      dockerfile: ./client/Dockerfile
+    container_name: front-end
+    restart: always
+    env_file:
+       - .env
+    ports:
+      - "80:80"
+    expose:
+      - "80"
+    links:
+      - web
