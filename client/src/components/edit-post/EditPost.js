@@ -7,7 +7,7 @@ import 'react-day-picker/lib/style.css';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import { addPost, getPost, deletePost, deleteImage, addImage } from '../../actions/postActions';
 import { getCurrentProfile } from '../../actions/profileActions';
-
+import LocationAutoComplete from "../common/LocationAutoComplete";
 import 'flatpickr/dist/themes/material_blue.css';
 import Flatpickr from 'react-flatpickr';
 
@@ -30,14 +30,16 @@ class PostForm extends Component {
       removed: [],
       deleteExistingImages: [],
       disabledDates: null,
-      bookedDates: ["2019-01-30", "2019-02-01"],
+      bookedDates: [],
       deletedCount: 0,
       awsCF: [],
       removedCount: 0,
       addedCount: 0,
+      recievedProps: false,
     };
 
     this.onChange = this.onChange.bind(this);
+    this.changeAddress = this.changeAddress.bind(this);
     this.onStartDateChange = this.onStartDateChange.bind(this);
     this.onEndDateChange = this.onEndDateChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -53,7 +55,7 @@ componentWillReceiveProps(nextProps) {
       this.setState({ errors: nextProps.errors });
     }
  
-    if (nextProps.post.post) {
+    if (nextProps.post.post && !this.state.recievedProps) {
    
       const post = nextProps.post.post;
     
@@ -76,6 +78,7 @@ componentWillReceiveProps(nextProps) {
         bookedDates: post.bookedDates,
         disabledDates: post.bookedDates,
         addedCount: post.images.length,
+        recievedProps: true
       });
     }
   }
@@ -85,7 +88,7 @@ componentWillReceiveProps(nextProps) {
   }
   //THIS IS FOR A FILE BE UPLOADED
   fileChangedHandler = (event) => {
-    
+    event.preventDefault();
     if(event.target.files[0] != null) {
       const file = event.target.files[0];
       
@@ -99,7 +102,6 @@ componentWillReceiveProps(nextProps) {
       // I do this after so it only affects the state, not whats uploaded to s3
       // The state & model in the db stores the whole url
       fileName = 'https://s3.us-east-2.amazonaws.com/aveneu/' + fileName;
-      console.log('image uploaded' + fileName);
       
       var tmpImages = this.state.newImages;
       var awsCF = this.state.awsCF;
@@ -215,6 +217,10 @@ componentWillReceiveProps(nextProps) {
       };
       this.props.deleteImage(newFile);
     }
+
+  }
+  changeAddress(e) {
+    this.setState({ address: e });
 
   }
   onSubmit(e) {
@@ -333,13 +339,14 @@ componentWillReceiveProps(nextProps) {
                 />
               </div>
               <div className="form-group">
-                <TextAreaFieldGroup
-                  placeholder="Address of post (this will not be publicly visible)"
-                  name="address"
+                <LocationAutoComplete
+                  changeAddress={this.changeAddress}
                   value={this.state.address}
-                  onChange={this.onChange}
-                  error={errors.address}
-                />
+                  original={this.state.address}
+                 />
+                <div style={{fontSize:13,color:'rgb(220, 53, 69)', paddingTop:5, fontFamily:'-apple-system, BlinkMacSystemFont, Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Apple Color Emoji, Segoe UI Emoji,Segoe UI Symbol'}}>
+                 {errors.address ? errors.address : ''}
+                </div>
               </div>
               <div className="form-group">
                 <TextAreaFieldGroup

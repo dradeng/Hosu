@@ -5,7 +5,7 @@ const passport = require('passport');
 const path = require('path');
 const socketIO = require('socket.io');
 const http = require('http');
-
+const envVar = require('dotenv').config();
 
 const methodOverride = require('method-override');
 

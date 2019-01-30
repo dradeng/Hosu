@@ -4,9 +4,18 @@ class LocationAutoComplete extends React.Component {
     constructor(props) {
         super(props);
         console.log(props);
-        this.state = { address: '' }
+        this.state = { address: this.props.original }
     }
-
+    componentWillReceiveProps(nextProps) {
+ 
+        if (nextProps.original) {
+       
+          // Set component fields state
+          this.setState({
+            address: nextProps.original,
+          });
+        }
+    }
     handleChange = (address) => {
         this.setState({ address });
     }
@@ -32,11 +41,11 @@ class LocationAutoComplete extends React.Component {
 
 
                         <input
-
+                            value={this.props.original}
                             style={addressStyle}
                             {...getInputProps({
                                 type: "text", className: "form-control",
-                                placeholder: 'Complete your address...',
+                                placeholder: 'Enter an address...',
                             })}
                         />
 
