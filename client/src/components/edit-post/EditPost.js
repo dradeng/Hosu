@@ -31,7 +31,7 @@ class PostForm extends Component {
       redirect: false,
       removed: [],
       deleteExistingImages: [],
-      disabledDates: null,
+      disabledDates: [],
       bookedDates: [],
       deletedCount: 0,
       awsCF: [],
@@ -72,16 +72,17 @@ componentWillReceiveProps(nextProps) {
         address: post.address,
         name: user.name,
         avatar: user.profilePic,
+        images: post.images,
         newImages: post.images,
         rent: post.rent,
         startDate: post.startDate,
         endDate: post.endDate,
         postID: post._id,
         bookedDates: post.bookedDates,
-        disabledDates: post.bookedDates,
+        disabledDates: null,
         addedCount: post.images.length,
         minimumStay: post.minimumStay,
-        recievedProps: true
+        recievedProps: true,
       });
     }
   }
@@ -156,8 +157,7 @@ componentWillReceiveProps(nextProps) {
       var AWSImage = this.state.awsCF[indexCF];
 
       var indexImages = this.state.images.indexOf(AWSImage);
-      console.log('indexIMages is '+ indexImages +' and image is ' + AWSImage);
-      //so wrong
+      
       var fileName = this.state.images[indexCF];//HAVE TO FUCKING USE IMAGES NOT CURR FILE
       //gets the name of file from aws
       fileName.slice(-36);
@@ -234,14 +234,15 @@ componentWillReceiveProps(nextProps) {
 
     //starts with whats already there
     var addedDates = this.state.bookedDates;
-
-
-    for(var i = 0; i < this.state.disabledDates.length; i++){
-      var tmp = {
-        from: this.state.disabledDates[i],
-        to: this.state.disabledDates[i],
-      };
-      addedDates.push(tmp);
+    console.log('disavbleDates' + JSON.stringify(this.state.disabledDates));
+    if(this.state.disabledDates && this.state.disabledDates.length > 0) {
+      for(var i = 0; i < this.state.disabledDates.length; i++){
+        var tmp = {
+          from: this.state.disabledDates[i],
+          to: this.state.disabledDates[i],
+        };
+        addedDates.push(tmp);
+      }
     }
 
     const newPost = {
@@ -376,15 +377,15 @@ componentWillReceiveProps(nextProps) {
               <div className="form-group">
                 <h6>
                   Price per week*
-                  </h6>
-                  <InputGroup
-                    placeholder="Enter number for rent"
-                    name="rent"
-                    icon="fas fa-dollar-sign"
-                    error={errors.rent}
-                    value={this.state.rent}
-                    onChange={this.onChange}
-                  />
+                </h6>
+                <InputGroup
+                  placeholder="Enter number for rent"
+                  name="rent"
+                  icon="fas fa-dollar-sign"
+                  error={errors.rent}
+                  value={this.state.rent}
+                  onChange={this.onChange}
+                />
               </div>
               
 

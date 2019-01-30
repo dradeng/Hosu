@@ -65,7 +65,6 @@ class Navbar extends Component {
   }
 
   changeAddress(addressSearch) {
-    console.log('address in changeAddress');
     this.setState({ addressSearch: addressSearch });
   }
   render() {
@@ -76,12 +75,12 @@ class Navbar extends Component {
       
     const showSearchBar = isAuthenticated && user.profile;
     const searchBar = (
-      <form onSubmit={this.onSubmit} style={{marginLeft: 25, position: 'absolute', left: 45, top: 10}}>
-        <div style={{width:350}} class="input-group md-form form-sm form-1 pl-0">
+      <form onSubmit={this.onSubmit} style={{marginLeft: 25, position: 'absolute', left: 45, top: 10, width: '25%', maxWidth:600}}>
+        <div style={{}} class="input-group md-form form-sm form-1 pl-0">
           <div class="input-group-prepend" >
             <span onClick={this.onSubmit}  style={{height: 40}} class="input-group-text lighten-3" id="basic-text1"><i class="fas fa-search text-white" aria-hidden="true"></i></span>
           </div>
-          <LocationSearchInput style={{overflow:'visible'}} selected={this.selected} changeAddress={this.changeAddress} onSubmit={this.onSubmit} value={this.state.address} placeholder="Search" />
+          <LocationSearchInput selected={this.selected} changeAddress={this.changeAddress} onSubmit={this.onSubmit} value={this.state.address} placeholder="Search" />
         </div>
         <button type="submit" style={{display:"none"}}>
           Submit

@@ -67,9 +67,11 @@ router.post(
   '/',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    console.log('adding post');
+    //adding post
     const { errors, isValid } = validatePostInput(req.body);
 
+     console.log('we here');
+    console.log('images'+JSON.stringify(req.body.images));
     // Check Validation
     if (!isValid) {
       // If any errors, send 400 with errors object
@@ -102,7 +104,6 @@ router.post(
             updatePost.endDate = req.body.endDate;
             updatePost.minimumStay = req.body.minimumStay;
             updatePost.bookedDates = req.body.bookedDates;
-
 
             var existingImages = req.body.images;
 
