@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
+import InputGroup from '../common/InputGroup';
 import { addPost, getPost, deletePost, deleteImage, addImage } from '../../actions/postActions';
 import { getCurrentProfile } from '../../actions/profileActions';
 import LocationAutoComplete from "../common/LocationAutoComplete";
@@ -24,6 +25,7 @@ class PostForm extends Component {
       errors: {},
       startDate: '',
       endDate: '',
+      minimumStay: 0,
       currFile: [],
       newImages: [],
       redirect: false,
@@ -78,6 +80,7 @@ componentWillReceiveProps(nextProps) {
         bookedDates: post.bookedDates,
         disabledDates: post.bookedDates,
         addedCount: post.images.length,
+        minimumStay: post.minimumStay,
         recievedProps: true
       });
     }
@@ -312,6 +315,7 @@ componentWillReceiveProps(nextProps) {
           </div>
           <div className="card-body">
             <form onSubmit={this.onSubmit} method="POST" enctype="multipart/form-data">
+              <small className="d-block pb-3">* = required fields</small>
               <div className="form-group">
                 <button
                     onClick={this.onDeleteClick.bind(this, this.state.postID)}
@@ -321,6 +325,9 @@ componentWillReceiveProps(nextProps) {
                   >
                     <i className="fas fa-times" />
                 </button>
+                <h6>
+                  Provide a title*
+                </h6>
                 <TextAreaFieldGroup
                   placeholder="Title of post"
                   name="title"
@@ -329,6 +336,9 @@ componentWillReceiveProps(nextProps) {
                   error={errors.title} 
                 />
               </div>
+              <h6>
+                Provide details*
+              </h6>
               <div className="form-group">
                 <TextAreaFieldGroup
                   placeholder="Create a post"
@@ -338,6 +348,9 @@ componentWillReceiveProps(nextProps) {
                   error={errors.text}
                 />
               </div>
+              <h6>
+                Enter your address*
+              </h6>
               <div className="form-group">
                 <LocationAutoComplete
                   changeAddress={this.changeAddress}
@@ -349,13 +362,29 @@ componentWillReceiveProps(nextProps) {
                 </div>
               </div>
               <div className="form-group">
-                <TextAreaFieldGroup
-                  placeholder="Enter number for rent"
-                  name="rent"
-                  value={this.state.rent}
+                <h6>
+                  Minimum Stay*
+                </h6>
+                <InputGroup
+                  placeholder="Enter the minimum number of days for a single stay"
+                  name="minimumStay"
+                  error={errors.minimumStay}
+                  value={this.state.minimumStay}
                   onChange={this.onChange}
-                  error={errors.rent}
                 />
+              </div>
+              <div className="form-group">
+                <h6>
+                  Price per week*
+                  </h6>
+                  <InputGroup
+                    placeholder="Enter number for rent"
+                    name="rent"
+                    icon="fas fa-dollar-sign"
+                    error={errors.rent}
+                    value={this.state.rent}
+                    onChange={this.onChange}
+                  />
               </div>
               
 
