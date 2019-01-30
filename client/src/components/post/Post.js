@@ -90,16 +90,17 @@ class Post extends Component {
   render() {
     const { post, loading } = this.props.post;
     const { profile } = this.props.profile;
-
+    const { user } = this.props.auth;
     let postContent;
     let calendarContent;
 
+    var userPost = true;
 
     if (post === null || loading || Object.keys(post).length === 0) {
       postContent = <Spinner />;
     } else {
 
-
+      userPost = post.user === user.id ? true : false;
       var startDate = post.startDate;
       var endDate = post.endDate;
       var now = new Date();
@@ -115,7 +116,7 @@ class Post extends Component {
               <div>
                 <PostCalendar style={{position:'relative'}} onChangeDates={this.onChangeDates} post={post} startDate={startDate} endDate={endDate}/>
               
-                <button onClick={this.requestSublet} style={{position:'relative', maxWidth: 275, display:'block', marginLeft: 'auto', marginRight: 'auto'}} className="btncustom btn btn-block mt-2">
+                <button disabled={userPost} onClick={this.requestSublet} style={{position:'relative', maxWidth: 275, display:'block', marginLeft: 'auto', marginRight: 'auto'}} className="btncustom btn btn-block mt-2">
                   Request to Sublet
                 </button>
               </div>
