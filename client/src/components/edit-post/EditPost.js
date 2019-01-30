@@ -33,6 +33,8 @@ class PostForm extends Component {
       bookedDates: ["2019-01-30", "2019-02-01"],
       deletedCount: 0,
       awsCF: [],
+      removedCount: 0,
+      addedCount: 0,
     };
 
     this.onChange = this.onChange.bind(this);
@@ -73,6 +75,7 @@ componentWillReceiveProps(nextProps) {
         postID: post._id,
         bookedDates: post.bookedDates,
         disabledDates: post.bookedDates,
+        addedCount: post.images.length,
       });
     }
   }
@@ -103,6 +106,9 @@ componentWillReceiveProps(nextProps) {
       awsCF.push(fileName);
 
       tmpImages.push(fileName);
+
+      var tmpVal = this.state.addedCount + 1;
+      this.setState({addedCount : tmpVal });
 
       this.setState({ images: tmpImages});
       this.setState({ awsCF: awsCF})
@@ -139,68 +145,76 @@ componentWillReceiveProps(nextProps) {
   onDeleteClickImage(imageURL) {
     //imageurl is localhost technically or aveneu.co
     
-    console.log(imageURL);
-    var indexCF = this.state.currFile.indexOf(imageURL);
-    console.log('indexCF ' + indexCF);
-    var AWSImage = this.state.awsCF[indexCF];
+    if(this.state.removedCount < this.state.addedCount - 1) {
+      var indexCF = this.state.currFile.indexOf(imageURL);
+      console.log('indexCF ' + indexCF);
+      var AWSImage = this.state.awsCF[indexCF];
 
-    var indexImages = this.state.images.indexOf(AWSImage);
-    console.log('indexIMages is '+ indexImages +' and image is ' + AWSImage);
-    //so wrong
-    var fileName = this.state.images[indexCF];//HAVE TO FUCKING USE IMAGES NOT CURR FILE
-    //gets the name of file from aws
-    fileName.slice(-36);
+      var indexImages = this.state.images.indexOf(AWSImage);
+      console.log('indexIMages is '+ indexImages +' and image is ' + AWSImage);
+      //so wrong
+      var fileName = this.state.images[indexCF];//HAVE TO FUCKING USE IMAGES NOT CURR FILE
+      //gets the name of file from aws
+      fileName.slice(-36);
 
-    
-    var tmpCF = [...this.state.currFile];
-    
-    var tmpImages = [...this.state.images];
-    var tmpAwsCF = [...this.state.awsCF];
- 
-    
-    tmpCF.splice(indexCF, 1);
-    tmpImages.splice(indexImages, 1);
-    tmpAwsCF.splice(indexCF, 1);
-    this.setState({images: tmpImages});
-    this.setState({ currFile: tmpCF });
-    this.setState({ awsCF: tmpAwsCF });
+      
+      var tmpCF = [...this.state.currFile];
+      
+      var tmpImages = [...this.state.images];
+      var tmpAwsCF = [...this.state.awsCF];
+   
+      
+      tmpCF.splice(indexCF, 1);
+      tmpImages.splice(indexImages, 1);
+      tmpAwsCF.splice(indexCF, 1);
+      this.setState({images: tmpImages});
+      this.setState({ currFile: tmpCF });
+      this.setState({ awsCF: tmpAwsCF });
 
-    const newFile = {
-      fileName : fileName
-    };
+      var tmpVal = this.state.removedCount + 1;
+      this.setState({ removedCount: tmpVal });
 
-    
-    this.props.deleteImage(newFile);
+      const newFile = {
+        fileName : fileName
+      };
+
+      
+      this.props.deleteImage(newFile);
+    }
   }
   onDeleteExistingImage(imageURL){
 
-   
-    var index = this.state.newImages.indexOf(imageURL);
-    var tmpImages = [...this.state.newImages];
-
-    var newDeleteExistingImages = [...this.state.deleteExistingImages];
-    newDeleteExistingImages.push(imageURL);
-    this.setState({ deleteExistingImages: newDeleteExistingImages });
-
+    if(this.state.removedCount < this.state.addedCount - 1) {
+      var index = this.state.newImages.indexOf(imageURL);
+      var tmpImages = [...this.state.newImages];
   
-
-    if (index !== -1) {
-
-      tmpImages.splice(index, 1);
-      this.setState({images: tmpImages});
-      this.setState({newImages: tmpImages});
-      console.log("newimages length after" + tmpImages.length);
-    }
-   
-    this.setState({ removed: [...this.state.removed, imageURL]});
-    var leng = ('https://s3.us-east-2.amazonaws.com/aveneu/').length;
-    var fileName = imageURL.substring(leng);
-   
+      var newDeleteExistingImages = [...this.state.deleteExistingImages];
+      newDeleteExistingImages.push(imageURL);
+      this.setState({ deleteExistingImages: newDeleteExistingImages });
+  
     
-    const newFile = {
-      fileName : fileName
-    };
-    this.props.deleteImage(newFile);
+  
+      if (index !== -1) {
+  
+        tmpImages.splice(index, 1);
+        this.setState({images: tmpImages});
+        this.setState({newImages: tmpImages});
+        console.log("newimages length after" + tmpImages.length);
+      }
+     
+      this.setState({ removed: [...this.state.removed, imageURL]});
+      var leng = ('https://s3.us-east-2.amazonaws.com/aveneu/').length;
+      var fileName = imageURL.substring(leng);
+     
+
+      var tmpVal = this.state.removedCount + 1;
+      this.setState({ removedCount: tmpVal });
+      
+      const newFile = {
+        fileName : fileName
+      };
+      this.props.deleteImage(newFile);
+    }
 
   }
   onSubmit(e) {
