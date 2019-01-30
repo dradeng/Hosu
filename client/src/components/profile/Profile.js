@@ -20,7 +20,7 @@ class Profile extends Component {
       profileContent = <Spinner />;
     } else {
       profileContent = (
-        <div style={{maxWidth: 800, margin:'0 auto'}}>
+        <div style={{maxWidth: 885, margin:'0 auto'}}>
           <ProfileHeader profile={profile} />
           <span>{profile.bio}</span>
           <ProfileReview profile={profile}/>

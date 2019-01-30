@@ -21,7 +21,7 @@ class ProfileHeader extends Component {
               />
               
 
-                <div style={{position: 'absolute', top:5,right:20, opacity: .7}}>
+                <div style={{position: 'absolute', top:5,right:25, opacity: .7}}>
                   <Link to="/add-review" className="btn btn-light">
                     Add Review
                   </Link>
