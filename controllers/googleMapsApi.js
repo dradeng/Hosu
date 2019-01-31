@@ -22,6 +22,7 @@ module.exports = {
 	    var geocoder = NodeGeocoder(options);
 
 	    var answer = {}
+	    
 	    geocoder.geocode(address).then( res => {
 	    	
 	    	if(res[0] === null || res[0].latitude === null || res[0].longitude === null) {
@@ -36,7 +37,12 @@ module.exports = {
 		    	callback(answer);
 		    }
 	    }).catch(err => {
-	    	console.log('Google maps api error'+err);
+	    	//If there is an error default is charlottesville
+
+	    	answer.latitude = -78.498149;
+		    answer.longitude = 38.037275;
+		    answer.latLongError = true;
+		    callback(answer);
 	    });
 		
 	}

@@ -95,6 +95,10 @@ const ProfileSchema = new Schema({
             }
         }
     ],
+    latLongError: {
+        type: Boolean,
+        default: false
+    },
     date: {
         type: Date,
         default: Date.now

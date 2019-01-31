@@ -147,13 +147,21 @@ router.post(
       if (profile) {
         // Update
         googleMapsApi.locationSearch(req.body.address, function(latlng) {
-          const latitude = latlng.latitude;
-          const longitude = latlng.longitude;
-          var address = {
-            latitude: latitude,
-            longitude: longitude
-          };
+          var address;
+          if(latlng.latLongError) {
+            address = {
+              latLongError: true,
+            }
+          } else {
 
+            const latitude = latlng.latitude;
+            const longitude = latlng.longitude;
+            address = {
+              latitude: latitude,
+              longitude: longitude,
+              latLongError: false,
+            };
+          }
           Profile.findOneAndUpdate(
             { user: req.user.id },
             { $set: address },

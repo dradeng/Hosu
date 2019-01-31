@@ -14,7 +14,8 @@ class Posts extends Component {
         this.state = {
           latitude: 0,
           longitude: 0,
-          highlight: null
+          highlight: null,
+          errors: {},
       };
   }
   componentDidMount() {
@@ -28,6 +29,7 @@ class Posts extends Component {
     const { user } = this.props.auth;
     const { posts, loading } = this.props.post;
     const { profile } = this.props.profile;
+    const { errors } = this.props;
 
     let postContent;
     let mapContent;
@@ -52,22 +54,28 @@ class Posts extends Component {
       if(!user.profile) {
         return <Redirect to='/dashboard' />;
       }
+      if(profile.latLongError) {
+        postContent = (
+          <div style={{textAlign: 'center', padding: 50, display: 'inline-block', width: '100%'}}>
+            <h3>Address could not be found</h3>
+          </div>
+        );
+      } else {
+        postContent = <PostFeed 
+          updateParentPosts={this.updateParentPosts.bind(this)}
+          profile={profile} 
+          addressBounds={address} 
+          posts={posts} 
+        />;
+      }
       address = {
         latitude: profile.latitude,
         longitude: profile.longitude,
         circle: false
       };
-
-      postContent = <PostFeed 
-        updateParentPosts={this.updateParentPosts.bind(this)}
-        profile={profile} 
-        addressBounds={address} 
-        posts={posts} 
-      />;
-     
       mapContent = <MapContainer highlight={this.state.highlight} id="map"address={address} geojson={geojson}/>;
     }
-
+    
     var circle = {
       latitude: 0,
       longitude: 0,
@@ -100,6 +108,7 @@ Posts.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
   post: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
 };
 
@@ -107,6 +116,7 @@ const mapStateToProps = state => ({
   post: state.post,
   profile: state.profile,
   auth: state.auth,
+  errors: state.errors
 });
 
 export default connect(mapStateToProps, { getPosts, getCurrentProfile })(Posts);
