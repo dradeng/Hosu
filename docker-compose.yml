@@ -16,8 +16,6 @@ services:
       dockerfile: ./client/Dockerfile
     container_name: front-end
     restart: always
-    env_file:
-       - .env
     ports:
       - "80:80"
     expose:

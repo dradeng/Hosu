@@ -1,7 +1,7 @@
-FROM node:10.3.0 as builder
+FROM node:11.8.0 as builder
 COPY . /app
 WORKDIR /app
-RUN npm run heroku-postbuild
+RUN npm install && npm install --prefix client && npm run build --prefix client
 
 FROM nginx:1.15.2-alpine
 COPY --from=builder /app/client/build /app/build

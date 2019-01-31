@@ -1,4 +1,4 @@
-FROM node:10.3.0 as builder
+FROM node:11.8.0 as builder
 COPY . /app
 WORKDIR /app
 RUN npm install
