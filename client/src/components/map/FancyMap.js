@@ -40,7 +40,7 @@ const Map = compose(
                     property={property}
                     address={props.address}
                     location={{lat: property.latitude, lng: property.longitude}}
-                    activeMarker={property._id === props.activeMarker ? true : false}/>
+                    activeMarker={property._id === props.activeMarker || highlight === property._id ? true : false}/>
                 return marker;
             });
         }

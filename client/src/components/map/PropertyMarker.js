@@ -26,13 +26,13 @@ class PropertyMarker extends Component {
     componentWillReceiveProps(nextProps){
 
         this.setState({activeMarker: nextProps.activeMarker})
-    
+        console.log('we in here');
     }
 
     render(){
         const highlight = this.props.highlight;
         let display;
-        
+        console.log('highlist it' + highlight);
         if(this.props.address.circle) {
         
             display = <div>

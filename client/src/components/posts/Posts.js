@@ -22,8 +22,16 @@ class Posts extends Component {
     this.props.getPosts();
     this.props.getCurrentProfile();
   }
+  /*shouldComponentUpdate(nextProps, nextState) {
+    if(this.state.highlight != nextState.highlight) {
+      console.log(this.state.highlight);
+      return false
+    }
+    return true
+  }*/
   updateParentPosts(post) {
     this.setState({highlight: post});
+    console.log('we here');
   }
   render() {
     const { user } = this.props.auth;
@@ -49,6 +57,10 @@ class Posts extends Component {
     var address;
 
     if (posts === null || loading || profile === null || user === null) {
+      console.log('posts, loading, profile, user');
+      console.log(JSON.stringify(loading));
+      console.log(JSON.stringify(posts));
+      console.log(JSON.stringify(profile));
       postContent = <Spinner />;
     } else {
       if(!user.profile) {

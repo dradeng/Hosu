@@ -31,7 +31,6 @@ class Post extends Component {
     this.requestSublet = this.requestSublet.bind(this);
     this.onChangeDates = this.onChangeDates.bind(this);
   }
-
   componentDidMount() {
     this.props.getPost(this.props.match.params.id);
     this.props.getCurrentProfile();
