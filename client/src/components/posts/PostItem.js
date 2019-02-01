@@ -83,8 +83,8 @@ class PostItem extends Component {
     const { post, auth } = this.props;
 
     
-    const { profile, loading } = this.props.profile;
-
+    //const { profile, loading } = this.props.profile;
+    var profile = this.props.profile;
     let starContent = null
     if(profile != null) {
 

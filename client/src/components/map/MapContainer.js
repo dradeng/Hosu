@@ -7,13 +7,21 @@ class MapContainer extends Component {
         this.state = {
           properties: [],
             location: this.props.location,
-            activeMarker: null
+            activeMarker: null,
+            highlight: null,
         };
+    }
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.highlight !== this.props.highlight) {
+            console.log('props updated for map');
+           this.setState({highlight: nextProps.highlight});
+        }
     }
     closeOtherMarkers = (uid) => {
         this.setState({activeMarker: uid})
     }
     render() {
+        console.log('THIS IS WHAT MAP HIGHLIGHT IS '+this.props.highlight);
         //this is different than the state.properties
         //idk why this is, bad implementation
         const properties = this.props.geojson;
@@ -23,7 +31,7 @@ class MapContainer extends Component {
         const circle = this.props.circle;
         return (
             <FancyMap
-                highlight={highlight}
+                highlight={this.state.highlight}
                 address={address}
                 propies={properties}
                 toggleShowPage={this.props.toggleShowPage}

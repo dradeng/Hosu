@@ -16,27 +16,46 @@ class Posts extends Component {
           longitude: 0,
           highlight: null,
           errors: {},
+          profile: null,
+          posts: null,
+          loading: null,
+
       };
   }
   componentDidMount() {
     this.props.getPosts();
     this.props.getCurrentProfile();
+
+    const { profile } = this.props.profile;
+    const { posts, loading } = this.props.post;
+
+    this.setState({ posts: posts });
+    this.setState({ profile: profile });
+    this.setState({ loading: loading });
+    
   }
   /*shouldComponentUpdate(nextProps, nextState) {
     if(this.state.highlight != nextState.highlight) {
-      console.log(this.state.highlight);
+      
       return false
     }
     return true
   }*/
   updateParentPosts(post) {
     this.setState({highlight: post});
-    console.log('we here');
+
   }
   render() {
     const { user } = this.props.auth;
-    const { posts, loading } = this.props.post;
-    const { profile } = this.props.profile;
+    
+    //CANT DO THIS BECAUSE HIGHLIGHTING CHANGES STATE
+    //CAUSING RERENDERING AND PROPS BECOMING NULL
+    //HAVE TO USE STATE SO IT DOESNT CHANGE ON RERENDER
+    var posts = this.state.posts;
+    var profile = this.state.profile;
+    var loading = this.state.loading;
+    //const { posts, loading } = this.props.post;
+    //const { profile } = this.props.profile;
     const { errors } = this.props;
 
     let postContent;
@@ -57,12 +76,9 @@ class Posts extends Component {
     var address;
 
     if (posts === null || loading || profile === null || user === null) {
-      console.log('posts, loading, profile, user');
-      console.log(JSON.stringify(loading));
-      console.log(JSON.stringify(posts));
-      console.log(JSON.stringify(profile));
       postContent = <Spinner />;
     } else {
+     
       if(!user.profile) {
         return <Redirect to='/dashboard' />;
       }
