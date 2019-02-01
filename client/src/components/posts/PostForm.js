@@ -152,12 +152,13 @@ class PostForm extends Component {
   render() {
     const { user }  = this.props.auth;
     const { errors } = this.state;
+    const { profile } = this.props.profile;
     let imagePreviewContent = null;
 
-    if(user === null) {
+    if(user === null || profile === null) {
       //do nothing
     } else {
-      if(!user.profile) {
+      if(!user.profile && profile === null) {
         return <Redirect to='/dashboard' />;
       }
     }

@@ -102,7 +102,7 @@ router.post('/register', (req, res) => {
 
         sgMail.send({
           to:       req.body.email,
-          from:     'Support@Aveneu.com',
+          from:     'Support@Aveneu.co',
           subject:  'Confirm your email with Aveneu!',
           html:     '<a target=_blank href=\"' + authenticationURL + '\">Confirm your email</a>'
           }, function(err, json) {
@@ -150,7 +150,7 @@ router.get('/verify-email/:id', (req, res) => {
 
       sgMail.send({
         to:       user.email,
-        from:     'Support@Aveneu.com',
+        from:     'Support@Aveneu.co',
         subject:  'Email confirmed!',
         html:     'Awesome! We can now send you kick-ass emails'
         }, function(err, json) {

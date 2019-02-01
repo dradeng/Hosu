@@ -25,7 +25,7 @@ class Favorites extends Component {
       favoritesContent = <Spinner />;
     } else {
 
-      if(!user.profile) {
+      if(!user.profile && profile === null) {
         return <Redirect to='/dashboard' />;
       }
 
