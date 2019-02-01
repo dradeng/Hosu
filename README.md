@@ -19,3 +19,18 @@ To run solely front end
 
 To run solely backend
 - npm run start
+
+
+
+
+#######################################################
+
+Updating build to Aveneu.co
+
+SSH into EC2 instance
+- 'git pull' lastest build from github
+- 'docker-compose up --build -d'
+
+This will update the website with the latest build
+
+
