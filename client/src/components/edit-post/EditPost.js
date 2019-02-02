@@ -61,7 +61,8 @@ componentWillReceiveProps(nextProps) {
    
       const post = nextProps.post.post;
     
-
+      var date= [post.startDate, post.endDate];
+      var disabledDates;
  
       const { user } = this.props.auth;
 
@@ -79,7 +80,8 @@ componentWillReceiveProps(nextProps) {
         endDate: post.endDate,
         postID: post._id,
         bookedDates: post.bookedDates,
-        disabledDates: null,
+        disabledDates: disabledDates,
+        date: date,
         addedCount: post.images.length,
         minimumStay: post.minimumStay,
         recievedProps: true,
@@ -204,7 +206,7 @@ componentWillReceiveProps(nextProps) {
         tmpImages.splice(index, 1);
         this.setState({images: tmpImages});
         this.setState({newImages: tmpImages});
-        console.log("newimages length after" + tmpImages.length);
+       
       }
      
       this.setState({ removed: [...this.state.removed, imageURL]});
@@ -403,7 +405,6 @@ componentWillReceiveProps(nextProps) {
                   mode: "multiple", 
                   minDate: "today", 
                   dateFormat: "Y-m-d",
-                  disable: this.state.bookedDates, 
                 }}
                 value={this.state.disabledDates}
                 onChange={disabledDates => { this.setState({disabledDates: disabledDates }); }}

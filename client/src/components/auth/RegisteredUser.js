@@ -14,7 +14,7 @@ class RegisteredUser extends Component {
 
     setTimeout(function() { //Start the timer
       this.setState({redirect: true}) //After 30 seconds, set render to true
-    }.bind(this), 30000);
+    }.bind(this), 15000);
 
   }
   render() {
@@ -26,7 +26,7 @@ class RegisteredUser extends Component {
     return (
       <div className="container">
         <div style={{textAlign: 'text-center', paddingTop: '100', display: 'inline-block'}}>
-          Your account has been registered, go to your email to verify your account! Will be redirect to login page in 30 seconds.
+          Your account has been registered, go to your email to verify your account! Will be redirected to login page soon.
         </div>
       </div>
     );
