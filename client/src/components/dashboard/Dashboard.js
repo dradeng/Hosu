@@ -63,15 +63,15 @@ class Dashboard extends Component {
             </p>
             <p style={{display: 'inline-block'}}>
               {
-                profile.university && 
-                <div>
-                  University: {profile.university}, 
+                profile.university  && 
+                <div style={{display: 'inline-block'}}>
+                  University: {profile.university}
                 </div>
               }
               {
                 profile.study &&
-                <div>
-                  {profile.study}
+                <div style={{display: 'inline-block'}}>
+                  , {profile.study}
                 </div>
               }
             </p>
