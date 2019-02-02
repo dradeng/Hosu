@@ -28,7 +28,6 @@ class Chats extends Component {
         
         {chatContent}
        
-
       </div>
     );
   }

@@ -27,6 +27,7 @@ class Register extends Component {
 
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
+      console.log('we made it insdie');
       this.props.history.push('/dashboard');
     }
   }
@@ -64,7 +65,6 @@ class Register extends Component {
     }
   }
   verifyRecaptcha(value) {
-    console.log("Captcha value:", value);
     this.setState({ recaptchaValue: value });
   }
   onSubmit(e) {

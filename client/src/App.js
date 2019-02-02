@@ -17,6 +17,7 @@ import Landing from './components/layout/Landing';
 import Register from './components/auth/Register';
 import Favorites from './components/favorites/Favorites';
 import Login from './components/auth/Login';
+import RegisteredUser from './components/auth/RegisteredUser';
 import Dashboard from './components/dashboard/Dashboard';
 import CreateProfile from './components/create-profile/CreateProfile';
 import EditProfile from './components/edit-profile/EditProfile';
@@ -81,6 +82,7 @@ class App extends Component {
             </Switch>
             <div className="container">
               <Route exact path="/register" component={Register} />
+              <Route exact path="/registered-user" component={RegisteredUser} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/verify-email/:id" component={EmailAuthentication} />
               <Route exact path="/front-end-developer" component={FrontEndDeveloper} />

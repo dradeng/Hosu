@@ -18,9 +18,9 @@ class FormSubmitted extends Component {
   componentDidMount() {
   	this.props.getCurrentProfile();
 
-	setTimeout(function() { //Start the timer
-	  this.setState({redirect: true}) //After 30 seconds, set render to true
-	}.bind(this), 30000)
+  	setTimeout(function() { //Start the timer
+  	  this.setState({redirect: true}) //After 30 seconds, set render to true
+  	}.bind(this), 30000)
   }
   render() {
 	  const { user } = this.props.auth;
