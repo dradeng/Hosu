@@ -50,18 +50,6 @@ class PostForm extends Component {
     const { user } = this.props.auth;
     const { profile } = this.props.profile;
   
-    var addedDates = [];
-
-    if(this.state.disabledDates) {
-      for(var i = 0; i < this.state.disabledDates.length; i++){
-        var tmp = {
-          from: this.state.disabledDates[i],
-          to: this.state.disabledDates[i],
-        };
-        addedDates.push(tmp);
-      }
-    }
-
     const newPost = {
       title: this.state.title,
       text: this.state.text,
@@ -74,7 +62,8 @@ class PostForm extends Component {
       endDate: this.state.endDate,
       profile: profile._id,
       minimumStay: this.state.minimumStay,
-      bookedDates: addedDates,
+      bookedDates: null,
+      blockedDates: this.state.disabledDates
     };
 
     this.props.addPost(newPost, this.props.history);
@@ -88,6 +77,7 @@ class PostForm extends Component {
     this.setState({ currFile: []});
     this.setState({ minimumStay: 0 });
     this.setState({ disabledDates: null });
+    this.setState({ blockedDates: null });
 
   }
   //THIS IS FOR A FILE BE UPLOADED

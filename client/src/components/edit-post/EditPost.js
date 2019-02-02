@@ -62,7 +62,6 @@ componentWillReceiveProps(nextProps) {
       const post = nextProps.post.post;
     
       var date= [post.startDate, post.endDate];
-      var disabledDates;
  
       const { user } = this.props.auth;
 
@@ -80,7 +79,7 @@ componentWillReceiveProps(nextProps) {
         endDate: post.endDate,
         postID: post._id,
         bookedDates: post.bookedDates,
-        disabledDates: disabledDates,
+        disabledDates: post.blockedDates,
         date: date,
         addedCount: post.images.length,
         minimumStay: post.minimumStay,
@@ -233,19 +232,7 @@ componentWillReceiveProps(nextProps) {
 
     const { user } = this.props.auth;
     const { post } = this.props.post;
-
-    //starts with whats already there
-    var addedDates = this.state.bookedDates;
-    console.log('disavbleDates' + JSON.stringify(this.state.disabledDates));
-    if(this.state.disabledDates && this.state.disabledDates.length > 0) {
-      for(var i = 0; i < this.state.disabledDates.length; i++){
-        var tmp = {
-          from: this.state.disabledDates[i],
-          to: this.state.disabledDates[i],
-        };
-        addedDates.push(tmp);
-      }
-    }
+    
 
     const newPost = {
       title: this.state.title,
@@ -259,7 +246,8 @@ componentWillReceiveProps(nextProps) {
       endDate: this.state.endDate,
       id: post._id, // ADDED THIS SO I CAN FIND IT IN WHEN UPDATING
       deleteExistingImages: this.state.deleteExistingImages,
-      bookedDates: addedDates
+      bookedDates: this.state.bookedDates,
+      blockedDates: this.state.disabledDates,
     };
 
     this.props.addPost(newPost, this.props.history);

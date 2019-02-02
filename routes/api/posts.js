@@ -104,6 +104,7 @@ router.post(
             updatePost.endDate = req.body.endDate;
             updatePost.minimumStay = req.body.minimumStay;
             updatePost.bookedDates = req.body.bookedDates;
+            updatePost.blockedDates = req.body.blockedDates;
 
             var existingImages = req.body.images;
 
@@ -156,7 +157,8 @@ router.post(
               startDate: req.body.startDate,
               endDate: req.body.endDate,
               minimumStay: req.body.minimumStay,
-              bookedDates: req.body.bookedDates
+              bookedDates: req.body.bookedDates,
+              blockedDates: req.body.blockedDates,
             });
         
             profile.posts.push(newPost._id);

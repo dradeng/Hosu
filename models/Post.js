@@ -87,6 +87,7 @@ const PostSchema = new Schema({
       }
     }
   ],
+  //booked dates are dates a user has booked on the post and the landlord has approved
   bookedDates: [
     {
       to: {
@@ -99,6 +100,8 @@ const PostSchema = new Schema({
       }
     }
   ],
+  //blocked dates are dates the landlord has disallowed any users from booking
+  blockedDates: [String],
   minimumStay: {
     type: Number,
     requered: true,
