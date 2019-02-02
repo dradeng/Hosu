@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../common/Spinner';
 import PostItem from "../posts/PostItem";
-import { Redirect } from 'react-router-dom';
 import { getCurrentProfile } from '../../actions/profileActions';
 import { getPosts } from '../../actions/postActions';
 
@@ -24,12 +23,6 @@ class Favorites extends Component {
     if (profile === null || user=== null ) {
       favoritesContent = <Spinner />;
     } else {
-
-      if(!user.profile && profile === null) {
-        return <Redirect to='/dashboard' />;
-      }
-
-
       //Looks over all posts to find which one user likes
       //this is inefficient will come back and fix later
       if(profile.favorites.length === 0) {

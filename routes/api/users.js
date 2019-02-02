@@ -19,6 +19,9 @@ const validateLoginInput = require('../../validation/login');
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(SendGridApiKey)
 
+
+// Load Profile Model
+const Profile = require('../../models/Profile');
 // Load User model
 const User = require('../../models/User');
 
@@ -97,6 +100,15 @@ router.post('/register', (req, res) => {
           password: req.body.password,
           emailAuthenticated: false
         });
+        //create default profile
+        const defaultProfile = {
+          user: newUser.id,
+          avatar: req.body.profilePic
+        };
+
+        new Profile(defaultProfile).save();
+
+
 
         const authenticationURL = LocalOrHeroku+"/verify-email/"+newUser._id;
 
@@ -196,7 +208,7 @@ router.post('/login', (req, res) => {
         jwt.sign(
           payload,
           keys.secretOrKey,
-          { expiresIn: 3600 },
+          { expiresIn: 7200 },
           (err, token) => {
             res.json({
               success: true,

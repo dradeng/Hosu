@@ -27,10 +27,6 @@ const UserSchema = new Schema({
     type: String,
     default: "https://s3.us-east-2.amazonaws.com/aveneu/UserIcon.png",
   },
-  profile: {
-    type: Boolean,
-    default: false
-  },
   unreadMessages: {
     type: Number,
     default: 0

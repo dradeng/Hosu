@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import PostFeed from './PostFeed';
 import Spinner from '../common/Spinner';
 import { getPosts } from '../../actions/postActions';
@@ -34,13 +33,6 @@ class Posts extends Component {
     this.setState({ loading: loading });
     
   }
-  /*shouldComponentUpdate(nextProps, nextState) {
-    if(this.state.highlight != nextState.highlight) {
-      
-      return false
-    }
-    return true
-  }*/
   updateParentPosts(post) {
     this.setState({highlight: post});
 
@@ -78,10 +70,6 @@ class Posts extends Component {
     if (posts === null || loading || profile === null || user === null) {
       postContent = <Spinner />;
     } else {
-     
-      if(!user.profile) {
-        return <Redirect to='/dashboard' />;
-      }
       if(profile.latLongError) {
         postContent = (
           <div style={{textAlign: 'center', padding: 50, display: 'inline-block', width: '100%'}}>
