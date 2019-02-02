@@ -53,8 +53,60 @@ class Dashboard extends Component {
           
             <DashboardHeader/>
 
-            <p style={{paddingTop: 70}}>Location: {profile.location}</p>
-            <p>{profile.bio}</p>
+            <p style={{paddingTop: 70}}>
+              {
+                profile.location && 
+                  <div>
+                    Location: {profile.location}
+                  </div>
+              }
+            </p>
+            <p style={{display: 'inline-block'}}>
+              {
+                profile.university && 
+                <div>
+                  University: {profile.university}, 
+                </div>
+              }
+              {
+                profile.study &&
+                <div>
+                  {profile.study}
+                </div>
+              }
+            </p>
+            <p>
+              {
+                profile.age && 
+                <div>
+                  Age: {profile.age}
+                </div>
+              }
+            </p>
+            <p>
+              {
+                profile.job && 
+                <div>
+                  Job: {profile.job}
+                </div>
+              }
+            </p>
+            <p>
+              {
+                profile.bio && 
+                <div>
+                  {profile.bio}
+                </div>
+              }
+            </p>
+            <p>
+              {
+                profile.interests && 
+                <div>
+                  Interests: {profile.interests}
+                </div>
+              }
+            </p>
 
             <div style={{ marginBottom: '60px' }} />
           </div>
