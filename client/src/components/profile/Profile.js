@@ -22,63 +22,66 @@ class Profile extends Component {
       profileContent = (
         <div style={{maxWidth: 885, margin:'0 auto'}}>
           <ProfileHeader profile={profile} />
-          <div style={{float: 'left'}}>
-            <h3>{profile.name}</h3>
-            <p style={{paddingTop: 70}}>
+          <div style={{paddingLeft: 15}}>
+            <div style={{backgroundColor: '#F5F5F5', textAlign: 'center', width:250 }}>
+              <h3 style={{paddingTop: 70}}>{profile.name}</h3>
+              <p style={{padding: 15}}>
+                {
+                  profile.age && 
+                  <div>
+                    {profile.age}
+                  </div>
+                }
                 {
                   profile.location && 
-                    <div>
-                      Location: {profile.location}
+                    <div style={{ verticalAlign: 'middle', display: 'inline-block'}}>
+                      <div style={{display: 'inline-block', verticalAlign: 'middle'}}>
+                        <i class="far fa-map" style={{paddingRight: 5, fontSize: 25}}></i>
+                      </div>
+                      {profile.location}
                     </div>
                 }
-              </p>
-              <p style={{display: 'inline-block'}}>
                 {
                   profile.university  && 
-                  <div style={{display: 'inline-block'}}>
-                    University: {profile.university}
+                  <div style={{paddingTop: 15, verticalAlign: 'middle', display: 'inline-block'}}>
+                    <div style={{display: 'inline-block', verticalAlign: 'middle'}}>
+                      <i class="fas fa-university" style={{paddingRight: 5, fontSize: 25}}></i>
+                    </div>
+                    {profile.university}
                   </div>
                 }
                 {
                   profile.study &&
-                  <div style={{display: 'inline-block'}}>
-                    , {profile.study}
-                  </div>
-                }
-              </p>
-              <p>
-                {
-                  profile.age && 
                   <div>
-                    Age: {profile.age}
+                    {profile.study}
                   </div>
                 }
-              </p>
-              <p>
                 {
                   profile.job && 
-                  <div>
-                    Job: {profile.job}
+                  <div style={{paddingTop: 15, verticalAlign: 'middle', display: 'inline-block'}}>
+                    <div style={{display: 'inline-block', verticalAlign: 'middle'}}>
+                      <i class="fas fa-briefcase" style={{paddingRight: 5, fontSize: 25}}></i>
+                    </div>
+                    {profile.job}
                   </div>
                 }
-              </p>
-              <p>
                 {
                   profile.bio && 
-                  <div>
+                  <div style={{paddingTop: 15}}>
                     {profile.bio}
                   </div>
                 }
-              </p>
-              <p>
                 {
                   profile.interests && 
-                  <div>
+                  <div style={{paddingTop: 15, paddingBottom: 15}}>
                     Interests: {profile.interests}
                   </div>
                 }
               </p>
+
+              <div style={{ marginBottom: '60px' }} />
             </div>
+          </div>
           <ProfileReview profile={profile}/>
         </div>
       );

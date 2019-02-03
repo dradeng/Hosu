@@ -57,7 +57,7 @@ class Dashboard extends Component {
           <div>
             <div style={{backgroundColor: '#F5F5F5', textAlign: 'center', width:250 }}>
               <h3 style={{paddingTop: 70}}>{profile.name}</h3>
-              <p>
+              <p style={{padding: 15}}>
                 {
                   profile.age && 
                   <div>
@@ -103,11 +103,9 @@ class Dashboard extends Component {
                     {profile.bio}
                   </div>
                 }
-              </p>
-              <p>
                 {
                   profile.interests && 
-                  <div style={{paddingTop: 15}}>
+                  <div style={{paddingTop: 15, paddingBottom: 15}}>
                     Interests: {profile.interests}
                   </div>
                 }
