@@ -26,6 +26,8 @@ class Dashboard extends Component {
     const { posts } = this.props.post;
 
     let dashboardContent;
+    var dashboardHeader;
+
     let postHeader;
     let postContent;
     let deleteContent;
@@ -33,82 +35,86 @@ class Dashboard extends Component {
       dashboardContent = <Spinner />;
     } else {
         
-      
+      dashboardHeader = (
+        <div>
+          <p className="lead text-muted">
+            Welcome <Link to={`/profile/${profile._id}`}>{user.name}</Link> 
+          </p>
+          <div style={{position:'absolute', top: 0, right:0}} className="btn-group mb-4" role="group">
+            <Link to="/edit-profile" className="btn btn-light">
+              Edit Profile
+            </Link>
+          </div>
+        
+          <DashboardHeader/>
+        </div>
+      );
+
       // Check if logged in user has profile data
       if (Object.keys(profile).length > 0) {
         
         dashboardContent = (
           <div>
-
-            <p className="lead text-muted">
-              Welcome <Link to={`/profile/${profile._id}`}>{user.name}</Link>
-
-              
-            </p>
-            <div style={{position:'absolute', top: 0, right:0}} className="btn-group mb-4" role="group">
-              <Link to="/edit-profile" className="btn btn-light">
-                Edit Profile
-              </Link>
-            </div>
-          
-            <DashboardHeader/>
-
-            <p style={{paddingTop: 70}}>
-              {
-                profile.location && 
+            <div style={{backgroundColor: '#F5F5F5', textAlign: 'center', width:250 }}>
+              <h3 style={{paddingTop: 70}}>{profile.name}</h3>
+              <p>
+                {
+                  profile.age && 
                   <div>
-                    Location: {profile.location}
+                    {profile.age}
                   </div>
-              }
-            </p>
-            <p style={{display: 'inline-block'}}>
-              {
-                profile.university  && 
-                <div style={{display: 'inline-block'}}>
-                  University: {profile.university}
-                </div>
-              }
-              {
-                profile.study &&
-                <div style={{display: 'inline-block'}}>
-                  , {profile.study}
-                </div>
-              }
-            </p>
-            <p>
-              {
-                profile.age && 
-                <div>
-                  Age: {profile.age}
-                </div>
-              }
-            </p>
-            <p>
-              {
-                profile.job && 
-                <div>
-                  Job: {profile.job}
-                </div>
-              }
-            </p>
-            <p>
-              {
-                profile.bio && 
-                <div>
-                  {profile.bio}
-                </div>
-              }
-            </p>
-            <p>
-              {
-                profile.interests && 
-                <div>
-                  Interests: {profile.interests}
-                </div>
-              }
-            </p>
+                }
+                {
+                  profile.location && 
+                    <div style={{paddingTop: 15, verticalAlign: 'middle', display: 'inline-block'}}>
+                      <div style={{display: 'inline-block', verticalAlign: 'middle'}}>
+                        <i class="far fa-map" style={{paddingRight: 5, fontSize: 25}}></i>
+                      </div>
+                      {profile.location}
+                    </div>
+                }
+                {
+                  profile.university  && 
+                  <div style={{paddingTop: 15, verticalAlign: 'middle', display: 'inline-block'}}>
+                    <div style={{display: 'inline-block', verticalAlign: 'middle'}}>
+                      <i class="fas fa-university" style={{paddingRight: 5, fontSize: 25}}></i>
+                    </div>
+                    {profile.university}
+                  </div>
+                }
+                {
+                  profile.study &&
+                  <div>
+                    {profile.study}
+                  </div>
+                }
+                {
+                  profile.job && 
+                  <div style={{paddingTop: 15, verticalAlign: 'middle', display: 'inline-block'}}>
+                    <div style={{display: 'inline-block', verticalAlign: 'middle'}}>
+                      <i class="fas fa-briefcase" style={{paddingRight: 5, fontSize: 25}}></i>
+                    </div>
+                    {profile.job}
+                  </div>
+                }
+                {
+                  profile.bio && 
+                  <div style={{paddingTop: 15}}>
+                    {profile.bio}
+                  </div>
+                }
+              </p>
+              <p>
+                {
+                  profile.interests && 
+                  <div style={{paddingTop: 15}}>
+                    Interests: {profile.interests}
+                  </div>
+                }
+              </p>
 
-            <div style={{ marginBottom: '60px' }} />
+              <div style={{ marginBottom: '60px' }} />
+            </div>
           </div>
         );
         deleteContent = (
@@ -126,7 +132,7 @@ class Dashboard extends Component {
           //do nothing
         } else if(posts === null || profile.posts === undefined || profile.posts.length === 0) {
           postHeader = <h1>Posts</h1>;
-          postContent = <p style={{paddingLeft: 5}}>No post to show</p>;
+          postContent = <p>No post to show</p>;
         } else {
             postHeader = <h1>Posts</h1>;
             postContent = posts.map(post => { 
@@ -159,12 +165,18 @@ class Dashboard extends Component {
             <div className="col-md-12">
               <h1 className="display-4">Dashboard</h1>
               <div style={{marginLeft: 15}}>
-                {dashboardContent}
+                {dashboardHeader}
               </div>
-              {postHeader}
-              {postContent}
-
-              {deleteContent}
+              <div style={{marginLeft: 15, display: 'inline-block'}}>
+                <div style={{display: 'inline-block'}}>
+                  {dashboardContent}
+                </div>
+                <div style={{marginLeft: 15, paddingLeft: 15, paddingTop: 15, display: 'inline-block', verticalAlign: 'top'}}>
+                  {postHeader}
+                  {postContent}
+                  {deleteContent}
+                </div>
+              </div>
             </div>
           </div>
         </div>

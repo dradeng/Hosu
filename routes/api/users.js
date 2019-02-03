@@ -38,7 +38,6 @@ router.post('/updateUser',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
   User.findById(req.user.id).then(user => {
-    user.profile = true;
     user.save()
       .then(user => res.json(user))
         .catch(console.log('unable to send res.json(user)')); //this always logs for some reason
@@ -103,7 +102,8 @@ router.post('/register', (req, res) => {
         //create default profile
         const defaultProfile = {
           user: newUser.id,
-          avatar: req.body.profilePic
+          avatar: req.body.profilePic,
+          name: req.body.name
         };
 
         new Profile(defaultProfile).save();
