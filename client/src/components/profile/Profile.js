@@ -22,7 +22,7 @@ class Profile extends Component {
       profileContent = (
         <div style={{maxWidth: 885, margin:'0 auto'}}>
           <ProfileHeader profile={profile} />
-          <div style={{paddingLeft: 15}}>
+          <div style={{paddingLeft: 15, display: 'inline-block'}}>
             <div style={{backgroundColor: '#F5F5F5', textAlign: 'center', width:250 }}>
               <h3 style={{paddingTop: 70}}>{profile.name}</h3>
               <p style={{padding: 15}}>
@@ -82,7 +82,9 @@ class Profile extends Component {
               <div style={{ marginBottom: '60px' }} />
             </div>
           </div>
-          <ProfileReview profile={profile}/>
+          <div style={{display: 'inline-block', verticalAlign: 'top', paddingLeft: 50, paddingTop: 50}}>
+            <ProfileReview profile={profile}/>
+          </div>
         </div>
       );
     }

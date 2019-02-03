@@ -59,7 +59,6 @@ class ProfileReview extends Component {
 
         return (
             <div ref="myRef">
-                <hr />
                 <h3 className="mb-4">Reviews ( {profile.numReviews} )</h3>
                 {reviews}
                 {profile.reviews.length === 0 && <div> none yet </div>}
