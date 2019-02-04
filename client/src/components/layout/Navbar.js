@@ -70,9 +70,7 @@ class Navbar extends Component {
   render() {
     const { isAuthenticated, user } = this.props.auth;
 
-    console.log('profile' + user.profile);
-
-    const showSearchBar = isAuthenticated && user.profile;
+    const showSearchBar = isAuthenticated;
     const searchBar = (
       <form onSubmit={this.onSubmit} style={{marginLeft: 25, position: 'absolute', left: 45, top: 10, width: '25%', maxWidth:600}}>
         <div style={{}} class="input-group md-form form-sm form-1 pl-0">

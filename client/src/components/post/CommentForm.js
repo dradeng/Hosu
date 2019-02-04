@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import InputGroup from '../common/InputGroup';
 import { getCurrentProfile } from '../../actions/profileActions';
 import { addComment } from '../../actions/postActions';
 
@@ -65,23 +66,22 @@ class CommentForm extends Component {
           </div>
           <div className="card-body">
             <form onSubmit={this.onSubmit}>
-              <div style={{display:'flex'}} className="form-group">
-                
+              <div class="verticalcenter" style={{display:'flex', alignItems: 'center', verticalAlign: 'middle', justifyContent: 'center'}} className="form-group">
                 <img
-                  
                   className="rounded-circle"
                   src={imgSrc}
-                  style={{ width:30, height:30, marginRight: '15px'}} />
-                <input 
-                  
-                  name="text" 
-                  type="text" 
-                  value={this.state.text} 
-                  onChange={this.onChange} 
-                  style={{ borderRadius:2, borderWidth:1, width:'100%' }}/>
-                
-                
+                  style={{ width:30, height:30, marginRight: '15px', marginBottom: 15, verticalAlign: 'center'}} />
+
+                  <InputGroup 
+                    name="text" 
+                    style={{verticalAlign: 'center'}}
+                    type="text" 
+                    value={this.state.text} 
+                    onChange={this.onChange} 
+                    />
+       
               </div>
+              
               <button type="submit" style={{display:"none"}}>
                 Submit
               </button>
