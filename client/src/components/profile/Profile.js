@@ -25,7 +25,7 @@ class Profile extends Component {
           <div style={{paddingLeft: 15, display: 'inline-block'}}>
             <div style={{backgroundColor: '#F5F5F5', textAlign: 'center', width:250 }}>
               <h3 style={{paddingTop: 70}}>{profile.name}</h3>
-              <p style={{padding: 15}}>
+              <p style={{paddingBottom: 15}}>
                 {
                   profile.age && 
                   <div>
@@ -34,13 +34,14 @@ class Profile extends Component {
                 }
                 {
                   profile.location && 
-                    <div style={{ verticalAlign: 'middle', display: 'inline-block'}}>
+                    <div style={{ paddingTop: 15, verticalAlign: 'middle', display: 'inline-block'}}>
                       <div style={{display: 'inline-block', verticalAlign: 'middle'}}>
                         <i class="far fa-map" style={{paddingRight: 5, fontSize: 25}}></i>
                       </div>
                       {profile.location}
                     </div>
                 }
+                <br />
                 {
                   profile.university  && 
                   <div style={{paddingTop: 15, verticalAlign: 'middle', display: 'inline-block'}}>
@@ -77,6 +78,38 @@ class Profile extends Component {
                     Interests: {profile.interests}
                   </div>
                 }
+                <div className="text-dark" style={{textDecoration: 'none'}}>
+                  {
+                    profile.social.facebook && 
+                    <a href={profile.social.facebook} style={{color: 'inherit', textDecoration: 'none'}}>
+                      <i class="fab fa-facebook-square" style={{fontSize: 25, marginLeft: 5, marginRight: 5}}></i>
+                    </a>
+                  }
+                  {
+                    profile.social.instagram && 
+                    <a href={profile.social.instagram} style={{color: 'inherit', textDecoration: 'none'}}>
+                      <i class="fab fa-instagram" style={{fontSize: 25, marginLeft: 5, marginRight: 5}}></i>
+                    </a>
+                  }
+                  {
+                    profile.social.twitter && 
+                    <a href={profile.social.twitter} style={{color: 'inherit', textDecoration: 'none'}}>
+                      <i class="fab fa-twitter" style={{fontSize: 25, marginLeft: 5, marginRight: 5}}></i>
+                    </a>
+                  }
+                  {
+                    profile.social.linkedin && 
+                    <a href={profile.social.linkedin} style={{color: 'inherit', textDecoration: 'none'}}>
+                      <i class="fab fa-linkedin" style={{fontSize: 25, marginLeft: 5, marginRight: 5}}></i>
+                    </a>
+                  }
+                  {
+                    profile.social.youtube && 
+                    <a href={profile.social.youtube} style={{color: 'inherit', textDecoration: 'none'}}>
+                      <i class="fab fa-youtube" style={{fontSize: 25, marginLeft: 5, marginRight: 5}}></i>
+                    </a>
+                  }
+                </div>
               </p>
 
               <div style={{ marginBottom: '60px' }} />

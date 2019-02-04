@@ -37,19 +37,24 @@ const ProfileSchema = new Schema({
     favorites: [String],
     social: {
         youtube: {
-            type: String
+            type: String,
+            default: null
         },
         twitter: {
-            type: String
+            type: String,
+            default: null
         },
         facebook: {
-            type: String
+            type: String,
+            default: null
         },
         linkedin: {
-            type: String
+            type: String,
+            default: null
         },
         instagram: {
-            type: String
+            type: String,
+            default: null
         }
     },
     reviewSum: {
