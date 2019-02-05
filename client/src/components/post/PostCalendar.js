@@ -27,7 +27,7 @@ class PostCalendar extends Component {
           mode: "range",
           inline: true, 
           dateFormat: "Y-m-d",
-          disable: post.bookedDates,
+          disable: post.disabledDates,
           minDate: this.props.startDate, 
           altInput: true, altFormat: "F j, Y", 
           maxDate: this.props.endDate

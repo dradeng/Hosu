@@ -106,6 +106,21 @@ const PostSchema = new Schema({
   blockedDates: [
     String
   ],
+  //this is all the dates that should be disabled on post calendar
+  disabledDates: [
+    {
+    //end date essentially
+      to: {
+        type: String,
+        required: true
+      },
+      //start date essentially
+      from: {
+        type: String,
+        required: true
+      }
+    }
+  ],
   minimumStay: {
     type: Number,
     requered: true,

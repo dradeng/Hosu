@@ -142,6 +142,18 @@ router.post(
               return res.status(400).json(errors);
             }
 
+            var disable = [];
+            for(var i = 0; i < req.body.blockedDates.length; i++) {
+              console.log('in loop');
+              var tmp = {
+                to: req.body.blockedDates[i],
+                from: req.body.blockedDates[i],
+              };
+              disable.push(tmp);
+            }
+            console.log('disable');
+            console.log(JSON.stringify(disable));
+
             const newPost = new Post({
               title: req.body.title,
               address: req.body.address,
@@ -159,6 +171,7 @@ router.post(
               minimumStay: req.body.minimumStay,
               bookedDates: req.body.bookedDates,
               blockedDates: req.body.blockedDates,
+              disabledDates: disable
             });
         
             profile.posts.push(newPost._id);
