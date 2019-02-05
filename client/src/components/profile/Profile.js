@@ -115,7 +115,7 @@ class Profile extends Component {
               <div style={{ marginBottom: '60px' }} />
             </div>
           </div>
-          <div style={{display: 'inline-block', verticalAlign: 'top', paddingLeft: 50, paddingTop: 50}}>
+          <div style={{display: 'inline-block', verticalAlign: 'top', paddingLeft: 50, paddingTop: 50, maxWidth: 600, width: '100%'}}>
             <ProfileReview profile={profile}/>
           </div>
         </div>

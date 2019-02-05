@@ -251,7 +251,7 @@ class Dashboard extends Component {
                 <div style={{display: 'inline-block'}}>
                   {dashboardContent}
                 </div>
-                <div style={{marginLeft: 15, paddingLeft: 15, paddingTop: 15, display: 'inline-block', verticalAlign: 'top'}}>
+                <div style={{marginLeft: 15, paddingLeft: 15, paddingTop: 15, width: 800, display: 'inline-block', verticalAlign: 'top'}}>
                   {postHeader}
                   {postContent}
                   {deleteContent}
