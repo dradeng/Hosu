@@ -88,6 +88,43 @@ router.post(
           googleMapsApi.locationSearch(req.body.address, function(latlng) {
             const latitude = latlng.latitude;
             const longitude = latlng.longitude;
+
+            var removedDisabledDates = [];
+            var updatedDisabledDates = post.disabledDates;
+
+            //find all the removed block dates from the post update
+            for(var i = 0; i < post.blockedDates.length; i++) {
+
+              if(!req.body.blockedDates.includes(post.blockedDates[i])){
+                var tmp = {
+                  to: post.blockedDates[i],
+                  from: post.blockedDates[i],
+                };
+                removedDisabledDates.push(tmp);
+              }
+            }
+
+            //add new blocked dates to disabledates of the post
+            for(var i = 0; i < req.body.blockedDates.length; i++) {
+
+              if(!post.disabledDates.includes(req.body.blockedDates[i])){
+                var tmp = {
+                  to: req.body.blockedDates[i],
+                  from: req.body.blockedDates[i],
+                };
+                updatedDisabledDates.push(tmp);
+              }
+            }
+
+            //remove any removed blocked dates with post updated, need 
+            //to remove them from post disabled posts
+            for(var i = 0; i < removedDisabledDates.length; i++) {
+              for(var j = 0; j < post.disabledDates.length; j++) {
+                if(updatedDisabledDates[j].to == removedDisabledDates[i].to && updatedDisabledDates[j].from == removedDisabledDates[i].from) {
+                  updatedDisabledDates.splice(index, 1);
+                }
+              }
+            }
    
             const updatePost = {};
            
@@ -105,6 +142,8 @@ router.post(
             updatePost.minimumStay = req.body.minimumStay;
             updatePost.bookedDates = req.body.bookedDates;
             updatePost.blockedDates = req.body.blockedDates;
+            updatePost.disabledDates = updatedDisabledDates;
+
 
             var existingImages = req.body.images;
 

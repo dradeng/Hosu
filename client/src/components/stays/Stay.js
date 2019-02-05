@@ -26,7 +26,7 @@ class Stay extends Component {
     const { stay } = this.props;
     var updatedInfo = {
       id: stay._id,
-      approved: true,
+      approved: 'true',
       subtenant: stay.subtenant,
       //only need below for an approved sublet
       post: stay.post,
@@ -40,7 +40,7 @@ class Stay extends Component {
     const { stay } = this.props;
     var updatedInfo = {
       id: stay._id,
-      approved: false,
+      approved: 'false',
       subtenant: stay.subtenant,
     };
     this.props.updateStay(updatedInfo, this.props.history);

@@ -122,7 +122,7 @@ router.post('/update',
    
     var startDate = new Date(req.body.startDate);
     var endDate = new Date(req.body.endDate);
-    var approved = true;
+    var approvedTest = 'true';
 
     Post.findById(req.body.post).then( post => {
 
@@ -131,7 +131,7 @@ router.post('/update',
         var blockedDate = new Date(post.blockedDates[i]);
        
         if(startDate <= blockedDate && blockedDate <= endDate ){
-          approved = false;
+          approvedTest = false;
           return res.status(400).json('blocked date error in stay');
         }
       }
@@ -143,17 +143,17 @@ router.post('/update',
 
         //check if request overlaps end date
         if(startDate <= to && to <= endDate ){
-          approved = false;
+          approvedTest = false;
           return res.status(400).json('booked date error in stay1');
         }
         //check if request overlaps any start date
         if(startDate <= from && from <= endDate ){
-          approved = false;
+          approvedTest = false;
           return res.status(400).json('booked date error in stay2');
         }
         //check if request is within a single booked date
         if(to <= startDate && from <= endDate){
-          approved = false;
+          approvedTest = false;
           return res.status(400).json('booked date error in stay3');
         }
       }
@@ -167,7 +167,7 @@ router.post('/update',
       var approved;
       var subjectContent
 
-      if(req.body.approved && approved) {
+      if(req.body.approved && approvedTest) {
         approved = 'Your sublet request has been approved!';
         subjectContent = 'Sublet Request Approved';
 
@@ -177,6 +177,7 @@ router.post('/update',
         };
         Post.findById(req.body.post).then( post => {
           post.bookedDates.push(bookedDate);
+          post.disabledDates.push(bookedDate);
           post.save();
         });
 
@@ -201,7 +202,7 @@ router.post('/update',
 
     var updatedInfo = {
       decided: true,
-      approved: approved
+      approved: approvedTest
     };
 
     Stay.findOneAndUpdate(
