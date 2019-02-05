@@ -20,15 +20,15 @@ class ProfileReview extends Component {
             return (
                 <div className="card card-body mb-2">
                     <div class="row">
-                        <div style={{ verticalAlign: 'middle', marginLeft:15, marginRight:15}} class="column">
-                            <img
-                                className="rounded-circle d-none d-md-block"
-                                src={review.profilePic}
-                                style={{ width:30,height:30}} />
-                        </div>
-                        <div style={{paddingLeft:15}} class="column">
-                            <div class="row">
-                                <div class="column">
+                        <div style={{paddingLeft:15}}>
+                            <div class="row" style={{marginBottom: 10, verticalAlign: 'middle'}}>
+                                <div>
+                                    <img
+                                        className="rounded-circle d-none d-md-block"
+                                        src={review.profilePic}
+                                        style={{ width:30,height:30, marginLeft: 10, marginRight: 10, verticalAlign: 'middle'}} />
+                                    </div>
+                                <div>
                                     {review.userName}
                                     
                                     <Rating
@@ -36,10 +36,11 @@ class ProfileReview extends Component {
                                         fullSymbol="fa fa-star fa-2x"
                                         readonly
                                         initialRating={review.rating}
-                                        style={{marginLeft:15, fontSize: 10}}/>
+                                        style={{marginLeft:15, fontSize: 10}}
+                                    />
                                 </div>
                             
-                                <div style={{position:'absolute', right:10 }} class="column" className="badge badge-secondary">
+                                <div style={{position:'absolute', right:10 }} className="badge badge-secondary">
                                     {date}
                               
                                 </div>
@@ -52,8 +53,6 @@ class ProfileReview extends Component {
                         </div>
                     </div>
                 </div>
-
-
             )
         });
 

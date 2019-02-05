@@ -137,7 +137,7 @@ router.post('/register', (req, res) => {
   });
 });
 
-// @route   GET api/users/verify-email
+// @route   GET api/users/verify-email/:id
 // @desc    Verify user's email confirmation
 // @access  Public
 router.get('/verify-email/:id', (req, res) => {
