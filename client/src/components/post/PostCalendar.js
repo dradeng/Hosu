@@ -8,11 +8,11 @@ import Flatpickr from 'react-flatpickr'
 class PostCalendar extends Component {
   constructor(props) {
     super(props);
-
+    
     this.state = {
       selectedDate: this.props.selectedDate,
       selectedEndDate: this.props.selectedEndDate,
-      date: [new Date(), new Date()]
+      date: [new Date(), new Date()],
     };
   }
   render() {
@@ -27,7 +27,7 @@ class PostCalendar extends Component {
           mode: "range",
           inline: true, 
           dateFormat: "Y-m-d",
-          disable: post.blockedDates,
+          disable: post.bookedDates,
           minDate: this.props.startDate, 
           altInput: true, altFormat: "F j, Y", 
           maxDate: this.props.endDate

@@ -62,7 +62,7 @@ class PostForm extends Component {
       endDate: this.state.endDate,
       profile: profile._id,
       minimumStay: this.state.minimumStay,
-      bookedDates: null,
+      bookedDates: [],
       blockedDates: this.state.disabledDates
     };
 

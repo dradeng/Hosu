@@ -119,11 +119,47 @@ router.get('/',
 router.post('/update',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    
-    var updatedInfo = {
-      decided: true,
-      approved: req.body.approved
-    };
+   
+    var startDate = new Date(req.body.startDate);
+    var endDate = new Date(req.body.endDate);
+    var approved = true;
+
+    Post.findById(req.body.post).then( post => {
+
+      for(var i = 0; i < post.blockedDates.length; i++)
+      {
+        var blockedDate = new Date(post.blockedDates[i]);
+       
+        if(startDate <= blockedDate && blockedDate <= endDate ){
+          approved = false;
+          return res.status(400).json('blocked date error in stay');
+        }
+      }
+      for(var i = 0; i < post.bookedDates.length; i++)
+      {
+
+        var to = new Date(post.bookedDates[i].to);
+        var from = new Date(post.bookedDates[i].from);
+
+        //check if request overlaps end date
+        if(startDate <= to && to <= endDate ){
+          approved = false;
+          return res.status(400).json('booked date error in stay1');
+        }
+        //check if request overlaps any start date
+        if(startDate <= from && from <= endDate ){
+          approved = false;
+          return res.status(400).json('booked date error in stay2');
+        }
+        //check if request is within a single booked date
+        if(to <= startDate && from <= endDate){
+          approved = false;
+          return res.status(400).json('booked date error in stay3');
+        }
+      }
+
+    });
+
 
     User.findById(req.body.subtenant)
     .then(subtenant => {
@@ -131,7 +167,7 @@ router.post('/update',
       var approved;
       var subjectContent
 
-      if(req.body.approved) {
+      if(req.body.approved && approved) {
         approved = 'Your sublet request has been approved!';
         subjectContent = 'Sublet Request Approved';
 
@@ -162,6 +198,11 @@ router.post('/update',
       });
     });
 
+
+    var updatedInfo = {
+      decided: true,
+      approved: approved
+    };
 
     Stay.findOneAndUpdate(
       { _id: req.body.id },

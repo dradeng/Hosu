@@ -12,9 +12,6 @@ class EmailAuthentication extends Component {
   }
 
   componentDidMount() {
-    //if (this.props.auth.isAuthenticated) {
-    //  this.props.history.push('/dashboard');
-    //}
     this.props.authenticateEmail(this.props.match.params.id,this.props.history);
   }
   render() {

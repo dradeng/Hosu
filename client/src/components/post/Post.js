@@ -115,7 +115,7 @@ class Post extends Component {
               <div>
                 <PostCalendar style={{position:'relative'}} onChangeDates={this.onChangeDates} post={post} startDate={startDate} endDate={endDate}/>
               
-                <button disabled={userPost} onClick={this.requestSublet} style={{position:'relative', maxWidth: 275, display:'block', marginLeft: 'auto', marginRight: 'auto'}} className="btncustom btn btn-block mt-2">
+                <button onClick={this.requestSublet} style={{position:'relative', maxWidth: 275, display:'block', marginLeft: 'auto', marginRight: 'auto'}} className="btncustom btn btn-block mt-2">
                   Request to Sublet
                 </button>
               </div>
