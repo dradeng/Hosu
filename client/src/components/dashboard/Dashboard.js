@@ -51,7 +51,7 @@ class Dashboard extends Component {
       );
 
       // Check if logged in user has profile data
-      if (Object.keys(profile).length > 0) {
+      if (profile.social) {
         
         dashboardContent = (
           <div>
@@ -59,58 +59,107 @@ class Dashboard extends Component {
               <h3 style={{paddingTop: 70}}>{profile.name}</h3>
               <p style={{paddingBottom: 15}}>
                 {
-                  profile.age && 
-                  <div>
-                    {profile.age}
-                  </div>
+                  profile.age ? 
+                    <div>
+                      {profile.age}
+                    </div>
+                    :
+                     <div>
+                      <Link class='text-dark' to='edit-profile' style={{textDecoration: 'none'}}>Add your age</Link>
+                     </div>
                 }
                 {
-                  profile.location && 
+                  profile.location ?
                     <div style={{paddingTop: 15, verticalAlign: 'middle', display: 'inline-block'}}>
                       <div style={{display: 'inline-block', verticalAlign: 'middle'}}>
                         <i class="far fa-map" style={{paddingRight: 5, fontSize: 25}}></i>
                       </div>
                       {profile.location}
                     </div>
+                  :
+                    <div style={{paddingTop: 15, verticalAlign: 'middle', display: 'inline-block'}}>
+                      <div style={{display: 'inline-block', verticalAlign: 'middle'}}>
+                        <i class="far fa-map" style={{paddingRight: 5, fontSize: 25}}></i>
+                      </div>
+                      <Link class='text-dark' to='edit-profile' style={{textDecoration: 'none'}}>Add your location</Link>
+                    </div>
                 }
                 <br />
                 {
-                  profile.university  && 
-                  <div style={{paddingTop: 15, verticalAlign: 'middle', display: 'inline-block'}}>
-                    <div style={{display: 'inline-block', verticalAlign: 'middle'}}>
-                      <i class="fas fa-university" style={{paddingRight: 5, fontSize: 25}}></i>
+                  profile.university ? 
+                    <div style={{paddingTop: 15, verticalAlign: 'middle', display: 'inline-block'}}>
+                      <div style={{display: 'inline-block', verticalAlign: 'middle'}}>
+                        <i class="fas fa-university" style={{paddingRight: 5, fontSize: 25}}></i>
+                      </div>
+                      {profile.university}
                     </div>
-                    {profile.university}
-                  </div>
-                }
-                {
-                  profile.study &&
-                  <div>
-                    {profile.study}
-                  </div>
-                }
-                {
-                  profile.job && 
-                  <div style={{paddingTop: 15, verticalAlign: 'middle', display: 'inline-block'}}>
-                    <div style={{display: 'inline-block', verticalAlign: 'middle'}}>
-                      <i class="fas fa-briefcase" style={{paddingRight: 5, fontSize: 25}}></i>
+                  :
+                    <div style={{paddingTop: 15, verticalAlign: 'middle', display: 'inline-block'}}>
+                      <div style={{display: 'inline-block', verticalAlign: 'middle'}}>
+                        <i class="fas fa-university" style={{paddingRight: 5, fontSize: 25}}></i>
+                      </div>
+                        <Link class='text-dark' to='edit-profile' style={{textDecoration: 'none'}}> Add your university</Link>
                     </div>
-                    {profile.job}
-                  </div>
+
                 }
                 {
-                  profile.bio && 
-                  <div style={{paddingTop: 15}}>
-                    {profile.bio}
-                  </div>
+                  profile.study ?
+                    <div>
+                      {profile.study}
+                    </div>
+                  : 
+                    <div>
+                      <Link class='text-dark' to='edit-profile' style={{textDecoration: 'none'}}> Add your study</Link>
+                    </div>
                 }
                 {
-                  profile.interests && 
-                  <div style={{paddingTop: 15, paddingBottom: 15}}>
-                    Interests: {profile.interests}
-                  </div>
+                  profile.job ? 
+                    <div style={{paddingTop: 15, verticalAlign: 'middle', display: 'inline-block'}}>
+                      <div style={{display: 'inline-block', verticalAlign: 'middle'}}>
+                        <i class="fas fa-briefcase" style={{paddingRight: 5, fontSize: 25}}></i>
+                      </div>
+                      {profile.job}
+                    </div>
+                  :
+                    <div style={{paddingTop: 15, verticalAlign: 'middle', display: 'inline-block'}}>
+                      <div style={{display: 'inline-block', verticalAlign: 'middle'}}>
+                        <i class="fas fa-briefcase" style={{paddingRight: 5, fontSize: 25}}></i>
+                      </div>
+                      <Link class='text-dark' to='edit-profile' style={{textDecoration: 'none'}}> Add your job</Link>
+                    </div>
                 }
+                {
+                  profile.bio ? 
+                    <div style={{paddingTop: 15}}>
+                      {profile.bio}
+                    </div>
+                  :
+                    <div style={{paddingTop: 15}}>
+                      <Link class='text-dark' to='edit-profile' style={{textDecoration: 'none'}}> Add your bio</Link>
+                    </div>
+                }
+                {
+                  profile.interests ? 
+                    <div style={{paddingTop: 15, paddingBottom: 15}}>
+                      Interests: {profile.interests}
+                    </div>
+                  :
+                    <div style={{paddingTop: 15}}>
+                      <Link class='text-dark' to='edit-profile' style={{textDecoration: 'none'}}> Add your interests</Link>
+                    </div>
+                }
+
                 <div className="text-dark" style={{textDecoration: 'none'}}>
+                  {
+                    !profile.social.facebook && 
+                    !profile.social.linkedin && 
+                    !profile.social.twitter && 
+                    !profile.social.youtube && 
+                    !profile.social.instagram ? 
+                      <div style={{ marginLeft: 5, marginRight: 5, textAlign: 'center'}}> 
+                        <Link class='text-dark' to='edit-profile' style={{textDecoration: 'none'}}> Connect your social media!</Link>
+                      </div> : <div></div>
+                  }
                   {
                     profile.social.facebook && 
                     <a href={profile.social.facebook} style={{color: 'inherit', textDecoration: 'none'}}>
