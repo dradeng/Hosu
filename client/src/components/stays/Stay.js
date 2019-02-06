@@ -7,6 +7,7 @@ import { Redirect } from 'react-router-dom';
 import { getPost } from '../../actions/postActions';
 import { updateStay } from '../../actions/stayActions';
 import StayItem from './StayItem';
+import Rating from "react-rating";
 
 class Stay extends Component {
   constructor(props) {

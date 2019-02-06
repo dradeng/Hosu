@@ -55,6 +55,22 @@ const StaySchema = new Schema({
     type: String,
     required: true
   },
+  landlordReviewSum: {
+    type: Number,
+    default: 0
+  },
+  landlordNumReviews: {
+    type: Number,
+    default: 0
+  },
+  subtenantReviewSum: {
+      type: Number,
+      default: 0
+  },
+  subtenantNumReviews: {
+    type: Number,
+    default: 0
+  },
 });
 
 module.exports = Stay = mongoose.model('stays', StaySchema);

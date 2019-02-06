@@ -9,6 +9,7 @@ import { Textfit } from 'react-textfit';
 import { addLike, removeLike } from '../../actions/postActions';
 import { addFavorite, getCurrentProfile } from '../../actions/profileActions';
 import Month from '../availability/Month';
+import Rating from "react-rating";
 
 class PostItem extends Component {
   constructor(props) {
@@ -73,8 +74,15 @@ class PostItem extends Component {
     const { post, auth } = this.props;
 
     var approveContent;
+    var reviewContent;
+
+
+
     var stay = this.props.stay;
     const { profile, loading } = this.props.profile;
+    const { user } = this.props.auth;
+
+
 
     let starContent = null
     if(profile != null) {
@@ -83,6 +91,56 @@ class PostItem extends Component {
         starContent = <FaStar/>
       } else {
         starContent = <FaRegStar/>
+      }
+
+      var rating = 0;
+
+      if(stay.landlord === user.id) {
+
+        if(stay.subtenantReviewSum !== 0) {
+          rating = stay.subtenantReviewSum / stay.subtenantNumReviews;
+        }
+        
+        reviewContent = (
+          <div>
+            <div style= {{marginLeft:10}}>
+              {stay.subtenantName}
+            </div>
+            <Rating
+              emptySymbol="far fa-star fa-2x"
+              fullSymbol="fa fa-star fa-2x"
+              readonly
+              initialRating={rating}
+              style={{marginLeft:10, fontSize: 6, color: 'rgb(104, 162, 208)', display: 'inline-block'}}
+            />
+            <div style={{display: 'inline-block'}}>
+              ({stay.subtenantNumReviews})
+            </div>
+          </div>
+          
+        );
+      } else {
+        if(stay.subtenantReviewSum !== 0) {
+          rating = stay.landlordReviewSum / stay.landlordNumReviews;
+        }
+        reviewContent = (
+          <div>
+            <div style={{marginLeft:10}}>
+              {stay.subtenantName}
+            </div>
+            <Rating
+              emptySymbol="far fa-star fa-2x"
+              fullSymbol="fa fa-star fa-2x"
+              readonly
+              initialRating={rating}
+              style={{marginLeft:10, fontSize: 6, color: 'rgb(104, 162, 208)', display: 'inline-block'}}
+            />
+            <div style={{display: 'inline-block'}}>
+              ({stay.landlordNumReviews})
+            </div>
+          </div>
+          
+        );
       }
       
     }
@@ -155,6 +213,9 @@ class PostItem extends Component {
                   alt=""
                 />
               </Link>
+              <div style={{display: 'inline-block', verticalAlign: 'top', paddingTop: 10}}>
+                {reviewContent}
+              </div>
               <div style={{display: 'inline-block', verticalAlign: 'top', paddingTop: 20}}>
                   
                   <div style={{verticalAlign: 'top'}}>
