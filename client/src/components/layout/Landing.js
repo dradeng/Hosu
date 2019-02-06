@@ -14,7 +14,7 @@ class Landing extends Component {
     return (
       //overflow style is needed so video doesn;t cut into footer
       <div className="landing" style={{overflow:'hidden'}}>
-        <video style={{ minWidth: '100%', minHeight: '100%'}} autoPlay loop muted>
+        <video style={{ width: '100%', height: '100%', objectFit: 'cover'}} autoPlay loop muted>
           <source src="https://s3.us-east-2.amazonaws.com/aveneu/Timelapse.mp4" type='video/mp4'/>
         </video>
         <div className="dark-overlay landing-inner text-light">
