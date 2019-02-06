@@ -111,12 +111,16 @@ router.post('/register', (req, res) => {
 
 
         const authenticationURL = LocalOrHeroku+"/verify-email/"+newUser._id;
-
+        
         sgMail.send({
           to:       req.body.email,
           from:     'Support@Aveneu.co',
           subject:  'Confirm your email with Aveneu!',
-          html:     '<a target=_blank href=\"' + authenticationURL + '\">Confirm your email</a>'
+          templateId: 'd-1224c0b4fc444dcea6bae1eb622fca94',
+          substitutionWrappers: ['{{', '}}'], 
+          dynamic_template_data: {
+            authenticationURL: authenticationURL,
+          },
           }, function(err, json) {
               if (err) { return console.error(err); }
 
@@ -164,7 +168,7 @@ router.get('/verify-email/:id', (req, res) => {
         to:       user.email,
         from:     'Support@Aveneu.co',
         subject:  'Email confirmed!',
-        html:     'Awesome! We can now send you kick-ass emails'
+        templateId:     'd-5b7e0ef57f5847508090740c0c61d850'
         }, function(err, json) {
             if (err) { return console.error(err); }
         console.log(json);

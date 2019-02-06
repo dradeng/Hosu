@@ -84,7 +84,6 @@ class App extends Component {
               <Route exact path="/register" component={Register} />
               <Route exact path="/registered-user" component={RegisteredUser} />
               <Route exact path="/login" component={Login} />
-              <Route exact path="/verify-email/:id" component={EmailAuthentication} />
               <Route exact path="/front-end-developer" component={FrontEndDeveloper} />
               <Route exact path="/react-native-developer" component={ReactNativeDeveloper} />
               <Route exact path="/director-of-growth-marketing" component={DirectorOfGrowthMarketing} />
@@ -106,6 +105,9 @@ class App extends Component {
               </Switch>
               <Switch>
                 <PrivateRoute exact path="/sublet" component={PostForm} />
+              </Switch>
+              <Switch>
+                <Route exact path="/verify-email/:id" component={EmailAuthentication} />
               </Switch>
               <Switch>
                 <PrivateRoute
