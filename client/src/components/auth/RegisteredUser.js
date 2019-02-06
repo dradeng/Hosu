@@ -25,7 +25,7 @@ class RegisteredUser extends Component {
 
     return (
       <div className="container">
-        <div style={{textAlign: 'text-center', paddingTop: '100', display: 'inline-block'}}>
+        <div style={{width: '100%', textAlign: 'center', paddingTop: '200', display: 'inline-block'}}>
           Your account has been registered, go to your email to verify your account! Will be redirected to login page soon.
         </div>
       </div>

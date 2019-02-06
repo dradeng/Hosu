@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 import { getPost } from '../../actions/postActions';
 import { updateStay } from '../../actions/stayActions';
-import NonFeedPostItem from '../posts/NonFeedPostItem';
+import StayItem from './StayItem';
 
 class Stay extends Component {
   constructor(props) {
@@ -54,21 +54,21 @@ class Stay extends Component {
 
     var approveContent;
     var dateContent;
-    var landLordContent;
-    var subtenantContent;
+    var address;
     var postContent;
 
     if (post === null || loading || Object.keys(post).length === 0) {
       //do nothing while loading individual post
     } else {
+      address = <div>{post.address}</div>;
       postContent = (
-        <div style={{width: 400}}>
-          <NonFeedPostItem post={post} showActions={false}/>
+        <div style={{width: 500}}>
+          <StayItem post={post} stay={stay} showActions={false}/>
         </div>
       );
     }
 
-    if(stay.landLord === user._id) {
+    /*if(stay.landLord === user._id) {
       subtenantContent = (
         <div>
           <Link className="text-dark" style={{textDecoration: 'none'}} to={`/profile/${stay.subtenantProfile}`}>
@@ -98,7 +98,7 @@ class Stay extends Component {
           </Link>
         </div>
       );
-    }
+    }*/
 
     if(!stay.decided && stay.landlord === user.id) {
       approveContent = (
@@ -113,27 +113,12 @@ class Stay extends Component {
       );
     }
 
-    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    var start = new Date(stay.startDate).toLocaleDateString("en-US", options);
-    var end = new Date(stay.endDate).toLocaleDateString("en-US", options);
-
-
-
-    dateContent = (
-      <div>
-        <b>Start Date: </b>{start}<br />
-        <b>End Date: </b>{end}
-      </div>
-    );
-
-
     return (
       <div className="dashboard">
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              {landLordContent}
-              {subtenantContent}
+              {address}
               {dateContent}
               {postContent}
               {approveContent}
