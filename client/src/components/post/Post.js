@@ -44,7 +44,6 @@ class Post extends Component {
     const { user } = this.props.auth;
     const { profile } = this.props.profile;
 
-    console.log('prof is'+profile._id);
     const request = {
       post: post._id,
       landlord: post.user,
@@ -54,6 +53,8 @@ class Post extends Component {
       landlordImage: post.avatar,
       landlordName: post.name,
       landlordProfile: post.profile,
+      address: post.address,
+      imgSrc: post.images[0],
     };
     this.props.addStay(request, this.props.history);
   }
@@ -115,7 +116,7 @@ class Post extends Component {
               <div>
                 <PostCalendar style={{position:'relative'}} onChangeDates={this.onChangeDates} post={post} startDate={startDate} endDate={endDate}/>
               
-                <button onClick={this.requestSublet} style={{position:'relative', maxWidth: 275, display:'block', marginLeft: 'auto', marginRight: 'auto'}} className="btncustom btn btn-block mt-2">
+                <button disabled={userPost} onClick={this.requestSublet} style={{position:'relative', maxWidth: 275, display:'block', marginLeft: 'auto', marginRight: 'auto'}} className="btncustom btn btn-block mt-2">
                   Request to Sublet
                 </button>
               </div>

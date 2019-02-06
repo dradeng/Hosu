@@ -56,14 +56,24 @@ router.post('/',
 
       const requestURL = LocalOrHeroku;
 
-      var htmlContent = (
-       '<div>Someone has request to sublet your property! Log in to view the request <a target=_blank href=\"' + requestURL + '\">here</a>!</div>'
-      );
+      var tmpS = new Date(req.body.startDate);
+      var tmpE = new Date(req.body.endDate);
+
+      var startDate = tmpS.toDateString(); 
+      var endDate = tmpE.toDateString(); 
+
       sgMail.send({
         to:       landlord.email,
         from:     'Support@Aveneu.com',
         subject:  'Request for subletting your property!',
-        html:     htmlContent
+        templateId: 'd-161d54d76797440d9ce713e2797334f5',
+          substitutionWrappers: ['{{', '}}'], 
+          dynamic_template_data: {
+            startDate: startDate,
+            endDate: endDate,
+            address: req.body.address,
+            imgSrc: req.body.imgSrc,
+          },
         }, function(err, json) {
             if (err) { return console.error(err); }
       });
