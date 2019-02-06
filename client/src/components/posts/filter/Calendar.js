@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { updateCurrentDate,updateEndDate, updateStartDate } from '../../../actions/postActions';
 import connect from "react-redux/es/connect/connect";
 
-import 'flatpickr/dist/themes/material_green.css'
+import 'flatpickr/dist/themes/material_blue.css'
 
 import Flatpickr from 'react-flatpickr'
 

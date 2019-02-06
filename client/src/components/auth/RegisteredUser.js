@@ -13,8 +13,8 @@ class RegisteredUser extends Component {
   componentDidMount() {
 
     setTimeout(function() { //Start the timer
-      this.setState({redirect: true}) //After 30 seconds, set render to true
-    }.bind(this), 15000);
+      this.setState({redirect: true}) //After 12 seconds, set render to true
+    }.bind(this), 12000);
 
   }
   render() {

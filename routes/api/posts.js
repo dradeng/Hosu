@@ -190,8 +190,7 @@ router.post(
               };
               disable.push(tmp);
             }
-            console.log('disable');
-            console.log(JSON.stringify(disable));
+           
 
             const newPost = new Post({
               title: req.body.title,

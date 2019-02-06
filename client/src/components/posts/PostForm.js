@@ -28,7 +28,7 @@ class PostForm extends Component {
       currFile: [],
       date: [new Date(), new Date()],
       minimumStay: 0,
-      disabledDates: null,
+      disabledDates: [],
     };
 
     this.changeAddress = this.changeAddress.bind(this);
@@ -76,8 +76,8 @@ class PostForm extends Component {
     this.setState({ endDate: '' });
     this.setState({ currFile: []});
     this.setState({ minimumStay: 0 });
-    this.setState({ disabledDates: null });
-    this.setState({ blockedDates: null });
+    this.setState({ disabledDates: [] });
+    this.setState({ blockedDates: [] });
 
   }
   //THIS IS FOR A FILE BE UPLOADED

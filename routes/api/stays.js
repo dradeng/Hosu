@@ -47,6 +47,8 @@ router.post('/',
     subtenantName: req.user.name,
     subtenantImage: req.user.profilePic,
     subtenantProfile: req.body.subtenantProfile,
+    blockedDates: [],
+    bookedDates: []
   });
 
   User.findById(req.body.landlord)
@@ -124,42 +126,48 @@ router.post('/update',
     var endDate = new Date(req.body.endDate);
     var approvedTest = 'true';
 
-    Post.findById(req.body.post).then( post => {
-
-      for(var i = 0; i < post.blockedDates.length; i++)
-      {
-        var blockedDate = new Date(post.blockedDates[i]);
-       
-        if(startDate <= blockedDate && blockedDate <= endDate ){
-          approvedTest = false;
-          return res.status(400).json('blocked date error in stay');
+    if(req.body.approved) {
+      //sees if date is still available
+      //just because its avail on the frontend when the user booked it
+      //doesnt mean four hours later its still available when the landlord logs in
+      //regardless of if he/she approves it
+      Post.findById(req.body.post).then( post => {
+   
+        for(var i = 0; i < post.blockedDates.length; i++)
+        {
+          var blockedDate = new Date(post.blockedDates[i]);
+         
+          if(startDate <= blockedDate && blockedDate <= endDate ){
+            approvedTest = false;
+            return res.status(400).json('blocked date error in stay');
+          }
         }
-      }
-      for(var i = 0; i < post.bookedDates.length; i++)
-      {
+        
+        for(var i = 0; i < post.bookedDates.length; i++)
+        {
 
-        var to = new Date(post.bookedDates[i].to);
-        var from = new Date(post.bookedDates[i].from);
+          var to = new Date(post.bookedDates[i].to);
+          var from = new Date(post.bookedDates[i].from);
 
-        //check if request overlaps end date
-        if(startDate <= to && to <= endDate ){
-          approvedTest = false;
-          return res.status(400).json('booked date error in stay1');
+          //check if request overlaps end date
+          if(startDate <= to && to <= endDate ){
+            approvedTest = false;
+            return res.status(400).json('booked date error in stay1');
+          }
+          //check if request overlaps any start date
+          if(startDate <= from && from <= endDate ){
+            approvedTest = false;
+            return res.status(400).json('booked date error in stay2');
+          }
+          //check if request is within a single booked date
+          if(to <= startDate && from <= endDate){
+            approvedTest = false;
+            return res.status(400).json('booked date error in stay3');
+          }
         }
-        //check if request overlaps any start date
-        if(startDate <= from && from <= endDate ){
-          approvedTest = false;
-          return res.status(400).json('booked date error in stay2');
-        }
-        //check if request is within a single booked date
-        if(to <= startDate && from <= endDate){
-          approvedTest = false;
-          return res.status(400).json('booked date error in stay3');
-        }
-      }
 
-    });
-
+      });
+    }
 
     User.findById(req.body.subtenant)
     .then(subtenant => {
@@ -170,6 +178,8 @@ router.post('/update',
       if(req.body.approved && approvedTest) {
         approved = 'Your sublet request has been approved!';
         subjectContent = 'Sublet Request Approved';
+
+        console.log('we insdie the approved part 2');
 
         var bookedDate = {
           from: req.body.startDate,
@@ -205,16 +215,49 @@ router.post('/update',
       approved: approvedTest
     };
 
-    Stay.findOneAndUpdate(
-      { _id: req.body.id },
-      { $set: updatedInfo },
-      { new: true }
-    ).then(stay => {
-      Stay.find().then(stays => {
-        res.json(stays)
+    if(req.body.approved && approvedTest) {
+      Stay.findOneAndUpdate(
+        { _id: req.body.id },
+        { $set: updatedInfo },
+        { new: true }
+      ).then(stay => {
+        Stay.find().then(stays => {
+          res.json(stays)
+        })
       })
-    })
-    .catch(err => console.log(err));
+      .catch(err => console.log(err));
+    } else {
+
+      Stay.findById(req.body.id).then( stay => {
+        //remove from landlords list of stays
+        User.findById(stay.landlord).then( landlord => {
+          var stays = landlord.stays;
+          var index = stays.indexOf(stay._id);
+          if(index > -1) {
+            stays = stays.splice(index, 1);
+            landlord.stays = stays;
+            landlord.save();
+          }
+        });
+        //remove from subtenants list of stays
+        User.findById(stay.subtenant).then( subtenant => {
+          var stays = subtenant.stays;
+          var index = stays.indexOf(stay._id);
+          if(index > -1) {
+            stays = stays.splice(index, 1);
+            subtenant.stays = stays;
+            subtenant.save();
+          }
+        });
+
+        stay.remove().then(() => {
+          Stay.find().then(stays => {
+            res.json(stays);
+          })
+        });
+      });
+      
+    }
 });
 
 
