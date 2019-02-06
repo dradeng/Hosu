@@ -24,9 +24,10 @@ class Posts extends Component {
   componentDidMount() {
     this.props.getPosts();
     this.props.getCurrentProfile();
-
+   
     const { profile } = this.props.profile;
     const { posts, loading } = this.props.post;
+
 
     this.setState({ posts: posts });
     this.setState({ profile: profile });
@@ -43,11 +44,12 @@ class Posts extends Component {
     //CANT DO THIS BECAUSE HIGHLIGHTING CHANGES STATE
     //CAUSING RERENDERING AND PROPS BECOMING NULL
     //HAVE TO USE STATE SO IT DOESNT CHANGE ON RERENDER
-    var posts = this.state.posts;
-    var profile = this.state.profile;
-    var loading = this.state.loading;
-    //const { posts, loading } = this.props.post;
-    //const { profile } = this.props.profile;
+    //var posts = this.state.posts;
+    //var profile = this.state.profile;
+    //var loading = this.state.loading;
+
+    const { posts, loading } = this.props.post;
+    const { profile } = this.props.profile;
     const { errors } = this.props;
 
     let postContent;

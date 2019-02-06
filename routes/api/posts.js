@@ -183,7 +183,7 @@ router.post(
 
             var disable = [];
             for(var i = 0; i < req.body.blockedDates.length; i++) {
-              console.log('in loop');
+
               var tmp = {
                 to: req.body.blockedDates[i],
                 from: req.body.blockedDates[i],

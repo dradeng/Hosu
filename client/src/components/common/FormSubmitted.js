@@ -20,7 +20,7 @@ class FormSubmitted extends Component {
 
   	setTimeout(function() { //Start the timer
   	  this.setState({redirect: true}) //After 30 seconds, set render to true
-  	}.bind(this), 30000)
+  	}.bind(this), 20000)
   }
   render() {
 	  const { user } = this.props.auth;
@@ -41,7 +41,7 @@ class FormSubmitted extends Component {
         <MetaTags>
           <meta property="og:image" content="s3.us-east-2.amazonaws.com/aveneu/DefaultBackgroundPicture.jpg"/>
         </MetaTags>
-	      <h3>Thankyou {user.name}! Your sublet has been submitted successfully. This page will redirect to the feed in a 30 seconds. Feel free to share
+	      <h3>Thankyou {user.name}! Your sublet has been submitted successfully. This page will redirect soon. Feel free to share
         to share this post on Facebook, Twitter, or Whatsapp!</h3>
         <div>
           <div style={{display: 'inline-block'}}>

@@ -20,9 +20,10 @@ export const addPost = (postData, history) => dispatch => {
   dispatch(clearErrors());
   axios
     .post('/api/posts', postData)
-    .then(res =>
-      history.push('/formSubmitted')
-    )
+    .then(res => {
+      window.location.reload();
+      history.push('/formSubmitted');
+    })
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
