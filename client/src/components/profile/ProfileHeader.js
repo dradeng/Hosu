@@ -38,7 +38,6 @@ class ProfileHeader extends Component {
       messages: []
       
     };  
-    console.log('this ' + history);
   
     this.props.addChat(newChat, history);
     this.setState({ user1: null });
@@ -60,7 +59,7 @@ class ProfileHeader extends Component {
       buttonContent = (
         <div>
           <div style={{position: 'absolute', top:5,right:25, opacity: .7}}>
-            <Link to="/add-review" className="btn btn-light">
+            <Link to={`/add-review/${profile.user}`} className="btn btn-light">
               Add Review
             </Link>
           </div>

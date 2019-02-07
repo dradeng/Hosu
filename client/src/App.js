@@ -132,7 +132,7 @@ class App extends Component {
               <Switch>
                   <PrivateRoute
                       exact
-                      path="/add-review"
+                      path="/add-review/:id"
                       component={AddReview}
                   />
               </Switch>

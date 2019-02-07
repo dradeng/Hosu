@@ -38,6 +38,7 @@ class AddReview extends Component {
 
         const reviewData = {
             userName: user.name,
+            user: this.props.match.params.id,
             profilePic: user.profilePic,
             description: this.state.description,
             rating: this.state.rating,
