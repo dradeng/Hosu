@@ -14,6 +14,8 @@ const LocalOrHeroku = require('../../config/keys').LocalOrHeroku;
 
 // Stay model
 const Stay = require('../../models/Stay');
+// Post model
+const Post = require('../../models/Post');
 // Profile model
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
@@ -192,14 +194,15 @@ router.post('/update',
     .then(subtenant => {
       const requestURL = LocalOrHeroku;
       var approved;
-      var subjectContent
+
+      var tmpS = new Date(req.body.startDate);
+      var tmpE = new Date(req.body.endDate);
+
+      var startDate = tmpS.toDateString(); 
+      var endDate = tmpE.toDateString(); 
 
       if(req.body.approved && approvedTest) {
-        approved = 'Your sublet request has been approved!';
-        subjectContent = 'Sublet Request Approved';
-
-        console.log('we insdie the approved part 2');
-
+     
         var bookedDate = {
           from: req.body.startDate,
           to: req.body.endDate
@@ -208,24 +211,44 @@ router.post('/update',
           post.bookedDates.push(bookedDate);
           post.disabledDates.push(bookedDate);
           post.save();
+
+          //send approved email
+          sgMail.send({
+            to:       subtenant.email,
+            from:     'Support@Aveneu.co',
+            templateId: 'd-8f4fe275a8dc4db4af642ed1e1f055e9',
+            dynamic_template_data: {
+              startDate: startDate,
+              endDate: endDate,
+              title: post.title,
+              imgSrc: post.images[0],
+              address: post.address,
+            },
+            }, function(err, json) {
+              if (err) { return console.error(err); }
+          });
         });
 
       } else {
-        approved = 'Your sublet request has been denied. Keep on looking!';
-        subjectContent = 'Sublet Request Denied';
+        Post.findById(req.body.post).then( post => {
+
+          //send denied email
+          sgMail.send({
+            to:       subtenant.email,
+            from:     'Support@Aveneu.co',
+            templateId: 'd-4fa53b414d9d4848ac00a90914c72c36',
+            dynamic_template_data: {
+              startDate: startDate,
+              endDate: endDate,
+              title: post.title,
+              imgSrc: post.images[0],
+            },
+            }, function(err, json) {
+              if (err) { return console.error(err); }
+          });
+        });
       }
 
-      var htmlContent = (
-       '<div>' + approved + '</div>'
-      );
-      sgMail.send({
-        to:       subtenant.email,
-        from:     'Support@Aveneu.com',
-        subject:  subjectContent,
-        html:     htmlContent
-        }, function(err, json) {
-            if (err) { return console.error(err); }
-      });
     });
 
 

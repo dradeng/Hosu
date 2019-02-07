@@ -118,7 +118,6 @@ router.post('/register', (req, res) => {
           templateId: 'd-1224c0b4fc444dcea6bae1eb622fca94',
           substitutionWrappers: ['{{', '}}'], 
           dynamic_template_data: {
-            subject:  'Confirm your email with Aveneu!',
             authenticationURL: authenticationURL,
           },
           }, function(err, json) {
