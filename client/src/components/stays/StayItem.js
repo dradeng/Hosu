@@ -75,14 +75,11 @@ class PostItem extends Component {
 
     var approveContent;
     var reviewContent;
-
-
+    var validAddress;
 
     var stay = this.props.stay;
     const { profile, loading } = this.props.profile;
     const { user } = this.props.auth;
-
-
 
     let starContent = null
     if(profile != null) {
@@ -91,6 +88,14 @@ class PostItem extends Component {
         starContent = <FaStar/>
       } else {
         starContent = <FaRegStar/>
+      }
+
+      if(stay.approved || stay.landlord === user.id) {
+        validAddress = (
+          <div style={{marginLeft: 35, fontSize: 12, marginBottom: 2, fontFamily: 'Apple SD Gothic Neo'}}>
+            {post.address}
+          </div>
+        );
       }
 
       var rating = 0;
@@ -103,7 +108,7 @@ class PostItem extends Component {
         
         reviewContent = (
           <div>
-            <div style= {{marginLeft:10}}>
+            <div style= {{marginLeft:10, fontWeight: 'lighter'}}>
               {stay.subtenantName}
             </div>
             <Rating
@@ -111,9 +116,9 @@ class PostItem extends Component {
               fullSymbol="fa fa-star fa-2x"
               readonly
               initialRating={rating}
-              style={{marginLeft:10, fontSize: 6, color: 'rgb(104, 162, 208)', display: 'inline-block'}}
+              style={{marginLeft:10, fontSize: 6, color: '#72B2E0', display: 'inline-block'}}
             />
-            <div style={{display: 'inline-block'}}>
+            <div style={{display: 'inline-block', fontSize: 12, fontWeight: 'lighter',  marginLeft: 2}}>
               ({stay.subtenantNumReviews})
             </div>
           </div>
@@ -133,9 +138,9 @@ class PostItem extends Component {
               fullSymbol="fa fa-star fa-2x"
               readonly
               initialRating={rating}
-              style={{marginLeft:10, fontSize: 6, color: 'rgb(104, 162, 208)', display: 'inline-block'}}
+              style={{marginLeft:10, fontSize: 6, color: '#72B2E0', display: 'inline-block'}}
             />
-            <div style={{display: 'inline-block'}}>
+            <div style={{display: 'inline-block', fontSize: 12, marginLeft: 2}}>
               ({stay.landlordNumReviews})
             </div>
           </div>
@@ -163,13 +168,13 @@ class PostItem extends Component {
         </div>)
     );
 
-    var options = { weekday: 'long', month: 'short', day: 'numeric' };
+    var options = { month: 'short', day: 'numeric', year: 'numeric' };
     var start = new Date(stay.startDate).toLocaleDateString("en-US", options);
     var end = new Date(stay.endDate).toLocaleDateString("en-US", options);
 
 
     var dateContent = (
-      <div>
+      <div style={{marginLeft: 10, position: 'absolute', right: 25, verticalAlign: 'top', fontSize: 22, fontFamily: 'Apple SD Gothic Neo'}}>
         {start} to {end}
       </div>
     );
@@ -179,12 +184,14 @@ class PostItem extends Component {
         <div className="row">
           <div className="col-md-10">
             <div style={{minHeight: 49}} className="row">
-              <div className="lead col-md-9">
-                <Textfit
-                  mode="single"
-                  forceSingleModeWidth={false}>
+              <div>
+                <div style={{ marginLeft: 15, fontFamily: 'Apple SD Gothic Neo', fontSize: 22}}>
                   {post.title}
-                </Textfit></div>
+                </div>
+                <div>
+                  {validAddress}
+                </div>
+              </div>
               
                 {post.user !== auth.user.id ? (
 
@@ -203,7 +210,7 @@ class PostItem extends Component {
           <div style={{height:'50%',borderRadius: 20}}>
               {allImage}
           </div>
-          <div style={{height: 100}}>
+          <div style={{height: 30}}>
             <div style={{display: 'inline-block'}}>
               <Link style={{display: 'inline-block', margin: 5}} to={`/profile/${post.profile}`}>
                 <img
@@ -219,13 +226,7 @@ class PostItem extends Component {
               <div style={{display: 'inline-block', verticalAlign: 'top', paddingTop: 20}}>
                   
                   <div style={{verticalAlign: 'top'}}>
-                    <div className="lead">
-                      <Textfit
-                        mode="single"
-                        forceSingleModeWidth={false}>
-                        {dateContent}
-                      </Textfit>
-                    </div>
+                    {dateContent}
                   </div>
               </div>
             </div>

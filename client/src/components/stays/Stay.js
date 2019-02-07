@@ -54,14 +54,11 @@ class Stay extends Component {
     const { post, loading } = this.props.post;
 
     var approveContent;
-    var dateContent;
-    var address;
     var postContent;
 
     if (post === null || loading || Object.keys(post).length === 0) {
       //do nothing while loading individual post
     } else {
-      address = <div>{post.address}</div>;
       postContent = (
         <div style={{width: 500}}>
           <StayItem post={post} stay={stay} showActions={false}/>
@@ -69,58 +66,23 @@ class Stay extends Component {
       );
     }
 
-    /*if(stay.landLord === user._id) {
-      subtenantContent = (
-        <div>
-          <Link className="text-dark" style={{textDecoration: 'none'}} to={`/profile/${stay.subtenantProfile}`}>
-            <b>Subtenant: </b>
-            <img
-              className="rounded-circle"
-              src={stay.subtenantImage}
-              style={{ width: 30, height:30, marginRight: '5px' }}
-              title="You must have a Gravatar connected to your email to display an image"
-            />
-            {stay.subtenantName}
-          </Link>
-        </div>
-        )
-    } else {
-      landLordContent = (
-        <div>
-          <Link className="text-dark" style={{textDecoration: 'none'}} to={`/profile/${stay.landlordProfile}`}>
-            <b>Landlord: </b>
-            <img
-              className="rounded-circle"
-              src={stay.landlordImage}
-              style={{ width: 30, height:30, marginRight: '5px' }}
-              title="You must have a Gravatar connected to your email to display an image"
-            />
-            {stay.landlordName}
-          </Link>
-        </div>
-      );
-    }*/
-
     if(!stay.decided && stay.landlord === user.id) {
       approveContent = (
-        <div>
-          <button onClick={this.approveSublet} className="btncustom btn mt-4">
+        <div style={{width: 500, textAlign: 'center'}}>
+          <button onClick={this.approveSublet} className="btncustom btn mt-4" style={{marginRight: 10, width: 150}}>
             Approve
           </button>
-          <button onClick={this.denySublet} className="btncustom btn mt-4">
+          <button onClick={this.denySublet} className="btncustom btn mt-4" style={{marginLeft: 10, width: 150}}>
             Deny
           </button>
         </div>
       );
     }
-
     return (
       <div className="dashboard">
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              {address}
-              {dateContent}
               {postContent}
               {approveContent}
             </div>

@@ -26,7 +26,7 @@ class Favorites extends Component {
       //Looks over all posts to find which one user likes
       //this is inefficient will come back and fix later
       if(profile.favorites.length === 0) {
-        favoritesContent = <div>No favorites yet. Start favoriting posts by clicking on the gold start and they will appear here!</div>
+        favoritesContent = <div>No favorites yet. Start favoriting posts by clicking on the gold star and they will appear here!</div>
       } else {
         favoritesContent = posts.map(post => { 
             if(profile.favorites.indexOf(post._id) >= 0) {
