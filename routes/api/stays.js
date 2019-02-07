@@ -142,10 +142,10 @@ router.get('/',
 router.post('/update',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-   
+    console.log('---------------------------------');
     var startDate = new Date(req.body.startDate);
     var endDate = new Date(req.body.endDate);
-    var approvedTest = 'true';
+    var approvedTest = true;
 
     if(req.body.approved) {
       //sees if date is still available
@@ -159,8 +159,9 @@ router.post('/update',
           var blockedDate = new Date(post.blockedDates[i]);
          
           if(startDate <= blockedDate && blockedDate <= endDate ){
+            console.log('backend failed1');
             approvedTest = false;
-            return res.status(400).json('blocked date error in stay');
+          
           }
         }
         
@@ -170,136 +171,141 @@ router.post('/update',
           var to = new Date(post.bookedDates[i].to);
           var from = new Date(post.bookedDates[i].from);
 
+          console.log('##############');
+          console.log('request date');
+          console.log(startDate);
+          console.log(endDate);
+          console.log('booked Date');
+          console.log(from);
+          console.log(to);
+
           //check if request overlaps end date
           if(startDate <= to && to <= endDate ){
+            console.log('backend failed2');
             approvedTest = false;
-            return res.status(400).json('booked date error in stay1');
           }
-          //check if request overlaps any start date
+          //check if request overlaps start date
           if(startDate <= from && from <= endDate ){
+            console.log('backend failed3');
             approvedTest = false;
-            return res.status(400).json('booked date error in stay2');
+         
           }
           //check if request is within a single booked date
-          if(to <= startDate && from <= endDate){
+          if(from <= startDate && endDate <= to){
+            console.log('backend failed4');
             approvedTest = false;
-            return res.status(400).json('booked date error in stay3');
+           
           }
         }
+        User.findById(req.body.subtenant).then(subtenant => {
+          const requestURL = LocalOrHeroku;
+          var approved;
 
-      });
-    }
+          var tmpS = new Date(req.body.startDate);
+          var tmpE = new Date(req.body.endDate);
 
-    User.findById(req.body.subtenant)
-    .then(subtenant => {
-      const requestURL = LocalOrHeroku;
-      var approved;
+          var startDate = tmpS.toDateString(); 
+          var endDate = tmpE.toDateString(); 
+          if(req.body.approved && approvedTest) {
+          
+            var bookedDate = {
+              from: req.body.startDate,
+              to: req.body.endDate
+            };
+            Post.findById(req.body.post).then( post => {
+              post.bookedDates.push(bookedDate);
+              post.disabledDates.push(bookedDate);
+              post.save();
+              //send approved email
+              sgMail.send({
+                to:       subtenant.email,
+                from:     'Support@Aveneu.co',
+                templateId: 'd-8f4fe275a8dc4db4af642ed1e1f055e9',
+                dynamic_template_data: {
+                  startDate: startDate,
+                  endDate: endDate,
+                  title: post.title,
+                  imgSrc: post.images[0],
+                  address: post.address,
+                },
+                }, function(err, json) {
+                  if (err) { return console.error(err); }
+              });
+            });
 
-      var tmpS = new Date(req.body.startDate);
-      var tmpE = new Date(req.body.endDate);
+          } else {
+            Post.findById(req.body.post).then( post => {
+              console.log('we failed');
+              //send denied email
+              sgMail.send({
+                to:       subtenant.email,
+                from:     'Support@Aveneu.co',
+                templateId: 'd-4fa53b414d9d4848ac00a90914c72c36',
+                dynamic_template_data: {
+                  startDate: startDate,
+                  endDate: endDate,
+                  title: post.title,
+                  imgSrc: post.images[0],
+                },
+                }, function(err, json) {
+                  if (err) { console.error(err); }
+              });
+            });
+          }
+        });
 
-      var startDate = tmpS.toDateString(); 
-      var endDate = tmpE.toDateString(); 
-
-      if(req.body.approved && approvedTest) {
-     
-        var bookedDate = {
-          from: req.body.startDate,
-          to: req.body.endDate
+        var updatedInfo = {
+          decided: true,
+          approved: approvedTest
         };
-        Post.findById(req.body.post).then( post => {
-          post.bookedDates.push(bookedDate);
-          post.disabledDates.push(bookedDate);
-          post.save();
 
-          //send approved email
-          sgMail.send({
-            to:       subtenant.email,
-            from:     'Support@Aveneu.co',
-            templateId: 'd-8f4fe275a8dc4db4af642ed1e1f055e9',
-            dynamic_template_data: {
-              startDate: startDate,
-              endDate: endDate,
-              title: post.title,
-              imgSrc: post.images[0],
-              address: post.address,
-            },
-            }, function(err, json) {
-              if (err) { return console.error(err); }
-          });
-        });
-
-      } else {
-        Post.findById(req.body.post).then( post => {
-
-          //send denied email
-          sgMail.send({
-            to:       subtenant.email,
-            from:     'Support@Aveneu.co',
-            templateId: 'd-4fa53b414d9d4848ac00a90914c72c36',
-            dynamic_template_data: {
-              startDate: startDate,
-              endDate: endDate,
-              title: post.title,
-              imgSrc: post.images[0],
-            },
-            }, function(err, json) {
-              if (err) { return console.error(err); }
-          });
-        });
-      }
-
-    });
-
-
-    var updatedInfo = {
-      decided: true,
-      approved: approvedTest
-    };
-
-    if(req.body.approved && approvedTest) {
-      Stay.findOneAndUpdate(
-        { _id: req.body.id },
-        { $set: updatedInfo },
-        { new: true }
-      ).then(stay => {
-        Stay.find().then(stays => {
-          res.json(stays)
-        })
-      })
-      .catch(err => console.log(err));
-    } else {
-
-      Stay.findById(req.body.id).then( stay => {
-        //remove from landlords list of stays
-        User.findById(stay.landlord).then( landlord => {
-          var stays = landlord.stays;
-          var index = stays.indexOf(stay._id);
-          if(index > -1) {
-            stays = stays.splice(index, 1);
-            landlord.stays = stays;
-            landlord.save();
-          }
-        });
-        //remove from subtenants list of stays
-        User.findById(stay.subtenant).then( subtenant => {
-          var stays = subtenant.stays;
-          var index = stays.indexOf(stay._id);
-          if(index > -1) {
-            stays = stays.splice(index, 1);
-            subtenant.stays = stays;
-            subtenant.save();
-          }
-        });
-
-        stay.remove().then(() => {
-          Stay.find().then(stays => {
-            res.json(stays);
+        if(req.body.approved && approvedTest) {
+          console.log('we updated stay test is ' + approvedTest);
+          Stay.findOneAndUpdate(
+            { _id: req.body.id },
+            { $set: updatedInfo },
+            { new: true }
+          ).then(stay => {
+            Stay.find().then(stays => {
+              res.json(stays)
+            })
           })
-        });
+          .catch(err => console.log(err));
+        } else {
+          console.log('we removing');
+          Stay.findById(req.body.id).then( stay => {
+            //remove from landlords list of stays
+            User.findById(stay.landlord).then( landlord => {
+              console.log('sub removed');
+              var stays = landlord.stays;
+              var index = stays.indexOf(stay._id);
+              if(index > -1) {
+                stays = stays.splice(index, 1);
+                landlord.stays = stays;
+                landlord.save();
+              }
+            });
+            //remove from subtenants list of stays
+            User.findById(stay.subtenant).then( subtenant => {
+              var stays = subtenant.stays;
+              console.log('sub removed');
+              var index = stays.indexOf(stay._id);
+              if(index > -1) {
+                stays = stays.splice(index, 1);
+                subtenant.stays = stays;
+                subtenant.save();
+              }
+            });
+            console.log('we removed');
+            stay.remove().then(() => {
+              Stay.find().then(stays => {
+                res.json(stays);
+              })
+            });
+          });  
+        }
       });
-      
-    }
+    } 
 });
 
 

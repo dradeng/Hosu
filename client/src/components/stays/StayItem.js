@@ -77,6 +77,7 @@ class PostItem extends Component {
     var reviewContent;
     var validAddress;
     var userAvatar;
+    var userProfile;
 
     var stay = this.props.stay;
     const { profile, loading } = this.props.profile;
@@ -103,6 +104,7 @@ class PostItem extends Component {
 
       if(stay.landlord === user.id) {
         userAvatar = stay.subtenantImage;
+        userProfile = stay.subtenantProfile;
         if(stay.subtenantReviewSum !== 0) {
           rating = stay.subtenantReviewSum / stay.subtenantNumReviews;
         }
@@ -127,6 +129,7 @@ class PostItem extends Component {
         );
       } else {
         userAvatar = stay.landlordImage;
+        userProfile = stay.landlordProfile;
         if(stay.subtenantReviewSum !== 0) {
           rating = stay.landlordReviewSum / stay.landlordNumReviews;
         }
@@ -215,7 +218,7 @@ class PostItem extends Component {
         <div>
           <div style={{height: 30}}>
             <div style={{display: 'inline-block'}}>
-              <Link style={{display: 'inline-block', margin: 5}} to={`/profile/${post.profile}`}>
+              <Link style={{display: 'inline-block', margin: 5}} to={`/profile/${userProfile}`}>
                 <img
                   className="rounded-circle d-none d-md-block"
                   style={{width: 50, height: 50}}
