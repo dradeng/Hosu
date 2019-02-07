@@ -6,4 +6,5 @@ RUN npm install && npm install --prefix client && npm run build --prefix client
 FROM nginx:1.15.2-alpine
 COPY --from=builder /app/client/build /app/build
 COPY ./client/nginx etc/nginx
+COPY ./client/ssl /app/ssl
 EXPOSE 80
