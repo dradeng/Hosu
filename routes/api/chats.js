@@ -52,43 +52,43 @@ router.post(
 
     req.user.chats.forEach(function(chat) {
 
-      if(chat.user1 === req.user.id || chat.user2 === req.body.user2) {
+      if(chat.user1 === req.user.id && chat.user2 === req.body.user2 || chat.user2 === req.user.id && chat.user1 === req.body.user2) {
         //set it to res.json(chat already...) so push.history happes in chat actions
         //there is no error, this just make sures the user doesn't already have
         //a chat open with the other user
-        return;
-      }
-    });
+        res.json();
+      } else {
+        const newChat = new Chat({
+          user1: req.user.id,
+          user2: req.body.user2,
+          user1ProfilePic: req.body.user1ProfilePic,
+          user2ProfilePic: req.body.user2ProfilePic,
+          user1Name: req.body.user1Name,
+          user2Name: req.body.user2Name,
+          messages: []
 
-    const newChat = new Chat({
-    	user1: req.user.id,
-    	user2: req.body.user2,
-      user1ProfilePic: req.body.user1ProfilePic,
-      user2ProfilePic: req.body.user2ProfilePic,
-      user1Name: req.body.user1Name,
-      user2Name: req.body.user2Name,
-    	messages: []
+          //No need to add date
+        });
 
-      //No need to add date
-    });
+        const userChat = {
+          chat: newChat._id,
+          user1: req.user.id,
+          user2: req.body.user2
+        };
 
-    const userChat = {
-      chat: newChat._id,
-      user1: req.user.id,
-      user2: req.body.user2
-    };
+        //Add the chat info to each user respectively
+        User.findById(req.user.id).then( user => {
+          user.chats.push(userChat);
+          user.save();
+        });
+        User.findById(req.body.user2).then( user => {
+          user.chats.push(userChat);
+          user.save();
+        });
 
-    //Add the chat info to each user respectively
-    User.findById(req.user.id).then( user => {
-      user.chats.push(userChat);
-      user.save();
-    });
-    User.findById(req.body.user2).then( user => {
-      user.chats.push(userChat);
-      user.save();
-    });
-
-    newChat.save().then(chat => res.json(chat));
+        newChat.save().then(chat => res.json(chat));
+          }
+        });
   }
 );
 
