@@ -221,7 +221,7 @@ class PostForm extends Component {
                           </div>
                           <div key="3" className="form-group">
                               <h6>
-                                  Minimum Stay*
+                                  Minimum number of days for a stay*
                               </h6>
                               <InputGroup
                                 placeholder="Enter the minimum number of days for a single stay"

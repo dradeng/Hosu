@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 import {
-  GET_STAY_ERRORS,
-  CLEAR_STAY_ERRORS,
+  GET_ERRORS,
+  CLEAR_ERRORS,
   STAY_LOADING,
   GET_STAYS,
 } from './types';
@@ -15,7 +15,7 @@ export const addStay = (stayData, history) => dispatch => {
     .then(res => history.push('/stays'))
     .catch(err =>
       dispatch({
-        type: GET_STAY_ERRORS,
+        type: GET_ERRORS,
         payload: err.response.data
       })
     );
@@ -49,9 +49,10 @@ export const updateStay = (updatedData, history) => dispatch => {
     )
     .catch(err => {
       console.log('err is ' + err);
+      console.log()
       dispatch({
-        type: GET_STAY_ERRORS,
-        payload: null
+        type: GET_ERRORS,
+        payload: err.response.data
       })
       
     });
@@ -66,6 +67,6 @@ export const setStayLoading = () => {
 // Clear errors
 export const clearStayErrors = () => {
   return {
-    type: CLEAR_STAY_ERRORS
+    type: CLEAR_ERRORS
   };
 };

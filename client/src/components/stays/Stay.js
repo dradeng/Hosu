@@ -13,7 +13,7 @@ class Stay extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      errors: {}
     };
     this.approveSublet = this.approveSublet.bind(this);
     this.denySublet = this.denySublet.bind(this);
@@ -21,6 +21,11 @@ class Stay extends Component {
   componentDidMount() {
     const { stay } = this.props;
     this.props.getPost(stay.post);
+  }
+  componentWillReceiveProps(newProps) {
+    if (newProps.errors) {
+      this.setState({ errors: newProps.errors });
+    }
   }
   approveSublet() {
     
@@ -52,9 +57,11 @@ class Stay extends Component {
     const { user } = this.props.auth;
     const { stay } = this.props;
     const { post, loading } = this.props.post;
-
+    const { errors } = this.state;
     var approveContent;
+    var errorContent;
     var postContent;
+    console.log('errors ' + JSON.stringify(errors));
 
     if (post === null || loading || Object.keys(post).length === 0) {
       //do nothing while loading individual post
@@ -85,6 +92,11 @@ class Stay extends Component {
             <div className="col-md-12">
               {postContent}
               {approveContent}
+              <div style={{fontSize:13,color:'rgb(220, 53, 69)', paddingTop:5, fontFamily:'-apple-system, BlinkMacSystemFont, Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Apple Color Emoji, Segoe UI Emoji,Segoe UI Symbol'}}>
+                           
+                {errors.stay && stay._id === errors.id ? errors.stay : ''}
+
+              </div>
             </div>
           </div>
         </div>
@@ -98,11 +110,13 @@ Stay.propTypes = {
   getPost: PropTypes.func.isRequired,
   post: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
   post: state.post,
-  auth: state.auth
+  auth: state.auth,
+  errors: state.errors,
 });
 
 export default connect(mapStateToProps, { updateStay, getPost })(

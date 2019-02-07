@@ -142,7 +142,7 @@ router.get('/',
 router.post('/update',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    console.log('---------------------------------');
+  
     var startDate = new Date(req.body.startDate);
     var endDate = new Date(req.body.endDate);
     var approvedTest = true;
@@ -171,29 +171,22 @@ router.post('/update',
           var to = new Date(post.bookedDates[i].to);
           var from = new Date(post.bookedDates[i].from);
 
-          console.log('##############');
-          console.log('request date');
-          console.log(startDate);
-          console.log(endDate);
-          console.log('booked Date');
-          console.log(from);
-          console.log(to);
-
           //check if request overlaps end date
           if(startDate <= to && to <= endDate ){
-            console.log('backend failed2');
+            
             approvedTest = false;
           }
           //check if request overlaps start date
           if(startDate <= from && from <= endDate ){
-            console.log('backend failed3');
+            
             approvedTest = false;
          
           }
           //check if request is within a single booked date
           if(from <= startDate && endDate <= to){
-            console.log('backend failed4');
+            
             approvedTest = false;
+
            
           }
         }
@@ -235,7 +228,7 @@ router.post('/update',
 
           } else {
             Post.findById(req.body.post).then( post => {
-              console.log('we failed');
+            
               //send denied email
               sgMail.send({
                 to:       subtenant.email,
@@ -260,7 +253,7 @@ router.post('/update',
         };
 
         if(req.body.approved && approvedTest) {
-          console.log('we updated stay test is ' + approvedTest);
+        
           Stay.findOneAndUpdate(
             { _id: req.body.id },
             { $set: updatedInfo },
@@ -271,43 +264,45 @@ router.post('/update',
             })
           })
           .catch(err => console.log(err));
+          //if landlord tries to approve request
         } else {
-          console.log('we removing');
-          Stay.findById(req.body.id).then( stay => {
-            //remove from landlords list of stays
-            User.findById(stay.landlord).then( landlord => {
-              console.log('sub removed');
-              var stays = landlord.stays;
-              var index = stays.indexOf(stay._id);
-              if(index > -1) {
-                stays = stays.splice(index, 1);
-                landlord.stays = stays;
-                landlord.save();
-              }
-            });
-            //remove from subtenants list of stays
-            User.findById(stay.subtenant).then( subtenant => {
-              var stays = subtenant.stays;
-              console.log('sub removed');
-              var index = stays.indexOf(stay._id);
-              if(index > -1) {
-                stays = stays.splice(index, 1);
-                subtenant.stays = stays;
-                subtenant.save();
-              }
-            });
-            console.log('we removed');
-            stay.remove().then(() => {
-              Stay.find().then(stays => {
-                res.json(stays);
-              })
-            });
-          });  
+          var errors = {};
+          errors.stay = 'Request was conflicted with another approved request. Please decline this request';
+          errors.id = req.body.id;
+          return res.status(400).json(errors);
         }
       });
+    } else if(!req.body.approved){
+      Stay.findById(req.body.id).then( stay => {
+        //remove from landlords list of stays
+        User.findById(stay.landlord).then( landlord => {
+          var stays = landlord.stays;
+          var index = stays.indexOf(stay._id);
+          if(index > -1) {
+            stays = stays.splice(index, 1);
+            landlord.stays = stays;
+            landlord.save();
+          }
+        });
+        //remove from subtenants list of stays
+        User.findById(stay.subtenant).then( subtenant => {
+          var stays = subtenant.stays;
+          var index = stays.indexOf(stay._id);
+          if(index > -1) {
+            stays = stays.splice(index, 1);
+            subtenant.stays = stays;
+            subtenant.save();
+          }
+        });
+        console.log('remove');
+        stay.remove().then(stay => {
+          Stay.find().then(stays => {
+            res.json(stays)
+          })
+        })
+      }); 
     } 
 });
-
 
 
 module.exports = router;
