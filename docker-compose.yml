@@ -22,3 +22,6 @@ services:
       - "80"
     links:
       - web
+    volumes:
+      - "/etc/letsencrypt/live/aveneu.co/fullchain.pem:/etc/letsencrypt/live/fullchain.pem"
+      - "/etc/letsencrypt/live/aveneu.co/privkey.pem:/etc/letsencrypt/live/privkey.pem"
