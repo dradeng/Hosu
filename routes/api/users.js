@@ -115,10 +115,10 @@ router.post('/register', (req, res) => {
         sgMail.send({
           to:       req.body.email,
           from:     'Support@Aveneu.co',
-          subject:  'Confirm your email with Aveneu!',
           templateId: 'd-1224c0b4fc444dcea6bae1eb622fca94',
           substitutionWrappers: ['{{', '}}'], 
           dynamic_template_data: {
+            subject:  'Confirm your email with Aveneu!',
             authenticationURL: authenticationURL,
           },
           }, function(err, json) {
@@ -168,7 +168,10 @@ router.get('/verify-email/:id', (req, res) => {
         to:       user.email,
         from:     'Support@Aveneu.co',
         subject:  'Email confirmed!',
-        templateId:     'd-5b7e0ef57f5847508090740c0c61d850'
+        templateId:     'd-5b7e0ef57f5847508090740c0c61d850',
+        dynamic_template_data: {
+          subject:  'Aveneu email confirmed!',
+        },
         }, function(err, json) {
             if (err) { return console.error(err); }
         console.log(json);

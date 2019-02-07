@@ -76,6 +76,7 @@ class PostItem extends Component {
     var approveContent;
     var reviewContent;
     var validAddress;
+    var userAvatar;
 
     var stay = this.props.stay;
     const { profile, loading } = this.props.profile;
@@ -101,7 +102,7 @@ class PostItem extends Component {
       var rating = 0;
 
       if(stay.landlord === user.id) {
-
+        userAvatar = stay.subtenantImage;
         if(stay.subtenantReviewSum !== 0) {
           rating = stay.subtenantReviewSum / stay.subtenantNumReviews;
         }
@@ -125,13 +126,14 @@ class PostItem extends Component {
           
         );
       } else {
+        userAvatar = stay.landlordImage;
         if(stay.subtenantReviewSum !== 0) {
           rating = stay.landlordReviewSum / stay.landlordNumReviews;
         }
         reviewContent = (
           <div>
             <div style={{marginLeft:10}}>
-              {stay.subtenantName}
+              {stay.landlordName}
             </div>
             <Rating
               emptySymbol="far fa-star fa-2x"
@@ -160,12 +162,12 @@ class PostItem extends Component {
       );
     }
 
-    const allImage = post.images.map((item, index) => (
+    const allImage = (
         <div>
-            <div style={{height: '100%', paddingTop: '66%', borderRadius: 20, backgroundSize: 'cover', backgroundPosition: 'center center', backgroundImage: 'url("' + item + '")'}}>
+            <div style={{height: '100%', paddingTop: '66%', borderRadius: 20, backgroundSize: 'cover', backgroundPosition: 'center center', backgroundImage: 'url("' + post.images[0] + '")'}}>
               {approveContent}
             </div>
-        </div>)
+        </div>
     );
 
     var options = { month: 'short', day: 'numeric', year: 'numeric' };
@@ -216,7 +218,7 @@ class PostItem extends Component {
                 <img
                   className="rounded-circle d-none d-md-block"
                   style={{width: 50, height: 50}}
-                  src={post.avatar}
+                  src={userAvatar}
                   alt=""
                 />
               </Link>

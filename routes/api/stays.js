@@ -73,10 +73,10 @@ router.post('/',
         sgMail.send({
           to:       landlord.email,
           from:     'Support@Aveneu.com',
-          subject:  'Request for subletting your property!',
           templateId: 'd-161d54d76797440d9ce713e2797334f5',
             substitutionWrappers: ['{{', '}}'], 
             dynamic_template_data: {
+              subject:  'Request for subletting your property!',
               startDate: startDate,
               endDate: endDate,
               address: req.body.address,
