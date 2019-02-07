@@ -55,6 +55,8 @@ class Post extends Component {
       landlordProfile: post.profile,
       address: post.address,
       imgSrc: post.images[0],
+      subtenantReviewSum: profile.reviewSum,
+      subtenantNumReviews: profile.numReviews,
     };
     this.props.addStay(request, this.props.history);
   }

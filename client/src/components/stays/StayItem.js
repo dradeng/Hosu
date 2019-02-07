@@ -108,7 +108,7 @@ class PostItem extends Component {
         
         reviewContent = (
           <div>
-            <div style= {{marginLeft:10, fontWeight: 'lighter'}}>
+            <div style= {{marginLeft:10, fontFamily: 'Apple SD Gothic Neo'}}>
               {stay.subtenantName}
             </div>
             <Rating

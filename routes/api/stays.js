@@ -33,79 +33,88 @@ router.post('/',
 
   //need some validaiton
 
-  const stay = new Stay({
-    post: req.body.post,
-    subtenant: req.user.id,
-    landlord: req.body.landlord,
-    approved: false,
-    decided: false,
-    startDate: req.body.startDate,
-    endDate: req.body.endDate,
-    landlordName: req.body.landlordName,
-    landlordImage: req.body.landlordImage,
-    landlordProfile: req.body.landlordProfile,
-    subtenantName: req.user.name,
-    subtenantImage: req.user.profilePic,
-    subtenantProfile: req.body.subtenantProfile,
-    blockedDates: [],
-    bookedDates: []
-  });
-
-  User.findById(req.body.landlord)
-    .then(landlord => {
-
-      const requestURL = LocalOrHeroku;
-
-      var tmpS = new Date(req.body.startDate);
-      var tmpE = new Date(req.body.endDate);
-
-      var startDate = tmpS.toDateString(); 
-      var endDate = tmpE.toDateString(); 
-
-      sgMail.send({
-        to:       landlord.email,
-        from:     'Support@Aveneu.com',
-        subject:  'Request for subletting your property!',
-        templateId: 'd-161d54d76797440d9ce713e2797334f5',
-          substitutionWrappers: ['{{', '}}'], 
-          dynamic_template_data: {
-            startDate: startDate,
-            endDate: endDate,
-            address: req.body.address,
-            imgSrc: req.body.imgSrc,
-          },
-        }, function(err, json) {
-            if (err) { return console.error(err); }
+  //given post id, find the post of the landlords, then find the profile,
+  //from there, we can get the landlords reviews and review sum
+  //probably will change this later but oh well, its shitty
+  Post.findById(req.body.post).then(post => {
+    Profile.findById(post.profile).then(profile => {
+      const stay = new Stay({
+        post: req.body.post,
+        subtenant: req.user.id,
+        landlord: req.body.landlord,
+        approved: false,
+        decided: false,
+        startDate: req.body.startDate,
+        endDate: req.body.endDate,
+        landlordName: req.body.landlordName,
+        landlordImage: req.body.landlordImage,
+        landlordProfile: req.body.landlordProfile,
+        landlordReviewSum: profile.reviewSum,
+        landlordNumReviews: profile.numReviews,
+        subtenantName: req.user.name,
+        subtenantImage: req.user.profilePic,
+        subtenantProfile: req.body.subtenantProfile,
+        subtenantReviewSum: req.body.subtenantReviewSum,
+        subtenantNumReviews: req.body.subtenantNumReviews,
+        blockedDates: [],
+        bookedDates: []
       });
-    }).catch(err => {
-      console.log('No landlord found');
+
+      User.findById(req.body.landlord).then(landlord => {
+
+        const requestURL = LocalOrHeroku;
+
+        var tmpS = new Date(req.body.startDate);
+        var tmpE = new Date(req.body.endDate);
+
+        var startDate = tmpS.toDateString(); 
+        var endDate = tmpE.toDateString(); 
+
+        sgMail.send({
+          to:       landlord.email,
+          from:     'Support@Aveneu.com',
+          subject:  'Request for subletting your property!',
+          templateId: 'd-161d54d76797440d9ce713e2797334f5',
+            substitutionWrappers: ['{{', '}}'], 
+            dynamic_template_data: {
+              startDate: startDate,
+              endDate: endDate,
+              address: req.body.address,
+              imgSrc: req.body.imgSrc,
+            },
+          }, function(err, json) {
+              if (err) { return console.error(err); }
+          });
+        }).catch(err => {
+          console.log('No landlord found');
+        });
+
+      //ADD TRIP TO SUBTENTANT
+      User.findById(req.user.id)
+        .then(subtenant => {
+          subtenant.stays.push(stay._id);
+          subtenant.save();
+        })
+        .catch(err => 
+          res.status(404).json({ nosubtenantfound: 'No subtenant found with that profile id'})
+        );
+
+      //Add trip to landlords profile
+      User.findById(req.body.landlord)
+        .then(landlord => {
+          landlord.stays.push(stay._id);
+          landlord.save();
+        })
+        .catch(err => 
+          res.status(404).json({ nolandlordfound: 'No landlord found with that profile id'})
+        );
+
+        stay.save().then(stay => res.json(stay))
+        .catch(err => {
+          res.status(404).json({ savingstay: 'Unable to save stay or error'})
+      });
     });
-
-  //ADD TRIP TO SUBTENTANT
-  User.findById(req.user.id)
-    .then(subtenant => {
-      subtenant.stays.push(stay._id);
-      subtenant.save();
-    })
-    .catch(err => 
-      res.status(404).json({ nosubtenantfound: 'No subtenant found with that profile id'})
-    );
-
-  //Add trip to landlords profile
-  User.findById(req.body.landlord)
-    .then(landlord => {
-      landlord.stays.push(stay._id);
-      landlord.save();
-    })
-    .catch(err => 
-      res.status(404).json({ nolandlordfound: 'No landlord found with that profile id'})
-    );
-
-  stay.save().then(stay => res.json(stay))
-    .catch(err => {
-      res.status(404).json({ savingstay: 'Unable to save stay or error'})
-    });
-  
+  });  
 });
 
 
