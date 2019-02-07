@@ -6,9 +6,71 @@ import isEmpty from '../../validation/is-empty';
 import { addChat } from '../../actions/chatActions';
 
 class ProfileHeader extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user1: null,
+      user2: null,
+      user1ProfilePic: '',
+      user2ProfilePic: '',
+      user1Name: '',
+      user2Name: '',
+      messages: [],
+      startDate: null,
+      endDate: null
+    };
+    this.createChat = this.createChat.bind(this);
+  }
+  createChat(e) {
+    e.preventDefault();
 
+    const { user } = this.props.auth;
+    const { profile } = this.props;
+    const newChat = {
+      
+      user1: user.id,
+      user2: profile.user,
+      user1ProfilePic: user.profilePic,
+      user2ProfilePic: profile.avatar,
+      user1Name: user.name,
+      user2Name: profile.name,
+      messages: []
+      
+    };  
+    console.log('this ' + this.props.history);
+  
+    this.props.addChat(newChat, this.props.history);
+    this.setState({ user1: null });
+    this.setState({ user2: null });
+    this.setState({ user1ProfilePic: '' });
+    this.setState({ user2ProfilePic: '' });
+    this.setState({ user1Name: '' });
+    this.setState({ user2Name: '' });
+    this.setState({ messages: [] });
+    
+  }
   render() {
     const { profile } = this.props;
+    const { user } = this.props.auth;
+    var buttonContent;
+    if(user.id === profile.user) {
+      //do nothing
+    } else {
+      buttonContent = (
+        <div>
+          <div style={{position: 'absolute', top:5,right:25, opacity: .7}}>
+            <Link to="/add-review" className="btn btn-light">
+              Add Review
+            </Link>
+          </div>
+          <div style={{position: 'absolute', top:5,right:150, opacity: .7}}>
+            <Link to="/chats" onClick={this.createChat} className="btn btn-light">
+              Send Message
+            </Link>
+          </div>
+        </div>
+      );
+    }
     
     return (
       <div>
@@ -21,18 +83,7 @@ class ProfileHeader extends Component {
                 style={{width:150, height:150,display: 'block', position: 'absolute', left: 67.5, bottom: -75, border:'4px solid white'}}
                 alt="Profile picture"
               />
-              
-
-                <div style={{position: 'absolute', top:5,right:25, opacity: .7}}>
-                  <Link to="/add-review" className="btn btn-light">
-                    Add Review
-                  </Link>
-                </div>
-                <div style={{position: 'absolute', top:5,right:150, opacity: .7}}>
-                  <Link to="/add-review" className="btn btn-light">
-                    Send Message
-                  </Link>
-                </div>
+              {buttonContent}
             </div>
           </div>
         </div>

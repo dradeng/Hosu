@@ -114,10 +114,6 @@ router.post(
       reciever = req.body.user1;
     }
 
-    console.log('user2' + req.body.user1 + " " + req.body.user2);
-
-    console.log('receive' + reciever);
-
     User.findById(reciever).then( user => {
       user.unreadMessages += 1;
       user.save();

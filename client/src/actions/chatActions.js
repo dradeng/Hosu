@@ -16,11 +16,13 @@ export const addChat = (chatData, history) => dispatch => {
   axios
     .post('/api/chats', chatData)
     .then(res => history.push('/chats'))
-    .catch(err =>
+    .catch(err => {
+      console.log('errrrrrrrr' + err);
       dispatch({
         type: GET_CHAT_ERRORS,
         payload: err.response.data
       })
+    }
     );
 };
 
