@@ -12,7 +12,11 @@ export default () => {
   		<Link className="text-dark" style={{ textDecoration: 'none', padding: 10 }} to="/terms-of-service">
         	Terms of Service
       </Link>
-        |
+      |
+      <Link className="text-dark" style={{ textDecoration: 'none', padding: 10 }} to="/privacy-policy">
+          Privacy Policy
+      </Link>
+      |
   		<Link className="text-dark" style={{ textDecoration: 'none', paddingLeft: 10 }} to="/careers">
         	Careers
       </Link>

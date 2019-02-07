@@ -104,8 +104,6 @@ class PostForm extends Component {
 
       this.props.addImage(formData);
     }
-
-
   }
   onChange(e) {
 

@@ -37,7 +37,7 @@ import EmailAuthentication from './components/auth/EmailAuthentication';
 import HowItWorks from './components/layout/footerComponents/HowItWorks';
 import Careers from './components/layout/footerComponents/Careers';
 import TermsOfService from './components/layout/footerComponents/TermsOfService';
-
+import PrivacyPolicy from './components/layout/footerComponents/PrivacyPolicy';
 //careers
 import FrontEndDeveloper from './components/careers/FrontEndDeveloper';
 import ReactNativeDeveloper from './components/careers/ReactNativeDeveloper';
@@ -87,6 +87,7 @@ class App extends Component {
               <Route exact path="/react-native-developer" component={ReactNativeDeveloper} />
               <Route exact path="/director-of-growth-marketing" component={DirectorOfGrowthMarketing} />
               <Route exact path="/terms-of-service" component={TermsOfService} />
+              <Route exact path="/privacy-policy" component={PrivacyPolicy} />
               <Route exact path="/how-it-works" component={HowItWorks} />
               <Route exact path="/careers" component={Careers} />
               

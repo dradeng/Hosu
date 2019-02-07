@@ -49,24 +49,18 @@ router.post(
       // If any errors, send 400 with errors object
       return res.status(400).json('bad chat');
     }
-    console.log('we inside create chat');
     req.user.chats.forEach(function(chat) {
 
       if(chat.user1 === req.user.id && chat.user2 === req.body.user2 || chat.user2 === req.user.id && chat.user1 === req.body.user2) {
         //set it to res.json(chat already...) so push.history happes in chat actions
         //there is no error, this just make sures the user doesn't already have
         //a chat open with the other user
-        console.log('one already ecists --------');
+    
         isValid = false;
-        console.log(chat.user1);
-        console.log(req.user.id);
-        console.log(chat.user2);
-        console.log(req.body.user2);
         res.json();
       } 
     });
     if(isValid) {
-      console.log('new chat');
       const newChat = new Chat({
         user1: req.user.id,
         user2: req.body.user2,

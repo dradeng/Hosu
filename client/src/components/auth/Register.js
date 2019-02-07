@@ -4,6 +4,7 @@ import Recaptcha from 'react-google-recaptcha';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { registerUser } from '../../actions/authActions';
 import TextFieldGroup from '../common/TextFieldGroup';
 
@@ -17,7 +18,8 @@ class Register extends Component {
       password2: '',
       profilePic: '',
       errors: {},
-      recaptchaValue: ''
+      recaptchaValue: '',
+      termsOfService: false,
     };
 
     this.onChange = this.onChange.bind(this);
@@ -76,7 +78,8 @@ class Register extends Component {
       password: this.state.password,
       password2: this.state.password2,
       profilePic: this.state.profilePic,
-      recaptchaValue: this.state.recaptchaValue
+      recaptchaValue: this.state.recaptchaValue,
+      termsOfService: this.state.termsOfService
     };
 
     this.props.registerUser(newUser, this.props.history);
@@ -135,6 +138,16 @@ class Register extends Component {
                 <br />
                 <br />
                 
+                <input
+                  name="termsOfService"
+                  type="checkbox"
+                  checked={this.state.termsOfService}
+                  onChange={this.onChange}
+                  style={{display: 'inline-block'}}
+                />
+                <div style={{marginLeft: 5, marginBottom: 15, display: 'inline-block'}}>
+                  I agree to the Aveneu <Link to="/terms-of-service" >Terms of Service</Link> & <Link to="/privacy-policy">Privacy Policy</Link>
+                </div>
 
 
                 <Recaptcha
