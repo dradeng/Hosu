@@ -21,7 +21,7 @@ class Profile extends Component {
     } else {
       profileContent = (
         <div style={{maxWidth: 885, margin:'0 auto'}}>
-          <ProfileHeader profile={profile} />
+          <ProfileHeader profile={profile} history={this.props.history} />
           <div style={{paddingLeft: 15, display: 'inline-block'}}>
             <div style={{backgroundColor: '#F5F5F5', textAlign: 'center', width:250 }}>
               <h3 style={{paddingTop: 70}}>{profile.name}</h3>

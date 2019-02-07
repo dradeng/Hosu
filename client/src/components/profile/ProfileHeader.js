@@ -26,6 +26,7 @@ class ProfileHeader extends Component {
 
     const { user } = this.props.auth;
     const { profile } = this.props;
+    var {history} = this.props;
     const newChat = {
       
       user1: user.id,
@@ -37,9 +38,9 @@ class ProfileHeader extends Component {
       messages: []
       
     };  
-    console.log('this ' + this.props.history);
+    console.log('this ' + history);
   
-    this.props.addChat(newChat, this.props.history);
+    this.props.addChat(newChat, history);
     this.setState({ user1: null });
     this.setState({ user2: null });
     this.setState({ user1ProfilePic: '' });
