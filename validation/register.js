@@ -16,7 +16,9 @@ module.exports = function validateRegisterInput(data) {
   if (Validator.isEmpty(data.name)) {
     errors.name = 'Name field is required';
   }
-
+  if (!data.termsOfService) {
+    errors.termsOfService = 'Need to agree to Terms of Service & Privacy Policy';
+  }
   if (Validator.isEmpty(data.email)) {
     errors.email = 'Email field is required';
   }

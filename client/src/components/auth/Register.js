@@ -87,7 +87,7 @@ class Register extends Component {
 
   render() {
     const { errors } = this.state;
-
+    console.log('terms of ser' + errors.termsOfService);
     return (
       <div className="register">
         <div className="container">
@@ -145,14 +145,18 @@ class Register extends Component {
                   onChange={this.onChange}
                   style={{display: 'inline-block'}}
                 />
-                <div style={{marginLeft: 5, marginBottom: 15, display: 'inline-block'}}>
+                <div style={{marginLeft: 5, display: 'inline-block'}}>
                   I agree to the Aveneu <Link to="/terms-of-service" >Terms of Service</Link> & <Link to="/privacy-policy">Privacy Policy</Link>
                 </div>
-
+                <div style={{fontSize:13,color:'rgb(220, 53, 69)', paddingBottom: 5, fontFamily:'-apple-system, BlinkMacSystemFont, Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Apple Color Emoji, Segoe UI Emoji,Segoe UI Symbol'}}>
+      
+                  {errors.termsOfService ? errors.termsOfService : ''}
+                </div>
 
                 <Recaptcha
                   sitekey="6Lc5oYUUAAAAAF6sHPPXu6MVEar5pMIVNNxFlZEe"
                   onChange={this.verifyRecaptcha}
+                  style={{marginTop: 15}}
                 />
               
                 <div style={{fontSize:13,color:'rgb(220, 53, 69)', paddingTop:5, fontFamily:'-apple-system, BlinkMacSystemFont, Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Apple Color Emoji, Segoe UI Emoji,Segoe UI Symbol'}}>
