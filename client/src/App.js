@@ -26,7 +26,6 @@ import AddReview from './components/add-credentials/AddReview';
 import Profile from './components/profile/Profile';
 import Posts from './components/posts/Posts';
 import PostForm from './components/posts/PostForm';
-import PostConfirmation from './components/post/PostConfirmation';
 import Post from './components/post/Post';
 import NotFound from './components/not-found/NotFound';
 import FormSubmitted from './components/common/FormSubmitted';

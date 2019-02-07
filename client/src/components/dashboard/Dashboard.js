@@ -138,16 +138,6 @@ class Dashboard extends Component {
                       <Link class='text-dark' to='edit-profile' style={{textDecoration: 'none'}}> Add your bio</Link>
                     </div>
                 }
-                {
-                  profile.interests ? 
-                    <div style={{paddingTop: 15, paddingBottom: 15}}>
-                      Interests: {profile.interests}
-                    </div>
-                  :
-                    <div style={{paddingTop: 15}}>
-                      <Link class='text-dark' to='edit-profile' style={{textDecoration: 'none'}}> Add your interests</Link>
-                    </div>
-                }
 
                 <div className="text-dark" style={{textDecoration: 'none'}}>
                   {

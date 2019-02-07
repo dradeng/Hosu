@@ -71,9 +71,6 @@ const ProfileSchema = new Schema({
     age: {
         type: Number
     },
-    interests: {
-        type: String
-    },
     study: {
         type: String
     },

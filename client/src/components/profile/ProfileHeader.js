@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import isEmpty from '../../validation/is-empty';
+import { addChat } from '../../actions/chatActions';
 
 class ProfileHeader extends Component {
-
 
   render() {
     const { profile } = this.props;
@@ -26,6 +28,11 @@ class ProfileHeader extends Component {
                     Add Review
                   </Link>
                 </div>
+                <div style={{position: 'absolute', top:5,right:150, opacity: .7}}>
+                  <Link to="/add-review" className="btn btn-light">
+                    Send Message
+                  </Link>
+                </div>
             </div>
           </div>
         </div>
@@ -34,4 +41,11 @@ class ProfileHeader extends Component {
   }
 }
 
-export default ProfileHeader;
+ProfileHeader.propTypes = {
+  addChat: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
+export default connect(mapStateToProps, { addChat }) (ProfileHeader);

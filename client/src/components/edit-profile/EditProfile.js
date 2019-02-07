@@ -28,7 +28,6 @@ class CreateProfile extends Component {
       university: '',
       study: '',
       job: '',
-      interests: '',
       errors: {}
     };
 
@@ -56,7 +55,6 @@ class CreateProfile extends Component {
       profile.study = !isEmpty(profile.study) ? profile.study : '';
       profile.job = !isEmpty(profile.job) ? profile.job : '';
       profile.age = profile.age !== null ? profile.age : null;
-      profile.interests = !isEmpty(profile.interests) ? profile.interests : '';
       profile.backgroundPic = !isEmpty(profile.backgroundPic) ? profile.backgroundPic : '';
       profile.social = !isEmpty(profile.social) ? profile.social : {};
       profile.twitter = !isEmpty(profile.social.twitter)
@@ -83,7 +81,6 @@ class CreateProfile extends Component {
         university: profile.university,
         study: profile.study,
         job: profile.job,
-        interests: profile.interests,
         age: profile.age,
         backgroundPic: profile.backgroundPic,
         twitter: profile.twitter,
@@ -128,7 +125,6 @@ class CreateProfile extends Component {
       university: this.state.university,
       study: this.state.study,
       job: this.state.job,
-      interests: this.state.interests,
       age: this.state.age,
       backgroundPic: this.state.backgroundPic,
       twitter: this.state.twitter,
@@ -259,14 +255,6 @@ class CreateProfile extends Component {
                   onChange={this.onChange}
                   error={errors.job}
                   info="What is your job"
-                />
-                <TextAreaFieldGroup
-                  placeholder="Interests"
-                  name="interests"
-                  value={this.state.interests}
-                  onChange={this.onChange}
-                  error={errors.interests}
-                  info="What are your interests"
                 />
 
                 Background Picture (suggested dimensions are 851 wide, 315 tall)

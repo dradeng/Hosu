@@ -25,7 +25,6 @@ class CreateProfile extends Component {
       university: '',
       job: '',
       study: '',
-      interests: '',
       errors: {}
     };
 
@@ -82,7 +81,6 @@ class CreateProfile extends Component {
       university: this.state.university,
       study: this.state.study,
       job: this.state.job,
-      interests: this.state.interests
     };
     this.props.createProfile(profileData, this.props.history);
   }
@@ -205,14 +203,6 @@ class CreateProfile extends Component {
                   onChange={this.onChange}
                   error={errors.job}
                   info="What is your job"
-                />
-                <TextAreaFieldGroup
-                  placeholder="Interests"
-                  name="interests"
-                  value={this.state.interests}
-                  onChange={this.onChange}
-                  error={errors.interests}
-                  info="What are your interests"
                 />
                 
                 Background Picture (suggested dimensions are 851 wide, 315 tall)

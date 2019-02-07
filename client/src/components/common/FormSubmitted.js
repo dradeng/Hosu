@@ -45,13 +45,13 @@ class FormSubmitted extends Component {
         to share this post on Facebook, Twitter, or Whatsapp!</h3>
         <div>
           <div style={{display: 'inline-block'}}>
-            <FacebookShareButton style={{padding: 5, maxWidth: 100, float:'left'}} title='Posted my sublet on Aveneu' url='https://salty-plateau-48594.herokuapp.com/'>
+            <FacebookShareButton style={{padding: 5, maxWidth: 100, float:'left'}} title='Posted my sublet on Aveneu' url='aveneu.co'>
               <FacebookIcon size={32} />
             </FacebookShareButton>
-            <TwitterShareButton style={{padding: 5,  maxWidth: 100, float: 'left'}} title='Posted my sublet on Aveneu' url='https://salty-plateau-48594.herokuapp.com/'>
+            <TwitterShareButton style={{padding: 5,  maxWidth: 100, float: 'left'}} title='Posted my sublet on Aveneu' url='aveneu.co'>
               <TwitterIcon size={32} />
             </TwitterShareButton>
-            <WhatsappShareButton style={{padding: 5,  maxWidth: 100, float:'left'}} title='Posted my sublet on Aveneu' url='https://salty-plateau-48594.herokuapp.com/'>
+            <WhatsappShareButton style={{padding: 5,  maxWidth: 100, float:'left'}} title='Posted my sublet on Aveneu' url='aveneu.co'>
               <WhatsappIcon size={32} />
             </WhatsappShareButton>
           </div>

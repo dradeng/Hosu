@@ -16,7 +16,7 @@ class StayFeed extends Component {
     } else {
       stayContent = stays.map(stay => {
         return (
-          <div style={{marginBottom: 50}}>
+          <div style={{marginBottom: 50}}>      
             <Stay key={stay._id} stay={stay} />
           </div>
         );

@@ -72,12 +72,6 @@ class Profile extends Component {
                     {profile.bio}
                   </div>
                 }
-                {
-                  profile.interests && 
-                  <div style={{paddingTop: 15, paddingBottom: 15}}>
-                    Interests: {profile.interests}
-                  </div>
-                }
                 <div className="text-dark" style={{textDecoration: 'none'}}>
                   {
                     profile.social.facebook && 

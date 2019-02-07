@@ -183,35 +183,36 @@ class PostItem extends Component {
 
     return (
       <div className="card card-body feedTile">
-        <div className="row">
-          <div className="col-md-10">
-            <div style={{minHeight: 49}} className="row">
-              <div>
-                <div style={{ marginLeft: 15, fontFamily: 'Apple SD Gothic Neo', fontSize: 22}}>
-                  {post.title}
-                </div>
+        <Link to={`/post/${stay.post}`} style={{textDecoration: 'none', color: 'inherit'}}>
+          <div className="row">
+            <div className="col-md-10">
+              <div style={{minHeight: 49}} className="row">
                 <div>
-                  {validAddress}
-                </div>
-              </div>
-              
-                {post.user !== auth.user.id ? (
-
-                  <div style={{fontSize: 22, color: '#fac71e'}}  onClick={this.onFavorite.bind(this, auth.user.id, post._id)}>
-                    
-                    {starContent}
-
+                  <div style={{ marginLeft: 15, fontFamily: 'Apple SD Gothic Neo', fontSize: 22}}>
+                    {post.title}
                   </div>
-                  ): null 
-                }
-              </div>
-            </div>
-          </div>
-          <div>
+                  <div>
+                    {validAddress}
+                  </div>
+                </div>
+                
+                  {post.user !== auth.user.id ? (
 
-          <div style={{height:'50%',borderRadius: 20}}>
-              {allImage}
+                    <div style={{fontSize: 22, color: '#fac71e'}}  onClick={this.onFavorite.bind(this, auth.user.id, post._id)}>
+                      
+                      {starContent}
+
+                    </div>
+                    ): null 
+                  }
+              </div>
           </div>
+        </div>
+        <div style={{height:'50%',borderRadius: 20}}>
+          {allImage}
+        </div>
+      </Link>
+        <div>
           <div style={{height: 30}}>
             <div style={{display: 'inline-block'}}>
               <Link style={{display: 'inline-block', margin: 5}} to={`/profile/${post.profile}`}>
