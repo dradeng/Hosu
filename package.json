@@ -54,6 +54,7 @@
     "react-day-picker": "^7.2.4",
     "react-dropzone": "^7.0.1",
     "react-flatpickr": "^3.6.4",
+    "react-ga": "^2.5.7",
     "react-geocode": "^0.1.2",
     "react-google-maps": "^9.4.5",
     "react-google-recaptcha": "^1.0.5",
