@@ -51,12 +51,11 @@ class Careers extends Component {
 	      		<Link className="text-dark" style={{ textDecoration: 'none', paddingLeft: 10 }} to="/growth-marketing-intern">
 	        		<h2>Growth Marketing Intern</h2>
 	        		<div>
-	        			We are looking for a motivated, energetic, and talented Director of Growth Marketing to help find 
-	        			innovative ways to build our two-sided marketplace. As director, you will work with clients and 
-	        			students to increase engagement. In addition, you will be responsible for website and landing page
-	        			conversion. Lead strategy for paid marketing at Aveneu for users. Expand current channels through
-	        			ongoing optimization, and build out new channels to drive future Aveneu growth. Partner with Analytics,
-	        			Eng and PM to drive strategy around attribution, tracking, and landing experiences for all paid marketing.
+	        			We are looking for a motivated, energetic, and talented students across the US to promote Aveneu! As an intern, 
+	        			you will work with clients and students to increase engagement. Your responsibilities will be promoting Aveneu 
+	        			on social media and getting the word out on your college campus. Work remotely and as much as you want. The time 
+	        			commitment is whatever you make it, pay is based on performance. This internship has the opportunity for it to 
+	        			turn into a full time position!
 	        		</div>
 	      		</Link>
 
