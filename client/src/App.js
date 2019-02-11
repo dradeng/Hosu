@@ -42,6 +42,7 @@ import PrivacyPolicy from './components/layout/footerComponents/PrivacyPolicy';
 import FrontEndDeveloper from './components/careers/FrontEndDeveloper';
 import ReactNativeDeveloper from './components/careers/ReactNativeDeveloper';
 import DirectorOfGrowthMarketing from './components/careers/DirectorOfGrowthMarketing';
+import GrowthMarketingIntern from './components/careers/GrowthMarketingIntern';
 
 import './App.css';
 
@@ -86,6 +87,7 @@ class App extends Component {
               <Route exact path="/front-end-developer" component={FrontEndDeveloper} />
               <Route exact path="/react-native-developer" component={ReactNativeDeveloper} />
               <Route exact path="/director-of-growth-marketing" component={DirectorOfGrowthMarketing} />
+              <Route exact path="/growth-marketing-intern" component={GrowthMarketingIntern} />
               <Route exact path="/terms-of-service" component={TermsOfService} />
               <Route exact path="/privacy-policy" component={PrivacyPolicy} />
               <Route exact path="/how-it-works" component={HowItWorks} />

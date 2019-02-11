@@ -126,12 +126,17 @@ router.post('/',
 router.get('/',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-
+   
     Stay.find()
       .then(stays => {
-        //var response = stays.filter(filteredStays => req.user.stays.includes(filteredStays._id));
-       
-        res.json(stays);
+        /*for(var i = 0; i < stays.length; i++) {
+          if(stays[i].landlord === req.user.id || stay[s].subtenant === req.user.id)
+          {
+            filteredStays.push(stays[i]);
+          }
+        }*/
+        var filteredStays = stays.filter(stay => stay.landlord === req.user.id || stay.subtenant === req.user.id);
+        res.json(filteredStays);
       });
 });
 

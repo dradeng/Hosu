@@ -48,6 +48,17 @@ class Careers extends Component {
 	        			Eng and PM to drive strategy around attribution, tracking, and landing experiences for all paid marketing.
 	        		</div>
 	      		</Link>
+	      		<Link className="text-dark" style={{ textDecoration: 'none', paddingLeft: 10 }} to="/growth-marketing-intern">
+	        		<h2>Growth Marketing Intern</h2>
+	        		<div>
+	        			We are looking for a motivated, energetic, and talented Director of Growth Marketing to help find 
+	        			innovative ways to build our two-sided marketplace. As director, you will work with clients and 
+	        			students to increase engagement. In addition, you will be responsible for website and landing page
+	        			conversion. Lead strategy for paid marketing at Aveneu for users. Expand current channels through
+	        			ongoing optimization, and build out new channels to drive future Aveneu growth. Partner with Analytics,
+	        			Eng and PM to drive strategy around attribution, tracking, and landing experiences for all paid marketing.
+	        		</div>
+	      		</Link>
 
       		</div>
 	    </div>
