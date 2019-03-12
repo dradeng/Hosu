@@ -19,7 +19,7 @@ class PostItem extends Component {
     }
   }
   componentDidMount() {
- 
+
     this.props.getCurrentProfile();
     const { post } = this.props;
     const { profile, loading } = this.props.profile;
@@ -37,7 +37,7 @@ class PostItem extends Component {
   }
   //this covers removing and adding favorite
   onFavorite(userID, postID) {
-   
+
     const { profile, loading } = this.props.profile;
 
     const newFavorite = {
@@ -48,7 +48,7 @@ class PostItem extends Component {
     {
       //do nothing
     } else {
-   
+
       this.props.addFavorite(userID, newFavorite);
     }
 
@@ -79,6 +79,9 @@ class PostItem extends Component {
     var userAvatar;
     var userProfile;
 
+    var landlordNameChop;
+    var subtenantNameChop;
+
     var stay = this.props.stay;
     const { profile, loading } = this.props.profile;
     const { user } = this.props.auth;
@@ -108,11 +111,17 @@ class PostItem extends Component {
         if(stay.subtenantReviewSum !== 0) {
           rating = stay.subtenantReviewSum / stay.subtenantNumReviews;
         }
-        
+        if(stay.subtenantName.length > 17) {
+          subtenantNameChop = stay.subtenantName.substring(0,15) + "...";
+        }
+        else {
+          subtenantNameChop = stay.subtenantName;
+        }
+
         reviewContent = (
           <div>
             <div style= {{marginLeft:10, fontFamily: 'Apple SD Gothic Neo'}}>
-              {stay.subtenantName}
+              {subtenantNameChop}
             </div>
             <Rating
               emptySymbol="far fa-star fa-2x"
@@ -125,7 +134,7 @@ class PostItem extends Component {
               ({stay.subtenantNumReviews})
             </div>
           </div>
-          
+
         );
       } else {
         userAvatar = stay.landlordImage;
@@ -133,10 +142,18 @@ class PostItem extends Component {
         if(stay.subtenantReviewSum !== 0) {
           rating = stay.landlordReviewSum / stay.landlordNumReviews;
         }
+        //makes sure name isnt too long that it overlaps
+        //with the date of the stay
+        if(stay.landlordName.length > 17) {
+          landlordNameChop = stay.landlordName.substring(0,15) + "...";
+        }
+        else {
+          landlordNameChop = stay.landlordName;
+        }
         reviewContent = (
           <div>
             <div style={{marginLeft:10}}>
-              {stay.landlordName}
+              {landlordNameChop}
             </div>
             <Rating
               emptySymbol="far fa-star fa-2x"
@@ -149,10 +166,9 @@ class PostItem extends Component {
               ({stay.landlordNumReviews})
             </div>
           </div>
-          
+
         );
       }
-      
     }
 
     if(!stay.decided) {
@@ -179,7 +195,7 @@ class PostItem extends Component {
 
 
     var dateContent = (
-      <div style={{marginLeft: 10, position: 'absolute', right: 25, verticalAlign: 'top', fontSize: 22, fontFamily: 'Apple SD Gothic Neo'}}>
+      <div style={{marginLeft: 10, position: 'absolute', right: 25, verticalAlign: 'top', fontSize: 18, fontFamily: 'Apple SD Gothic Neo'}}>
         {start} to {end}
       </div>
     );
@@ -198,15 +214,15 @@ class PostItem extends Component {
                     {validAddress}
                   </div>
                 </div>
-                
+
                   {post.user !== auth.user.id ? (
 
                     <div style={{fontSize: 22, color: '#fac71e'}}  onClick={this.onFavorite.bind(this, auth.user.id, post._id)}>
-                      
+
                       {starContent}
 
                     </div>
-                    ): null 
+                    ): null
                   }
               </div>
           </div>
@@ -230,7 +246,7 @@ class PostItem extends Component {
                 {reviewContent}
               </div>
               <div style={{display: 'inline-block', verticalAlign: 'top', paddingTop: 20}}>
-                  
+
                   <div style={{verticalAlign: 'top'}}>
                     {dateContent}
                   </div>
