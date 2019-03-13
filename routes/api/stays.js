@@ -69,14 +69,14 @@ router.post('/',
         var tmpS = new Date(req.body.startDate);
         var tmpE = new Date(req.body.endDate);
 
-        var startDate = tmpS.toDateString(); 
-        var endDate = tmpE.toDateString(); 
+        var startDate = tmpS.toDateString();
+        var endDate = tmpE.toDateString();
 
         sgMail.send({
           to:       landlord.email,
           from:     'Support@Aveneu.com',
           templateId: 'd-161d54d76797440d9ce713e2797334f5',
-            substitutionWrappers: ['{{', '}}'], 
+            substitutionWrappers: ['{{', '}}'],
             dynamic_template_data: {
               subject:  'Request for subletting your property!',
               startDate: startDate,
@@ -97,7 +97,7 @@ router.post('/',
           subtenant.stays.push(stay._id);
           subtenant.save();
         })
-        .catch(err => 
+        .catch(err =>
           res.status(404).json({ nosubtenantfound: 'No subtenant found with that profile id'})
         );
 
@@ -107,7 +107,7 @@ router.post('/',
           landlord.stays.push(stay._id);
           landlord.save();
         })
-        .catch(err => 
+        .catch(err =>
           res.status(404).json({ nolandlordfound: 'No landlord found with that profile id'})
         );
 
@@ -116,7 +116,7 @@ router.post('/',
           res.status(404).json({ savingstay: 'Unable to save stay or error'})
       });
     });
-  });  
+  });
 });
 
 
@@ -126,15 +126,9 @@ router.post('/',
 router.get('/',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-   
+
     Stay.find()
       .then(stays => {
-        /*for(var i = 0; i < stays.length; i++) {
-          if(stays[i].landlord === req.user.id || stay[s].subtenant === req.user.id)
-          {
-            filteredStays.push(stays[i]);
-          }
-        }*/
         var filteredStays = stays.filter(stay => stay.landlord === req.user.id || stay.subtenant === req.user.id);
         res.json(filteredStays);
       });
@@ -147,7 +141,7 @@ router.get('/',
 router.post('/update',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-  
+
     var startDate = new Date(req.body.startDate);
     var endDate = new Date(req.body.endDate);
     var approvedTest = true;
@@ -158,18 +152,18 @@ router.post('/update',
       //doesnt mean four hours later its still available when the landlord logs in
       //regardless of if he/she approves it
       Post.findById(req.body.post).then( post => {
-   
+
         for(var i = 0; i < post.blockedDates.length; i++)
         {
           var blockedDate = new Date(post.blockedDates[i]);
-         
+
           if(startDate <= blockedDate && blockedDate <= endDate ){
             console.log('backend failed1');
             approvedTest = false;
-          
+
           }
         }
-        
+
         for(var i = 0; i < post.bookedDates.length; i++)
         {
 
@@ -178,21 +172,21 @@ router.post('/update',
 
           //check if request overlaps end date
           if(startDate <= to && to <= endDate ){
-            
+
             approvedTest = false;
           }
           //check if request overlaps start date
           if(startDate <= from && from <= endDate ){
-            
+
             approvedTest = false;
-         
+
           }
           //check if request is within a single booked date
           if(from <= startDate && endDate <= to){
-            
+
             approvedTest = false;
 
-           
+
           }
         }
         User.findById(req.body.subtenant).then(subtenant => {
@@ -202,10 +196,10 @@ router.post('/update',
           var tmpS = new Date(req.body.startDate);
           var tmpE = new Date(req.body.endDate);
 
-          var startDate = tmpS.toDateString(); 
-          var endDate = tmpE.toDateString(); 
+          var startDate = tmpS.toDateString();
+          var endDate = tmpE.toDateString();
           if(req.body.approved && approvedTest) {
-          
+
             var bookedDate = {
               from: req.body.startDate,
               to: req.body.endDate
@@ -233,7 +227,7 @@ router.post('/update',
 
           } else {
             Post.findById(req.body.post).then( post => {
-            
+
               //send denied email
               sgMail.send({
                 to:       subtenant.email,
@@ -258,7 +252,7 @@ router.post('/update',
         };
 
         if(req.body.approved && approvedTest) {
-        
+
           Stay.findOneAndUpdate(
             { _id: req.body.id },
             { $set: updatedInfo },
@@ -299,14 +293,15 @@ router.post('/update',
             subtenant.save();
           }
         });
-        console.log('remove');
         stay.remove().then(stay => {
-          Stay.find().then(stays => {
-            res.json(stays)
-          })
+          Stay.find()
+            .then(stays => {
+              var filteredStays = stays.filter(stay => stay.landlord === req.user.id || stay.subtenant === req.user.id);
+              res.json(filteredStays);
+            });
         })
-      }); 
-    } 
+      });
+    }
 });
 
 
