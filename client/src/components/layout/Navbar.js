@@ -49,7 +49,7 @@ class Navbar extends Component {
   }
   onSubmit(e) {
     //make sure not empty search
-    if(this.state.addressSearch) 
+    if(this.state.addressSearch)
     {
       var searchInfo = {
         address: this.state.addressSearch
@@ -60,7 +60,7 @@ class Navbar extends Component {
       //THIS CODE WAS HELLA BUGGY, PRONE TO BUGS
       //DO MOST OF IT ON IN ACTIONS OR BACKEND
       //DONT FUCK WITH
-      
+
     }
   }
 
@@ -131,17 +131,22 @@ class Navbar extends Component {
                   </Link>
                 </DropdownItem>
                 <DropdownItem>
+                  <Link className="nav-link" to="/account">
+                     <span style={{color: '#B4B4B4'}}>Account</span>
+                  </Link>
+                </DropdownItem>
+                <DropdownItem>
                   <a
                     href=""
                     onClick={this.onLogoutClick.bind(this)}
                     className="nav-link"
                   >
-                    <span style={{color: '#B4B4B4'}}>Logout</span> 
+                    <span style={{color: '#B4B4B4'}}>Logout</span>
                   </a>
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
-          </span>    
+          </span>
         </li>
       </ul>
     );
@@ -179,7 +184,7 @@ class Navbar extends Component {
           </button>
 
           <div className="collapse navbar-collapse" id="mobile-nav">
-          
+
             {isAuthenticated ? authLinks : guestLinks}
           </div>
         </div>

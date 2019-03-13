@@ -16,6 +16,7 @@ import Footer from './components/layout/Footer';
 import Landing from './components/layout/Landing';
 import Register from './components/auth/Register';
 import Favorites from './components/favorites/Favorites';
+import Account from './components/account/EditAccount';
 import Login from './components/auth/Login';
 import RegisteredUser from './components/auth/RegisteredUser';
 import Dashboard from './components/dashboard/Dashboard';
@@ -96,12 +97,14 @@ class App extends Component {
               <Route exact path="/privacy-policy" component={PrivacyPolicy} />
               <Route exact path="/how-it-works" component={HowItWorks} />
               <Route exact path="/careers" component={Careers} />
-              
+
 
               <Switch>
                 <PrivateRoute exact path="/favorites" component={Favorites} />
               </Switch>
-
+              <Switch>
+                <PrivateRoute exact path="/account" component={Account} />
+              </Switch>
               <Switch>
                 <PrivateRoute exact path="/profile/:id" component={Profile} />
               </Switch>
@@ -155,8 +158,8 @@ class App extends Component {
               <Route exact path="/not-found" component={NotFound} />
 
               <Route exact path="/formSubmitted" component={FormSubmitted} />
-            
-              
+
+
               <Switch>
                   <PrivateRoute exact path="/chats" component={Chats} />
               </Switch>

@@ -111,12 +111,12 @@ router.post('/register', (req, res) => {
 
 
         const authenticationURL = LocalOrHeroku+"/verify-email/"+newUser._id;
-        
+
         sgMail.send({
           to:       req.body.email,
           from:     'Support@Aveneu.co',
           templateId: 'd-1224c0b4fc444dcea6bae1eb622fca94',
-          substitutionWrappers: ['{{', '}}'], 
+          substitutionWrappers: ['{{', '}}'],
           dynamic_template_data: {
             authenticationURL: authenticationURL,
           },
@@ -208,7 +208,7 @@ router.post('/login', (req, res) => {
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
         // User Matched
-        const payload = { id: user.id, name: user.name, avatar: user.avatar, profilePic: user.profilePic, profile: user.profile }; // Create JWT Payload
+        const payload = { id: user.id, name: user.name, avatar: user.avatar, profilePic: user.profilePic, profile: user.profile, email: user.email }; // Create JWT Payload
 
         // Sign Token
         jwt.sign(
