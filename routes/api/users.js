@@ -12,6 +12,7 @@ const LocalOrHeroku = require('../../config/keys').LocalOrHeroku;
 const passport = require('passport');
 
 // Load Input Validation
+const validateUpdateInput = require('../../validation/update');
 const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login');
 
@@ -38,10 +39,61 @@ router.post('/updateUser',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
   User.findById(req.user.id).then(user => {
-    user.save()
-      .then(user => res.json(user))
-        .catch(console.log('unable to send res.json(user)')); //this always logs for some reason
-        //wll come back to later
+    const { errors, isValid } = validateUpdateInput(req.body);
+
+    // Check Validation
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
+    //update or keep old values for email and name
+    user.name = req.body.name;
+    user.email = req.body.email;
+
+
+    //also need to update profile profilePic
+    //they are two different things due to the navbar
+    user.profilePic = req.body.profilePic;
+
+
+    if(req.body.newPassword.length > 0) {
+      // Check Password
+      bcrypt.compare(password, user.password).then(isMatch => {
+        if (isMatch) {
+          // User Matched
+          //create new password hash
+          bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(req.body.newPassword, salt, (err, hash) => {
+              if (err) throw err;
+              user.password = hash;
+              user.save();
+              const payload = { id: user.id, name: user.name, avatar: user.avatar, profilePic: user.profilePic, profile: user.profile, email: user.email }; // Create JWT Payload
+
+              // Sign Token
+              jwt.sign(
+                payload,
+                keys.secretOrKey,
+                { expiresIn: 7200 },
+                (err, token) => {
+                  res.json({
+                    success: true,
+                    token: 'Bearer ' + token
+                  });
+              });
+            });
+          });
+        } else {
+          errors.password = 'Password incorrect';
+          return res.status(400).json(errors);
+        }
+      });
+
+      //just returns user with no password update
+    } else {
+      user
+        .save()
+        .then(user => res.json(user))
+        .catch(err => console.log(err));
+    }
   }).catch(console.log("no user found"));
 });
 

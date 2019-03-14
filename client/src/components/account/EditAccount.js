@@ -8,6 +8,7 @@ import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import InputGroup from '../common/InputGroup';
 import SelectListGroup from '../common/SelectListGroup';
 import isEmpty from '../../validation/is-empty';
+import { updateUser } from '../../actions/authActions';
 
 class EditAccount extends Component {
   constructor(props) {
@@ -71,7 +72,7 @@ class EditAccount extends Component {
       profilePic: this.state.profilePic,
     };
 
-    //this.props.updateAuth(profileData, this.props.history);
+    this.props.updateUser(profileData, this.props.history);
   }
 
   onChange(e) {
@@ -113,7 +114,7 @@ class EditAccount extends Component {
                 />
                 <TextFieldGroup
                   placeholder="new password"
-                  name="study"
+                  name="newPassword"
                   value={this.state.newPassword}
                   onChange={this.onChange}
                   error={errors.newPassword}
@@ -121,7 +122,7 @@ class EditAccount extends Component {
                 />
                 <TextFieldGroup
                   placeholder="retype new password"
-                  name="age"
+                  name="newPassword2"
                   error={errors.newPassword2}
                   value={this.state.newPassword2}
                   onChange={this.onChange}
@@ -147,7 +148,7 @@ class EditAccount extends Component {
 }
 
 EditAccount.propTypes = {
-
+  updateUser: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired
 };
 
@@ -156,4 +157,4 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, {  })( withRouter(EditAccount));
+export default connect(mapStateToProps, { updateUser })( withRouter(EditAccount));

@@ -9,8 +9,31 @@ export const registerUser = (userData, history) => dispatch => {
   axios
     .post('/api/users/register', userData)
     .then(res => {
-      console.log('we inside the action');
-      history.push('/registered-user');
+      history.push('/login');
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
+// Update Info
+export const updateUser = (userData, history) => dispatch => {
+  axios
+    .post('/api/users/updateUser', userData)
+    .then(res => {
+      // Save to localStorage
+      const { token } = res.data;
+      // Set token to ls
+      localStorage.setItem('jwtToken', token);
+      // Set token to Auth header
+      setAuthToken(token);
+      // Decode token to get user data
+      const decoded = jwt_decode(token);
+      // Set current user
+      dispatch(setCurrentUser(decoded));
     })
     .catch(err =>
       dispatch({
@@ -37,8 +60,6 @@ export const loginUser = userData => dispatch => {
       dispatch(setCurrentUser(decoded));
     })
     .catch(err => {
-      console.log('ERRROR IN LOGN');
-      console.log(err);
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
@@ -68,7 +89,7 @@ export const authenticateEmail = ( id, history) => dispatch => {
   axios
     .get(`/api/users/verify-email/${id}`)
     .then(res => history.push('/login'))
-    .catch(err => 
+    .catch(err =>
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
