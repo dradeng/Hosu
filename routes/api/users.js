@@ -38,63 +38,63 @@ router.get('/test', (req, res) => res.json({ msg: 'Users Works' }));
 router.post('/updateUser',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-  User.findById(req.user.id).then(user => {
-    const { errors, isValid } = validateUpdateInput(req.body);
-
-    // Check Validation
-    if (!isValid) {
-      return res.status(400).json(errors);
-    }
-    //update or keep old values for email and name
-    user.name = req.body.name;
-    user.email = req.body.email;
-
-
-    //also need to update profile profilePic
-    //they are two different things due to the navbar
-    user.profilePic = req.body.profilePic;
+    User.findById(req.user.id).then(user => {
+      const { errors, isValid } = validateUpdateInput(req.body);
+      // Check Validation
+      if (!isValid) {
+        return res.status(400).json(errors);
+      }
+      console.log('we past erorrs');
+      //update or keep old values for email and name
+      user.name = req.body.name;
+      user.email = req.body.email;
 
 
-    if(req.body.newPassword.length > 0) {
-      // Check Password
-      bcrypt.compare(password, user.password).then(isMatch => {
-        if (isMatch) {
-          // User Matched
-          //create new password hash
-          bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(req.body.newPassword, salt, (err, hash) => {
-              if (err) throw err;
-              user.password = hash;
-              user.save();
-              const payload = { id: user.id, name: user.name, avatar: user.avatar, profilePic: user.profilePic, profile: user.profile, email: user.email }; // Create JWT Payload
+      //also need to update profile profilePic
+      //they are two different things due to the navbar
+      user.profilePic = req.body.profilePic;
 
-              // Sign Token
-              jwt.sign(
-                payload,
-                keys.secretOrKey,
-                { expiresIn: 7200 },
-                (err, token) => {
-                  res.json({
-                    success: true,
-                    token: 'Bearer ' + token
-                  });
+
+      if(req.body.newPassword.length > 0) {
+        // Check Password
+        bcrypt.compare(req.body.oldPassword, user.password).then(isMatch => {
+          if (isMatch) {
+            // User Matched
+            //create new password hash
+            bcrypt.genSalt(10, (err, salt) => {
+              bcrypt.hash(req.body.newPassword, salt, (err, hash) => {
+                if (err) throw err;
+                user.password = hash;
+                user.save();
+                const payload = { id: user.id, name: user.name, avatar: user.avatar, profilePic: user.profilePic, profile: user.profile, email: user.email }; // Create JWT Payload
+
+                // Sign Token
+                jwt.sign(
+                  payload,
+                  keys.secretOrKey,
+                  { expiresIn: 7200 },
+                  (err, token) => {
+                    res.json({
+                      success: true,
+                      token: 'Bearer ' + token
+                    });
+                });
               });
             });
-          });
-        } else {
-          errors.password = 'Password incorrect';
-          return res.status(400).json(errors);
-        }
-      });
+          } else {
+            errors.oldPassword = 'Password incorrect';
+            return res.status(400).json(errors);
+          }
+        });
 
-      //just returns user with no password update
-    } else {
-      user
-        .save()
-        .then(user => res.json(user))
-        .catch(err => console.log(err));
-    }
-  }).catch(console.log("no user found"));
+        //just returns user with no password update
+      } else {
+        user
+          .save()
+          .then(user => res.json(user))
+          .catch(err => console.log(err));
+      }
+    }).catch(console.log("no user found for update"));
 });
 
 

@@ -38,6 +38,11 @@ class EditAccount extends Component {
     });
 
   }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+  }
   fileChangedHandler = (event) => {
 
     if(event.target.files[0] != null) {
@@ -82,6 +87,7 @@ class EditAccount extends Component {
   render() {
     const { errors } = this.state;
     const { user } = this.props.auth;
+
     return (
       <div className="create-profile">
         <div className="container">
@@ -110,8 +116,10 @@ class EditAccount extends Component {
                   name="oldPassword"
                   value={this.state.oldPassword}
                   onChange={this.onChange}
+                  error={errors.oldPassword}
                   info="What is your old password"
                 />
+                {errors.password}
                 <TextFieldGroup
                   placeholder="new password"
                   name="newPassword"

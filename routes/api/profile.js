@@ -65,10 +65,9 @@ router.get('/all', (req, res) => {
 
 router.get('/:id', (req, res) => {
   const errors = {};
-  console.log(req.params.id);
   Profile.findById(req.params.id)
     .then(profile => {
-      
+
       res.json(profile);
     })
     .catch(err =>
@@ -89,18 +88,18 @@ router.post(
       // Return any errors with 400 status
       return res.status(400).json(errors);
     }
-   
+
     // Get fields
     const profileFields = {};
     profileFields.user = req.user.id;
     if (req.body.location) profileFields.location = req.body.location;
     if (req.body.bio) profileFields.bio = req.body.bio;
     if (req.body.avatar) profileFields.avatar = req.body.avatar;
-    if (req.body.age) profileFields.age = req.body.age;  
+    if (req.body.age) profileFields.age = req.body.age;
     if (req.body.university) profileFields.university = req.body.university;
-    if (req.body.study) profileFields.study = req.body.study;  
-    if (req.body.job) profileFields.job = req.body.job;  
-    if (req.body.backgroundPic) profileFields.backgroundPic = req.body.backgroundPic;  
+    if (req.body.study) profileFields.study = req.body.study;
+    if (req.body.job) profileFields.job = req.body.job;
+    if (req.body.backgroundPic) profileFields.backgroundPic = req.body.backgroundPic;
     // Social
     profileFields.social = {};
     if (req.body.youtube) profileFields.social.youtube = req.body.youtube;
@@ -183,20 +182,20 @@ router.post(
     '/favorites/:userID',
     passport.authenticate('jwt', { session: false }),
     (req, res) => {
-    
+
         Profile.findOne({ user: req.user.id }).then(profile => {
-         
+
           const index = profile.favorites.indexOf(req.body.favorites);
           if (index >= 0) {
-            
+
               profile.favorites.splice(index, 1);
-            
+
               profile.save().then(profile => res.json(profile));
-              
+
           } else {
 
             // Add favorite to favorites array
-           
+
             profile.favorites.push(req.body.favorites);
 
             profile.save().then(profile => res.json(profile));
@@ -215,14 +214,15 @@ router.post(
     passport.authenticate('jwt', { session: false }),
     (req, res) => {
         const { errors, isValid } = validateReviewInput(req.body);
+        console.log(errors);
         // Check Validation
         if (!isValid) {
             // Return any errors with 400 status
             return res.status(400).json(errors);
         }
         Profile.findOne({ user: req.body.user }).then(profile => {
-       
-        
+
+
           const newReview = {
               profilePic: req.body.profilePic,
               userName: req.body.userName,
@@ -233,8 +233,8 @@ router.post(
           profile.numReviews += 1;
           profile.reviewSum += req.body.rating;
           profile.reviews.unshift(newReview);
-     
-          
+
+
 
            console.log('we meafe it');
            profile.save().then(profile => res.json(profile));

@@ -7,7 +7,8 @@ module.exports = function validateUpdateInput(data) {
   data.name = !isEmpty(data.name) ? data.name : '';
   data.email = !isEmpty(data.email) ? data.email : '';
   data.password = !isEmpty(data.password) ? data.password : '';
-  data.password2 = !isEmpty(data.password2) ? data.password2 : '';
+  data.newPassword2 = !isEmpty(data.newPassword2) ? data.newPassword2 : '';
+  data.newPassword = !isEmpty(data.newPassword) ? data.newPassword : '';
 
   if (!Validator.isLength(data.name, { min: 2, max: 30 })) {
     errors.name = 'Name must be between 2 and 30 characters';
@@ -25,16 +26,12 @@ module.exports = function validateUpdateInput(data) {
     errors.email = 'Email is invalid';
   }
 
-  if (!Validator.isLength(data.password, { min: 6, max: 30 })) {
-    errors.password = 'Password must be at least 6 characters';
+  if (!Validator.isLength(data.newPassword, { min: 6, max: 30 })) {
+    errors.newPassword = 'Password must be at least 6 characters';
   }
 
-  if (Validator.isEmpty(data.password2)) {
-    errors.password2 = 'Confirm Password field is required';
-  }
-
-  if (!Validator.equals(data.password, data.password2)) {
-    errors.password2 = 'Passwords must match';
+  if (!Validator.equals(data.newPassword, data.newPassword2)) {
+    errors.newPassword2 = 'Passwords must match';
   }
 
   return {
