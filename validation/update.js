@@ -26,7 +26,8 @@ module.exports = function validateUpdateInput(data) {
     errors.email = 'Email is invalid';
   }
 
-  if (!Validator.isLength(data.newPassword, { min: 6, max: 30 })) {
+  if (!Validator.isLength(data.newPassword, { min: 6, max: 30 }) && Validator.isLength(data.oldPassword, { min: 6, max: 30 }))
+  {
     errors.newPassword = 'Password must be at least 6 characters';
   }
 
