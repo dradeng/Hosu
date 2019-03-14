@@ -34,3 +34,12 @@ SSH into EC2 instance
 This will update the website with the latest build
 
 
+#######################################################
+
+Updating build to heroku
+
+Ask Draden for the Heroku config info
+
+git push heroku master
+
+
