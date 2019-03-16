@@ -43,6 +43,30 @@ export const updateUser = (userData, history) => dispatch => {
       })
     );
 };
+// Update Info
+export const updateUserName = (userData, history) => dispatch => {
+  axios
+    .post('/api/users/updateUserName', userData)
+    .then(res => {
+      // Save to localStorage
+      const { token } = res.data;
+      // Set token to ls
+      localStorage.setItem('jwtToken', token);
+      // Set token to Auth header
+      setAuthToken(token);
+      // Decode token to get user data
+      const decoded = jwt_decode(token);
+      // Set current user
+      dispatch(setCurrentUser(decoded));
+      history.push('/feed');
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
 
 // Login - Get User Token
 export const loginUser = userData => dispatch => {

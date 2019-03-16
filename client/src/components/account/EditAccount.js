@@ -21,11 +21,14 @@ class EditAccount extends Component {
       oldPassword: '',
       newPassword2: '',
       newPassword: '',
-      errors: {}
+      errors: {},
+      showName: true,
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.iconClicked = this.iconClicked.bind(this);
+    this.onSubmitName = this.onSubmitName.bind(this);
   }
 
   componentDidMount() {
@@ -41,6 +44,14 @@ class EditAccount extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
+    }
+  }
+  iconClicked(e) {
+    console.log('we made it');
+    if(this.state.showName) {
+      this.setState({showName: false});
+    } else {
+      this.setState({showName: true});
     }
   }
   fileChangedHandler = (event) => {
@@ -65,6 +76,23 @@ class EditAccount extends Component {
       axios.post('api/posts/uploads', formData);
     }
   }
+  onSubmitName(e) {
+    e.preventDefault();
+
+    this.setState({ showName: true});
+
+    const profileData = {
+      name: this.state.name,
+    };
+
+    //this.props.updateUserName(profileData, this.props.history);
+  }
+  onSubmitEmail(e) {
+    e.preventDefault();
+
+
+    //this.props.updateUserEmail(profileData, this.props.history);
+  }
   onSubmit(e) {
     e.preventDefault();
 
@@ -88,21 +116,70 @@ class EditAccount extends Component {
     const { errors } = this.state;
     const { user } = this.props.auth;
 
+    const name = this.state.name;
+    const showName = this.state.showName;
+
+    /*
+    { showName ?
+        <div onClick={this.iconClicked}>
+          {this.state.name}
+          <i style={{fontSize: 16, paddingLeft: 5, color: 'gray'}} class="fas fa-pencil-alt"></i>
+        </div>
+      :
+      <TextFieldGroup
+        placeholder="name"
+        name="name"
+        value={this.state.name}
+        onChange={this.onChange}
+        error={errors.name}
+        info="Name"
+      />
+    }
+
+    */
+
+
     return (
       <div className="create-profile">
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Edit Account</h1>
+              <h1 className="display-4 text-center">Account Overview</h1>
+              <form onSubmit={this.onSubmitName}>
+                <div style={{display: 'inline-block'}}>
+                  <div style={{float: 'left', position: 'relative'}}>
+                    <img
+                      className="rounded-circle"
+                      style={{width:120, height:120 }}
+                      src={this.state.profilePic}
+                    />
+                    <div style={{ position: 'absolute', right: 0, bottom: 0}} onClick={this.iconClicked}>
+                      <i style={{fontSize: 16, paddingLeft: 5, color: 'gray'}} class="fas fa-pencil-alt"></i>
+                    </div>
+
+                  </div>
+                  <div style={{float: 'right', marginTop: 30}}>
+                    <div style={{paddingLeft: 20, display: 'inline'}} onClick={this.iconClicked}>
+                      {this.state.name}
+                      <i style={{fontSize: 16, paddingLeft: 5, color: 'gray'}} class="fas fa-pencil-alt"></i>
+                    </div>
+
+                    <div style={{paddingLeft: 20}} onClick={this.iconClicked}>
+                      {this.state.email}
+                      <i style={{fontSize: 16, paddingLeft: 5, color: 'gray'}} class="fas fa-pencil-alt"></i>
+                    </div>
+                    <div style={{paddingLeft: 20, color: 'rgb(2, 136, 228)'}}>
+                      <b>Update password</b>
+                    </div>
+                  </div>
+
+                </div>
+                <button type="submit" style={{display: 'none'}} className="btncustom btn btn-block mt-4">
+                  Submit
+                </button>
+
+              </form>
               <form onSubmit={this.onSubmit}>
-                <TextFieldGroup
-                  placeholder="name"
-                  name="name"
-                  value={this.state.name}
-                  onChange={this.onChange}
-                  error={errors.name}
-                  info="Name"
-                />
                 <TextFieldGroup
                   placeholder="email"
                   name="email"
@@ -137,9 +214,13 @@ class EditAccount extends Component {
                   info="Retype your new password"
                 />
 
-                Profile Picture
+                <button type="submit" className="btncustom btn btn-block mt-4">
+                  Submit
+                </button>
+              </form>
+              <form onSubmit={this.onSubmit}>
+
                 <br />
-                <img src={this.state.profilePic} />
                 <input type="file" name="file" id="file" onChange={this.fileChangedHandler}/>
 
 
