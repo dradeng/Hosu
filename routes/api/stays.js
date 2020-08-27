@@ -74,7 +74,7 @@ router.post('/',
 
         sgMail.send({
           to:       landlord.email,
-          from:     'Support@Aveneu.com',
+          from:     'dradengaffney@gmail.com',
           templateId: 'd-161d54d76797440d9ce713e2797334f5',
             substitutionWrappers: ['{{', '}}'],
             dynamic_template_data: {
