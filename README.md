@@ -1,5 +1,8 @@
 # HausFlex
 
+Update 8/1/2020
+Aveneu Inc. has dissolved, Aveneu.co is no longer accessible.
+Dev environment still runs @ https://salty-plateau-48594.herokuapp.com/ 
 
 Clone the repo doing git clone <GITHUB_URL>
 
