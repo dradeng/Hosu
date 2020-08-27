@@ -3,7 +3,6 @@ import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-au
 class LocationAutoComplete extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props);
         this.state = { address: this.props.original }
     }
     componentWillReceiveProps(nextProps) {

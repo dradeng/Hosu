@@ -105,7 +105,7 @@ class CreateProfile extends Component {
 
       // I do this after so it only affects the state, not whats uploaded to s3
       // The state & model in the db stores the whole url
-      fileName = 'https://s3.us-east-2.amazonaws.com/aveneu/' + fileName;
+      fileName = 'https://aveneudev.s3.us-east-2.amazonaws.com/' + fileName;
       
       this.setState({backgroundPic: fileName});
      

@@ -117,7 +117,7 @@ router.post('/register', (req, res) => {
     } else {
 
       if(req.body.profilePic.length < 1) {
-        req.body.profilePic = "https://s3.us-east-2.amazonaws.com/aveneu/UserIcon.png";
+        req.body.profilePic = "https://aveneudev.s3.us-east-2.amazonaws.com/UserIcon.png";
       }
 
       // g-recaptcha-response is the key that browser will generate upon form submit.

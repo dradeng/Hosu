@@ -94,7 +94,7 @@ class PostForm extends Component {
 
       // I do this after so it only affects the state, not whats uploaded to s3
       // The state & model in the db stores the whole url
-      fileName = 'https://s3.us-east-2.amazonaws.com/aveneu/' + fileName;
+      fileName = 'https://aveneudev.s3.us-east-2.amazonaws.com/' + fileName;
 
 
 
@@ -119,7 +119,7 @@ class PostForm extends Component {
     var fileName = this.state.images[index];//HAVE TO FUCKING USE IMAGES NOT CURR FILE
 
 
-    var leng = ('https://s3.us-east-2.amazonaws.com/aveneu/').length;
+    var leng = ('https://aveneudev.s3.us-east-2.amazonaws.com/').length;
     fileName = fileName.substring(leng);
     var tmpCF = [...this.state.currFile];
 

@@ -7,7 +7,7 @@ import MarkerCircle from "./MarkerCircle";
 
 const Map = compose(
         withProps({
-            googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyBob7qS5XZFENWz5u8UCRFvLaOXxhh3geE",
+            googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyBcJIA3f5JbYbl-HPibMLrqZL2DLr8GJ4I",
             loadingElement: <div style={{ height: `100%` }} />,
             containerElement: <div style={{height: '100%',width: '100%'}} />,
             mapElement: <div style={{ height: `100%` }} />,
