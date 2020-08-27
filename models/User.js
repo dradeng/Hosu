@@ -25,7 +25,7 @@ const UserSchema = new Schema({
   },
   profilePic: {
     type: String,
-    default: "https://s3.us-east-2.amazonaws.com/aveneu/UserIcon.png",
+    default: "https://aveneudev.s3.us-east-2.amazonaws.com/UserIcon.png",
   },
   unreadMessages: {
     type: Number,

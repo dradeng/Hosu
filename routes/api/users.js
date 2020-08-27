@@ -165,6 +165,7 @@ router.post('/register', (req, res) => {
         sgMail.send({
           to:       req.body.email,
           from:     'dradengaffney@gmail.com',
+          subject: 'Confirm your Aveneu email',
           templateId: 'd-4686474de04040dcaefcf11dcd9918d2',
           substitutionWrappers: ['{{', '}}'],
           dynamic_template_data: {
