@@ -1,5 +1,8 @@
 # HausFlex
 
+Update 8/1/2020
+Aveneu Inc. has dissolved, Aveneu.co is no longer accessible.
+Dev environment still runs @ https://salty-plateau-48594.herokuapp.com/ 
 
 Clone the repo doing git clone <GITHUB_URL>
 
@@ -32,5 +35,14 @@ SSH into EC2 instance
 - 'docker-compose up --build -d'
 
 This will update the website with the latest build
+
+
+#######################################################
+
+Updating build to heroku
+
+Ask Draden for the Heroku config info
+
+git push heroku master
 
 
