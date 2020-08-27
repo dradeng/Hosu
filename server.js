@@ -28,7 +28,7 @@ const mongoURI = require('./config/keys').mongoURI;
 const publicPath = path.join(__dirname, '../public');
 
 mongoose
-  .connect(mongoURI)
+  .connect(mongoURI, { useNewUrlParser: true })
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
 // Passport middleware

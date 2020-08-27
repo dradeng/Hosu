@@ -29,7 +29,6 @@ class Register extends Component {
 
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
-      console.log('we made it insdie');
       this.props.history.push('/dashboard');
     }
   }
@@ -87,7 +86,6 @@ class Register extends Component {
 
   render() {
     const { errors } = this.state;
-    console.log('terms of ser' + errors.termsOfService);
     return (
       <div className="register">
         <div className="container">

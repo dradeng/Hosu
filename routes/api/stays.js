@@ -75,7 +75,7 @@ router.post('/',
         sgMail.send({
           to:       landlord.email,
           from:     'dradengaffney@gmail.com',
-          templateId: 'd-161d54d76797440d9ce713e2797334f5',
+          templateId: 'd-51e908f00d8f45cc98c3ed8c104cf04a',
             substitutionWrappers: ['{{', '}}'],
             dynamic_template_data: {
               subject:  'Request for subletting your property!',
@@ -211,8 +211,8 @@ router.post('/update',
               //send approved email
               sgMail.send({
                 to:       subtenant.email,
-                from:     'Support@Aveneu.co',
-                templateId: 'd-8f4fe275a8dc4db4af642ed1e1f055e9',
+                from:     'dradengaffney@gmail.com',
+                templateId: 'd-6645d5686dfa4fffbfe90f51c469f450',
                 dynamic_template_data: {
                   startDate: startDate,
                   endDate: endDate,
@@ -231,8 +231,8 @@ router.post('/update',
               //send denied email
               sgMail.send({
                 to:       subtenant.email,
-                from:     'Support@Aveneu.co',
-                templateId: 'd-4fa53b414d9d4848ac00a90914c72c36',
+                from:     'dradengaffney@gmail.com',
+                templateId: 'd-e4c7920789b04006989f78661f8b5198',
                 dynamic_template_data: {
                   startDate: startDate,
                   endDate: endDate,

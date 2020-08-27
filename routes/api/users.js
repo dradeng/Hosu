@@ -18,7 +18,7 @@ const validateLoginInput = require('../../validation/login');
 
 //Sendgrid info
 const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey(SendGridApiKey)
+//sgMail.setApiKey(SendGridApiKey)
 
 
 // Load Profile Model
@@ -44,7 +44,6 @@ router.post('/updateUser',
       if (!isValid) {
         return res.status(400).json(errors);
       }
-      console.log('we past erorrs');
       //update or keep old values for email and name
       user.name = req.body.name;
       user.email = req.body.email;
@@ -163,19 +162,27 @@ router.post('/register', (req, res) => {
 
 
         const authenticationURL = LocalOrHeroku+"/verify-email/"+newUser._id;
-
         sgMail.send({
           to:       req.body.email,
           from:     'dradengaffney@gmail.com',
-          templateId: 'd-1224c0b4fc444dcea6bae1eb622fca94',
+          templateId: 'd-4686474de04040dcaefcf11dcd9918d2',
           substitutionWrappers: ['{{', '}}'],
           dynamic_template_data: {
             authenticationURL: authenticationURL,
           },
           }, function(err, json) {
-              if (err) { return console.error(err); }
+              console.log('something happened');
+              if (err) { 
+                console.log('errro');
+                return console.error(err); 
+              }
 
         });
+
+
+
+
+        console.log('email sent');
 
         bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(newUser.password, salt, (err, hash) => {
@@ -217,9 +224,9 @@ router.get('/verify-email/:id', (req, res) => {
 
       sgMail.send({
         to:       user.email,
-        from:     'Support@Aveneu.co',
+        from:     'dradengaffney@gmail.com',
         subject:  'Email confirmed!',
-        templateId:     'd-5b7e0ef57f5847508090740c0c61d850',
+        templateId:     'd-c4b8cbe8db784865ac587d1e43d7b427',
         dynamic_template_data: {
           subject:  'Aveneu email confirmed!',
         },
